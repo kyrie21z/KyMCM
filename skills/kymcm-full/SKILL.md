@@ -1,22 +1,21 @@
 ---
-name: kymcm
+name: kymcm-full
 description: >
-  KyMCM is a Codex-native math modeling workflow for CUMCM, MCM, and ICM.
-  It supports the legacy Contract workflow and Checkpoint Lite Pilot v2 with
-  whole-problem definition and complete mathematical review.
+  KyMCM Full is a Codex-native, review-gated math modeling workflow for
+  CUMCM, MCM, and ICM, with deterministic reviews and evidence binding.
 ---
 
-# KyMCM
+# KyMCM Full
 
-Resolve the explicit contest workspace before acting and run `workflow_mode.py`. An absent `.kymcm/mode.json` selects the legacy Contract workflow. Exactly `{"workflow":"checkpoint_lite","version":2}` selects Lite Pilot v2. Invalid or unknown markers fail closed. Never infer the contest workspace from the development repository or mix modes.
+Resolve the explicit contest workspace before acting and run `workflow_mode.py`. New workspaces use exactly `{"workflow":"kymcm_full","version":1}`. The exact `{"workflow":"checkpoint_lite","version":2}` marker and old state paths remain compatible; an absent marker selects retained Legacy Contract behavior. Invalid or unknown markers fail closed. Never infer the contest workspace from the Skill repository or mix modes. Use `full_checkpoint.py` as the canonical checkpoint command.
 
 ## Legacy Contract
 
 Legacy behavior remains Problem Contract, Solution Contract Qi, single-focus dependency DAG, `state/pipeline.json`, executable validation, deterministic stale propagation, and Final Paper Checkpoint. Use the existing `pipeline_manager.py` commands and do not create Lite artifacts.
 
-## Checkpoint Lite Pilot v2
+## KyMCM Full v1
 
-Start Codex from the contest workspace. Lite v2 has three semantic objects:
+Start Codex from the contest workspace. Full v1 has three semantic objects:
 
 1. Problem Definition for whole-problem meaning, data, subproblems, shared semantics, dependencies, and resolved ambiguities.
 2. Model Spec v3 for one problem's complete structured mathematics.

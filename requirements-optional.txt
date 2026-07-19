@@ -1,0 +1,2 @@
+# Optional AI image generation; not required by KyMCM Full core or CI.
+openai>=1,<3

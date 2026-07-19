@@ -1,52 +1,27 @@
-# KyMCM Standard Operating Procedure
+# KyMCM Full operating procedure
 
-## 1. Initialize
+## 1. Establish the workspace
 
-Create one workspace and initialize schema v4. `pipeline.json` is authoritative; `events.jsonl` is audit-only.
+Run `full_workspace.py init`, initialize the contest directory as an independent Git repository, add original problem inputs, and run the read-only `doctor`. Version 1 fixes the protocol to Q1–Q4.
 
-## 2. Approve the Problem Contract
+## 2. Define the whole problem
 
-Document interpretation, subproblems, shared symbols/data, ambiguities, and the dependency DAG. Reject cycles. The stable topological order is for display and deterministic suggestions, not a strict question-number gate. Obtain the exact versioned approval phrase before any Solution Contract.
+Draft `problems/problem_definition/problem_definition.json`. Resolve only mathematically consequential ambiguity with the user. Submit it to render `PROBLEM_DEFINITION.md`, read the complete document, and record explicit user acceptance. A summary is never a substitute for the review document.
 
-Resolve every pending human approval before starting a problem. Approval rechecks Contract type, version, status, and Solution problem identity; approved Contracts are then bound by identity and hash.
+## 3. Start one problem
 
-## 3. Solve One Problem at a Time
+Follow reviewed dependencies. Perform a read-only audit of inputs used by that problem, record semantics and agreed treatments in Model Spec v3, submit Start, read `START_QN.md`, and record explicit acceptance. Start approval authorizes implementation only for that reviewed specification.
 
-Choose one ready problem. Independent problems may be selected in any order, but only one problem may be running or blocked:
+## 4. Execute and review
 
-1. Read the Problem Contract and completed predecessor outputs.
-2. Draft and approve `Solution Contract Qi`.
-3. Generate a non-approval Implementation Plan.
-4. Start Qi only when its Contract snapshot is current and dependencies have completed with valid evidence.
-5. Execute the Implementation Plan; schema v4 has no `run-stage` or micro-stage state.
-6. Record `results/qN/validation.json` with executable evidence.
-7. Complete Qi only when validation status is `pass`, contract snapshots match, the report hash matches, and every evidence file remains available.
+Keep code and derived data under the current `problems/qN/` tree. Commit code and derived evidence to the independent contest repository. Build Result Record v2 with direct answers, validation, limitations, artifacts, and `evidence.code_revision`. Submit Result, read the complete `RESULT_QN.md`, then record explicit acceptance.
 
-## 4. Handle Validation Outcomes
+Implementation-only failure uses repair/rerun. A change to meaning, inputs, assumptions, equations, decision rules, or conclusions requires semantic replan and a new Start review.
 
-- `pass`: freeze outputs and continue.
-- `repairable`: repair implementation and rerun validation.
-- `contract_change_required`: draft and approve a new Solution Contract version.
-- `decision_required`: pause and ask the user for the unresolved decision.
+## 5. Figures and paper
 
-## 5. Handle Upstream Defects
+Use Figure Briefs and workspace-local evidence. Render, inspect manifests, audit, and gallery outputs before paper use. Do not bundle fonts; Chinese rendering prefers Microsoft YaHei and uses documented CJK fallbacks.
 
-Use `invalidate-problem` for implementation defects. The target and DAG successors become stale, validation pointers and current focus are cleared, and unrelated problems remain unchanged. A new Solution Contract invalidates its problem and successors; downstream Solution Contracts must be renewed when dependency snapshots change. Any new Problem Contract version conservatively invalidates all existing work, even when the DAG is unchanged.
+## 6. Completion
 
-## 6. Build Paper Figures
-
-After result data is available, create Figure Briefs in `figures/figure_plan.yaml`. Every Figure uses exactly one workspace-local CSV evidence file; modeling code must merge multiple sources and export a named intermediate CSV. Render SVG/PDF/PNG through `figure_manager.py`, run the deterministic audit, and inspect `figures/gallery.html`. Use only passing manifests in the paper. Figure planning and audit are stateless and do not create Contract approvals.
-
-## 7. Final Paper
-
-After all problems complete, record global consistency with per-problem validation hashes, draft the paper, and request the Final Paper Checkpoint. Submission and approval both revalidate all upstream evidence. Require exact approval `批准 Final Paper vN` before final export.
-
-## 8. Prohibitions
-
-- No concurrent problem execution.
-- No parallel Contract approval.
-- No prose self-approval in place of executable validation.
-- No in-place edits to approved Contracts.
-- No problem completion without evidence-bearing validation.
-- No final export before Final Paper approval.
-- No Figure Contract, Figure approval status, or lifecycle change.
+Finish all dependency-required questions, recheck deterministic documents and evidence hashes, run paper quality/security checks, and request the final human review before export.
