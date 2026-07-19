@@ -11,6 +11,7 @@ import tempfile
 import unittest
 
 from tests.full.helpers import model_spec, result
+from tests.full.test_problem_definition import payload as definition_payload
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -126,6 +127,45 @@ class FullPortabilityTests(unittest.TestCase):
             payload["evidence"]["code_revision"] = "0" * 40
             with self.assertRaisesRegex(ValueError, "Git repository"):
                 _git_guard(workspace, 1, _result(copy.deepcopy(payload)))
+
+    def test_external_git_workspace_completes_synthetic_q1_result_flow(self):
+        with tempfile.TemporaryDirectory() as raw:
+            workspace = Path(raw) / "contest"
+            checkpoint = SCRIPTS / "full_checkpoint.py"
+            self.assertEqual(self.run_cli(SCRIPTS / "full_workspace.py", "init", "--workspace", str(workspace), "--contest", "CUMCM").returncode, 0)
+            self.git(workspace, "init", "-b", "main")
+            self.git(workspace, "config", "user.name", "Fixture")
+            self.git(workspace, "config", "user.email", "fixture@example.invalid")
+
+            def write(relative: str, value: object) -> None:
+                path = workspace / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
+
+            def checkpoint_cli(*args: str) -> subprocess.CompletedProcess[str]:
+                return self.run_cli(checkpoint, "--workspace", str(workspace), *args, cwd=workspace)
+
+            write("problems/problem_definition/problem_definition.json", definition_payload())
+            self.assertEqual(checkpoint_cli("submit-problem-definition").returncode, 0)
+            self.assertEqual(checkpoint_cli("accept-problem-definition", "--user-message", "I accept this synthetic definition.").returncode, 0)
+            write("problems/q1/spec/model_spec.json", model_spec().payload())
+            self.assertEqual(checkpoint_cli("--problem", "1", "submit-start", "--recommendation", "Use it").returncode, 0)
+            self.assertEqual(checkpoint_cli("--problem", "1", "accept-start", "--recommendation", "Use it", "--user-message", "I approve this synthetic Start.").returncode, 0)
+            (workspace / "problems/q1/code/model.py").write_text("score = 1.0\n", encoding="utf-8")
+            (workspace / "problems/q1/data/derived/scores.csv").write_text("item,score\nA,1.0\n", encoding="utf-8")
+            (workspace / "problems/q1/outputs/summary.csv").write_text("item,score\nA,1.0\n", encoding="utf-8")
+            self.git(workspace, "add", ".")
+            self.git(workspace, "commit", "-m", "synthetic start and evidence")
+            record = result(model_spec()).payload()
+            record["evidence"]["code_revision"] = self.git(workspace, "rev-parse", "HEAD")
+            record["evidence"]["result_hash"] = ""
+            write("problems/q1/result/result_record.json", record)
+            submitted = checkpoint_cli("--problem", "1", "submit-result")
+            self.assertEqual(submitted.returncode, 0, submitted.stderr)
+            accepted = checkpoint_cli("--problem", "1", "accept-result", "--user-message", "I accept this synthetic Result.")
+            self.assertEqual(accepted.returncode, 0, accepted.stderr)
+            state = json.loads((workspace / ".kymcm/checkpoint_lite/q1/checkpoint/workflow.json").read_text())
+            self.assertEqual(state["state"], "completed")
 
 
 if __name__ == "__main__":
