@@ -1,0 +1,1 @@
+"""Generic KyMCM figure templates."""

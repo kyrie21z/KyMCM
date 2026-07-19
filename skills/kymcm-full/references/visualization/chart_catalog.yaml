@@ -1,0 +1,73 @@
+version: "1.0"
+series_style_policy:
+  priority: [explicit_series_roles, semantic_label_alias, stable_label_hash]
+  semantic_roles: [proposed, baseline, alternative]
+  order_independent: true
+templates:
+  line_with_band:
+    status: implemented
+    purpose: ordered trend with optional uncertainty
+    required_mapping: [x, y]
+    optional_mapping: [group, lower, upper]
+    max_series: 12
+  grouped_bar_error:
+    status: implemented
+    purpose: compare alternatives across categories
+    required_mapping: [category, value]
+    optional_mapping: [group, error]
+    max_categories: 20
+    max_series: 8
+  actual_vs_predicted:
+    status: implemented
+    purpose: compare paired predictions and observations
+    required_mapping: [actual, predicted]
+    optional_mapping: [group]
+    max_points: 50000
+  residual_diagnostics:
+    status: implemented
+    purpose: diagnose residual structure and distribution
+    required_mapping: [predicted]
+    optional_mapping: [actual, residual, group]
+    max_points: 50000
+  correlation_heatmap:
+    status: implemented
+    purpose: inspect linear association among numeric variables
+    required_mapping: [columns]
+    optional_mapping: []
+    max_variables: 30
+  sensitivity_curve:
+    status: implemented
+    purpose: show response robustness over a parameter range
+    required_mapping: [parameter, response]
+    optional_mapping: [scenario, baseline]
+    max_series: 12
+  distribution_comparison:
+    status: catalog_only
+    purpose: compare empirical distributions
+  pareto_front:
+    status: catalog_only
+    purpose: show multi-objective trade-offs
+  convergence_curve:
+    status: catalog_only
+    purpose: show iterative convergence
+  sensitivity_heatmap:
+    status: catalog_only
+    purpose: show two-parameter sensitivity
+  network_solution:
+    status: catalog_only
+    purpose: show graph or routing decisions
+  spatial_distribution:
+    status: catalog_only
+    purpose: show spatially referenced output
+  raincloud:
+    status: catalog_only
+    purpose: detailed distribution comparison
+  taylor_diagram:
+    status: catalog_only
+    purpose: compare correlation, spread, and error
+  roc_curve:
+    status: catalog_only
+    purpose: evaluate binary classification discrimination
+  shap_summary:
+    status: catalog_only
+    purpose: summarize externally computed feature attributions

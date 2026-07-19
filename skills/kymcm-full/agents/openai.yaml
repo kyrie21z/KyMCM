@@ -1,0 +1,4 @@
+interface:
+  display_name: "KyMCM Full"
+  short_description: "End-to-end checkpointed mathematical modeling for Codex"
+  default_prompt: "Use $kymcm-full for an end-to-end, review-gated, evidence-bound mathematical modeling workflow."
