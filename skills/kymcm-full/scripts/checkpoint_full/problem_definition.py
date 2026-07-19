@@ -1,4 +1,4 @@
-"""Whole-problem semantic gate for Checkpoint Lite Pilot v2."""
+"""Whole-problem semantic gate for KyMCM Full v1."""
 
 from __future__ import annotations
 

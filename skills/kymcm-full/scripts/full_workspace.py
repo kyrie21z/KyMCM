@@ -48,7 +48,9 @@ def initialize(workspace: Path, contest: str) -> None:
     definition.save_workflow(ProblemDefinitionWorkflow())
     definition.append_event("init")
     for problem in range(1, 5):
-        store = CheckpointStore(workspace / f".kymcm/checkpoint_lite/q{problem}/checkpoint", problem)
+        state_root = workspace / f".kymcm/checkpoint_lite/q{problem}"
+        state_root.mkdir(parents=True, exist_ok=True)
+        store = CheckpointStore(state_root)
         store.save_workflow(Workflow(problem))
         store.append_event({"action": "init"})
     validate_layout(workspace)

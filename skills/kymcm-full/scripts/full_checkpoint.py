@@ -25,7 +25,10 @@ from checkpoint_full.workflow import Workflow, WorkflowError, WorkflowState, tra
 from workflow_mode import WorkflowModeError, require_full_mode
 
 
-ROOT_ALLOWLIST = {"AGENTS.md", "README.md", "input", "problems", "paper", "reports", ".kymcm", ".gitignore"}
+ROOT_ALLOWLIST = {
+    "AGENTS.md", "README.md", "input", "problems", "paper", "reports",
+    ".kymcm", ".git", ".gitignore",
+}
 
 
 def digest_text(text: str) -> str:
