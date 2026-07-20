@@ -1,0 +1,4 @@
+interface,A,B,C,score_type,score
+q1_baseline,5,4,1,baseline,84
+q2_robust,4,4,2,risk,72
+balanced_candidate,4,3,3,not_frozen,

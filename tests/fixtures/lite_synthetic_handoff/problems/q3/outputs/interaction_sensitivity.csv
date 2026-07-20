@@ -1,0 +1,5 @@
+interaction_coefficient,q1_baseline,q2_robust,balanced_candidate,winner
+0,83,82,81,q1_baseline
+1,84,84,84,balanced_candidate
+2,85,86,87,balanced_candidate
+3,86,88,90,balanced_candidate
