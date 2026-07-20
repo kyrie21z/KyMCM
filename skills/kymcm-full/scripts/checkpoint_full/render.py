@@ -391,9 +391,10 @@ def render_result_document(result: ResultRecord, workspace_root: str | Path) -> 
         f"- Result hash：`{result.evidence.get('result_hash', '')}`\n"
         f"- 当前建议状态：{_RECOMMENDATIONS[result.recommendation['status']]}"
     )
+    summary_text = "\n\n".join(summary_parts)
     return (
         f"# RESULT Q{result.problem}\n\n## 1. 内容导航\n\n{navigation}\n\n"
-        f"## 2. 结果摘要\n\n{'\n\n'.join(summary_parts)}\n\n"
+        f"## 2. 结果摘要\n\n{summary_text}\n\n"
         f"## 3. 技术分析\n\n{technical}\n\n"
         f"## 4. 完整验证与敏感性分析\n\n{validation_section}\n\n"
         f"## 5. 局限与适用范围\n\n{limitations}\n\n"
