@@ -1,0 +1,4 @@
+candidate,A,B,C,low_score,base_score,high_score,scenario_mean,scenario_minimum,risk_score
+q1_baseline,5,4,1,59,84,94,79.000000,59,71.000000
+robust,4,4,2,62,82,92,78.666667,62,72.000000
+balanced,4,3,3,61,81,91,77.666667,61,71.000000

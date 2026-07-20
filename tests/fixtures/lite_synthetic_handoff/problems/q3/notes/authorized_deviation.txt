@@ -1,0 +1,4 @@
+Authorization record for the synthetic fixture
+
+The START requested sensitivity coefficients 0, 1, and 2. The external reviewer explicitly authorized adding coefficient 3 as one extra validation point.
+Authorization applies only to the reported sensitivity grid. It does not change the primary coefficient 2, formula, candidates, frozen parameters, selected allocation, or decision rule.

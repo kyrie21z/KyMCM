@@ -1,0 +1,4 @@
+interface:
+  display_name: "KyMCM Lite"
+  short_description: "Lightweight Markdown handoff and evidence checks for math modeling"
+  default_prompt: "Use $kymcm-lite to execute or review a Markdown-first mathematical-modeling handoff without a workflow state machine."

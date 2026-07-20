@@ -1,0 +1,5 @@
+All three candidates contain 10 integer units and satisfy A<=5, B<=4, C<=3 and each minimum of 1.
+q1_baseline: scores 59,84,94; mean 79; minimum 59; risk=0.6*79+0.4*59=71.
+robust: scores 62,82,92; mean 236/3; minimum 62; risk=0.6*(236/3)+0.4*62=72.
+balanced: scores 61,81,91; mean 233/3; minimum 61; risk=0.6*(233/3)+0.4*61=71.
+The robust candidate has the unique maximum risk score 72.

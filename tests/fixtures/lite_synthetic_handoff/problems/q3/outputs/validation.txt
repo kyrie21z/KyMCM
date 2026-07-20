@@ -1,0 +1,5 @@
+All candidates contain 10 integer units and satisfy the inherited bounds.
+At lambda=2: q1_baseline=84+2*1-1=85; q2_robust=82+2*2=86; balanced_candidate=81+2*3=87.
+At lambda=1 all candidates score 84; the frozen tie rule selects balanced_candidate because A is 4 (not 5), then C is 3 (not 2).
+The requested coefficients 0,1,2 were checked. Coefficient 3 was added only as authorized secondary validation.
+The primary coefficient, formula, candidates, allocation, parameters, and decision rule were unchanged.
