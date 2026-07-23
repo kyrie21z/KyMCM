@@ -84,7 +84,7 @@ def meaningful(text: str) -> bool:
     return bool(visible_content(text).strip())
 
 
-def _read_contract(path: Path, location: str, identifier: str, expected_title: str) -> tuple[Markdown | None, list[Diagnostic]]:
+def read_contract(path: Path, location: str, identifier: str, expected_title: str) -> tuple[Markdown | None, list[Diagnostic]]:
     if path.is_symlink() or not path.is_file():
         return None, [error(identifier, location, f"missing or unsafe contract; expected {expected_title}")]
     parsed = parse_markdown(path.read_text(encoding="utf-8"))
@@ -94,7 +94,7 @@ def _read_contract(path: Path, location: str, identifier: str, expected_title: s
     return parsed, []
 
 
-def _heading_diagnostics(parsed: Markdown, required: tuple[str, ...], identifier: str, location: str) -> list[Diagnostic]:
+def heading_diagnostics(parsed: Markdown, required: tuple[str, ...], identifier: str, location: str) -> list[Diagnostic]:
     found = [text for text, _ in parsed.headings if text in required]
     counts = {heading: found.count(heading) for heading in required}
     if any(counts[item] != 1 for item in required) or found != list(required):
@@ -102,7 +102,7 @@ def _heading_diagnostics(parsed: Markdown, required: tuple[str, ...], identifier
     return []
 
 
-def _git_warning(workspace: Path) -> list[Diagnostic]:
+def git_warning(workspace: Path) -> list[Diagnostic]:
     if shutil.which("git") is None:
         return [warning("LITE-GIT-WARN-001", ".", "Git executable is unavailable; revision diagnostics are disabled")]
     completed = subprocess.run(["git", "-C", str(workspace), "rev-parse", "--show-toplevel"], text=True, capture_output=True)
@@ -130,10 +130,10 @@ def _base(workspace: Path, problem: int) -> tuple[list[Diagnostic], list[int]]:
 def check_start(workspace: Path, problem: int, *, include_git: bool = True) -> list[Diagnostic]:
     diagnostics, numbers = _base(workspace, problem)
     location = f"problems/q{problem}/spec/START_Q{problem}.md"
-    parsed, reading = _read_contract(workspace / location, location, "LITE-START-001", f"# START Q{problem}")
+    parsed, reading = read_contract(workspace / location, location, "LITE-START-001", f"# START Q{problem}")
     diagnostics.extend(reading)
     if parsed is not None:
-        structure = _heading_diagnostics(parsed, START_HEADINGS, "LITE-START-HEADING-001", location)
+        structure = heading_diagnostics(parsed, START_HEADINGS, "LITE-START-HEADING-001", location)
         diagnostics.extend(structure)
         if not structure:
             for heading in START_HEADINGS[:-1]:
@@ -148,17 +148,17 @@ def check_start(workspace: Path, problem: int, *, include_git: bool = True) -> l
         if not meaningful(interface):
             diagnostics.append(warning("LITE-CONTEXT-SPARSE-WARN-001", "FROZEN_CONTEXT.md", "Q2+ context lacks a meaningful cross-question interface"))
     if include_git:
-        diagnostics.extend(_git_warning(workspace))
+        diagnostics.extend(git_warning(workspace))
     return diagnostics
 
 
 def check_result(workspace: Path, problem: int) -> list[Diagnostic]:
     diagnostics = check_start(workspace, problem, include_git=False)
     location = f"problems/q{problem}/result/RESULT_Q{problem}.md"
-    parsed, reading = _read_contract(workspace / location, location, "LITE-RESULT-001", f"# RESULT Q{problem}")
+    parsed, reading = read_contract(workspace / location, location, "LITE-RESULT-001", f"# RESULT Q{problem}")
     diagnostics.extend(reading)
     if parsed is not None:
-        structure = _heading_diagnostics(parsed, RESULT_HEADINGS, "LITE-RESULT-HEADING-001", location)
+        structure = heading_diagnostics(parsed, RESULT_HEADINGS, "LITE-RESULT-HEADING-001", location)
         diagnostics.extend(structure)
         if not structure:
             deviation = visible_content(parsed.section(RESULT_HEADINGS[1], RESULT_HEADINGS))
@@ -188,7 +188,7 @@ def check_result(workspace: Path, problem: int) -> list[Diagnostic]:
                     continue
                 identifiers.add(identifier)
                 diagnostics.extend(evidence_path_diagnostics(workspace, problem, raw))
-    diagnostics.extend(_git_warning(workspace))
+    diagnostics.extend(git_warning(workspace))
     if shutil.which("git") and not any(item.identifier == "LITE-GIT-WARN-001" for item in diagnostics):
         scoped = [f"problems/q{problem}/code", f"problems/q{problem}/data/derived"]
         dirty = subprocess.run(["git", "-C", str(workspace), "status", "--porcelain", "--", *scoped], text=True, capture_output=True)
@@ -219,8 +219,8 @@ def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
         diagnostics.extend(question_layout_diagnostics(workspace, problem))
     if not (3, 11) <= (__import__("sys").version_info[:2]) <= (3, 13):
         diagnostics.append(error("LITE-TOOL-001", "python", "Python 3.11 through 3.13 is required"))
-    diagnostics.extend(_git_warning(workspace))
-    known = set(MANAGED_ROOTS)
+    diagnostics.extend(git_warning(workspace))
+    known = set(MANAGED_ROOTS) | {"appendix", "code"}
     unknown = sorted(path.name for path in workspace.iterdir() if path.name not in known) if workspace.is_dir() else []
     info = [f"INFO workspace={workspace}", f"INFO questions={','.join(map(str, numbers)) or 'none'}"]
     info.append(f"INFO unknown-root-entries={','.join(unknown) if unknown else 'none'}")

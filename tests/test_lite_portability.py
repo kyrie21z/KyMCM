@@ -13,6 +13,7 @@ import hashlib
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "skills/kymcm-lite"
 FIXTURE = ROOT / "tests/fixtures/lite_synthetic_handoff"
+APPENDIX_FIXTURE = ROOT / "tests/fixtures/lite_appendix_handoff"
 
 
 class LitePortabilityTests(unittest.TestCase):
@@ -40,6 +41,11 @@ class LitePortabilityTests(unittest.TestCase):
             for question in (1, 2, 3):
                 self.assertEqual(run("check-start", "--workspace", str(workspace), "--problem", str(question)).returncode, 0)
                 result = run("check-result", "--workspace", str(workspace), "--problem", str(question))
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            appendix_workspace = base / "appendix workspace"
+            shutil.copytree(APPENDIX_FIXTURE, appendix_workspace)
+            for appendix_command in ("check-appendix-start", "check-appendix-result"):
+                result = run(appendix_command, "--workspace", str(appendix_workspace))
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             for path in (copied / "scripts").rglob("*.py"):
                 text = path.read_text(encoding="utf-8")

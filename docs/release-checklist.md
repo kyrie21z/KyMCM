@@ -17,11 +17,11 @@
 
 ## KyMCM Lite checks
 
-- Lite marker is exactly `{"workflow":"kymcm_lite","version":3}` and commands are exactly `init`, `doctor`, `check-start`, and `check-result`.
+- Lite 0.2.0 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`.
 - Lite runtime uses only the standard library and remains independent of Full.
-- Unit, CLI, portability, Phase 1, release, and release-tree suites pass.
+- Unit, modeling CLI, appendix CLI, portability, Phase 1, release, and release-tree suites pass.
 - Repository and standalone templates have byte parity.
-- Doctor and both checkers preserve workspace fingerprints.
+- Doctor and all four checkers preserve workspace fingerprints; appendix commands pass with invalid UTF-8 in `FROZEN_CONTEXT.md`.
 - Evidence control-character, scope, traversal, and symlink guards pass.
 - A copied read-only Skill passes from an unrelated working directory.
-- Lite tags use `lite-v<version>`; for 0.1.0 the intended tag is `lite-v0.1.0`.
+- Lite tags use `lite-v<version>`; a 0.2.0 tag requires separate release authorization.
