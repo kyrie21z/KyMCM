@@ -12,14 +12,6 @@ ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests/fixtures/lite_synthetic_handoff"
 DOCS = ROOT / "docs/lite-v3"
 
-CONTEXT_HEADINGS = (
-    "# FROZEN CONTEXT",
-    "## 1. 共享定义与符号",
-    "## 2. 全局数据口径",
-    "## 3. 已冻结参数与规则",
-    "## 4. 跨题输出与文件接口",
-    "## 5. 当前限制与注意事项",
-)
 START_SECTIONS = (
     "## 1. 问题目标与直接交付",
     "## 2. 已冻结输入与前问继承",
@@ -76,14 +68,17 @@ class LiteV3Phase1Tests(unittest.TestCase):
         self.assertEqual(json.loads(marker.read_text(encoding="utf-8")), {"workflow": "kymcm_lite", "version": 3})
         self.assertEqual([path.relative_to(FIXTURE) for path in FIXTURE.rglob("*.json")], [Path(".kymcm/mode.json")])
 
-    def test_context_has_exact_heading_order(self):
-        self.assertEqual(markdown_headings(FIXTURE / "FROZEN_CONTEXT.md"), CONTEXT_HEADINGS)
-
     def test_starts_have_exact_identity_headings_and_resolved_section(self):
+        expected_dependencies = {1: "无", 2: "Q1", 3: "Q1, Q2"}
         for problem in (1, 2, 3):
             path = FIXTURE / f"problems/q{problem}/spec/START_Q{problem}.md"
             with self.subTest(problem=problem):
                 self.assertEqual(markdown_headings(path), (f"# START Q{problem}", *START_SECTIONS))
+                section = section_text(path, START_SECTIONS[1], START_SECTIONS[2:])
+                self.assertEqual(
+                    [line for line in section.splitlines() if line.startswith("**前问依赖：**")],
+                    [f"**前问依赖：** {expected_dependencies[problem]}"],
+                )
                 unresolved = section_text(path, START_SECTIONS[-1], ())
                 sentinel = unresolved.strip().strip("*_`").strip()
                 self.assertIn(sentinel, PERMITTED_SENTINELS, f"{path}: unresolved section is {unresolved!r}")
@@ -186,11 +181,11 @@ class LiteV3Phase1Tests(unittest.TestCase):
                     self.assertIsNone(forbidden_text.search(path.read_text(encoding="utf-8")), f"forbidden text in {path}")
 
     def test_template_headings_exactly_match_rfc_contracts(self):
-        self.assertEqual(markdown_headings(DOCS / "FROZEN_CONTEXT.template.md"), CONTEXT_HEADINGS)
+        self.assertFalse((DOCS / "FROZEN_CONTEXT.template.md").exists())
         self.assertEqual(markdown_headings(DOCS / "START_QN.template.md"), ("# START QN", *START_SECTIONS))
         self.assertEqual(markdown_headings(DOCS / "RESULT_QN.template.md"), ("# RESULT QN", *RESULT_SECTIONS))
         rfc = (ROOT / "docs/lite-v3-rfc.md").read_text(encoding="utf-8")
-        for sequence in (CONTEXT_HEADINGS, ("# START QN", *START_SECTIONS), ("# RESULT QN", *RESULT_SECTIONS)):
+        for sequence in (("# START QN", *START_SECTIONS), ("# RESULT QN", *RESULT_SECTIONS)):
             block = sequence[0] + "\n\n" + "\n".join(sequence[1:])
             self.assertIn(block, rfc, f"RFC lacks exact heading block beginning {sequence[0]}")
 
@@ -202,52 +197,21 @@ class LiteV3Phase1Tests(unittest.TestCase):
 
     def test_benchmark_lite_counts_match_fixture(self):
         report = (DOCS / "benchmark-report.md").read_text(encoding="utf-8")
-        recorded = {key: int(value) for key, value in re.findall(r"^\| `(lite_[a-z0-9_]+)` \| (\d+) \|$", report, re.MULTILINE)}
-        all_formal = [FIXTURE / "FROZEN_CONTEXT.md"]
-        all_formal += [FIXTURE / f"problems/q{q}/spec/START_Q{q}.md" for q in (1, 2, 3)]
-        all_formal += [FIXTURE / f"problems/q{q}/result/RESULT_Q{q}.md" for q in (1, 2, 3)]
-        q1_common = [FIXTURE / "problems/q1/spec/START_Q1.md", FIXTURE / "problems/q1/result/RESULT_Q1.md"]
-        q1_time_aligned = [FIXTURE / "review_snapshots/before_q2/FROZEN_CONTEXT.md", *q1_common]
-        q1_final_context = [FIXTURE / "FROZEN_CONTEXT.md", *q1_common]
-        self.assertEqual(q1_time_aligned[0].relative_to(FIXTURE), Path("review_snapshots/before_q2/FROZEN_CONTEXT.md"))
-        self.assertEqual(q1_final_context[0].relative_to(FIXTURE), Path("FROZEN_CONTEXT.md"))
-        self.assertEqual(len(q1_time_aligned), 3)
-        self.assertEqual(len(q1_final_context), 3)
+        self.assertIn("Historical KyMCM Lite 0.1.0 benchmark", report)
+        formal = [FIXTURE / f"problems/q{q}/{part}/{name}_Q{q}.md"
+                  for q in (1, 2, 3)
+                  for part, name in (("spec", "START"), ("result", "RESULT"))]
         evidence_count = sum(len(evidence_entries(FIXTURE / f"problems/q{q}/result/RESULT_Q{q}.md")) for q in (1, 2, 3))
-        expected = {
-            "lite_q1_time_aligned_formal_files": len(q1_time_aligned),
-            "lite_q1_time_aligned_formal_bytes": sum(path.stat().st_size for path in q1_time_aligned),
-            "lite_q1_final_context_formal_files": len(q1_final_context),
-            "lite_q1_final_context_formal_bytes": sum(path.stat().st_size for path in q1_final_context),
-            "lite_all_formal_files": len(all_formal),
-            "lite_all_formal_bytes": sum(path.stat().st_size for path in all_formal),
-            "lite_marker_files": 1,
-            "lite_marker_bytes": (FIXTURE / ".kymcm/mode.json").stat().st_size,
-            "lite_result_evidence_references": evidence_count,
-            "lite_safe_evidence_references": evidence_count,
-        }
-        self.assertEqual(recorded, expected)
-        self.assertLessEqual(expected["lite_q1_time_aligned_formal_bytes"], expected["lite_q1_final_context_formal_bytes"])
-
-        full_match = re.search(r"\| Primary formal bytes \| ([\d,]+) \| ([\d,]+) \|", report)
-        time_reduction = re.search(r"Time-aligned Lite removes ([\d,]+) of [\d,]+ primary formal bytes, a measured reduction of \*\*([\d.]+)%\*\*", report)
-        final_reduction = re.search(r"Its three files total [\d,]+ bytes and reduce the Full denominator by ([\d,]+) bytes, or \*\*([\d.]+)%\*\*", report)
-        self.assertIsNotNone(full_match, "benchmark report lacks primary formal byte row")
-        self.assertIsNotNone(time_reduction, "benchmark report lacks time-aligned reduction")
-        self.assertIsNotNone(final_reduction, "benchmark report lacks final-context reduction")
-        full_bytes = int(full_match.group(1).replace(",", ""))
-        self.assertEqual(int(full_match.group(2).replace(",", "")), expected["lite_q1_time_aligned_formal_bytes"])
-        for match, lite_bytes in (
-            (time_reduction, expected["lite_q1_time_aligned_formal_bytes"]),
-            (final_reduction, expected["lite_q1_final_context_formal_bytes"]),
-        ):
-            reduction = full_bytes - lite_bytes
-            self.assertEqual(int(match.group(1).replace(",", "")), reduction)
-            self.assertEqual(float(match.group(2)), round(100 * reduction / full_bytes, 1))
+        self.assertEqual(len(formal), 6)
+        self.assertTrue(all(path.is_file() for path in formal))
+        self.assertEqual(sum(path.stat().st_size for path in formal), 10569)
+        self.assertIn("six formal START/RESULT Markdown files totaling 10,569 bytes", (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8"))
+        self.assertEqual(evidence_count, 9)
+        self.assertFalse(any(FIXTURE.rglob("FROZEN_CONTEXT.md")))
 
     def test_phase1_artifacts_are_independent_of_production_runtime(self):
         paths = [path for path in FIXTURE.rglob("*") if path.is_file()]
-        paths.extend(DOCS / name for name in ("FROZEN_CONTEXT.template.md", "START_QN.template.md", "RESULT_QN.template.md"))
+        paths.extend(DOCS / name for name in ("START_QN.template.md", "RESULT_QN.template.md"))
         for path in paths:
             if path.suffix.lower() not in {".md", ".txt", ".csv", ".json"}:
                 continue

@@ -103,20 +103,20 @@ class InitializationTests(unittest.TestCase):
             root = Path(raw); unrelated = root / "keep.txt"; unrelated.write_text("keep", encoding="utf-8")
             original = cli._write
             calls = 0
-            def fail_second(path, content):
+            def fail_first(path, content):
                 nonlocal calls
                 calls += 1
-                if calls == 2:
+                if calls == 1:
                     raise OSError("simulated")
                 original(path, content)
-            with mock.patch.object(cli, "_write", side_effect=fail_second), self.assertRaises(OSError):
+            with mock.patch.object(cli, "_write", side_effect=fail_first), self.assertRaises(OSError):
                 cli.initialize(root, 3)
             self.assertEqual(unrelated.read_text(encoding="utf-8"), "keep")
             for managed in (".kymcm", "FROZEN_CONTEXT.md", "input", "paper", "reports", "problems"):
                 self.assertFalse((root / managed).exists(), managed)
 
     def test_init_rollback_removes_new_ancestors_but_preserves_existing_parent(self):
-        for failure_call in (1, 2):
+        for failure_call in (1,):
             with self.subTest(failure_call=failure_call), tempfile.TemporaryDirectory() as raw:
                 parent = Path(raw) / "existing"
                 parent.mkdir()

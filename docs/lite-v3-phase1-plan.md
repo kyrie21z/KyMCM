@@ -1,5 +1,7 @@
 # KyMCM Lite v3 Phase 1 — Protocol Freeze and Synthetic Handoff Validation
 
+> Historical KyMCM Lite 0.1.0 plan. Superseded by the 0.3.0 direct-dependency workflow; paths and context behavior below are retained as release history.
+
 Status: Planned; begins only after RFC review
 Scope: Documentation and synthetic fixtures only
 

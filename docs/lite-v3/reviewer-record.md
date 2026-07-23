@@ -1,5 +1,7 @@
 # KyMCM Lite v3 Phase 1 Reviewer Record
 
+> Historical KyMCM Lite 0.1.0 review record. Its context snapshot was removed from the canonical 0.3.0 fixture; the observations below are preserved as release history.
+
 Date: 2026-07-20
 
 This record uses the bounded views defined by the Phase 1 plan. It does not use an originating discussion. The historical context snapshot substitutes for the live root context so that no Q2 or Q3 outcome is leaked into the implementer view.

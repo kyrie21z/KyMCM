@@ -19,7 +19,7 @@ from kymcm_lite.paths import MARKER_BYTES
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.2.0\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.3.0\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -27,8 +27,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.2.0", text, relative)
-            self.assertNotIn("0.2.0-dev", text, relative)
+            self.assertIn("0.3.0", text, relative)
+            self.assertNotIn("0.3.0-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -48,7 +48,6 @@ class LiteReleaseTests(unittest.TestCase):
 
     def test_repository_and_skill_templates_match(self):
         pairs = (
-            ("docs/lite-v3/FROZEN_CONTEXT.template.md", "skills/kymcm-lite/templates/FROZEN_CONTEXT.template.md"),
             ("docs/lite-v3/START_QN.template.md", "skills/kymcm-lite/templates/START_QN.template.md"),
             ("docs/lite-v3/RESULT_QN.template.md", "skills/kymcm-lite/templates/RESULT_QN.template.md"),
             ("docs/lite-v3/APPENDIX_START.template.md", "skills/kymcm-lite/templates/APPENDIX_START.template.md"),
@@ -60,6 +59,12 @@ class LiteReleaseTests(unittest.TestCase):
             (ROOT / "docs/lite-v3/appendix_organization.md").read_bytes(),
             (SKILL / "references/appendix_organization.md").read_bytes(),
         )
+        self.assertEqual(
+            (ROOT / "docs/lite-v3/dependency_review.md").read_bytes(),
+            (SKILL / "references/dependency_review.md").read_bytes(),
+        )
+        self.assertFalse((ROOT / "docs/lite-v3/FROZEN_CONTEXT.template.md").exists())
+        self.assertFalse((SKILL / "templates/FROZEN_CONTEXT.template.md").exists())
 
     def test_standalone_skill_has_no_symlinks(self):
         self.assertFalse(any(path.is_symlink() for path in SKILL.rglob("*")))
@@ -91,7 +96,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", '{"workflow":"kymcm_lite","version":3}',
             "Full", "Lite v2", "first standalone Lite v3 release", "not automatically migrated",
@@ -101,6 +106,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.3.0 - 2026-07-23", text, relative)
             self.assertIn("0.2.0 - 2026-07-23", text, relative)
             self.assertIn("0.1.0 - 2026-07-20", text, relative)
 
@@ -109,6 +115,8 @@ class LiteReleaseTests(unittest.TestCase):
         untracked = subprocess.check_output(["git", "-C", str(ROOT), "ls-files", "--others", "--exclude-standard"], text=True).splitlines()
         forbidden_suffixes = {".pyc", ".pyo", ".ttf", ".otf", ".woff", ".woff2"}
         for relative in tracked + untracked:
+            if not (ROOT / relative).exists():
+                continue
             path = Path(relative)
             self.assertNotIn("__pycache__", path.parts, relative)
             self.assertNotIn(path.suffix.lower(), forbidden_suffixes, relative)

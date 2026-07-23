@@ -56,6 +56,7 @@ class LiteCliTests(unittest.TestCase):
                 self.assertEqual((workspace / ".kymcm/mode.json").read_bytes(), b'{"workflow":"kymcm_lite","version":3}\n')
                 self.assertEqual(len(list((workspace / "problems").glob("q*"))), count)
                 self.assertEqual([p.relative_to(workspace) for p in workspace.rglob("*.json")], [Path(".kymcm/mode.json")])
+                self.assertFalse((workspace / "FROZEN_CONTEXT.md").exists())
                 self.assertFalse(any(workspace.rglob("START_*.md")))
                 self.assertFalse(any(workspace.rglob("RESULT_*.md")))
 
@@ -73,7 +74,7 @@ class LiteCliTests(unittest.TestCase):
             (workspace / "extra.txt").write_text("allowed", encoding="utf-8")
             before = fingerprint(workspace)
             completed = self.run_cli("doctor", "--workspace", str(workspace), ok=0)
-            self.assertIn("INFO unknown-root-entries=extra.txt,review_snapshots", completed.stdout)
+            self.assertIn("INFO unknown-root-entries=extra.txt", completed.stdout)
             self.assertEqual(before, fingerprint(workspace))
         finally:
             temporary.cleanup()
@@ -202,7 +203,7 @@ class LiteCliTests(unittest.TestCase):
             self.assertIn("LITE-EVIDENCE-SYMLINK-001", completed.stdout)
         finally: temporary.cleanup()
 
-    def test_warnings_return_zero_and_encoding_failure_returns_two(self):
+    def test_warnings_return_zero_and_legacy_frozen_is_never_read(self):
         with tempfile.TemporaryDirectory() as raw:
             workspace = Path(raw) / "workspace"
             self.run_cli("init", "--workspace", str(workspace), "--questions", "1", ok=0)
@@ -211,13 +212,165 @@ class LiteCliTests(unittest.TestCase):
         temporary, workspace = self.fixture_copy()
         try:
             (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
-            completed = self.run_cli("check-start", "--workspace", str(workspace), "--problem", "1", ok=2)
-            self.assertIn("LITE-TOOL-001", completed.stderr)
-            self.assertEqual(completed.stderr.count("SUMMARY errors=1 warnings=0"), 1)
-            self.assertNotIn("Traceback", completed.stderr)
-            self.assertNotIn("LITE-TOOL-001", completed.stdout)
-            self.assertNotIn("SUMMARY", completed.stdout)
+            before = fingerprint(workspace)
+            for args in (
+                ("doctor",),
+                ("check-start", "--problem", "1"),
+                ("check-result", "--problem", "1"),
+            ):
+                completed = self.run_cli(args[0], "--workspace", str(workspace), *args[1:], ok=0)
+                self.assertNotIn("FROZEN_CONTEXT", completed.stdout + completed.stderr)
+                self.assertEqual(fingerprint(workspace), before)
         finally: temporary.cleanup()
+
+    def test_dependency_declaration_valid_forms(self):
+        for problem in (1, 2, 3):
+            completed = self.run_cli(
+                "check-start", "--workspace", str(FIXTURE), "--problem", str(problem), ok=0
+            )
+            self.assertNotIn("LITE-START-DEPENDENCY", completed.stdout)
+        temporary, workspace = self.fixture_copy()
+        try:
+            start = workspace / "problems/q2/spec/START_Q2.md"
+            start.write_text(
+                start.read_text(encoding="utf-8").replace("**前问依赖：** Q1", "**前问依赖：** 无"),
+                encoding="utf-8",
+            )
+            self.run_cli("check-start", "--workspace", str(workspace), "--problem", "2", ok=0)
+        finally:
+            temporary.cleanup()
+
+    def test_dependency_declaration_missing_duplicate_and_inactive_examples(self):
+        mutations = {
+            "missing": "",
+            "duplicate": "**前问依赖：** Q1\n**前问依赖：** Q1",
+            "comment": "<!-- **前问依赖：** Q1 -->",
+            "fence": "```md\n**前问依赖：** Q1\n```",
+        }
+        for name, replacement in mutations.items():
+            temporary, workspace = self.fixture_copy()
+            try:
+                start = workspace / "problems/q2/spec/START_Q2.md"
+                start.write_text(
+                    start.read_text(encoding="utf-8").replace("**前问依赖：** Q1", replacement),
+                    encoding="utf-8",
+                )
+                completed = self.run_cli(
+                    "check-start", "--workspace", str(workspace), "--problem", "2", ok=1
+                )
+                self.assertIn("LITE-START-DEPENDENCY-001", completed.stdout, name)
+            finally:
+                temporary.cleanup()
+
+    def test_dependency_grammar_and_scope_failures(self):
+        cases = {
+            "separator": (3, "Q1,Q2", "LITE-START-DEPENDENCY-001"),
+            "lowercase": (2, "q1", "LITE-START-DEPENDENCY-001"),
+            "leading-zero": (2, "Q01", "LITE-START-DEPENDENCY-001"),
+            "duplicate": (3, "Q1, Q1", "LITE-START-DEPENDENCY-SCOPE-001"),
+            "unsorted": (3, "Q2, Q1", "LITE-START-DEPENDENCY-SCOPE-001"),
+            "self": (2, "Q2", "LITE-START-DEPENDENCY-SCOPE-001"),
+            "forward": (2, "Q3", "LITE-START-DEPENDENCY-SCOPE-001"),
+            "zero": (2, "Q0", "LITE-START-DEPENDENCY-SCOPE-001"),
+            "negative": (2, "Q-1", "LITE-START-DEPENDENCY-SCOPE-001"),
+        }
+        for name, (problem, value, identifier) in cases.items():
+            temporary, workspace = self.fixture_copy()
+            try:
+                start = workspace / f"problems/q{problem}/spec/START_Q{problem}.md"
+                old = "Q1, Q2" if problem == 3 else "Q1"
+                start.write_text(
+                    start.read_text(encoding="utf-8").replace(
+                        f"**前问依赖：** {old}", f"**前问依赖：** {value}"
+                    ),
+                    encoding="utf-8",
+                )
+                completed = self.run_cli(
+                    "check-start", "--workspace", str(workspace), "--problem", str(problem), ok=1
+                )
+                self.assertIn(identifier, completed.stdout, name)
+            finally:
+                temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            start = workspace / "problems/q1/spec/START_Q1.md"
+            start.write_text(
+                start.read_text(encoding="utf-8").replace("**前问依赖：** 无", "**前问依赖：** Q1"),
+                encoding="utf-8",
+            )
+            completed = self.run_cli(
+                "check-start", "--workspace", str(workspace), "--problem", "1", ok=1
+            )
+            self.assertIn("LITE-START-DEPENDENCY-SCOPE-001", completed.stdout)
+        finally:
+            temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            shutil.rmtree(workspace / "problems/q1")
+            completed = self.run_cli(
+                "check-start", "--workspace", str(workspace), "--problem", "2", ok=1
+            )
+            self.assertIn("LITE-START-DEPENDENCY-SCOPE-001", completed.stdout)
+        finally:
+            temporary.cleanup()
+
+    def test_dependency_upstream_contract_availability_and_structure(self):
+        cases = ("missing-start", "symlink-result", "invalid-utf8", "invalid-heading")
+        for name in cases:
+            temporary, workspace = self.fixture_copy()
+            try:
+                start = workspace / "problems/q1/spec/START_Q1.md"
+                result = workspace / "problems/q1/result/RESULT_Q1.md"
+                if name == "missing-start":
+                    start.unlink()
+                elif name == "symlink-result":
+                    target = workspace / "q1-result-copy.md"
+                    result.replace(target)
+                    result.symlink_to(target)
+                elif name == "invalid-utf8":
+                    result.write_bytes(b"\xff\xfe")
+                else:
+                    start.write_text(
+                        start.read_text(encoding="utf-8").replace(
+                            "## 3. 数据口径与预处理", "## 3. wrong"
+                        ),
+                        encoding="utf-8",
+                    )
+                completed = self.run_cli(
+                    "check-start", "--workspace", str(workspace), "--problem", "2", ok=1
+                )
+                self.assertIn("LITE-START-DEPENDENCY-CONTRACT-001", completed.stdout, name)
+            finally:
+                temporary.cleanup()
+
+    def test_upstream_dependency_validation_is_lightweight_and_result_inherits_it(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            upstream = workspace / "problems/q1/spec/START_Q1.md"
+            upstream.write_text(
+                upstream.read_text(encoding="utf-8").replace("**前问依赖：** 无", ""),
+                encoding="utf-8",
+            )
+            completed = self.run_cli(
+                "check-start", "--workspace", str(workspace), "--problem", "2", ok=0
+            )
+            self.assertNotIn("LITE-START-DEPENDENCY-001", completed.stdout)
+
+            current = workspace / "problems/q2/spec/START_Q2.md"
+            current.write_text(
+                current.read_text(encoding="utf-8").replace(
+                    "**前问依赖：** Q1", "**前问依赖：** q1"
+                ),
+                encoding="utf-8",
+            )
+            completed = self.run_cli(
+                "check-result", "--workspace", str(workspace), "--problem", "2", ok=1
+            )
+            self.assertEqual(completed.stdout.count("LITE-START-DEPENDENCY-001"), 1)
+        finally:
+            temporary.cleanup()
 
     def test_output_order_is_deterministic(self):
         args = ("doctor", "--workspace", str(FIXTURE))

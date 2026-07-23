@@ -1,5 +1,7 @@
 # KyMCM Lite v3 Phase 1 Benchmark Report
 
+> Historical KyMCM Lite 0.1.0 benchmark. Its FROZEN_CONTEXT inputs were removed from the canonical 0.3.0 fixture; the recorded measurements remain historical and are not current-release assertions.
+
 Date: 2026-07-20
 Environment: Linux, Python 3 standard library, repository base HEAD `6c87056e967a3260de333d183909002d01413f6d`
 

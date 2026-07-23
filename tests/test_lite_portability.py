@@ -27,8 +27,7 @@ class LitePortabilityTests(unittest.TestCase):
                 return subprocess.run([*command, *args], cwd=base, env=env, text=True, capture_output=True)
             self.assertEqual(run("--help").returncode, 0)
             self.assertEqual(run("init", "--workspace", str(workspace), "--questions", "3").returncode, 0)
-            for relative in ("FROZEN_CONTEXT.md",):
-                shutil.copy2(FIXTURE / relative, workspace / relative)
+            (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
             for question in (1, 2, 3):
                 for part, name in (("spec", f"START_Q{question}.md"), ("result", f"RESULT_Q{question}.md")):
                     shutil.copy2(FIXTURE / f"problems/q{question}/{part}/{name}", workspace / f"problems/q{question}/{part}/{name}")
@@ -81,7 +80,7 @@ class LitePortabilityTests(unittest.TestCase):
             before_skill = fingerprint(copied)
             initialized = subprocess.run([*command, "init", "--workspace", str(workspace), "--questions", "3"], cwd=unrelated, env=env, text=True, capture_output=True)
             self.assertEqual(initialized.returncode, 0, initialized.stdout + initialized.stderr)
-            shutil.copy2(FIXTURE / "FROZEN_CONTEXT.md", workspace / "FROZEN_CONTEXT.md")
+            (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
             for question in (1, 2, 3):
                 for part, name in (("spec", f"START_Q{question}.md"), ("result", f"RESULT_Q{question}.md")):
                     shutil.copy2(FIXTURE / f"problems/q{question}/{part}/{name}", workspace / f"problems/q{question}/{part}/{name}")
