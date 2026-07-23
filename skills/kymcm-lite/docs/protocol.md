@@ -12,23 +12,12 @@ No other persistent JSON, workflow state, event log, approval, or review hash is
 
 ## Managed layout and question discovery
 
-Managed roots are `.kymcm/`, `FROZEN_CONTEXT.md`, `input/`, `paper/`, `reports/`, and `problems/`. Each `problems/qN/` has `spec/`, `code/`, `data/derived/`, `outputs/`, `notes/`, and `result/`.
+Managed roots are `.kymcm/`, `input/`, `paper/`, `reports/`, and `problems/`. Each `problems/qN/` has `spec/`, `code/`, `data/derived/`, `outputs/`, `notes/`, and `result/`.
 
 Question count is derived from immediate directories matching `q[1-9][0-9]*`. At least q1 is required; numbers must be contiguous from 1 through the maximum. Unknown root entries and unknown entries under `problems/` are allowed unless they interfere with managed paths.
+A legacy `FROZEN_CONTEXT.md` is an ignored root: no command opens, validates, hashes, warns about, migrates, or deletes it.
 
-## Formal headings
-
-`FROZEN_CONTEXT.md` uses:
-
-```markdown
-# FROZEN CONTEXT
-
-## 1. 共享定义与符号
-## 2. 全局数据口径
-## 3. 已冻结参数与规则
-## 4. 跨题输出与文件接口
-## 5. 当前限制与注意事项
-```
+## Formal headings and dependencies
 
 `problems/qN/spec/START_QN.md` uses:
 
@@ -46,6 +35,22 @@ Question count is derived from immediate directories matching `q[1-9][0-9]*`. At
 ```
 
 Section 8 must reduce to `无`, `None`, or `N/A` before execution.
+
+Section 2 contains exactly one visible dependency declaration:
+
+```markdown
+**前问依赖：** 无
+```
+
+or a strict ascending direct-predecessor list such as:
+
+```markdown
+**前问依赖：** Q1, Q2
+```
+
+Q1 uses `无`. Every named predecessor is earlier than the current question and must provide ordinary, non-symlink, UTF-8 START and RESULT files with valid titles and heading structure. Comments and fenced examples do not count. Static checks do not recurse into the predecessor's full validation and do not judge mathematical meaning.
+
+Before authoring, materially revising, reviewing, or executing a dependent START, Codex reads the complete current START and every declared upstream START and RESULT. It compares only inherited or redefined symbols, units, scope, preprocessing, parameters, objectives, constraints, decision rules, paths, values, limitations, and certification claims. Authorized RESULT deviations form part of the effective upstream contract. No-conflict review creates no artifact. A material conflict is reported with exact locations and consequence; execution stops for one highest-impact user decision. See `references/dependency_review.md`.
 
 `problems/qN/result/RESULT_QN.md` uses:
 
@@ -71,7 +76,7 @@ IDs are unique. Paths are workspace-relative, contain no `..`, and resolve throu
 
 ## Commands and diagnostics
 
-`init --questions N` refuses any existing managed root before writing, creates the exact marker, context skeleton, and variable question tree, and creates no START, RESULT, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code.
+`init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code.
 
 Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`. Errors return 1, warnings alone return 0, and unexpected UTF-8, I/O, subprocess, or environment failure returns 2 with `LITE-TOOL-001`.
 
@@ -79,7 +84,7 @@ Git availability and question-scoped dirty state are advisory. Evidence existenc
 
 ## Optional independent appendix stage
 
-After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. START_QN and RESULT_QN are contextual references only, and appendix commands never read or depend on `FROZEN_CONTEXT.md`.
+After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. START_QN and RESULT_QN are contextual references only.
 
 The two submitted surfaces are distinct:
 
@@ -105,4 +110,4 @@ After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accoun
 
 ## Non-goals
 
-Lite 0.2.0 does not validate mathematical correctness, discover models, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics.
+Lite 0.3.0 does not validate mathematical correctness in Python, discover dependencies from prose, expand transitive dependencies, automatically reconcile contradictions, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics.

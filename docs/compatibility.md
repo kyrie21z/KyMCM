@@ -9,6 +9,8 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.2.0 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`. Existing valid 0.1.0 workspaces continue to pass `doctor`, `check-start`, and `check-result` without appendix files. The optional appendix commands fail only when explicitly invoked and their contracts are absent or invalid; they do not read `FROZEN_CONTEXT.md`.
+KyMCM Lite 0.3.0 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}` and the existing eight START headings. A 0.2.0 workspace needs one direct-dependency declaration in every START and completed START/RESULT contracts for declared predecessors. A legacy `FROZEN_CONTEXT.md`, including malformed or invalid UTF-8 content, is ignored by every command and may remain on disk. No automatic migration or deletion is provided.
+
+The optional appendix commands fail only when explicitly invoked and their contracts are absent or invalid. The modeling workflow has no FROZEN_CONTEXT surface; appendix organization may reference START and RESULT only.
 
 Lite does not read Full v1, historical Lite v2, or marker-less Legacy workspaces. Full and Lite do not guess each other's mode, and no automatic migration is provided.

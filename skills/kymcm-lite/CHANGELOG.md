@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - 2026-07-23
+
+- Remove `FROZEN_CONTEXT.md` from initialization, managed layout, runtime checks, and active templates.
+- Require one exact direct-dependency declaration in START section 2 and validate declared upstream START/RESULT structure.
+- Add mandatory Codex semantic contradiction review without consistency state or artifacts; preserve appendix behavior.
+
 ## 0.2.0 - 2026-07-23
 
 - Add optional, independent APPENDIX_START/APPENDIX_RESULT contracts and two read-only appendix commands.

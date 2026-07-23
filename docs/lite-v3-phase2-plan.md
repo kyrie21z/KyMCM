@@ -1,5 +1,7 @@
 # KyMCM Lite v3 Phase 2 — Standalone MVP
 
+> Historical KyMCM Lite 0.1.0 plan. Superseded by the 0.3.0 direct-dependency workflow; context behavior below is retained as release history.
+
 ## Objective
 
 Implement a self-contained Python-standard-library Skill that initializes variable-question Lite v3 workspaces and performs read-only workspace, START, RESULT, and evidence checks.

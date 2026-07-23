@@ -6,8 +6,9 @@
 
 ## 2. 已冻结输入与前问继承
 
+**前问依赖：** 无
+
 - 输入：`input/baseline_options.csv`。
-- 共享定义、总量和分配记号来自 `FROZEN_CONTEXT.md`；Q1 没有前问输出。
 
 ## 3. 数据口径与预处理
 

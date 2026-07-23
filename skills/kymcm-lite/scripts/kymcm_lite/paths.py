@@ -10,7 +10,8 @@ from .diagnostics import Diagnostic, error
 
 MARKER_BYTES = b'{"workflow":"kymcm_lite","version":3}\n'
 QUESTION = re.compile(r"q([1-9][0-9]*)")
-MANAGED_ROOTS = (".kymcm", "FROZEN_CONTEXT.md", "input", "paper", "reports", "problems")
+MANAGED_ROOTS = (".kymcm", "input", "paper", "reports", "problems")
+LEGACY_IGNORED_ROOTS = ("FROZEN_CONTEXT.md",)
 QUESTION_DIRS = ("spec", "code", "data", "data/derived", "outputs", "notes", "result")
 EVIDENCE_DIRS = ("code", "data/derived", "outputs", "notes")
 
@@ -74,7 +75,7 @@ def discover_questions(workspace: Path) -> tuple[list[int], list[Diagnostic]]:
 def question_layout_diagnostics(workspace: Path, problem: int) -> list[Diagnostic]:
     root = workspace / f"problems/q{problem}"
     diagnostics: list[Diagnostic] = []
-    relatives = [".kymcm", "FROZEN_CONTEXT.md", "problems", f"problems/q{problem}"]
+    relatives = [".kymcm", "problems", f"problems/q{problem}"]
     relatives.extend(f"problems/q{problem}/{part}" for part in QUESTION_DIRS)
     diagnostics.extend(symlink_diagnostics(workspace, relatives))
     for part in QUESTION_DIRS:

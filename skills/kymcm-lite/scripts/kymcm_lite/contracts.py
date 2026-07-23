@@ -8,15 +8,12 @@ import subprocess
 
 from .diagnostics import Diagnostic, error, warning
 from .paths import (
-    MANAGED_ROOTS, discover_questions, evidence_path_diagnostics, marker_diagnostics,
-    question_layout_diagnostics, safe_relative_path, symlink_diagnostics,
+    LEGACY_IGNORED_ROOTS, MANAGED_ROOTS, discover_questions,
+    evidence_path_diagnostics, marker_diagnostics, question_layout_diagnostics,
+    safe_relative_path, symlink_diagnostics,
 )
 
 
-CONTEXT_HEADINGS = (
-    "# FROZEN CONTEXT", "## 1. 共享定义与符号", "## 2. 全局数据口径", "## 3. 已冻结参数与规则",
-    "## 4. 跨题输出与文件接口", "## 5. 当前限制与注意事项",
-)
 START_HEADINGS = (
     "## 1. 问题目标与直接交付", "## 2. 已冻结输入与前问继承", "## 3. 数据口径与预处理",
     "## 4. 数学模型、参数与判定规则", "## 5. Codex 执行边界", "## 6. 输出与证据清单",
@@ -27,6 +24,9 @@ RESULT_HEADINGS = (
     "## 5. 证据索引", "## 6. 局限性与风险", "## 7. 下游冻结输出",
 )
 EVIDENCE_LINE = re.compile(r"^- (E[0-9]+) — `([^`]*)` — (\S.*)$")
+DEPENDENCY_LABEL = "**前问依赖：**"
+DEPENDENCY_NUMBER = r"Q(?:0|-[1-9][0-9]*|[1-9][0-9]*)"
+DEPENDENCY_VALUE = re.compile(rf"^(?:无|{DEPENDENCY_NUMBER}(?:, {DEPENDENCY_NUMBER})*)$")
 FENCE = re.compile(r"^\s*(`{3,}|~{3,})")
 HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*$")
 
@@ -102,6 +102,100 @@ def heading_diagnostics(parsed: Markdown, required: tuple[str, ...], identifier:
     return []
 
 
+def dependency_diagnostics(
+    workspace: Path,
+    problem: int,
+    numbers: list[int],
+    parsed: Markdown,
+    location: str,
+) -> list[Diagnostic]:
+    section = visible_content(parsed.section(START_HEADINGS[1], START_HEADINGS))
+    candidates = [line for line in section.splitlines() if "前问依赖" in line]
+    if len(candidates) != 1:
+        return [
+            error(
+                "LITE-START-DEPENDENCY-001",
+                location,
+                "section 2 must contain exactly one visible dependency declaration",
+            )
+        ]
+    declaration = candidates[0]
+    prefix = f"{DEPENDENCY_LABEL} "
+    if not declaration.startswith(prefix):
+        return [
+            error(
+                "LITE-START-DEPENDENCY-001",
+                location,
+                f"dependency declaration must use exactly {DEPENDENCY_LABEL} followed by one space",
+            )
+        ]
+    raw = declaration[len(prefix):]
+    if not DEPENDENCY_VALUE.fullmatch(raw):
+        return [
+            error(
+                "LITE-START-DEPENDENCY-001",
+                location,
+                "dependency value must be 无 or an exact ascending list such as Q1, Q2",
+            )
+        ]
+    dependencies = [] if raw == "无" else [int(item[1:]) for item in raw.split(", ")]
+    if (
+        (problem == 1 and dependencies)
+        or len(dependencies) != len(set(dependencies))
+        or dependencies != sorted(dependencies)
+        or any(item < 1 or item >= problem or item not in numbers for item in dependencies)
+    ):
+        return [
+            error(
+                "LITE-START-DEPENDENCY-SCOPE-001",
+                location,
+                "dependencies must be unique, strictly increasing existing predecessors; Q1 must use 无",
+            )
+        ]
+    diagnostics: list[Diagnostic] = []
+    for dependency in dependencies:
+        contracts = (
+            (
+                f"problems/q{dependency}/spec/START_Q{dependency}.md",
+                f"# START Q{dependency}",
+                START_HEADINGS,
+            ),
+            (
+                f"problems/q{dependency}/result/RESULT_Q{dependency}.md",
+                f"# RESULT Q{dependency}",
+                RESULT_HEADINGS,
+            ),
+        )
+        for upstream_location, title, headings in contracts:
+            try:
+                upstream, reading = read_contract(
+                    workspace / upstream_location,
+                    upstream_location,
+                    "LITE-START-DEPENDENCY-CONTRACT-001",
+                    title,
+                )
+            except (UnicodeError, OSError) as exc:
+                diagnostics.append(
+                    error(
+                        "LITE-START-DEPENDENCY-CONTRACT-001",
+                        upstream_location,
+                        f"upstream contract is unreadable: {type(exc).__name__}",
+                    )
+                )
+                continue
+            diagnostics.extend(reading)
+            if upstream is not None:
+                diagnostics.extend(
+                    heading_diagnostics(
+                        upstream,
+                        headings,
+                        "LITE-START-DEPENDENCY-CONTRACT-001",
+                        upstream_location,
+                    )
+                )
+    return diagnostics
+
+
 def git_warning(workspace: Path) -> list[Diagnostic]:
     if shutil.which("git") is None:
         return [warning("LITE-GIT-WARN-001", ".", "Git executable is unavailable; revision diagnostics are disabled")]
@@ -119,11 +213,6 @@ def _base(workspace: Path, problem: int) -> tuple[list[Diagnostic], list[int]]:
         diagnostics.append(error("LITE-LAYOUT-001", f"problems/q{problem}", "requested managed question does not exist"))
     else:
         diagnostics.extend(question_layout_diagnostics(workspace, problem))
-    context = workspace / "FROZEN_CONTEXT.md"
-    if context.is_symlink() or not context.is_file():
-        diagnostics.append(error("LITE-CONTEXT-001", "FROZEN_CONTEXT.md", "context is missing, unreadable, or unsafe"))
-    else:
-        context.read_text(encoding="utf-8")
     return diagnostics, numbers
 
 
@@ -136,17 +225,13 @@ def check_start(workspace: Path, problem: int, *, include_git: bool = True) -> l
         structure = heading_diagnostics(parsed, START_HEADINGS, "LITE-START-HEADING-001", location)
         diagnostics.extend(structure)
         if not structure:
+            diagnostics.extend(dependency_diagnostics(workspace, problem, numbers, parsed, location))
             for heading in START_HEADINGS[:-1]:
                 if not meaningful(parsed.section(heading, START_HEADINGS)):
                     diagnostics.append(warning("LITE-START-EMPTY-WARN-001", location, f"{heading} has no meaningful author content"))
             unresolved = parsed.section(START_HEADINGS[-1], START_HEADINGS).strip().strip("*_`").strip()
             if unresolved not in {"无", "None", "N/A"}:
                 diagnostics.append(error("LITE-START-UNRESOLVED-001", location, "section 8 must be exactly 无, None, or N/A after trimming"))
-    if problem >= 2 and (workspace / "FROZEN_CONTEXT.md").is_file():
-        context = parse_markdown((workspace / "FROZEN_CONTEXT.md").read_text(encoding="utf-8"))
-        interface = context.section("## 4. 跨题输出与文件接口", CONTEXT_HEADINGS[1:])
-        if not meaningful(interface):
-            diagnostics.append(warning("LITE-CONTEXT-SPARSE-WARN-001", "FROZEN_CONTEXT.md", "Q2+ context lacks a meaningful cross-question interface"))
     if include_git:
         diagnostics.extend(git_warning(workspace))
     return diagnostics
@@ -208,11 +293,6 @@ def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
         path = workspace / name
         if not path.is_dir() or path.is_symlink():
             diagnostics.append(error("LITE-LAYOUT-001", name, "required managed directory is missing or unsafe"))
-    context = workspace / "FROZEN_CONTEXT.md"
-    if context.is_symlink() or not context.is_file():
-        diagnostics.append(error("LITE-CONTEXT-001", "FROZEN_CONTEXT.md", "context is missing, unreadable, or unsafe"))
-    else:
-        context.read_text(encoding="utf-8")
     numbers, discovery = discover_questions(workspace)
     diagnostics.extend(discovery)
     for problem in numbers:
@@ -220,7 +300,7 @@ def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
     if not (3, 11) <= (__import__("sys").version_info[:2]) <= (3, 13):
         diagnostics.append(error("LITE-TOOL-001", "python", "Python 3.11 through 3.13 is required"))
     diagnostics.extend(git_warning(workspace))
-    known = set(MANAGED_ROOTS) | {"appendix", "code"}
+    known = set(MANAGED_ROOTS) | set(LEGACY_IGNORED_ROOTS) | {"appendix", "code"}
     unknown = sorted(path.name for path in workspace.iterdir() if path.name not in known) if workspace.is_dir() else []
     info = [f"INFO workspace={workspace}", f"INFO questions={','.join(map(str, numbers)) or 'none'}"]
     info.append(f"INFO unknown-root-entries={','.join(unknown) if unknown else 'none'}")

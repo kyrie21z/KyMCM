@@ -1,5 +1,7 @@
 # KyMCM Lite v3 Phase 1 Benchmark Method
 
+> Historical KyMCM Lite 0.1.0 benchmark method. Its FROZEN_CONTEXT inputs were removed from the canonical 0.3.0 fixture; the method is preserved for interpreting the original report.
+
 ## 1. Purpose and metric
 
 The benchmark measures UTF-8 file bytes and formal artifact counts as a proxy for protocol overhead. It is not a token, reasoning-quality, or runtime benchmark. Measurements use ordinary file sizes from Python `Path.stat().st_size` on 2026-07-20.

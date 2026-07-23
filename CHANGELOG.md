@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.3.0 - 2026-07-23
+
+- Remove `FROZEN_CONTEXT.md` from the active Lite layout, runtime, templates, and current documentation.
+- Add the exact one-line START direct-dependency declaration and structural upstream START/RESULT checks.
+- Require Codex semantic contradiction review without adding consistency artifacts or changing appendix contracts.
+
 ## KyMCM Lite 0.2.0 - 2026-07-23
 
 - Add an independent Markdown-first appendix organization workflow with exact whitelist and result contracts.

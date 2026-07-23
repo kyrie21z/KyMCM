@@ -32,15 +32,6 @@ def parser() -> argparse.ArgumentParser:
     return result
 
 
-def _context_template() -> str:
-    path = Path(__file__).resolve().parents[2] / "templates/FROZEN_CONTEXT.template.md"
-    lines = path.read_text(encoding="utf-8").splitlines()
-    filtered = [line for line in lines if not line.startswith(">")]
-    while len(filtered) > 1 and not filtered[1].strip():
-        del filtered[1]
-    return "\n".join(filtered) + "\n"
-
-
 def _write(path: Path, content: bytes | str) -> None:
     if isinstance(content, bytes):
         path.write_bytes(content)
@@ -76,7 +67,6 @@ def initialize(workspace: Path, questions: int) -> int:
             directory.mkdir()
             created.append(directory)
         marker = workspace / ".kymcm/mode.json"; _write(marker, MARKER_BYTES); created.append(marker)
-        context = workspace / "FROZEN_CONTEXT.md"; _write(context, _context_template()); created.append(context)
     except Exception:
         for path in reversed(created):
             if path.is_file() or path.is_symlink():
