@@ -17,9 +17,16 @@ Managed roots are `.kymcm/`, `input/`, `paper/`, `reports/`, and `problems/`. Ea
 Question count is derived from immediate directories matching `q[1-9][0-9]*`. At least q1 is required; numbers must be contiguous from 1 through the maximum. Unknown root entries and unknown entries under `problems/` are allowed unless they interfere with managed paths.
 A legacy `FROZEN_CONTEXT.md` is an ignored root: no command opens, validates, hashes, warns about, migrates, or deletes it.
 
-## Formal headings and dependencies
+## Contract modes, headings, and dependencies
 
-`problems/qN/spec/START_QN.md` uses:
+Each official question independently uses exactly one contract mode:
+
+- single: `START_QN.md` and its optional/in-progress `RESULT_QN.md`;
+- split: contiguous `START_QN_1.md` through `START_QN_K.md`, with RESULT files for any completed subset.
+
+Single and split START files cannot coexist. Suffixes are positive decimal integers without leading zero. Contracts remain directly in `spec/` and `result/`; no subproblem directories, aggregate contract, manifest, or persistent state is introduced. Choose the mode from modeling dependency and execution boundaries, not mechanically from printed subquestion count.
+
+The selected `problems/qN/spec/START_QN[_K].md` uses:
 
 ```markdown
 # START QN
@@ -45,14 +52,14 @@ Section 2 contains exactly one visible dependency declaration:
 or a strict ascending direct-predecessor list such as:
 
 ```markdown
-**前问依赖：** Q1, Q2
+**前问依赖：** Q1, Q2_1
 ```
 
-Q1 uses `无`. Every named predecessor is earlier than the current question and must provide ordinary, non-symlink, UTF-8 START and RESULT files with valid titles and heading structure. Comments and fenced examples do not count. Static checks do not recurse into the predecessor's full validation and do not judge mathematical meaning.
+Each token is exactly `QN` or `QN_K`, unique, and strictly ordered by question then suffix. Every dependency belongs to an earlier official question; same-question edges and wildcards are forbidden. A bare token is valid only for a single-mode upstream question, while a suffixed token names exactly one existing split unit and never expands. Every named unit must provide ordinary, non-symlink, UTF-8 START and RESULT files with matching titles and heading structure. Comments and fenced examples do not count. Static checks do not recurse into the predecessor's full validation and do not judge mathematical meaning.
 
 Before authoring, materially revising, reviewing, or executing a dependent START, Codex reads the complete current START and every declared upstream START and RESULT. It compares only inherited or redefined symbols, units, scope, preprocessing, parameters, objectives, constraints, decision rules, paths, values, limitations, and certification claims. Authorized RESULT deviations form part of the effective upstream contract. No-conflict review creates no artifact. A material conflict is reported with exact locations and consequence; execution stops for one highest-impact user decision. See `references/dependency_review.md`.
 
-`problems/qN/result/RESULT_QN.md` uses:
+The matching `problems/qN/result/RESULT_QN[_K].md` uses:
 
 ```markdown
 # RESULT QN
@@ -76,7 +83,7 @@ IDs are unique. Paths are workspace-relative, contain no `..`, and resolve throu
 
 ## Commands and diagnostics
 
-`init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code.
+`init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code. In single mode, omit `--subproblem`; in split mode, `check-start` and `check-result` require `--subproblem K`. The other four commands do not accept it.
 
 Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`. Errors return 1, warnings alone return 0, and unexpected UTF-8, I/O, subprocess, or environment failure returns 2 with `LITE-TOOL-001`.
 
@@ -84,7 +91,7 @@ Git availability and question-scoped dirty state are advisory. Evidence existenc
 
 ## Optional independent appendix stage
 
-After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. START_QN and RESULT_QN are contextual references only.
+After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. Single and split START/RESULT contracts are contextual references only and cannot be copied into appendix outputs.
 
 The two submitted surfaces are distinct:
 
@@ -110,4 +117,4 @@ After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accoun
 
 ## Non-goals
 
-Lite 0.3.0 does not validate mathematical correctness in Python, discover dependencies from prose, expand transitive dependencies, automatically reconcile contradictions, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics.
+Lite 0.3.1 does not validate mathematical correctness in Python, infer contract granularity, discover dependencies from prose, expand transitive or wildcard dependencies, compare sibling split units automatically, reconcile contradictions, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics.

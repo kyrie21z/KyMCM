@@ -9,7 +9,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 1. 先冻结结构和白名单，再从白名单正向构造，禁止先复制整个工程再反向删除。
 2. 只保留审稿验证所需的最小充分集合；依赖闭包优先于表面文件数最少。
 3. `problems/`、`input/`、`paper/` 以及正式 START/RESULT 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
-4. 建模工作流没有 FROZEN_CONTEXT surface；START_QN 和 RESULT_QN 只能作为上下文参考，不能授权或扩展最终包。
+4. 建模工作流没有 FROZEN_CONTEXT surface；单一或拆分 START/RESULT 契约只能作为上下文参考，不能复制进、授权或扩展最终包。
 5. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON 或持久化清单。
 
 ## `appendix/`

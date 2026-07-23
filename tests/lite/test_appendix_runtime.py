@@ -148,6 +148,47 @@ class AppendixRuntimeTests(unittest.TestCase):
             finally:
                 temporary.cleanup()
 
+    def test_split_contracts_are_excluded_sources_and_scanned_for_limitations(self):
+        for relative, title in (
+            ("problems/q1/spec/START_Q1_1.md", "# START Q1_1"),
+            ("problems/q1/result/RESULT_Q1_1.md", "# RESULT Q1_1"),
+        ):
+            with self.subTest(relative=relative):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source = workspace / relative
+                    source.write_text(f"{title}\n", encoding="utf-8")
+                    self.mutate_start(
+                        workspace,
+                        "problems/q1/code/core.py",
+                        relative,
+                    )
+                    self.assertIn(
+                        "LITE-APPENDIX-SOURCE-PATH-001",
+                        identifiers(check_appendix_start(workspace)),
+                    )
+                finally:
+                    temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            start = workspace / "problems/q1/spec/START_Q1.md"
+            result = workspace / "problems/q1/result/RESULT_Q1.md"
+            split_start = start.with_name("START_Q1_1.md")
+            split_result = result.with_name("RESULT_Q1_1.md")
+            start.rename(split_start)
+            result.rename(split_result)
+            split_start.write_text(
+                "# START Q1_1\n\n有限搜索范围。\n",
+                encoding="utf-8",
+            )
+            target = workspace / "appendix/problems/q1/result/formal.csv"
+            target.write_text("claim\n全局最优\n", encoding="utf-8")
+            found = identifiers(check_appendix_result(workspace))
+            self.assertIn("LITE-APPENDIX-CERTIFICATION-WARN-001", found)
+        finally:
+            temporary.cleanup()
+
     def test_declarations_and_environment_completeness(self):
         cases = (
             ("外部资料：无", "", "LITE-APPENDIX-DECLARATION-001"),

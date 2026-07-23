@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 import json
 import os
 from pathlib import Path, PureWindowsPath
@@ -14,6 +15,131 @@ MANAGED_ROOTS = (".kymcm", "input", "paper", "reports", "problems")
 LEGACY_IGNORED_ROOTS = ("FROZEN_CONTEXT.md",)
 QUESTION_DIRS = ("spec", "code", "data", "data/derived", "outputs", "notes", "result")
 EVIDENCE_DIRS = ("code", "data/derived", "outputs", "notes")
+CONTRACT_LIKE = re.compile(r"^(?:START|RESULT)_Q")
+START_CONTRACT = re.compile(r"^START_Q([1-9][0-9]*)(?:_([1-9][0-9]*))?\.md$")
+RESULT_CONTRACT = re.compile(r"^RESULT_Q([1-9][0-9]*)(?:_([1-9][0-9]*))?\.md$")
+
+
+@dataclass(frozen=True, order=True)
+class ContractId:
+    question: int
+    subproblem: int | None = None
+
+    def __post_init__(self) -> None:
+        if self.question < 1 or (self.subproblem is not None and self.subproblem < 1):
+            raise ValueError("contract identifiers require positive integers")
+
+    @property
+    def token(self) -> str:
+        suffix = f"_{self.subproblem}" if self.subproblem is not None else ""
+        return f"Q{self.question}{suffix}"
+
+    @property
+    def start_path(self) -> str:
+        return f"problems/q{self.question}/spec/START_{self.token}.md"
+
+    @property
+    def result_path(self) -> str:
+        return f"problems/q{self.question}/result/RESULT_{self.token}.md"
+
+    def title(self, kind: str) -> str:
+        return f"# {kind} {self.token}"
+
+
+@dataclass(frozen=True)
+class ContractDiscovery:
+    mode: str
+    starts: tuple[ContractId, ...]
+    results: tuple[ContractId, ...]
+    diagnostics: tuple[Diagnostic, ...]
+
+
+def _contract_entries(
+    workspace: Path,
+    problem: int,
+    directory: str,
+    kind: str,
+) -> tuple[list[ContractId], list[Diagnostic]]:
+    root = workspace / f"problems/q{problem}/{directory}"
+    pattern = START_CONTRACT if kind == "START" else RESULT_CONTRACT
+    found: list[ContractId] = []
+    diagnostics: list[Diagnostic] = []
+    if not root.is_dir() or root.is_symlink():
+        return found, diagnostics
+    for entry in sorted(root.iterdir(), key=lambda item: item.name):
+        if not CONTRACT_LIKE.match(entry.name):
+            continue
+        location = entry.relative_to(workspace).as_posix()
+        match = pattern.fullmatch(entry.name)
+        if (
+            match is None
+            or int(match.group(1)) != problem
+            or entry.is_symlink()
+            or not entry.is_file()
+        ):
+            diagnostics.append(error(
+                "LITE-CONTRACT-LAYOUT-001",
+                location,
+                f"malformed, misplaced, or unsafe {kind} contract-like entry",
+            ))
+            continue
+        found.append(ContractId(problem, int(match.group(2)) if match.group(2) else None))
+    return found, diagnostics
+
+
+def discover_contracts(workspace: Path, problem: int) -> ContractDiscovery:
+    starts, diagnostics = _contract_entries(workspace, problem, "spec", "START")
+    results, result_diagnostics = _contract_entries(workspace, problem, "result", "RESULT")
+    order = lambda item: (item.question, item.subproblem or 0)
+    starts.sort(key=order)
+    results.sort(key=order)
+    diagnostics.extend(result_diagnostics)
+    single_starts = [item for item in starts if item.subproblem is None]
+    split_starts = [item for item in starts if item.subproblem is not None]
+    if single_starts and split_starts:
+        mode = "invalid"
+        diagnostics.append(error(
+            "LITE-CONTRACT-LAYOUT-001",
+            f"problems/q{problem}/spec",
+            "single and split START contracts must not be mixed",
+        ))
+    elif single_starts:
+        mode = "single"
+    elif split_starts:
+        mode = "split"
+    else:
+        mode = "none"
+    if mode == "split":
+        suffixes = [item.subproblem for item in split_starts]
+        expected = list(range(1, max(suffixes or [0]) + 1))
+        if suffixes != expected:
+            diagnostics.append(error(
+                "LITE-CONTRACT-LAYOUT-001",
+                f"problems/q{problem}/spec",
+                f"split START suffixes must be contiguous from 1; found {suffixes}",
+            ))
+        active = set(split_starts)
+        invalid_results = [
+            item for item in results
+            if item.subproblem is None or item not in active
+        ]
+    elif mode == "single":
+        active = set(single_starts)
+        invalid_results = [item for item in results if item not in active]
+    else:
+        invalid_results = list(results)
+    for item in invalid_results:
+        diagnostics.append(error(
+            "LITE-CONTRACT-LAYOUT-001",
+            item.result_path,
+            f"RESULT {item.token} does not match the active START contract mode",
+        ))
+    return ContractDiscovery(
+        mode,
+        tuple(starts),
+        tuple(results),
+        tuple(diagnostics),
+    )
 
 
 def workspace_path(raw: str | Path) -> Path:
@@ -95,8 +221,14 @@ def safe_relative_path(raw: str) -> bool:
     return True
 
 
-def evidence_path_diagnostics(workspace: Path, problem: int, raw: str) -> list[Diagnostic]:
-    location = f"problems/q{problem}/result/RESULT_Q{problem}.md"
+def evidence_path_diagnostics(
+    workspace: Path,
+    problem: int,
+    raw: str,
+    *,
+    location: str | None = None,
+) -> list[Diagnostic]:
+    location = location or f"problems/q{problem}/result/RESULT_Q{problem}.md"
     if not safe_relative_path(raw):
         return [error("LITE-EVIDENCE-PATH-001", location, f"unsafe evidence path {raw!r}")]
     relative = Path(raw)

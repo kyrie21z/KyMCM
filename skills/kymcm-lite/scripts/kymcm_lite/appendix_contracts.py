@@ -18,7 +18,10 @@ from .contracts import (
     read_contract, visible_content,
 )
 from .diagnostics import Diagnostic, error, warning
-from .paths import discover_questions, marker_diagnostics, safe_relative_path
+from .paths import (
+    discover_contracts, discover_questions, marker_diagnostics,
+    safe_relative_path,
+)
 
 
 APPENDIX_START_HEADINGS = (
@@ -316,12 +319,12 @@ def _parse_whitelist(
                     "source is outside problems/, input/, or paper/",
                 ))
             elif re.match(
-                r"problems/q[1-9][0-9]*/(?:spec/START_Q[1-9][0-9]*\.md|"
-                r"result/RESULT_Q[1-9][0-9]*\.md)$", source
+                r"problems/q[1-9][0-9]*/(?:spec/START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
+                r"result/RESULT_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md)$", source
             ):
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-PATH-001", source,
-                    "START_QN and RESULT_QN are references and cannot be copied",
+                    "START and RESULT contracts are references and cannot be copied",
                 ))
             elif not _ordinary_file(workspace, source):
                 diagnostics.append(error(
@@ -894,10 +897,12 @@ def _certification_diagnostics(
 ) -> list[Diagnostic]:
     reference_texts = [result.text]
     for number in discover_questions(workspace)[0]:
-        for relative in (
-            f"problems/q{number}/spec/START_Q{number}.md",
-            f"problems/q{number}/result/RESULT_Q{number}.md",
-        ):
+        contracts = discover_contracts(workspace, number)
+        relatives = (
+            [item.start_path for item in contracts.starts]
+            + [item.result_path for item in contracts.results]
+        )
+        for relative in relatives:
             path = workspace / relative
             if path.is_file() and not path.is_symlink():
                 reference_texts.append(path.read_text(encoding="utf-8"))

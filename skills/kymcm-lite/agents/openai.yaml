@@ -1,4 +1,4 @@
 interface:
   display_name: "KyMCM Lite"
-  short_description: "Dependency-aware Markdown modeling handoffs and appendix checks"
-  default_prompt: "Use $kymcm-lite to execute or review a dependency-aware Markdown-first mathematical-modeling handoff, stopping on upstream semantic contradictions, or to run its independent appendix-organization stage without workflow state."
+  short_description: "Single/split Markdown modeling handoffs and appendix checks"
+  default_prompt: "Use $kymcm-lite to execute or review a selected single or split Markdown-first mathematical-modeling handoff, stopping on exact upstream semantic contradictions, or to run its independent appendix-organization stage without workflow state."

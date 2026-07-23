@@ -16,8 +16,8 @@ from kymcm_lite import cli
 from kymcm_lite.contracts import START_HEADINGS, meaningful, parse_markdown
 from kymcm_lite.diagnostics import error, exit_code, render, warning
 from kymcm_lite.paths import (
-    MARKER_BYTES, discover_questions, evidence_path_diagnostics, marker_diagnostics,
-    safe_relative_path,
+    ContractId, MARKER_BYTES, discover_contracts, discover_questions,
+    evidence_path_diagnostics, marker_diagnostics, safe_relative_path,
 )
 
 
@@ -33,6 +33,80 @@ class DiagnosticTests(unittest.TestCase):
 
 
 class PathTests(unittest.TestCase):
+    def test_contract_identity_and_single_split_discovery(self):
+        self.assertEqual(ContractId(2).token, "Q2")
+        self.assertEqual(ContractId(2, 3).start_path, "problems/q2/spec/START_Q2_3.md")
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            spec = root / "problems/q2/spec"
+            result = root / "problems/q2/result"
+            spec.mkdir(parents=True)
+            result.mkdir(parents=True)
+            (spec / "START_Q2_1.md").write_text("", encoding="utf-8")
+            (spec / "START_Q2_2.md").write_text("", encoding="utf-8")
+            (result / "RESULT_Q2_2.md").write_text("", encoding="utf-8")
+            found = discover_contracts(root, 2)
+            self.assertEqual(found.mode, "split")
+            self.assertEqual([item.token for item in found.starts], ["Q2_1", "Q2_2"])
+            self.assertEqual([item.token for item in found.results], ["Q2_2"])
+            self.assertEqual(found.diagnostics, ())
+
+    def test_contract_discovery_rejects_mixed_gaps_orphans_and_malformed_names(self):
+        cases = {
+            "mixed": ("START_Q2.md", "START_Q2_1.md"),
+            "gap": ("START_Q2_1.md", "START_Q2_3.md"),
+            "zero": ("START_Q2_0.md",),
+            "leading-zero": ("START_Q2_01.md",),
+            "text": ("START_Q2_x.md",),
+            "nested-suffix": ("START_Q2_1_2.md",),
+            "wrong-question": ("START_Q3.md",),
+        }
+        for name, filenames in cases.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as raw:
+                root = Path(raw)
+                spec = root / "problems/q2/spec"
+                result = root / "problems/q2/result"
+                spec.mkdir(parents=True)
+                result.mkdir(parents=True)
+                for filename in filenames:
+                    (spec / filename).write_text("", encoding="utf-8")
+                found = discover_contracts(root, 2)
+                self.assertIn(
+                    "LITE-CONTRACT-LAYOUT-001",
+                    {item.identifier for item in found.diagnostics},
+                )
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            spec = root / "problems/q2/spec"
+            result = root / "problems/q2/result"
+            spec.mkdir(parents=True)
+            result.mkdir(parents=True)
+            (spec / "START_Q2_1.md").write_text("", encoding="utf-8")
+            (result / "RESULT_Q2_2.md").write_text("", encoding="utf-8")
+            found = discover_contracts(root, 2)
+            self.assertIn(
+                "LITE-CONTRACT-LAYOUT-001",
+                {item.identifier for item in found.diagnostics},
+            )
+
+    def test_contract_discovery_rejects_symlinked_contract(self):
+        if not hasattr(Path, "symlink_to"):
+            self.skipTest("symlinks unavailable")
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            spec = root / "problems/q1/spec"
+            result = root / "problems/q1/result"
+            spec.mkdir(parents=True)
+            result.mkdir(parents=True)
+            target = root / "start.md"
+            target.write_text("", encoding="utf-8")
+            (spec / "START_Q1.md").symlink_to(target)
+            found = discover_contracts(root, 1)
+            self.assertIn(
+                "LITE-CONTRACT-LAYOUT-001",
+                {item.identifier for item in found.diagnostics},
+            )
+
     def test_marker_is_exact_and_fails_closed(self):
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw); (root / ".kymcm").mkdir()

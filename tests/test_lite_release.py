@@ -19,7 +19,7 @@ from kymcm_lite.paths import MARKER_BYTES
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.3.0\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.3.1\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -27,8 +27,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.3.0", text, relative)
-            self.assertNotIn("0.3.0-dev", text, relative)
+            self.assertIn("0.3.1", text, relative)
+            self.assertNotIn("0.3.1-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -42,6 +42,12 @@ class LiteReleaseTests(unittest.TestCase):
             "init", "doctor", "check-start", "check-result",
             "check-appendix-start", "check-appendix-result",
         })
+        supporting = {
+            name
+            for name, command in subparsers.choices.items()
+            if any(action.dest == "subproblem" for action in command._actions)
+        }
+        self.assertEqual(supporting, {"check-start", "check-result"})
 
     def test_marker_bytes_are_frozen(self):
         self.assertEqual(MARKER_BYTES, b'{"workflow":"kymcm_lite","version":3}\n')
@@ -96,7 +102,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.3.1", "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", '{"workflow":"kymcm_lite","version":3}',
             "Full", "Lite v2", "first standalone Lite v3 release", "not automatically migrated",
@@ -106,6 +112,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.3.1 - 2026-07-24", text, relative)
             self.assertIn("0.3.0 - 2026-07-23", text, relative)
             self.assertIn("0.2.0 - 2026-07-23", text, relative)
             self.assertIn("0.1.0 - 2026-07-20", text, relative)

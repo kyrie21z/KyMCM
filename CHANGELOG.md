@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.3.1 - 2026-07-24
+
+- Support mutually exclusive single and contiguous split START/RESULT contracts within each official question.
+- Add exact `QN_K` dependency validation and optional `--subproblem` selection to `check-start` and `check-result`.
+- Make appendix contract exclusion and certification scanning split-aware without changing submission semantics.
+
 ## KyMCM Lite 0.3.0 - 2026-07-23
 
 - Remove `FROZEN_CONTEXT.md` from the active Lite layout, runtime, templates, and current documentation.
