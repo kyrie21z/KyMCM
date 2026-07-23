@@ -71,12 +71,38 @@ IDs are unique. Paths are workspace-relative, contain no `..`, and resolve throu
 
 ## Commands and diagnostics
 
-`init --questions N` refuses any existing managed root before writing, creates the exact marker, context skeleton, and variable question tree, and creates no START, RESULT, Git repository, state, content JSON, code, or evidence. `doctor`, `check-start`, and `check-result` are read-only and never execute user code.
+`init --questions N` refuses any existing managed root before writing, creates the exact marker, context skeleton, and variable question tree, and creates no START, RESULT, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code.
 
 Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`. Errors return 1, warnings alone return 0, and unexpected UTF-8, I/O, subprocess, or environment failure returns 2 with `LITE-TOOL-001`.
 
 Git availability and question-scoped dirty state are advisory. Evidence existence and safety are blocking.
 
+## Optional independent appendix stage
+
+After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. START_QN and RESULT_QN are contextual references only, and appendix commands never read or depend on `FROZEN_CONTEXT.md`.
+
+The two submitted surfaces are distinct:
+
+- `appendix/` contains the minimal reproducibility package, formal result attachments, exactly three generated environment files, optional necessary external input, and optional official `Result.xlsx`.
+- root `code/` contains only direct concise core-algorithm files for placement after the paper body.
+
+Whitelist entries use:
+
+```markdown
+- A001 — COPY — `source/path` → `appendix/target/path` — purpose
+- A002 — CURATE — `source/one`; `source/two` → `appendix/target/path` — purpose
+- A090 — GENERATE — `appendix/environment/README.md` — purpose
+- C001 — COPY — `problems/q1/code/core.py` → `code/q1_core_algorithm.py` — purpose
+```
+
+`A[0-9]{3,}` IDs belong to the appendix whitelist and `C[0-9]{3,}` IDs to the root-code whitelist; IDs and targets are globally unique. COPY has one existing source, CURATE has one or more exact `; `-separated sources, and GENERATE is limited to `appendix/environment/README.md`, `requirements.txt`, and `system_info.txt`. Paths are workspace-relative, non-symlink, contain no traversal or absolute syntax, and obey the source/target/mode rules in `references/appendix_organization.md`.
+
+APPENDIX_START section 7 declares exactly one of `外部资料：无` / ``外部资料：`appendix/input` `` and exactly one of `强制结果文件：无` / ``强制结果文件：`appendix/Result.xlsx` ``. Section 9 reduces exactly to `无`, `None`, or `N/A`.
+
+After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accounts for every whitelist ID, records deviations and evidence, and indexes `reports/appendix/evidence/source_integrity.csv`. The CSV header is exactly `path,before_sha256,after_sha256,status`; each source row has identical lowercase SHA-256 values and status `unchanged`. This is execution-provided integrity evidence, not an independent cryptographic timestamp.
+
+`check-appendix-result` enforces the exact declared file set, COPY hashes, directory rules, forbidden/duplicate artifacts, Python syntax and obvious local imports, quoted C/C++ includes, practical literal CMake references, basic XLSX ZIP/XML structure, sensitive information, and visible certification-boundary conflicts. It parses but never imports or executes user code and never invokes solvers, CMake, or compilers. Actual compilation/build and substantive workbook/result checks belong in execution evidence and human review.
+
 ## Non-goals
 
-Lite 0.1.0 does not validate mathematical correctness, discover models, manage approvals/state, migrate Full workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, or emit JSON diagnostics.
+Lite 0.2.0 does not validate mathematical correctness, discover models, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics.

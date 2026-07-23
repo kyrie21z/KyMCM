@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import sys
 
+from .appendix_contracts import check_appendix_result, check_appendix_start
 from .contracts import check_result, check_start, doctor
 from .diagnostics import error, exit_code, render
 from .paths import MANAGED_ROOTS, MARKER_BYTES, workspace_path
@@ -26,6 +27,8 @@ def parser() -> argparse.ArgumentParser:
     doctor_parser = sub.add_parser("doctor"); doctor_parser.add_argument("--workspace", required=True)
     for name in ("check-start", "check-result"):
         command = sub.add_parser(name); command.add_argument("--workspace", required=True); command.add_argument("--problem", type=positive, required=True)
+    for name in ("check-appendix-start", "check-appendix-result"):
+        command = sub.add_parser(name); command.add_argument("--workspace", required=True)
     return result
 
 
@@ -102,7 +105,14 @@ def main(argv: list[str] | None = None) -> int:
             info, diagnostics = doctor(workspace)
             for line in info + render(diagnostics): print(line)
             return exit_code(diagnostics)
-        diagnostics = check_start(workspace, args.problem) if args.command == "check-start" else check_result(workspace, args.problem)
+        if args.command == "check-start":
+            diagnostics = check_start(workspace, args.problem)
+        elif args.command == "check-result":
+            diagnostics = check_result(workspace, args.problem)
+        elif args.command == "check-appendix-start":
+            diagnostics = check_appendix_start(workspace)
+        else:
+            diagnostics = check_appendix_result(workspace)
         for line in render(diagnostics): print(line)
         return exit_code(diagnostics)
     except (UnicodeError, OSError, subprocess.SubprocessError) as exc:

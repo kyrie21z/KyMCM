@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.1.0** is the Markdown-first execution-protocol release. It initializes variable-question workspaces and performs read-only START, RESULT, and evidence checks without content JSON or workflow state.
+- **KyMCM Lite 0.2.0** is the Markdown-first execution protocol with an optional independent appendix-organization stage. It performs read-only modeling and appendix checks without content JSON or workflow state.
 
 ## Install
 
@@ -22,6 +22,8 @@ Lite core uses only Python 3.11–3.13 standard library:
 cp -R skills/kymcm-lite /path/to/codex/skills/
 python skills/kymcm-lite/scripts/lite.py init --workspace ./contest-lite --questions 3
 python skills/kymcm-lite/scripts/lite.py doctor --workspace ./contest-lite
+python skills/kymcm-lite/scripts/lite.py check-appendix-start --workspace ./contest-lite
+python skills/kymcm-lite/scripts/lite.py check-appendix-result --workspace ./contest-lite
 ```
 
 The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, figures, paper text, or a nested Git repository.
@@ -41,7 +43,7 @@ Users explicitly choose Full or Lite; neither Skill guesses, converts, or silent
 ```bash
 python -m compileall skills/kymcm-full skills/kymcm-lite tests
 python -m unittest discover -s tests/lite -v
-python -m unittest tests.test_lite_cli tests.test_lite_portability tests.test_lite_v3_phase1 tests.test_lite_release -v
+python -m unittest tests.test_lite_cli tests.test_lite_portability tests.test_lite_appendix_cli tests.test_lite_v3_phase1 tests.test_lite_release -v
 python -m unittest discover -s tests/full -v
 python -m unittest tests.test_full_cli tests.test_full_portability tests.test_figure_system tests.test_markdown_format -v
 ```
