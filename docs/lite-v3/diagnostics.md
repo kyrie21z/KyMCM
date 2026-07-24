@@ -1,6 +1,6 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.3.0.
+Status: Normative for KyMCM Lite 0.3.1.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
@@ -9,14 +9,16 @@ Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` f
 | `LITE-MODE-001` | Error | all | `.kymcm/mode.json` is missing, malformed, or not exactly Lite v3 | Yes | Show marker path, observed value/error, and exact expected marker |
 | `LITE-LAYOUT-001` | Error | `doctor` | Required managed directory or marker path is missing | Yes | Name each missing workspace-relative managed path |
 | `LITE-LAYOUT-SYMLINK-001` | Error | all | Any traversed managed path is a symlink or escapes the workspace | Yes | Name the unsafe component and managed path |
-| `LITE-START-001` | Error | `check-start`, `check-result` | START is missing, unreadable, or title is not exactly `# START QN` | Yes | Name START path and expected question identity |
+| `LITE-CONTRACT-LAYOUT-001` | Error | `doctor`, `check-start`, `check-result` | Single/split START modes are mixed, split START suffixes are non-contiguous, a contract-like name is malformed/misplaced/unsafe, or RESULT does not match an active START unit | Yes | Name the exact entry or question contract directory and violated layout rule |
+| `LITE-CONTRACT-SELECT-001` | Error | `check-start`, `check-result` | `--subproblem` is incompatible with single mode, omitted/unknown in split mode, or selection is impossible in an invalid layout | Yes | Name requested identity and available units or required invocation |
+| `LITE-START-001` | Error | `check-start`, `check-result` | Selected START is missing, unreadable, or title does not exactly match `# START QN[_K]` | Yes | Name START path and expected contract identity |
 | `LITE-START-HEADING-001` | Error | `check-start`, `check-result` | A required START heading is missing, duplicated, or reordered | Yes | Name START path, first mismatch, and expected heading order |
 | `LITE-START-DEPENDENCY-001` | Error | `check-start`, `check-result` | Section 2 dependency declaration is missing, duplicated, malformed, comment-only, or fenced-only | Yes | Name START path and exact `**前问依赖：**` grammar |
-| `LITE-START-DEPENDENCY-SCOPE-001` | Error | `check-start`, `check-result` | Dependency is self, forward, zero, negative, unknown, duplicated, or unsorted; or Q1 does not use `无` | Yes | Name START path and strict predecessor rule |
+| `LITE-START-DEPENDENCY-SCOPE-001` | Error | `check-start`, `check-result` | Dependency is same-question, forward, zero, negative, unknown, duplicated, unsorted, mismatched to upstream single/split mode, or Q1 does not use `无` | Yes | Name START path and exact earlier-unit rule |
 | `LITE-START-DEPENDENCY-CONTRACT-001` | Error | `check-start`, `check-result` | A declared upstream START/RESULT is missing, unsafe, unreadable, or structurally invalid | Yes | Name exact upstream path and required title/headings |
 | `LITE-START-EMPTY-WARN-001` | Warning | `check-start`, `check-result` | A required START section has no meaningful author content | No | Name START path and section number |
 | `LITE-START-UNRESOLVED-001` | Error | `check-start`, `check-result` | Trimmed section 8 is not exactly `无`, `None`, or `N/A` | Yes | Name START path, section 8, and permitted sentinels |
-| `LITE-RESULT-001` | Error | `check-result` | RESULT is missing, unreadable, or title is not exactly `# RESULT QN` | Yes | Name RESULT path and expected question identity |
+| `LITE-RESULT-001` | Error | `check-result` | Selected RESULT is missing, unreadable, or title does not exactly match `# RESULT QN[_K]` | Yes | Name RESULT path and expected contract identity |
 | `LITE-RESULT-HEADING-001` | Error | `check-result` | A required RESULT heading is missing, duplicated, or reordered | Yes | Name RESULT path, first mismatch, and expected heading order |
 | `LITE-RESULT-DEVIATION-001` | Error | `check-result` | RESULT section 2 contains neither `无偏差` nor an explicit authorized-deviation record | Yes | Name RESULT path and section 2 requirement |
 | `LITE-RESULT-VALIDATION-WARN-001` | Warning | `check-result` | RESULT section 4 lacks problem-applicable validation detail | No | Name RESULT path and validation section; avoid demanding inapplicable categories |
@@ -33,7 +35,7 @@ Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` f
 
 ## Appendix diagnostics
 
-The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference START and RESULT only. All paths below are workspace-relative, and secret diagnostics redact matched values.
+The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference but cannot copy single or split START/RESULT contracts. All paths below are workspace-relative, and secret diagnostics redact matched values.
 
 | Identifier | Severity | Precise trigger |
 |---|---|---|

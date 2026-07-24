@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "skills/kymcm-lite"
 FIXTURE = ROOT / "tests/fixtures/lite_synthetic_handoff"
 APPENDIX_FIXTURE = ROOT / "tests/fixtures/lite_appendix_handoff"
+SPLIT_FIXTURE = ROOT / "tests/fixtures/lite_split_handoff"
 
 
 class LitePortabilityTests(unittest.TestCase):
@@ -41,6 +42,15 @@ class LitePortabilityTests(unittest.TestCase):
                 self.assertEqual(run("check-start", "--workspace", str(workspace), "--problem", str(question)).returncode, 0)
                 result = run("check-result", "--workspace", str(workspace), "--problem", str(question))
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            split_workspace = base / "split workspace"
+            shutil.copytree(SPLIT_FIXTURE, split_workspace)
+            for command_name in ("check-start", "check-result"):
+                for unit in ("1", "2"):
+                    result = run(
+                        command_name, "--workspace", str(split_workspace),
+                        "--problem", "2", "--subproblem", unit,
+                    )
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             appendix_workspace = base / "appendix workspace"
             shutil.copytree(APPENDIX_FIXTURE, appendix_workspace)
             for appendix_command in ("check-appendix-start", "check-appendix-result"):

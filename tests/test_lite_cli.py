@@ -14,6 +14,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 CLI = ROOT / "skills/kymcm-lite/scripts/lite.py"
 FIXTURE = ROOT / "tests/fixtures/lite_synthetic_handoff"
+SPLIT_FIXTURE = ROOT / "tests/fixtures/lite_split_handoff"
 
 
 def fingerprint(root: Path) -> str:
@@ -41,11 +42,211 @@ class LiteCliTests(unittest.TestCase):
         shutil.copytree(FIXTURE, workspace)
         return temporary, workspace
 
+    def split_fixture_copy(self) -> tuple[tempfile.TemporaryDirectory[str], Path]:
+        temporary = tempfile.TemporaryDirectory()
+        workspace = Path(temporary.name) / "workspace"
+        shutil.copytree(SPLIT_FIXTURE, workspace)
+        return temporary, workspace
+
     def test_help_exposes_exact_public_commands(self):
         completed = self.run_cli("--help", ok=0)
         for command in ("init", "doctor", "check-start", "check-result"):
             self.assertIn(command, completed.stdout)
         self.assertNotIn("add-problem", completed.stdout)
+        for command in ("check-start", "check-result"):
+            self.assertIn("--subproblem", self.run_cli(command, "--help", ok=0).stdout)
+        for command in ("init", "doctor", "check-appendix-start", "check-appendix-result"):
+            self.assertNotIn("--subproblem", self.run_cli(command, "--help", ok=0).stdout)
+
+    def test_split_selection_titles_missing_result_and_doctor_output(self):
+        before = fingerprint(SPLIT_FIXTURE)
+        completed = self.run_cli("doctor", "--workspace", str(SPLIT_FIXTURE), ok=0)
+        self.assertIn("INFO q1 mode=single starts=Q1 results=Q1", completed.stdout)
+        self.assertIn(
+            "INFO q2 mode=split starts=Q2_1,Q2_2 results=Q2_1,Q2_2",
+            completed.stdout,
+        )
+        for unit in ("1", "2"):
+            self.run_cli(
+                "check-start", "--workspace", str(SPLIT_FIXTURE),
+                "--problem", "2", "--subproblem", unit, ok=0,
+            )
+            self.run_cli(
+                "check-result", "--workspace", str(SPLIT_FIXTURE),
+                "--problem", "2", "--subproblem", unit, ok=0,
+            )
+        self.assertIn(
+            "LITE-CONTRACT-SELECT-001",
+            self.run_cli(
+                "check-start", "--workspace", str(SPLIT_FIXTURE),
+                "--problem", "2", ok=1,
+            ).stdout,
+        )
+        unknown = self.run_cli(
+            "check-result", "--workspace", str(SPLIT_FIXTURE),
+            "--problem", "2", "--subproblem", "3", ok=1,
+        )
+        self.assertIn("LITE-CONTRACT-SELECT-001", unknown.stdout)
+        self.assertEqual(unknown.stdout.count("SUMMARY "), 1)
+        self.assertIn(
+            "LITE-CONTRACT-SELECT-001",
+            self.run_cli(
+                "check-start", "--workspace", str(SPLIT_FIXTURE),
+                "--problem", "1", "--subproblem", "1", ok=1,
+            ).stdout,
+        )
+        temporary, workspace = self.split_fixture_copy()
+        try:
+            (workspace / "problems/q2/result/RESULT_Q2_2.md").unlink()
+            partial = self.run_cli("doctor", "--workspace", str(workspace), ok=0)
+            self.assertIn(
+                "INFO q2 mode=split starts=Q2_1,Q2_2 results=Q2_1",
+                partial.stdout,
+            )
+            missing = self.run_cli(
+                "check-result", "--workspace", str(workspace),
+                "--problem", "2", "--subproblem", "2", ok=1,
+            )
+            self.assertIn("LITE-RESULT-001", missing.stdout)
+            self.assertIn("RESULT_Q2_2.md", missing.stdout)
+        finally:
+            temporary.cleanup()
+        temporary, workspace = self.split_fixture_copy()
+        try:
+            selected = workspace / "problems/q2/spec/START_Q2_1.md"
+            selected.write_text(
+                selected.read_text(encoding="utf-8").replace(
+                    "# START Q2_1", "# START Q2_2", 1
+                ),
+                encoding="utf-8",
+            )
+            invalid_title = self.run_cli(
+                "check-start", "--workspace", str(workspace),
+                "--problem", "2", "--subproblem", "1", ok=1,
+            )
+            self.assertIn("LITE-START-001", invalid_title.stdout)
+        finally:
+            temporary.cleanup()
+        self.assertEqual(before, fingerprint(SPLIT_FIXTURE))
+
+    def test_split_layout_failures_are_blocking_without_traceback(self):
+        mutations = {
+            "mixed": lambda root: shutil.copy2(
+                root / "problems/q2/spec/START_Q2_1.md",
+                root / "problems/q2/spec/START_Q2.md",
+            ),
+            "gap": lambda root: (
+                root / "problems/q2/spec/START_Q2_2.md"
+            ).rename(root / "problems/q2/spec/START_Q2_3.md"),
+            "orphan": lambda root: (
+                root / "problems/q2/result/RESULT_Q2_2.md"
+            ).rename(root / "problems/q2/result/RESULT_Q2_3.md"),
+        }
+        for name, mutate in mutations.items():
+            temporary, workspace = self.split_fixture_copy()
+            try:
+                mutate(workspace)
+                completed = self.run_cli(
+                    "doctor", "--workspace", str(workspace), ok=1
+                )
+                self.assertIn("LITE-CONTRACT-LAYOUT-001", completed.stdout, name)
+                self.assertNotIn("Traceback", completed.stdout + completed.stderr, name)
+            finally:
+                temporary.cleanup()
+
+    def test_split_dependency_mode_and_exact_pair_rules(self):
+        temporary, workspace = self.split_fixture_copy()
+        try:
+            q1_start = workspace / "problems/q1/spec/START_Q1.md"
+            q1_result = workspace / "problems/q1/result/RESULT_Q1.md"
+            split_start = q1_start.with_name("START_Q1_1.md")
+            split_result = q1_result.with_name("RESULT_Q1_1.md")
+            q1_start.rename(split_start)
+            q1_result.rename(split_result)
+            split_start.write_text(
+                split_start.read_text(encoding="utf-8").replace(
+                    "# START Q1", "# START Q1_1", 1
+                ),
+                encoding="utf-8",
+            )
+            split_result.write_text(
+                split_result.read_text(encoding="utf-8").replace(
+                    "# RESULT Q1", "# RESULT Q1_1", 1
+                ),
+                encoding="utf-8",
+            )
+            second_start = split_start.with_name("START_Q1_2.md")
+            second_result = split_result.with_name("RESULT_Q1_2.md")
+            shutil.copy2(split_start, second_start)
+            shutil.copy2(split_result, second_result)
+            second_start.write_text(
+                second_start.read_text(encoding="utf-8").replace(
+                    "# START Q1_1", "# START Q1_2", 1
+                ),
+                encoding="utf-8",
+            )
+            second_result.write_text(
+                second_result.read_text(encoding="utf-8").replace(
+                    "# RESULT Q1_1", "# RESULT Q1_2", 1
+                ),
+                encoding="utf-8",
+            )
+            current = workspace / "problems/q2/spec/START_Q2_1.md"
+            current.write_text(
+                current.read_text(encoding="utf-8").replace(
+                    "**前问依赖：** Q1", "**前问依赖：** Q1_1, Q1_2"
+                ),
+                encoding="utf-8",
+            )
+            valid = self.run_cli(
+                "check-start", "--workspace", str(workspace),
+                "--problem", "2", "--subproblem", "1", ok=0,
+            )
+            self.assertNotIn("LITE-START-DEPENDENCY", valid.stdout)
+            current.write_text(
+                current.read_text(encoding="utf-8").replace(
+                    "**前问依赖：** Q1_1, Q1_2", "**前问依赖：** Q1"
+                ),
+                encoding="utf-8",
+            )
+            bare = self.run_cli(
+                "check-start", "--workspace", str(workspace),
+                "--problem", "2", "--subproblem", "1", ok=1,
+            )
+            self.assertIn("LITE-START-DEPENDENCY-SCOPE-001", bare.stdout)
+            current.write_text(
+                current.read_text(encoding="utf-8").replace(
+                    "**前问依赖：** Q1", "**前问依赖：** Q1_1, Q1_2"
+                ),
+                encoding="utf-8",
+            )
+            second_result.unlink()
+            missing = self.run_cli(
+                "check-result", "--workspace", str(workspace),
+                "--problem", "2", "--subproblem", "1", ok=1,
+            )
+            self.assertEqual(
+                missing.stdout.count("LITE-START-DEPENDENCY-CONTRACT-001"), 1
+            )
+        finally:
+            temporary.cleanup()
+
+        temporary, workspace = self.split_fixture_copy()
+        try:
+            current = workspace / "problems/q2/spec/START_Q2_1.md"
+            current.write_text(
+                current.read_text(encoding="utf-8").replace(
+                    "**前问依赖：** Q1", "**前问依赖：** Q1_1"
+                ),
+                encoding="utf-8",
+            )
+            completed = self.run_cli(
+                "check-start", "--workspace", str(workspace),
+                "--problem", "2", "--subproblem", "1", ok=1,
+            )
+            self.assertIn("LITE-START-DEPENDENCY-SCOPE-001", completed.stdout)
+        finally:
+            temporary.cleanup()
 
     def test_init_variable_counts_unrelated_root_and_only_mode_json(self):
         for count in (1, 3, 6):

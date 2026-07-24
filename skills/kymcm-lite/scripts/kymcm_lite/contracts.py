@@ -8,7 +8,8 @@ import subprocess
 
 from .diagnostics import Diagnostic, error, warning
 from .paths import (
-    LEGACY_IGNORED_ROOTS, MANAGED_ROOTS, discover_questions,
+    ContractDiscovery, ContractId, LEGACY_IGNORED_ROOTS, MANAGED_ROOTS,
+    discover_contracts, discover_questions,
     evidence_path_diagnostics, marker_diagnostics, question_layout_diagnostics,
     safe_relative_path, symlink_diagnostics,
 )
@@ -25,8 +26,9 @@ RESULT_HEADINGS = (
 )
 EVIDENCE_LINE = re.compile(r"^- (E[0-9]+) — `([^`]*)` — (\S.*)$")
 DEPENDENCY_LABEL = "**前问依赖：**"
-DEPENDENCY_NUMBER = r"Q(?:0|-[1-9][0-9]*|[1-9][0-9]*)"
-DEPENDENCY_VALUE = re.compile(rf"^(?:无|{DEPENDENCY_NUMBER}(?:, {DEPENDENCY_NUMBER})*)$")
+DEPENDENCY_TOKEN = r"Q(?:0|-[1-9][0-9]*|[1-9][0-9]*)(?:_[1-9][0-9]*)?"
+DEPENDENCY_VALUE = re.compile(rf"^(?:无|{DEPENDENCY_TOKEN}(?:, {DEPENDENCY_TOKEN})*)$")
+DEPENDENCY_PARSE = re.compile(r"^Q(-?[0-9]+)(?:_([1-9][0-9]*))?$")
 FENCE = re.compile(r"^\s*(`{3,}|~{3,})")
 HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*$")
 
@@ -104,7 +106,7 @@ def heading_diagnostics(parsed: Markdown, required: tuple[str, ...], identifier:
 
 def dependency_diagnostics(
     workspace: Path,
-    problem: int,
+    current: ContractId,
     numbers: list[int],
     parsed: Markdown,
     location: str,
@@ -135,34 +137,68 @@ def dependency_diagnostics(
             error(
                 "LITE-START-DEPENDENCY-001",
                 location,
-                "dependency value must be 无 or an exact ascending list such as Q1, Q2",
+                "dependency value must be 无 or an exact ascending list such as Q1, Q1_1, Q2",
             )
         ]
-    dependencies = [] if raw == "无" else [int(item[1:]) for item in raw.split(", ")]
+    raw_dependencies = [] if raw == "无" else raw.split(", ")
+    dependencies = [
+        (int(match.group(1)), int(match.group(2)) if match.group(2) else None)
+        for item in raw_dependencies
+        if (match := DEPENDENCY_PARSE.fullmatch(item))
+    ]
+    order = [(question, subproblem or 0) for question, subproblem in dependencies]
     if (
-        (problem == 1 and dependencies)
+        len(dependencies) != len(raw_dependencies)
+        or (current.question == 1 and dependencies)
         or len(dependencies) != len(set(dependencies))
-        or dependencies != sorted(dependencies)
-        or any(item < 1 or item >= problem or item not in numbers for item in dependencies)
+        or order != sorted(order)
+        or any(
+            question < 1
+            or question >= current.question
+            or question not in numbers
+            for question, _ in dependencies
+        )
     ):
         return [
             error(
                 "LITE-START-DEPENDENCY-SCOPE-001",
                 location,
-                "dependencies must be unique, strictly increasing existing predecessors; Q1 must use 无",
+                "dependencies must be unique, strictly ordered exact units from existing earlier questions; Q1 must use 无",
             )
         ]
     diagnostics: list[Diagnostic] = []
-    for dependency in dependencies:
+    for question, subproblem in dependencies:
+        dependency = ContractId(question, subproblem)
+        discovery = discover_contracts(workspace, question)
+        valid_mode = (
+            (
+                subproblem is None
+                and discovery.mode == "single"
+                and dependency in discovery.starts
+            )
+            or (
+                subproblem is not None
+                and discovery.mode == "split"
+                and dependency in discovery.starts
+            )
+            or discovery.mode == "none"
+        )
+        if not valid_mode:
+            diagnostics.append(error(
+                "LITE-START-DEPENDENCY-SCOPE-001",
+                location,
+                f"{dependency.token} is not an exact active upstream contract unit",
+            ))
+            continue
         contracts = (
             (
-                f"problems/q{dependency}/spec/START_Q{dependency}.md",
-                f"# START Q{dependency}",
+                dependency.start_path,
+                dependency.title("START"),
                 START_HEADINGS,
             ),
             (
-                f"problems/q{dependency}/result/RESULT_Q{dependency}.md",
-                f"# RESULT Q{dependency}",
+                dependency.result_path,
+                dependency.title("RESULT"),
                 RESULT_HEADINGS,
             ),
         )
@@ -205,27 +241,89 @@ def git_warning(workspace: Path) -> list[Diagnostic]:
     return []
 
 
-def _base(workspace: Path, problem: int) -> tuple[list[Diagnostic], list[int]]:
+def _base(
+    workspace: Path,
+    problem: int,
+) -> tuple[list[Diagnostic], list[int], ContractDiscovery]:
     diagnostics = marker_diagnostics(workspace)
     numbers, discovery = discover_questions(workspace)
     diagnostics.extend(discovery)
+    contracts = discover_contracts(workspace, problem)
     if problem not in numbers:
         diagnostics.append(error("LITE-LAYOUT-001", f"problems/q{problem}", "requested managed question does not exist"))
     else:
         diagnostics.extend(question_layout_diagnostics(workspace, problem))
-    return diagnostics, numbers
+        diagnostics.extend(contracts.diagnostics)
+    return diagnostics, numbers, contracts
 
 
-def check_start(workspace: Path, problem: int, *, include_git: bool = True) -> list[Diagnostic]:
-    diagnostics, numbers = _base(workspace, problem)
-    location = f"problems/q{problem}/spec/START_Q{problem}.md"
-    parsed, reading = read_contract(workspace / location, location, "LITE-START-001", f"# START Q{problem}")
+def select_contract(
+    discovery: ContractDiscovery,
+    problem: int,
+    subproblem: int | None,
+) -> tuple[ContractId | None, list[Diagnostic]]:
+    requested = ContractId(problem, subproblem)
+    location = requested.start_path
+    if discovery.mode == "none":
+        return requested, []
+    if discovery.mode == "single":
+        if subproblem is None:
+            return requested, []
+        return None, [error(
+            "LITE-CONTRACT-SELECT-001",
+            location,
+            f"Q{problem} uses single mode; omit --subproblem",
+        )]
+    if discovery.mode == "split":
+        if subproblem is None:
+            available = ",".join(item.token for item in discovery.starts)
+            return None, [error(
+                "LITE-CONTRACT-SELECT-001",
+                f"problems/q{problem}/spec",
+                f"Q{problem} uses split mode; supply --subproblem from {available}",
+            )]
+        if requested in discovery.starts:
+            return requested, []
+        available = ",".join(item.token for item in discovery.starts)
+        return None, [error(
+            "LITE-CONTRACT-SELECT-001",
+            location,
+            f"selected {requested.token} is unavailable; active units are {available}",
+        )]
+    return None, [error(
+        "LITE-CONTRACT-SELECT-001",
+        f"problems/q{problem}/spec",
+        f"cannot select {requested.token} from an invalid contract layout",
+    )]
+
+
+def check_start(
+    workspace: Path,
+    problem: int,
+    subproblem: int | None = None,
+    *,
+    include_git: bool = True,
+) -> list[Diagnostic]:
+    diagnostics, numbers, discovery = _base(workspace, problem)
+    selected, selection = select_contract(discovery, problem, subproblem)
+    diagnostics.extend(selection)
+    if selected is None:
+        if include_git:
+            diagnostics.extend(git_warning(workspace))
+        return diagnostics
+    location = selected.start_path
+    parsed, reading = read_contract(
+        workspace / location,
+        location,
+        "LITE-START-001",
+        selected.title("START"),
+    )
     diagnostics.extend(reading)
     if parsed is not None:
         structure = heading_diagnostics(parsed, START_HEADINGS, "LITE-START-HEADING-001", location)
         diagnostics.extend(structure)
         if not structure:
-            diagnostics.extend(dependency_diagnostics(workspace, problem, numbers, parsed, location))
+            diagnostics.extend(dependency_diagnostics(workspace, selected, numbers, parsed, location))
             for heading in START_HEADINGS[:-1]:
                 if not meaningful(parsed.section(heading, START_HEADINGS)):
                     diagnostics.append(warning("LITE-START-EMPTY-WARN-001", location, f"{heading} has no meaningful author content"))
@@ -237,10 +335,24 @@ def check_start(workspace: Path, problem: int, *, include_git: bool = True) -> l
     return diagnostics
 
 
-def check_result(workspace: Path, problem: int) -> list[Diagnostic]:
-    diagnostics = check_start(workspace, problem, include_git=False)
-    location = f"problems/q{problem}/result/RESULT_Q{problem}.md"
-    parsed, reading = read_contract(workspace / location, location, "LITE-RESULT-001", f"# RESULT Q{problem}")
+def check_result(
+    workspace: Path,
+    problem: int,
+    subproblem: int | None = None,
+) -> list[Diagnostic]:
+    diagnostics = check_start(workspace, problem, subproblem, include_git=False)
+    discovery = discover_contracts(workspace, problem)
+    selected, _ = select_contract(discovery, problem, subproblem)
+    if selected is None:
+        diagnostics.extend(git_warning(workspace))
+        return diagnostics
+    location = selected.result_path
+    parsed, reading = read_contract(
+        workspace / location,
+        location,
+        "LITE-RESULT-001",
+        selected.title("RESULT"),
+    )
     diagnostics.extend(reading)
     if parsed is not None:
         structure = heading_diagnostics(parsed, RESULT_HEADINGS, "LITE-RESULT-HEADING-001", location)
@@ -272,14 +384,14 @@ def check_result(workspace: Path, problem: int) -> list[Diagnostic]:
                     diagnostics.append(error("LITE-EVIDENCE-FORMAT-001", location, f"duplicate evidence ID {identifier}"))
                     continue
                 identifiers.add(identifier)
-                diagnostics.extend(evidence_path_diagnostics(workspace, problem, raw))
+                diagnostics.extend(evidence_path_diagnostics(workspace, problem, raw, location=location))
     diagnostics.extend(git_warning(workspace))
     if shutil.which("git") and not any(item.identifier == "LITE-GIT-WARN-001" for item in diagnostics):
         scoped = [f"problems/q{problem}/code", f"problems/q{problem}/data/derived"]
         dirty = subprocess.run(["git", "-C", str(workspace), "status", "--porcelain", "--", *scoped], text=True, capture_output=True)
         if dirty.returncode == 0 and dirty.stdout.strip():
             diagnostics.append(warning("LITE-GIT-DIRTY-WARN-001", f"problems/q{problem}", "current-question code or derived data has Git changes"))
-    start = workspace / f"problems/q{problem}/spec/START_Q{problem}.md"
+    start = workspace / selected.start_path
     result = workspace / location
     if start.is_file() and result.is_file() and result.stat().st_mtime < start.stat().st_mtime:
         diagnostics.append(warning("LITE-STALE-WARN-001", location, "RESULT is older than START; advisory mtime heuristic only"))
@@ -297,6 +409,7 @@ def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
     diagnostics.extend(discovery)
     for problem in numbers:
         diagnostics.extend(question_layout_diagnostics(workspace, problem))
+        diagnostics.extend(discover_contracts(workspace, problem).diagnostics)
     if not (3, 11) <= (__import__("sys").version_info[:2]) <= (3, 13):
         diagnostics.append(error("LITE-TOOL-001", "python", "Python 3.11 through 3.13 is required"))
     diagnostics.extend(git_warning(workspace))
@@ -311,7 +424,8 @@ def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
     ) if problems.is_dir() and not problems.is_symlink() else []
     info.append(f"INFO unknown-problem-entries={','.join(unknown_problems) if unknown_problems else 'none'}")
     for problem in numbers:
-        start = (workspace / f"problems/q{problem}/spec/START_Q{problem}.md").is_file()
-        result = (workspace / f"problems/q{problem}/result/RESULT_Q{problem}.md").is_file()
-        info.append(f"INFO q{problem} start={'present' if start else 'absent'} result={'present' if result else 'absent'}")
+        contracts = discover_contracts(workspace, problem)
+        starts = ",".join(item.token for item in contracts.starts) or "none"
+        results = ",".join(item.token for item in contracts.results) or "none"
+        info.append(f"INFO q{problem} mode={contracts.mode} starts={starts} results={results}")
     return info, diagnostics

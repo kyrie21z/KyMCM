@@ -26,7 +26,7 @@ def parser() -> argparse.ArgumentParser:
     init = sub.add_parser("init"); init.add_argument("--workspace", required=True); init.add_argument("--questions", type=positive, required=True)
     doctor_parser = sub.add_parser("doctor"); doctor_parser.add_argument("--workspace", required=True)
     for name in ("check-start", "check-result"):
-        command = sub.add_parser(name); command.add_argument("--workspace", required=True); command.add_argument("--problem", type=positive, required=True)
+        command = sub.add_parser(name); command.add_argument("--workspace", required=True); command.add_argument("--problem", type=positive, required=True); command.add_argument("--subproblem", type=positive)
     for name in ("check-appendix-start", "check-appendix-result"):
         command = sub.add_parser(name); command.add_argument("--workspace", required=True)
     return result
@@ -96,9 +96,9 @@ def main(argv: list[str] | None = None) -> int:
             for line in info + render(diagnostics): print(line)
             return exit_code(diagnostics)
         if args.command == "check-start":
-            diagnostics = check_start(workspace, args.problem)
+            diagnostics = check_start(workspace, args.problem, args.subproblem)
         elif args.command == "check-result":
-            diagnostics = check_result(workspace, args.problem)
+            diagnostics = check_result(workspace, args.problem, args.subproblem)
         elif args.command == "check-appendix-start":
             diagnostics = check_appendix_start(workspace)
         else:
