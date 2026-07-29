@@ -71,7 +71,11 @@ class PreprocessRuntimeTests(unittest.TestCase):
             self.assertNotIn("LITE-PREPROCESS-LAYOUT-001", ids(diagnostics))
             self.assertIn("INFO preprocess=present start=yes result=yes", info)
             self.assertEqual(
-                [path.name for path in (workspace / "problems").iterdir() if path.name.startswith("q")],
+                sorted(
+                    item.name
+                    for item in (workspace / "problems").iterdir()
+                    if item.name.startswith("q")
+                ),
                 ["q1", "q2", "q3"],
             )
             (pre / "spec/START_PRE_1.md").write_text("# START PRE_1\n", encoding="utf-8")
