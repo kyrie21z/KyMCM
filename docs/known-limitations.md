@@ -7,9 +7,10 @@
 - Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred but never bundled.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.5.1 limitations:
+KyMCM Lite 0.6.0 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
+- PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
 - Git diagnostics are advisory rather than revision bindings.
 - Lite does not generate papers or figures, provide solvers, or migrate Full workspaces.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.

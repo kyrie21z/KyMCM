@@ -14,13 +14,13 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 ## 两个代码交付面的职责
 
-`appendix/problems/qN/code/` 保留生成正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。根 `code/` 不承担完整复现职责，只选择与论文方法、执行可靠性或结果审计有明确关系的代表性直接文件。
+`appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 保留生成正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。根 `code/` 不承担完整复现职责，只选择与论文方法、数据处理、执行可靠性或结果审计有明确关系的代表性直接文件。
 
 两类代码都必须来自本队真实工程并可追溯到 APPENDIX_START 中的准确源路径。根 `code/` 可以同时展示核心模型与非核心工程实现，不要求每题一个文件，也不要求只展示最常见的核心算法。
 
 ## `appendix/`：完整正式求解代码
 
-`appendix/problems/qN/` 只能有 `code/` 和 `result/` 后代。代码白名单覆盖正式流程实际使用的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、任务调度、批量或并行执行、断点续算、阶段恢复、缓存复用、失败隔离与重试、状态回读、验证审计、结果核验与正式导出，以及这些路径依赖的本地模块和配置代码。
+`appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 来源可来自 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE 与所有 QN 合同同样禁止复制。代码白名单覆盖正式流程实际使用的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、任务调度、批量或并行执行、断点续算、阶段恢复、缓存复用、失败隔离与重试、状态回读、验证审计、结果核验与正式导出，以及这些路径依赖的本地模块和配置代码。
 
 排除测试、缓存和字节码、日志和运行输出、历史/废弃/试验实现、临时调试脚本、归档与二进制、模型 checkpoint 数据、求解中间状态、可再生运行产物、内部桥接、凭据、个人环境文件和无关基础设施。调度、恢复、状态、监控或审计语义本身不是排除理由；`scheduler.py`、`checkpoint.py`、`run_status.py`、`resource_monitor.py`、`audit.py` 等真实源码可以进入。
 
@@ -30,7 +30,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 ## 绘图代码排除
 
-绘图代码不进入 `appendix/problems/qN/code/` 或根 `code/`。主要职责为生成论文图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
+绘图代码不进入 `appendix/problems/qN/code/`、`appendix/problems/preprocess/code/` 或根 `code/`。主要职责为生成论文图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
 
 正式计算与少量绘图逻辑同文件时，优先从真实源文件机械 CURATE：仅删除绘图入口或函数，不重写数学部分。若无法安全分离，停止并记录人工决策，不静默改写。自动 checker 不根据文件名或 import 猜测全部绘图职责；APPENDIX_START 白名单、Codex 语义审查和人工终审承担该边界。
 

@@ -1,10 +1,10 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.5.1.
+Status: Normative for KyMCM Lite 0.6.0.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.5.1 adds no public command, plotting classifier, originality score, or similarity diagnostic. HANDOFF identity, completeness, synchronization, formal/auxiliary separation, writing quality, appendix formal-code completeness, plotting responsibility, and code authenticity are semantic agent/human review responsibilities rather than Python pass/fail conditions.
+Lite 0.6.0 adds two read-only PRE commands but no automatic cleaning, EDA/causal certification, plotting classifier, originality score, or similarity diagnostic. HANDOFF identity, completeness, synchronization, formal/auxiliary separation, writing quality, appendix formal-code completeness, plotting responsibility, and code authenticity are semantic agent/human review responsibilities rather than Python pass/fail conditions.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|
@@ -34,6 +34,24 @@ Lite 0.5.1 adds no public command, plotting classifier, originality score, or si
 | `LITE-GIT-DIRTY-WARN-001` | Warning | `check-result` | Current-question `code` or `data/derived` has Git changes | No | List affected question-scoped paths without changing Git state |
 | `LITE-STALE-WARN-001` | Warning | `check-result` | RESULT modification time is older than START | No | Name both paths/times and label this an advisory heuristic |
 | `LITE-TOOL-001` | Error | all | An unexpected I/O, encoding, subprocess, or environment failure prevents diagnosis | Tool failure | Name operation and safe error context; return exit code 2 |
+
+## Preprocess diagnostics
+
+| Identifier | Severity | Precise trigger |
+|---|---|---|
+| `LITE-PREPROCESS-LAYOUT-001` | Error | The optional PRE tree is incomplete, unsafe, symlinked, split, malformed, or misplaced |
+| `LITE-PREPROCESS-START-001` | Error | START_PRE is missing, unreadable, unsafe, or has the wrong title |
+| `LITE-PREPROCESS-START-HEADING-001` | Error | START_PRE headings are missing, duplicated, or reordered |
+| `LITE-PREPROCESS-START-EMPTY-WARN-001` | Warning | A required START_PRE section lacks visible author content |
+| `LITE-PREPROCESS-START-UNRESOLVED-001` | Error | START_PRE section 8 is not exactly cleared |
+| `LITE-PREPROCESS-RESULT-001` | Error | RESULT_PRE is missing, unreadable, unsafe, or has the wrong title |
+| `LITE-PREPROCESS-RESULT-HEADING-001` | Error | RESULT_PRE headings are missing, duplicated, or reordered |
+| `LITE-PREPROCESS-RESULT-DEVIATION-001` | Error | RESULT_PRE section 2 lacks no-deviation or authorized-deviation wording |
+| `LITE-PREPROCESS-RESULT-VALIDATION-WARN-001` | Warning | RESULT_PRE validation/audit detail is insufficient |
+| `LITE-START-PREPROCESS-001` | Error | QN PRE declaration is duplicated, malformed, misplaced, or not `无`/`PRE` |
+| `LITE-START-PREPROCESS-CONTRACT-001` | Error | A declared PRE dependency lacks valid exact START_PRE/RESULT_PRE contracts |
+| `LITE-START-PREPROCESS-WARN-001` | Warning | PRE exists but a legacy QN START omits the PRE declaration |
+| `LITE-PREPROCESS-STALE-WARN-001` | Warning | A PRE contract/data-product timestamp suggests a dependent QN result may be stale |
 
 ## Appendix diagnostics
 

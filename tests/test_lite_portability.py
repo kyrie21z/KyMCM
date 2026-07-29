@@ -27,7 +27,21 @@ class LitePortabilityTests(unittest.TestCase):
             def run(*args: str) -> subprocess.CompletedProcess[str]:
                 return subprocess.run([*command, *args], cwd=base, env=env, text=True, capture_output=True)
             self.assertEqual(run("--help").returncode, 0)
-            self.assertEqual(run("init", "--workspace", str(workspace), "--questions", "3").returncode, 0)
+            self.assertEqual(run(
+                "init", "--workspace", str(workspace), "--questions", "3", "--preprocess"
+            ).returncode, 0)
+            shutil.copy2(
+                copied / "templates/START_PRE.template.md",
+                workspace / "problems/preprocess/spec/START_PRE.md",
+            )
+            result_pre = (copied / "templates/RESULT_PRE.template.md").read_text(encoding="utf-8").replace(
+                "<!-- 示例：- E1 — `problems/preprocess/data/derived/cleaned_data.csv` — 冻结清洗数据 -->",
+                "- E1 — `problems/preprocess/data/derived/cleaned_data.csv` — 冻结清洗数据",
+            )
+            (workspace / "problems/preprocess/result/RESULT_PRE.md").write_text(result_pre, encoding="utf-8")
+            (workspace / "problems/preprocess/data/derived/cleaned_data.csv").write_text(
+                "id,value\n1,2\n", encoding="utf-8"
+            )
             (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
             for question in (1, 2, 3):
                 for part, name in (("spec", f"START_Q{question}.md"), ("result", f"RESULT_Q{question}.md")):
@@ -38,6 +52,8 @@ class LitePortabilityTests(unittest.TestCase):
                         if path.is_file():
                             target = workspace / path.relative_to(FIXTURE); target.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(path, target)
             self.assertEqual(run("doctor", "--workspace", str(workspace)).returncode, 0)
+            self.assertEqual(run("check-preprocess-start", "--workspace", str(workspace)).returncode, 0)
+            self.assertEqual(run("check-preprocess-result", "--workspace", str(workspace)).returncode, 0)
             for question in (1, 2, 3):
                 self.assertEqual(run("check-start", "--workspace", str(workspace), "--problem", str(question)).returncode, 0)
                 result = run("check-result", "--workspace", str(workspace), "--problem", str(question))

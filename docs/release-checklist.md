@@ -17,7 +17,7 @@
 
 ## KyMCM Lite checks
 
-- Lite 0.5.1 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two modeling checks accept optional `--subproblem`.
+- Lite 0.6.0 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - Both `modeling_plan_design.md` references match the supplied SHA-256 `3c508dc1a48a697efcc8b220cde5187727b8b49ba4b81570ca3ab8750e09120b`, and SKILL requires reading the standalone reference.
 - Modeling-plan review covers minimum deliverable, preflight, smoke test, staged artifacts/recovery, explicit nested cost, and L0/L1/L2 without adding state, commands, diagnostics, or success artifacts.
 - `paper_handoff.md` and HANDOFF template mirrors have byte parity; the template has one exact identity, formal upstream declaration, and eight frozen headings.
@@ -29,8 +29,8 @@
 - Lite runtime uses only the standard library and remains independent of Full.
 - Unit, modeling CLI, appendix CLI, portability, Phase 1, release, and release-tree suites pass.
 - Repository and standalone templates have byte parity.
-- Doctor and all four checkers preserve workspace fingerprints; all five read-only commands ignore a legacy invalid-UTF-8 `FROZEN_CONTEXT.md`.
+- Doctor and all six checkers preserve workspace fingerprints; all seven read-only commands ignore a legacy invalid-UTF-8 `FROZEN_CONTEXT.md`.
 - Single/split layout, contiguous START suffixes, partial RESULT completion, exact selected titles, and exact upstream unit availability are covered; semantic contradiction review remains a Codex/human responsibility and creates no success artifact.
 - Evidence control-character, scope, traversal, and symlink guards pass.
 - A copied read-only Skill passes from an unrelated working directory.
-- Lite tags use `lite-v<version>`; a 0.5.1 tag requires separate release authorization.
+- Lite tags use `lite-v<version>`; a 0.6.0 tag requires separate release authorization.

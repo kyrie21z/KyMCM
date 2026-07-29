@@ -15,6 +15,10 @@ MANAGED_ROOTS = (".kymcm", "input", "paper", "reports", "problems")
 LEGACY_IGNORED_ROOTS = ("FROZEN_CONTEXT.md",)
 QUESTION_DIRS = ("spec", "code", "data", "data/derived", "outputs", "notes", "result")
 EVIDENCE_DIRS = ("code", "data/derived", "outputs", "notes")
+PREPROCESS_ROOT = "problems/preprocess"
+PREPROCESS_START = f"{PREPROCESS_ROOT}/spec/START_PRE.md"
+PREPROCESS_RESULT = f"{PREPROCESS_ROOT}/result/RESULT_PRE.md"
+PREPROCESS_HANDOFF = f"{PREPROCESS_ROOT}/notes/HANDOFF_PRE.md"
 CONTRACT_LIKE = re.compile(r"^(?:START|RESULT)_Q")
 START_CONTRACT = re.compile(r"^START_Q([1-9][0-9]*)(?:_([1-9][0-9]*))?\.md$")
 RESULT_CONTRACT = re.compile(r"^RESULT_Q([1-9][0-9]*)(?:_([1-9][0-9]*))?\.md$")
@@ -211,6 +215,59 @@ def question_layout_diagnostics(workspace: Path, problem: int) -> list[Diagnosti
     return diagnostics
 
 
+def preprocess_layout_diagnostics(
+    workspace: Path, *, required: bool = False
+) -> list[Diagnostic]:
+    root = workspace / PREPROCESS_ROOT
+    if not os.path.lexists(root):
+        return [error(
+            "LITE-PREPROCESS-LAYOUT-001", PREPROCESS_ROOT,
+            "optional preprocess unit is required by this command or declaration",
+        )] if required else []
+    diagnostics = symlink_diagnostics(
+        workspace,
+        [PREPROCESS_ROOT, *(f"{PREPROCESS_ROOT}/{part}" for part in QUESTION_DIRS)],
+    )
+    if not root.is_dir() or root.is_symlink():
+        diagnostics.append(error(
+            "LITE-PREPROCESS-LAYOUT-001", PREPROCESS_ROOT,
+            "preprocess root must be an ordinary directory",
+        ))
+        return diagnostics
+    for part in QUESTION_DIRS:
+        path = root / part
+        if not path.is_dir() or path.is_symlink():
+            diagnostics.append(error(
+                "LITE-PREPROCESS-LAYOUT-001", f"{PREPROCESS_ROOT}/{part}",
+                "required preprocess directory is missing or unsafe",
+            ))
+    locations = (
+        ("spec", "START_PRE.md"),
+        ("result", "RESULT_PRE.md"),
+        ("notes", "HANDOFF_PRE.md"),
+    )
+    allowed = {name for _, name in locations}
+    for directory, exact in locations:
+        path = root / directory
+        if not path.is_dir() or path.is_symlink():
+            continue
+        for entry in sorted(path.iterdir(), key=lambda item: item.name):
+            if not re.match(r"^(?:START|RESULT|HANDOFF)_PRE", entry.name):
+                continue
+            location = entry.relative_to(workspace).as_posix()
+            if (
+                entry.name != exact
+                or entry.name not in allowed
+                or entry.is_symlink()
+                or not entry.is_file()
+            ):
+                diagnostics.append(error(
+                    "LITE-PREPROCESS-LAYOUT-001", location,
+                    "malformed, split, misplaced, or unsafe PRE contract-like entry",
+                ))
+    return diagnostics
+
+
 def safe_relative_path(raw: str) -> bool:
     if not raw or any(ord(character) < 32 or ord(character) == 127 for character in raw):
         return False
@@ -247,4 +304,34 @@ def evidence_path_diagnostics(
     question = (workspace / f"problems/q{problem}").resolve()
     if question not in resolved.parents:
         return [error("LITE-EVIDENCE-SCOPE-001", raw, "evidence resolves outside the current question")]
+    return []
+
+
+def preprocess_evidence_path_diagnostics(
+    workspace: Path,
+    raw: str,
+    *,
+    location: str = PREPROCESS_RESULT,
+) -> list[Diagnostic]:
+    if not safe_relative_path(raw):
+        return [error("LITE-EVIDENCE-PATH-001", location, f"unsafe evidence path {raw!r}")]
+    relative = Path(raw)
+    allowed_prefixes = tuple(Path(f"{PREPROCESS_ROOT}/{part}") for part in EVIDENCE_DIRS)
+    if not any(relative == prefix or prefix in relative.parents for prefix in allowed_prefixes):
+        return [error(
+            "LITE-EVIDENCE-SCOPE-001", location,
+            f"evidence is outside PRE allowed directories: {raw}",
+        )]
+    current = workspace
+    for part in relative.parts:
+        current /= part
+        if os.path.lexists(current) and current.is_symlink():
+            return [error("LITE-EVIDENCE-SYMLINK-001", raw, "evidence path contains a symlink")]
+    target = workspace / relative
+    if not target.is_file() or target.is_symlink():
+        return [error("LITE-EVIDENCE-MISSING-001", raw, "evidence must be an existing ordinary file")]
+    resolved = target.resolve()
+    preprocess = (workspace / PREPROCESS_ROOT).resolve()
+    if preprocess not in resolved.parents:
+        return [error("LITE-EVIDENCE-SCOPE-001", raw, "evidence resolves outside preprocess")]
     return []

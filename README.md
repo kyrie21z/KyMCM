@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.5.1** is the Markdown-first execution protocol with execution-first plan design, evidence-linked paper-writing HANDOFF documents, a complete formal-solve appendix code package excluding plotting, and authentic representative paper-code selection. No command, workflow state, or content JSON is added.
+- **KyMCM Lite 0.6.0** is the Markdown-first execution protocol with an optional shared-data PRE stage, execution-first plan design, evidence-linked paper-writing HANDOFF documents, and appendix curation without workflow state or content JSON.
 
 ## Install
 
@@ -20,7 +20,9 @@ Lite core uses only Python 3.11–3.13 standard library:
 
 ```bash
 cp -R skills/kymcm-lite /path/to/codex/skills/
-python skills/kymcm-lite/scripts/lite.py init --workspace ./contest-lite --questions 3
+python skills/kymcm-lite/scripts/lite.py init --workspace ./contest-lite --questions 3 --preprocess
+python skills/kymcm-lite/scripts/lite.py check-preprocess-start --workspace ./contest-lite
+python skills/kymcm-lite/scripts/lite.py check-preprocess-result --workspace ./contest-lite
 python skills/kymcm-lite/scripts/lite.py doctor --workspace ./contest-lite
 python skills/kymcm-lite/scripts/lite.py check-appendix-start --workspace ./contest-lite
 python skills/kymcm-lite/scripts/lite.py check-appendix-result --workspace ./contest-lite

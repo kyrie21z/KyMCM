@@ -182,7 +182,7 @@ def _parse_declaration(section: str, label: str, choices: dict[str, bool]) -> tu
 
 
 def _source_mapping_valid(source: str, target: str) -> bool:
-    match = re.match(r"appendix/problems/(q[1-9][0-9]*)/(code|result)/", target)
+    match = re.match(r"appendix/problems/(q[1-9][0-9]*|preprocess)/(code|result)/", target)
     if match:
         question, kind = match.groups()
         if kind == "code":
@@ -190,6 +190,10 @@ def _source_mapping_valid(source: str, target: str) -> bool:
         return (
             source.startswith(f"problems/{question}/outputs/")
             or source.startswith(f"problems/{question}/data/derived/")
+            or (
+                question == "preprocess"
+                and source.startswith("problems/preprocess/notes/")
+            )
         )
     if target.startswith("appendix/input/"):
         return source.startswith("input/")
@@ -198,7 +202,7 @@ def _source_mapping_valid(source: str, target: str) -> bool:
             re.match(r"problems/q[1-9][0-9]*/outputs/", source)
         )
     if target.startswith("code/"):
-        return bool(re.match(r"problems/q[1-9][0-9]*/code/", source))
+        return bool(re.match(r"problems/(?:q[1-9][0-9]*|preprocess)/code/", source))
     return False
 
 
@@ -217,7 +221,9 @@ def _target_valid(category: str, target: str, numbers: list[int]) -> bool:
     match = re.match(
         r"^appendix/problems/q([1-9][0-9]*)/(?:code|result)/.+$", target
     )
-    return bool(match and int(match.group(1)) in numbers)
+    return bool(match and int(match.group(1)) in numbers) or bool(re.match(
+        r"^appendix/problems/preprocess/(?:code|result)/.+$", target
+    ))
 
 
 def _mode_valid(entry: AppendixEntry) -> bool:
@@ -227,7 +233,7 @@ def _mode_valid(entry: AppendixEntry) -> bool:
     if (
         target == "appendix/Result.xlsx"
         or target.startswith("appendix/input/")
-        or re.match(r"appendix/problems/q[1-9][0-9]*/result/", target)
+        or re.match(r"appendix/problems/(?:q[1-9][0-9]*|preprocess)/result/", target)
     ):
         return entry.mode == "COPY"
     if target.startswith("appendix/problems/") or target.startswith("code/"):
@@ -320,9 +326,11 @@ def _parse_whitelist(
                     "source is outside problems/, input/, or paper/",
                 ))
             elif re.match(
-                r"problems/q[1-9][0-9]*/(?:spec/START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
+                r"(?:problems/q[1-9][0-9]*/(?:spec/START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
                 r"result/RESULT_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
-                r"notes/HANDOFF_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md)$", source
+                r"notes/HANDOFF_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md)|"
+                r"problems/preprocess/(?:spec/START_PRE\.md|result/RESULT_PRE\.md|"
+                r"notes/HANDOFF_PRE\.md))$", source
             ):
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-PATH-001", source,
@@ -671,7 +679,7 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
         lower_parts = [part.lower() for part in relative.parts]
         name = relative.name
         code_target = entry.target.startswith("code/") or bool(
-            re.match(r"appendix/problems/q[1-9][0-9]*/code/", entry.target)
+            re.match(r"appendix/problems/(?:q[1-9][0-9]*|preprocess)/code/", entry.target)
         )
         if (
             any(part in FORBIDDEN_DIR_NAMES or part.startswith(".") for part in lower_parts[1:-1])
