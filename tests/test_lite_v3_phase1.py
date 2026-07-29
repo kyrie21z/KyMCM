@@ -189,6 +189,16 @@ class LiteV3Phase1Tests(unittest.TestCase):
             block = sequence[0] + "\n\n" + "\n".join(sequence[1:])
             self.assertIn(block, rfc, f"RFC lacks exact heading block beginning {sequence[0]}")
 
+    def test_start_template_has_execution_first_guidance_without_contract_change(self):
+        template = (DOCS / "START_QN.template.md").read_text(encoding="utf-8")
+        for required in (
+            "最小直接结论", "冒烟测试", "可恢复执行阶段",
+            "嵌套拟合/求解/情景总次数", "L0", "L1", "L2",
+        ):
+            self.assertIn(required, template)
+        self.assertEqual(template.count("**前问依赖：** 无"), 1)
+        self.assertEqual(markdown_headings(DOCS / "START_QN.template.md"), ("# START QN", *START_SECTIONS))
+
     def test_reviewer_record_has_no_missing_or_ambiguous_items(self):
         record = (DOCS / "reviewer-record.md").read_text(encoding="utf-8")
         statuses = re.findall(r"^\| [^|]+ \| (sufficient|missing|ambiguous) \|", record, re.MULTILINE)

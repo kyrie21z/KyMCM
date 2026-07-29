@@ -1,4 +1,4 @@
 interface:
   display_name: "KyMCM Lite"
-  short_description: "Single/split Markdown modeling handoffs and appendix checks"
-  default_prompt: "Use $kymcm-lite to execute or review a selected single or split Markdown-first mathematical-modeling handoff, stopping on exact upstream semantic contradictions, or to run its independent appendix-organization stage without workflow state."
+  short_description: "Execution-first modeling handoffs and appendix checks"
+  default_prompt: "Use $kymcm-lite to design, review, or execute a recoverable Markdown-first modeling handoff with preflight, smoke testing, staged cost-aware execution, and risk-triggered validation."

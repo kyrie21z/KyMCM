@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0 - 2026-07-29
+
+- Integrate the user-authored execution-first modeling-plan design standard as a byte-exact bundled reference.
+- Require semantic preflight, minimal smoke testing, recoverable staged execution, explicit nested cost estimation, and L0/L1/L2 risk-triggered validation when authoring, reviewing, or executing START plans.
+- Preserve the Lite v3 marker, eight START and seven RESULT headings, six commands, single/split contracts, checker semantics, appendix workflow, and valid 0.3.1 workspaces.
+
 ## 0.3.1 - 2026-07-24
 
 - Allow each official question to use either one unsuffixed START/RESULT pair or contiguous suffixed START units with independently completed RESULT units.
