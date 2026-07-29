@@ -104,6 +104,40 @@ Section 2 states `无偏差` or an `授权偏差` with its evidence path. Eviden
 
 IDs are unique. Paths are workspace-relative, contain no `..`, and resolve through non-symlink components to ordinary files inside the current question's `code`, `data/derived`, `outputs`, or `notes`.
 
+## Paper-writing HANDOFF
+
+After a matching RESULT passes `check-result` and its formal and paper-relevant auxiliary evidence is stable, the executor creates one internal collaboration document:
+
+- single: `problems/qN/notes/HANDOFF_QN.md` with `# HANDOFF QN`;
+- split: `problems/qN/notes/HANDOFF_QN_K.md` with `# HANDOFF QN_K`.
+
+Identity must match an existing completed RESULT exactly. A split question has only suffixed HANDOFF files and never an unsuffixed aggregate. Single/split HANDOFF files cannot mix for one question; no question-level HANDOFF directory, index, manifest, or JSON is introduced.
+
+The matching HANDOFF uses:
+
+```markdown
+# HANDOFF QN
+
+**正式上游：** `problems/qN/result/RESULT_QN.md`
+
+## 1. 论文定位与可用结论
+## 2. 数据口径与实际执行
+## 3. 模型、参数与判定规则
+## 4. 完整关键结果
+## 5. 验证、敏感性与异常
+## 6. 图表、表格与素材索引
+## 7. 推荐论文表述与边界
+## 8. 前后问衔接与复核事项
+```
+
+HANDOFF is the paper writer's sole complete collaboration medium. It is a derived explanation and selection layer: RESULT defines formal scope, conclusion status, limitations, and downstream interfaces; machine evidence defines actual numbers, tables, and figures; HANDOFF organizes those sources for writing. The paper writer reads HANDOFF by default and rechecks critical numbers against its evidence paths before finalization. Later modeling inherits RESULT only, never HANDOFF.
+
+Before creating or updating HANDOFF, Codex reads the complete matching START and RESULT, all RESULT-declared evidence, and selected auxiliary evidence. It separates `正式` material within RESULT certification from evidence-supported `辅助` material usable only for explanation, limitation, appendix, or discussion. It maps important claims and assets to real workspace-relative evidence, describes paper placement and required processing, and states usable wording together with causal, scope, and extrapolation boundaries. See `references/paper_handoff.md`.
+
+If HANDOFF conflicts with RESULT scope, status, or limitations, paper handoff stops until HANDOFF is repaired. If a HANDOFF value conflicts with machine evidence, repair it from the evidence. If RESULT conflicts with evidence, return to formal RESULT/evidence audit rather than selecting one silently. Material RESULT or paper-relevant evidence changes require HANDOFF review and update before paper work continues.
+
+HANDOFF adds no marker, command, flag, checker, state, approval, hash, report, or JSON. `check-result` does not require it, and Python does not validate its identity, completeness, quality, or synchronization. A successful semantic HANDOFF review creates no artifact. Appendix work may use HANDOFF as internal context but cannot copy it or treat it as a formal certification source.
+
 ## Commands and diagnostics
 
 `init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code. In single mode, omit `--subproblem`; in split mode, `check-start` and `check-result` require `--subproblem K`. The other four commands do not accept it.
@@ -114,7 +148,7 @@ Git availability and question-scoped dirty state are advisory. Evidence existenc
 
 ## Optional independent appendix stage
 
-After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. Single and split START/RESULT contracts are contextual references only and cannot be copied into appendix outputs.
+After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. Single and split START/RESULT contracts and matching HANDOFF collaboration documents are contextual references only and cannot be copied into appendix outputs.
 
 The two submitted surfaces are distinct:
 
@@ -140,4 +174,4 @@ After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accoun
 
 ## Non-goals
 
-Lite 0.4.0 does not validate mathematical correctness or modeling-plan quality in Python, infer contract granularity, discover dependencies from prose, expand transitive or wildcard dependencies, compare sibling split units automatically, reconcile contradictions, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics. L0/L1/L2 classification and proportionality remain agent/human judgments.
+Lite 0.5.0 does not validate mathematical correctness, modeling-plan quality, or HANDOFF completeness/synchronization in Python; infer contract granularity; discover dependencies from prose; expand transitive or wildcard dependencies; compare sibling split units automatically; reconcile contradictions; manage approvals/state; migrate Full or Lite v2 workspaces; generate papers or figures; orchestrate solvers or agents; provide `add-problem`; emit JSON diagnostics; build/delete appendix trees; prove result equivalence; fully resolve dynamic imports/CMake; or verify Excel formula/format semantics. L0/L1/L2 classification, HANDOFF formal/auxiliary separation, paper interpretation, and proportionality remain agent/human judgments.

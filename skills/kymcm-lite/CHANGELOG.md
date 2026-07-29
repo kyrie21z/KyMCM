@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0 - 2026-07-29
+
+- Add mirrored `paper_handoff.md` guidance and an eight-section HANDOFF template for complete executor-to-paper-writer collaboration.
+- Keep RESULT as the concise formal contract and sole downstream modeling interface; HANDOFF remains a derived, evidence-linked writing layer with explicit formal/auxiliary and expression boundaries.
+- Explicitly reject single and split HANDOFF files as appendix sources while preserving six commands, Lite v3 marker, existing checker semantics, and valid 0.4.0 workspaces.
+
 ## 0.4.0 - 2026-07-29
 
 - Integrate the user-authored execution-first modeling-plan design standard as a byte-exact bundled reference.

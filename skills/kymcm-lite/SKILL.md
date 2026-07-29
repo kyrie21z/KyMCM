@@ -1,6 +1,6 @@
 ---
 name: kymcm-lite
-description: Execute and review Markdown-first mathematical-modeling handoffs and optional appendix organization with structural and evidence checks, without workflow state or content JSON.
+description: Execute and review Markdown-first mathematical-modeling handoffs, prepare complete paper-writing HANDOFF documents from checked results and evidence, and organize optional appendices without workflow state or content JSON.
 ---
 
 # KyMCM Lite
@@ -25,10 +25,18 @@ Preserve mathematical meaning, parameters, constraints, decision rules, data sem
 
 Disclose every authorized START deviation in RESULT. Never create Full JSON artifacts, workflow state, approvals, events, review hashes, or content-level JSON. Never self-approve mathematical conclusions.
 
+## Paper-writing handoff
+
+Create or update `problems/qN/notes/HANDOFF_QN[_K].md` only when its exact matching RESULT has passed `check-result` and the formal and selected auxiliary evidence is stable. Read the complete matching START, RESULT, RESULT-declared evidence, and chosen auxiliary evidence, then follow `references/paper_handoff.md` and `templates/HANDOFF_QN.template.md`. Match single/split identity exactly and never create an unsuffixed aggregate HANDOFF for a split question.
+
+Treat HANDOFF as the paper writer's sole complete collaboration medium, derived from RESULT and machine evidence rather than a new fact source. RESULT remains the concise formal boundary and the only downstream modeling inheritance surface; the paper writer uses HANDOFF by default and rechecks final critical numbers through its evidence paths. Separate formal from auxiliary material, disclose paper-relevant failed work and anomalies, and state usable claims together with their causal, scope, and extrapolation limits.
+
+Stop and repair HANDOFF when it conflicts with RESULT scope or evidence values. Stop and return to RESULT/evidence audit when RESULT conflicts with machine evidence. Review and update HANDOFF before paper work continues after any material RESULT or paper-relevant evidence change. Create no HANDOFF state, approval, hash, JSON, manifest, aggregate, or successful-review report. Never use HANDOFF as a later modeling dependency or copy it into appendix outputs.
+
 ## Optional appendix organization
 
 Begin this independent stage only after all required START/RESULT work is complete and the paper, formal result versions, and certification boundary are stable. Read `reports/appendix/APPENDIX_START.md` completely. The modeling workflow has no FROZEN_CONTEXT surface. Single or split START and RESULT contracts may be contextual references during appendix work.
 
-Run `check-appendix-start` before copying. Construct only the frozen whitelist targets; never copy an entire project and trim it reactively. Treat original `problems/`, `input/`, and `paper/` files as read-only. Preserve runtime/build dependency closure, and keep the submission `appendix/` tree distinct from the concise root `code/` core-algorithm appendix.
+Run `check-appendix-start` before copying. Construct only the frozen whitelist targets; never copy an entire project and trim it reactively. Treat original `problems/`, `input/`, and `paper/` files as read-only. START, RESULT, and HANDOFF are contextual references only and cannot be copied. Preserve runtime/build dependency closure, and keep the submission `appendix/` tree distinct from the concise root `code/` core-algorithm appendix.
 
 Perform actual compilation, build, workbook, and source-integrity verification without changing original sources. Store evidence under `reports/appendix/evidence/`, write `APPENDIX_RESULT.md`, then run `check-appendix-result`. The checker validates structure and evidence, not mathematical correctness. Stop for human review whenever mathematical meaning, result equivalence, or certification scope remains ambiguous. Follow `references/appendix_organization.md`.
