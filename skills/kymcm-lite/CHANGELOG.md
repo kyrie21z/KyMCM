@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1 - 2026-07-29
+
+- Treat `appendix/` code as the complete formal solve pipeline with plotting excluded, rather than a mechanically minimal core.
+- Allow root `code/` to present authentic representative scheduling, recovery, audit, and other paper-relevant execution code.
+- Narrow name-based runtime exclusions while preserving runtime-data, unsafe-path, binary, cache, log, and source-integrity safeguards.
+
 ## 0.5.0 - 2026-07-29
 
 - Add mirrored `paper_handoff.md` guidance and an eight-section HANDOFF template for complete executor-to-paper-writer collaboration.

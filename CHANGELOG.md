@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.5.1 - 2026-07-29
+
+- Redefine appendix code as the complete formal solve pipeline with plotting excluded.
+- Let the paper PDF code appendix use authentic representative core and non-core execution, scheduling, recovery, and audit code.
+- Preserve whitelist grammar and workflow contracts while forbidding copying, obfuscation, junk code, and similarity-driven rewrites.
+
 ## KyMCM Lite 0.5.0 - 2026-07-29
 
 - Add a mirrored paper-writing HANDOFF reference and eight-section single/split template.

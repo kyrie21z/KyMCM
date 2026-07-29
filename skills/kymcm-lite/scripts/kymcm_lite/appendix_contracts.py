@@ -74,20 +74,21 @@ C_SUFFIXES = {".c", ".cc", ".cpp", ".cxx", ".h", ".hh", ".hpp", ".hxx"}
 FORBIDDEN_DIR_NAMES = {
     ".ai-bridge", ".git", ".github", ".idea", ".kymcm", ".mypy_cache",
     ".pytest_cache", ".ruff_cache", ".vscode", "__pycache__", "archive",
-    "backup", "build", "checkpoint", "checkpoints", "dist", "scheduler",
-    "test", "tests",
+    "backup", "build", "dist", "temporary", "test", "tests", "tmp",
 }
 FORBIDDEN_SUFFIXES = {
     ".7z", ".a", ".dll", ".dylib", ".exe", ".gz", ".jar", ".log", ".o",
     ".obj", ".out", ".pyo", ".pyc", ".so", ".tar", ".whl", ".zip",
 }
+CODE_RUNTIME_DATA_SUFFIXES = {
+    ".bin", ".ckpt", ".pickle", ".pkl", ".pt", ".pth", ".sav",
+}
 ROOT_CODE_DATA_SUFFIXES = {
     ".csv", ".feather", ".json", ".parquet", ".tsv", ".xls", ".xlsx",
 }
 FORBIDDEN_NAME = re.compile(
-    r"(?i)(?:^|[_-])(?:backup|checkpoint|copy|final[0-9]+|hash[_-]?ledger|"
-    r"manifest|old|resource[_-]?monitor|run[_-]?status|stage[_-]?ledger|"
-    r"supervisor|temporary|tmp)(?:[_\-.]|$)"
+    r"(?i)(?:^|[_-])(?:backup|copy|final[0-9]+|hash[_-]?ledger|manifest|"
+    r"old|temporary|tmp)(?:[_\-.]|$)"
 )
 DYNAMIC_PYTHON = re.compile(
     r"\b(?:__import__|exec|importlib\.import_module)\s*\(|"
@@ -669,10 +670,14 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
         relative = Path(entry.target)
         lower_parts = [part.lower() for part in relative.parts]
         name = relative.name
+        code_target = entry.target.startswith("code/") or bool(
+            re.match(r"appendix/problems/q[1-9][0-9]*/code/", entry.target)
+        )
         if (
             any(part in FORBIDDEN_DIR_NAMES or part.startswith(".") for part in lower_parts[1:-1])
             or name.startswith(".")
             or relative.suffix.lower() in FORBIDDEN_SUFFIXES
+            or (code_target and relative.suffix.lower() in CODE_RUNTIME_DATA_SUFFIXES)
             or path.stat().st_mode & 0o111
             or re.fullmatch(r"RESULT.*\.md", name, re.IGNORECASE)
             or FORBIDDEN_NAME.search(name)
@@ -686,22 +691,11 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
             if (
                 lowered.startswith("readme")
                 or relative.suffix.lower() in ROOT_CODE_DATA_SUFFIXES
-                or any(word in lowered for word in (
-                    "environment", "plot", "result", "schedule", "logging",
-                    "export", "backend",
-                ))
             ):
                 diagnostics.append(error(
                     "LITE-APPENDIX-FORBIDDEN-001", entry.target,
-                    "root code/ contains a non-core-algorithm file",
+                    "root code/ contains a README or data file",
                 ))
-            if relative.suffix.lower() in TEXT_SUFFIXES:
-                line_count = len(path.read_text(encoding="utf-8").splitlines())
-                if not 150 <= line_count <= 400:
-                    diagnostics.append(warning(
-                        "LITE-APPENDIX-DEPENDENCY-WARN-001", entry.target,
-                        f"core-code file has {line_count} lines; usual guideline is 150–400",
-                    ))
         if "/result/" in entry.target:
             digest = hashlib.sha256(path.read_bytes()).digest()
             if digest in result_hashes:

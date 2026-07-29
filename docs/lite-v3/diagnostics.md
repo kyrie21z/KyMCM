@@ -1,10 +1,10 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.5.0.
+Status: Normative for KyMCM Lite 0.5.1.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.5.0 adds no HANDOFF diagnostic or public command. HANDOFF identity, completeness, synchronization, formal/auxiliary separation, and writing quality are semantic agent/human review responsibilities rather than Python pass/fail conditions. The existing appendix source-path diagnostic now explicitly excludes matching HANDOFF collaboration documents from submission sources.
+Lite 0.5.1 adds no public command, plotting classifier, originality score, or similarity diagnostic. HANDOFF identity, completeness, synchronization, formal/auxiliary separation, writing quality, appendix formal-code completeness, plotting responsibility, and code authenticity are semantic agent/human review responsibilities rather than Python pass/fail conditions.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|
@@ -59,12 +59,12 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 | `LITE-APPENDIX-OUTPUT-MISSING-001` | Error | A declared output or static local dependency is missing |
 | `LITE-APPENDIX-OUTPUT-EXTRA-001` | Error | An undeclared file exists in `appendix/` or root `code/` |
 | `LITE-APPENDIX-STRUCTURE-001` | Error | An output root/directory is forbidden, undeclared, empty, or structurally misplaced |
-| `LITE-APPENDIX-FORBIDDEN-001` | Error | A submitted name/type is cache, build, log, internal, duplicate-like, or non-core root-code material |
+| `LITE-APPENDIX-FORBIDDEN-001` | Error | A submitted name/type is cache, build, log, runtime data, binary, internal, duplicate-like, or root-code README/data material; operational source names alone are allowed |
 | `LITE-APPENDIX-COPY-MISMATCH-001` | Error | A COPY target SHA-256 differs from its source |
 | `LITE-APPENDIX-INTEGRITY-001` | Error | `source_integrity.csv` is missing or structurally/hash/status invalid |
 | `LITE-APPENDIX-DUPLICATE-001` | Error | Two declared formal-result files are byte-identical |
 | `LITE-APPENDIX-PYTHON-001` | Error | Submitted Python has invalid syntax or a missing obvious local module |
-| `LITE-APPENDIX-DEPENDENCY-WARN-001` | Warning | Dynamic loading/CMake prevents closure proof, or root core code is outside the 150–400 line guideline |
+| `LITE-APPENDIX-DEPENDENCY-WARN-001` | Warning | Dynamic loading or CMake features prevent complete static dependency closure proof |
 | `LITE-APPENDIX-XLSX-001` | Error | Declared Result.xlsx is not a valid basic workbook ZIP/XML structure |
 | `LITE-APPENDIX-SENSITIVE-001` | Error | A high-confidence local path, credential, private key, authorization value, or machine identity is detected |
 | `LITE-APPENDIX-CERTIFICATION-WARN-001` | Warning | Unqualified global-certification wording conflicts with visible finite/partial limitations |

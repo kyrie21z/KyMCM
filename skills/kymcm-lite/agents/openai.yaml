@@ -1,4 +1,4 @@
 interface:
   display_name: "KyMCM Lite"
-  short_description: "Execution-first modeling and paper handoffs"
-  default_prompt: "Use $kymcm-lite to execute a checked modeling handoff and prepare a complete evidence-linked HANDOFF for the paper writer."
+  short_description: "Modeling, paper handoffs, and appendix curation"
+  default_prompt: "Use $kymcm-lite to execute checked modeling handoffs and curate complete formal-solve and representative paper-code appendices."

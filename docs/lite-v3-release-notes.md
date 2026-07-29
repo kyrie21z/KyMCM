@@ -1,12 +1,12 @@
-# KyMCM Lite 0.5.0
+# KyMCM Lite 0.5.1
 
 ## Highlights
 
-KyMCM Lite 0.5.0 adds a paper-writing HANDOFF layer for complete executor-to-paper-writer collaboration. RESULT remains the concise formal result contract, certification boundary, and only downstream modeling inheritance surface. The exact matching `problems/qN/notes/HANDOFF_QN[_K].md` is the paper writer's sole complete collaboration document, derived from RESULT and machine evidence.
+KyMCM Lite 0.5.1 corrects the two appendix code surfaces. `appendix/` now means the complete formal solve code package with plotting excluded; root `code/` means authentic representative implementation for the paper PDF and may include scheduling, recovery, audit, and other paper-relevant non-core execution code.
 
-The mirrored `paper_handoff.md` reference defines single/split identity, lifecycle, authority and conflict handling, formal/auxiliary separation, evidence mapping, paper assets, and expression boundaries. The mirrored eight-section HANDOFF template makes full paper-relevant values, validation, anomalies, figures, tables, usable claims, and final review points directly available without expanding RESULT.
+The change is not a similarity-evasion mechanism. Copying, obfuscation, junk/dead code, arbitrary renaming or control-flow changes, and code unrelated to the formal workflow are forbidden. Selecting distinctive authentic engineering code reduces false alarms caused by naturally similar generic core implementations while preserving traceability.
 
-No `check-handoff`, flag, state, JSON, manifest, approval, or automatic paper generator is added. `check-result` does not require HANDOFF. The six public commands, Lite v3 marker, START/RESULT/appendix templates, dependency/evidence grammar, and modeling checker behavior are unchanged from 0.4.0.
+No external similarity service, originality score, plotting classifier, command, state, JSON, manifest, approval, or new whitelist mode is added. The six public commands, Lite v3 marker, START/RESULT/HANDOFF templates, APPENDIX_START/RESULT headings and declaration grammar, dependency/evidence grammar, and modeling checker behavior are unchanged from 0.5.0.
 
 ## Install
 
@@ -25,13 +25,21 @@ Exit code 0 means valid or warnings only, 1 means a contract or evidence failure
 
 ## Protocol identity
 
-The workspace marker remains exactly `{"workflow":"kymcm_lite","version":3}`. Product version 0.5.0 and protocol generation 3 are independent identifiers. The eight START and seven RESULT headings are unchanged. START section 2 contains exactly one visible `**前问依赖：** 无` or strictly ordered exact earlier-unit list such as `**前问依赖：** Q1, Q2_1`.
+The workspace marker remains exactly `{"workflow":"kymcm_lite","version":3}`. Product version 0.5.1 and protocol generation 3 are independent identifiers. The eight START and seven RESULT headings are unchanged. START section 2 contains exactly one visible `**前问依赖：** 无` or strictly ordered exact earlier-unit list such as `**前问依赖：** Q1, Q2_1`.
+
+## Appendix code surfaces
+
+APPENDIX_START remains the sole source-to-target whitelist using the existing COPY, CURATE, and GENERATE grammar. For `appendix/problems/qN/code/`, list every source used by the formal solve pipeline and its runtime/build closure, including applicable scheduling, batch execution, checkpoint/resume source, failure isolation, status readback, audit, and local configuration. Exclude plotting, tests, caches, logs, obsolete experiments, runtime checkpoint/status data, binaries, credentials, and unrelated infrastructure.
+
+Root `code/` still contains direct files only, but they are selected for truthful paper explanation rather than constrained to generic core algorithms. Each C entry identifies real source paths, formal responsibility, paper value, and COPY/CURATE boundaries. Formal calculation and plotting that cannot be separated mechanically must stop for human review.
+
+The checker now permits operational source names such as `scheduler.py`, `orchestrator.py`, `checkpoint.py`, `resume.py`, `supervisor.py`, `stage_ledger.py`, `run_status.py`, `resource_monitor.py`, and `audit.py`. It continues to reject runtime data and unsafe/binary/cache/log targets. It does not judge formal-code completeness, plotting responsibility, originality, external similarity, or CURATE semantic equivalence.
 
 ## Paper-writing HANDOFF
 
 Create HANDOFF only after the exact matching RESULT passes `check-result` and formal plus paper-relevant auxiliary evidence is stable. Single mode uses `HANDOFF_QN.md`; split mode uses exact `HANDOFF_QN_K.md` documents and never an unsuffixed aggregate.
 
-RESULT controls formal scope, machine evidence controls actual values and assets, and HANDOFF organizes them for paper writing. Every important item is labeled `正式` or `辅助`, maps to real workspace-relative evidence, and states both usable interpretation and forbidden causal, absolute, or extrapolative language. Critical numbers are rechecked against evidence before finalization. HANDOFF cannot expand RESULT, serve as a downstream modeling dependency, or enter appendix outputs.
+RESULT controls formal scope, machine evidence controls actual values and assets, and HANDOFF remains the paper writer's sole complete collaboration document that organizes them for writing. Every important item is labeled `正式` or `辅助`, maps to real workspace-relative evidence, and states both usable interpretation and forbidden causal, absolute, or extrapolative language. Critical numbers are rechecked against evidence before finalization. HANDOFF cannot expand RESULT, serve as a downstream modeling dependency, or enter appendix outputs.
 
 ## Safety and validation scope
 
@@ -47,11 +55,15 @@ KyMCM Full 1.0.0 is the separate review-gated workflow with structured mathemati
 
 ## Known limitations
 
-Lite does not provide solvers, model or contract-granularity discovery, automatic dependency discovery, transitive or wildcard expansion, sibling-unit comparison, automatic semantic reconciliation, automatic cost measurement, automatic recovery, automatic paper or figure generation, workflow approvals, JSON diagnostics, dynamic `add-problem`, automatic appendix building/deletion, native multi-OS certification, or mathematical-correctness validation. HANDOFF completeness, synchronization, evidence fidelity, formal/auxiliary classification, and writing quality remain Codex/ChatGPT and human responsibilities. Final paper numbers still require evidence-level review. Git diagnostics are advisory.
+Lite does not provide solvers, model or contract-granularity discovery, automatic dependency discovery, transitive or wildcard expansion, sibling-unit comparison, automatic semantic reconciliation, automatic cost measurement, automatic recovery, automatic paper or figure generation, workflow approvals, JSON diagnostics, dynamic `add-problem`, automatic appendix building/deletion, plotting classification, originality or external-similarity checking, native multi-OS certification, or mathematical-correctness validation. HANDOFF completeness, appendix coverage, CURATE equivalence, code authenticity, and writing quality remain Codex/ChatGPT and human responsibilities. Final paper numbers still require evidence-level review. Git diagnostics are advisory.
 
 ## Upgrade and compatibility
 
-Users who installed by copying must reinstall the complete Skill for 0.5.0. Symlink installations need only update the repository and restart Codex. Existing 0.4.0 workspaces and contracts need no rewrite and no HANDOFF to pass existing commands. Create HANDOFF manually for a completed unit only when it next enters real paper collaboration. Historical workspaces are not automatically migrated. Full, Lite v2, Legacy, malformed, and unknown markers fail closed in Lite v3. Full v1.0.0 remains separate and supported.
+Users who installed by copying must reinstall the complete Skill for 0.5.1. Symlink installations need only update the repository and restart Codex. Existing 0.5.0 workspaces and appendix contracts need no rewrite. Apply the corrected code-selection policy when an appendix is next reorganized or resubmitted; historical packages are not automatically migrated or rewritten. Full, Lite v2, Legacy, malformed, and unknown markers fail closed in Lite v3. Full v1.0.0 remains separate and supported.
+
+## Historical 0.5.0 release
+
+KyMCM Lite 0.5.0 (2026-07-29) added the exact single/split paper-writing HANDOFF layer while preserving RESULT as the formal boundary and only downstream modeling inheritance surface.
 
 ## Historical 0.4.0 release
 
