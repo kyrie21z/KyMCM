@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.4.0 - 2026-07-29
+
+- Add the byte-exact user-authored modeling-plan design standard as a mirrored Skill/repository reference.
+- Make preflight, smoke testing, staged recovery, nested cost estimates, and L0/L1/L2 validation part of START semantic authoring and review.
+- Keep commands, marker, headings, checker semantics, single/split compatibility, appendix behavior, and Full identity unchanged.
+
 ## KyMCM Lite 0.3.1 - 2026-07-24
 
 - Support mutually exclusive single and contiguous split START/RESULT contracts within each official question.

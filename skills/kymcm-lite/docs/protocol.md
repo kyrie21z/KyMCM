@@ -59,6 +59,29 @@ Each token is exactly `QN` or `QN_K`, unique, and strictly ordered by question t
 
 Before authoring, materially revising, reviewing, or executing a dependent START, Codex reads the complete current START and every declared upstream START and RESULT. It compares only inherited or redefined symbols, units, scope, preprocessing, parameters, objectives, constraints, decision rules, paths, values, limitations, and certification claims. Authorized RESULT deviations form part of the effective upstream contract. No-conflict review creates no artifact. A material conflict is reported with exact locations and consequence; execution stops for one highest-impact user decision. See `references/dependency_review.md`.
 
+## Modeling-plan design and execution order
+
+`references/modeling_plan_design.md` is the authoritative execution-first semantic standard for authoring, materially revising, reviewing, and executing a selected START. It is a bundled Skill reference, not a workspace contract: it adds no managed file, heading, command, flag, state, JSON object, approval, review hash, or successful-review report. Existing START files remain structurally valid.
+
+For each selected modeling unit, Codex:
+
+1. authors the START under the standard;
+2. runs structural `check-start`;
+3. completes the separate declared-dependency contradiction review;
+4. completes the final modeling-plan design review;
+5. passes a minimum end-to-end smoke test;
+6. runs formal computation in recoverable stages;
+7. completes the basic/L0 result audit;
+8. runs L1 validation only when its named condition is met;
+9. runs L2 validation only when resources permit and it can improve the paper;
+10. writes RESULT with actual deviations, omitted optional work, and limitations.
+
+The START defines the minimum paper-ready deliverable, authoritative inputs, problem-appropriate identifiability/solvability preflight, smoke-test pass condition, recoverable formal stages, inspectable expensive-stage artifacts, cache/reuse conditions, resume point, and engineering-versus-mathematical failure behavior. It explicitly calculates nested fits/solves/scenarios, expected per-run and total cost, relevant peak memory, parallelizable stages, worst-case recomputation, and the deletion order under budget pressure. Proportionality applies: a simple low-cost task may use a tiny smoke test and short phase plan.
+
+L0 is mandatory and blocks completion when it fails. L1 addresses a named remaining risk and runs only when its trigger occurs. L2 is resource-permitting and does not block the principal deliverable unless the user explicitly promotes it. Failed smoke tests block formal execution; failed basic audits return to the responsible stage rather than triggering more sensitivity analysis. Deterministic engineering omissions may be repaired transparently in the current START, but changes to mathematics, validation strength, formal success criteria, or material resource tradeoffs require one highest-impact user decision before execution.
+
+The Python checker remains intentionally lightweight and read-only. It validates Markdown structure, selected contracts, dependencies, evidence, and paths; it does not parse L0/L1/L2, count experiments, require named smoke-test/checkpoint artifacts, judge whether a plan is proportionate, or validate mathematical correctness. A successful semantic review creates no artifact or workflow state.
+
 The matching `problems/qN/result/RESULT_QN[_K].md` uses:
 
 ```markdown
@@ -117,4 +140,4 @@ After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accoun
 
 ## Non-goals
 
-Lite 0.3.1 does not validate mathematical correctness in Python, infer contract granularity, discover dependencies from prose, expand transitive or wildcard dependencies, compare sibling split units automatically, reconcile contradictions, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics.
+Lite 0.4.0 does not validate mathematical correctness or modeling-plan quality in Python, infer contract granularity, discover dependencies from prose, expand transitive or wildcard dependencies, compare sibling split units automatically, reconcile contradictions, manage approvals/state, migrate Full or Lite v2 workspaces, generate papers or figures, orchestrate solvers or agents, provide `add-problem`, emit JSON diagnostics, build/delete appendix trees, prove result equivalence, fully resolve dynamic imports/CMake, or verify Excel formula/format semantics. L0/L1/L2 classification and proportionality remain agent/human judgments.
