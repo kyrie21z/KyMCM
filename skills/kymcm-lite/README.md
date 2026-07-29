@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.5.0 is a Markdown-first execution protocol for mathematical-modeling teams. It combines execution-first plan design with a derived paper-writing HANDOFF: RESULT stays the concise formal contract and downstream modeling interface, while HANDOFF is the paper writer's sole complete collaboration document. Each official question may still use one `QN` contract or contiguous independent `QN_K` contracts; the marker, commands, START/RESULT headings, and optional appendix stage remain unchanged.
+KyMCM Lite 0.5.1 is a Markdown-first execution protocol for mathematical-modeling teams. It combines execution-first plan design with a derived paper-writing HANDOFF: RESULT stays the concise formal contract and downstream modeling interface, while HANDOFF is the paper writer's sole complete collaboration document. Each official question may still use one `QN` contract or contiguous independent `QN_K` contracts; the marker, commands, and modeling contracts remain unchanged.
 
 ## Installation
 
@@ -27,7 +27,7 @@ Before authoring, materially revising, reviewing, or executing a START, Codex re
 
 After a RESULT passes `check-result` and evidence is stable, create the exact matching `notes/HANDOFF_QN[_K].md` from `templates/HANDOFF_QN.template.md` and `references/paper_handoff.md`. HANDOFF gives the paper writer the complete model explanation, paper-relevant values, validation, assets, evidence links, and expression boundaries. It is derived from RESULT and machine evidence, cannot expand formal conclusions, and is never a downstream modeling dependency. `check-result` does not require HANDOFF and no HANDOFF checker or state is added.
 
-The appendix stage begins only after modeling is complete. `APPENDIX_START.md` is the sole whitelist, `APPENDIX_RESULT.md` is the execution report, `appendix/` is the minimal reproducibility/result attachment, and root `code/` contains only concise core algorithms. Appendix checks are read-only and standard-library-only. Appendix organization may reference START, RESULT, and HANDOFF as internal context, but cannot copy them.
+The appendix stage begins only after modeling is complete. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` is the execution report. `appendix/` contains the complete formal solve code package with plotting excluded; root `code/` selects authentic representative implementation for the paper PDF and may include scheduling, recovery, and audit code. COPY/CURATE stays traceable to the team's real source. Copying, obfuscation, junk code, and similarity-driven rewrites are forbidden. Appendix checks are read-only and standard-library-only; they do not classify plotting code, originality, or external similarity. START, RESULT, and HANDOFF remain internal context and cannot be copied.
 
 KyMCM Full is the review-gated end-to-end workflow. KyMCM Lite is a low-friction execution handoff. Users choose one Skill explicitly; neither guesses or converts the other workspace mode.
 

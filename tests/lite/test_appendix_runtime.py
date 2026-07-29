@@ -51,6 +51,13 @@ class AppendixRuntimeTests(unittest.TestCase):
         path = workspace / "reports/appendix/APPENDIX_RESULT.md"
         path.write_text(path.read_text(encoding="utf-8").replace(old, new), encoding="utf-8")
 
+    def add_integrity_source(self, workspace: Path, relative: str) -> None:
+        path = workspace / relative
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        integrity = workspace / "reports/appendix/evidence/source_integrity.csv"
+        with integrity.open("a", encoding="utf-8") as stream:
+            stream.write(f"{relative},{digest},{digest},unchanged\n")
+
     def test_exact_headings_and_valid_fixture(self):
         self.assertEqual(len(APPENDIX_START_HEADINGS), 9)
         self.assertEqual(len(APPENDIX_RESULT_HEADINGS), 10)
@@ -118,6 +125,168 @@ class AppendixRuntimeTests(unittest.TestCase):
                         self.assertIn(expected, found)
                     else:
                         self.assertNotIn("LITE-APPENDIX-WHITELIST-FORMAT-001", found)
+                finally:
+                    temporary.cleanup()
+
+    def test_operational_source_names_are_accepted_in_root_code(self):
+        names = (
+            "scheduler.py", "orchestrator.py", "checkpoint.py", "resume.py",
+            "supervisor.py", "stage_ledger.py", "run_status.py",
+            "resource_monitor.py", "audit.py",
+        )
+        old_entry = (
+            "- C001 — COPY — `problems/q1/code/core.py` → "
+            "`code/q1_core_algorithm.py` — q1 核心算法"
+        )
+        for name in names:
+            with self.subTest(name=name):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source_relative = f"problems/q1/code/{name}"
+                    target_relative = f"code/{name}"
+                    content = "def run_formal_stage():\n    return True\n"
+                    source = workspace / source_relative
+                    source.write_text(content, encoding="utf-8")
+                    target = workspace / target_relative
+                    target.write_text(content, encoding="utf-8")
+                    (workspace / "code/q1_core_algorithm.py").unlink()
+                    self.mutate_start(
+                        workspace,
+                        old_entry,
+                        f"- C001 — COPY — `{source_relative}` → `{target_relative}` "
+                        "— 正式流程中的真实代表性实现",
+                    )
+                    self.add_integrity_source(workspace, source_relative)
+                    diagnostics = check_appendix_result(workspace)
+                    self.assertFalse(
+                        [item for item in diagnostics if item.severity == "ERROR"],
+                        diagnostics,
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_nested_appendix_operational_code_accepts_copy_and_curate(self):
+        old_entry = (
+            "- A001 — COPY — `problems/q1/code/solve.py` → "
+            "`appendix/problems/q1/code/solve.py` — Python 正式入口"
+        )
+        for mode in ("COPY", "CURATE"):
+            with self.subTest(mode=mode):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source_relative = "problems/q1/code/pipeline/checkpoint.py"
+                    target_relative = "appendix/problems/q1/code/pipeline/checkpoint.py"
+                    source = workspace / source_relative
+                    source.parent.mkdir(parents=True)
+                    source.write_text("def resume():\n    return 0\n", encoding="utf-8")
+                    target = workspace / target_relative
+                    target.parent.mkdir(parents=True)
+                    target.write_bytes(source.read_bytes())
+                    (workspace / "appendix/problems/q1/code/solve.py").unlink()
+                    self.mutate_start(
+                        workspace,
+                        old_entry,
+                        f"- A001 — {mode} — `{source_relative}` → `{target_relative}` "
+                        "— 正式断点恢复源码",
+                    )
+                    self.add_integrity_source(workspace, source_relative)
+                    diagnostics = check_appendix_result(workspace)
+                    self.assertFalse(
+                        [item for item in diagnostics if item.severity == "ERROR"],
+                        diagnostics,
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_checkpoint_runtime_data_remains_forbidden(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            source_relative = "problems/q1/code/checkpoint.ckpt"
+            target_relative = "appendix/problems/q1/code/checkpoint.ckpt"
+            source = workspace / source_relative
+            source.write_bytes(b"runtime state")
+            target = workspace / target_relative
+            target.write_bytes(source.read_bytes())
+            (workspace / "appendix/problems/q1/code/solve.py").unlink()
+            self.mutate_start(
+                workspace,
+                "- A001 — COPY — `problems/q1/code/solve.py` → "
+                "`appendix/problems/q1/code/solve.py` — Python 正式入口",
+                f"- A001 — COPY — `{source_relative}` → `{target_relative}` "
+                "— 运行 checkpoint 数据",
+            )
+            self.add_integrity_source(workspace, source_relative)
+            self.assertIn(
+                "LITE-APPENDIX-FORBIDDEN-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+        finally:
+            temporary.cleanup()
+
+    def test_cache_log_binary_and_temporary_code_targets_remain_forbidden(self):
+        targets = (
+            "run.log", "module.pyc", "bundle.zip", "native.so",
+            "backup/solver.py", "tmp/solver.py", "tests/test_solver.py",
+            "build/solver.py", "__pycache__/solver.py",
+        )
+        old_entry = (
+            "- A001 — COPY — `problems/q1/code/solve.py` → "
+            "`appendix/problems/q1/code/solve.py` — Python 正式入口"
+        )
+        for suffix in targets:
+            with self.subTest(target=suffix):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source_relative = f"problems/q1/code/{suffix}"
+                    target_relative = f"appendix/problems/q1/code/{suffix}"
+                    source = workspace / source_relative
+                    source.parent.mkdir(parents=True, exist_ok=True)
+                    source.write_bytes(b"artifact")
+                    target = workspace / target_relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(source.read_bytes())
+                    (workspace / "appendix/problems/q1/code/solve.py").unlink()
+                    self.mutate_start(
+                        workspace,
+                        old_entry,
+                        f"- A001 — COPY — `{source_relative}` → `{target_relative}` "
+                        "— 禁止目标回归",
+                    )
+                    self.add_integrity_source(workspace, source_relative)
+                    self.assertIn(
+                        "LITE-APPENDIX-FORBIDDEN-001",
+                        identifiers(check_appendix_result(workspace)),
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_root_code_readme_and_data_remain_forbidden(self):
+        old_entry = (
+            "- C001 — COPY — `problems/q1/code/core.py` → "
+            "`code/q1_core_algorithm.py` — q1 核心算法"
+        )
+        for name in ("README.md", "formal.csv", "state.json"):
+            with self.subTest(name=name):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source_relative = f"problems/q1/code/{name}"
+                    target_relative = f"code/{name}"
+                    source = workspace / source_relative
+                    source.write_text("not paper code\n", encoding="utf-8")
+                    target = workspace / target_relative
+                    target.write_bytes(source.read_bytes())
+                    (workspace / "code/q1_core_algorithm.py").unlink()
+                    self.mutate_start(
+                        workspace,
+                        old_entry,
+                        f"- C001 — COPY — `{source_relative}` → `{target_relative}` "
+                        "— 禁止目标回归",
+                    )
+                    self.add_integrity_source(workspace, source_relative)
+                    self.assertIn(
+                        "LITE-APPENDIX-FORBIDDEN-001",
+                        identifiers(check_appendix_result(workspace)),
+                    )
                 finally:
                     temporary.cleanup()
 
@@ -416,7 +585,7 @@ class AppendixRuntimeTests(unittest.TestCase):
                 finally:
                     temporary.cleanup()
 
-    def test_sensitive_redaction_certification_and_line_count_warning(self):
+    def test_sensitive_redaction_and_certification_warning(self):
         temporary, workspace = self.fixture_copy()
         try:
             path = workspace / "appendix/environment/system_info.txt"
@@ -434,7 +603,7 @@ class AppendixRuntimeTests(unittest.TestCase):
             path.write_text("claim\n全局最优\n")
             found = identifiers(check_appendix_result(workspace))
             self.assertIn("LITE-APPENDIX-CERTIFICATION-WARN-001", found)
-            self.assertIn("LITE-APPENDIX-DEPENDENCY-WARN-001", found)
+            self.assertNotIn("LITE-APPENDIX-DEPENDENCY-WARN-001", found)
         finally:
             temporary.cleanup()
 
