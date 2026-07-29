@@ -2,7 +2,7 @@
 
 ## 1. 最终交付结构
 
-<!-- 分别列出 appendix/ 的完整正式求解代码包、正式结果附件与根 code/ 的论文代表性代码。 -->
+<!-- 分别列出 appendix/ 的完整正式求解代码包、正式结果附件与根 code/ 的论文代表性代码；若包含 PRE，单列 preprocess/code 与 preprocess/result。 -->
 
 ## 2. 实际整理方案与 APPENDIX_START 偏差
 

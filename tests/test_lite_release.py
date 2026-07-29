@@ -20,7 +20,7 @@ from kymcm_lite.paths import MARKER_BYTES
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.5.1\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.6.0\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -28,8 +28,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.5.1", text, relative)
-            self.assertNotIn("0.5.1-dev", text, relative)
+            self.assertIn("0.6.0", text, relative)
+            self.assertNotIn("0.6.0-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -41,6 +41,7 @@ class LiteReleaseTests(unittest.TestCase):
         subparsers = next(action for action in parser()._actions if hasattr(action, "choices") and action.choices)
         self.assertEqual(set(subparsers.choices), {
             "init", "doctor", "check-start", "check-result",
+            "check-preprocess-start", "check-preprocess-result",
             "check-appendix-start", "check-appendix-result",
         })
         supporting = {
@@ -58,6 +59,9 @@ class LiteReleaseTests(unittest.TestCase):
             ("docs/lite-v3/START_QN.template.md", "skills/kymcm-lite/templates/START_QN.template.md"),
             ("docs/lite-v3/RESULT_QN.template.md", "skills/kymcm-lite/templates/RESULT_QN.template.md"),
             ("docs/lite-v3/HANDOFF_QN.template.md", "skills/kymcm-lite/templates/HANDOFF_QN.template.md"),
+            ("docs/lite-v3/START_PRE.template.md", "skills/kymcm-lite/templates/START_PRE.template.md"),
+            ("docs/lite-v3/RESULT_PRE.template.md", "skills/kymcm-lite/templates/RESULT_PRE.template.md"),
+            ("docs/lite-v3/HANDOFF_PRE.template.md", "skills/kymcm-lite/templates/HANDOFF_PRE.template.md"),
             ("docs/lite-v3/APPENDIX_START.template.md", "skills/kymcm-lite/templates/APPENDIX_START.template.md"),
             ("docs/lite-v3/APPENDIX_RESULT.template.md", "skills/kymcm-lite/templates/APPENDIX_RESULT.template.md"),
         )
@@ -70,6 +74,10 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertEqual(
             (ROOT / "docs/lite-v3/dependency_review.md").read_bytes(),
             (SKILL / "references/dependency_review.md").read_bytes(),
+        )
+        self.assertEqual(
+            (ROOT / "docs/lite-v3/preprocess_stage.md").read_bytes(),
+            (SKILL / "references/preprocess_stage.md").read_bytes(),
         )
         self.assertEqual(
             (ROOT / "docs/lite-v3/modeling_plan_design.md").read_bytes(),
@@ -100,12 +108,31 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertEqual(template.count("**前问依赖：** 无"), 1)
 
         frozen_hashes = {
-            "docs/lite-v3/START_QN.template.md": "295fb27f3403ce578e5db3a5d386eadfd68e948576e7d4dd0ba1abfebbf24bc2",
+            "docs/lite-v3/START_QN.template.md": "05bad1d7a27835349e7c0fe2eb3b6f660ee90cd2d26db29cb5d1ee01af7f1bab",
             "docs/lite-v3/RESULT_QN.template.md": "3794e2b24dedbcb816f09d90e01f400078b5fede85296b1d418dc1a1baa96d45",
             "docs/lite-v3/HANDOFF_QN.template.md": "5c027db9c9c4191bbf401386cfbfd6454fb55b0408b41d92c8004cc77737db55",
         }
         for relative, expected in frozen_hashes.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected, relative)
+
+    def test_preprocess_contracts_and_semantic_boundaries(self):
+        hashes = {
+            "START_PRE.template.md": "3019a9a3358212871e9c88a0835a3c1bd7eeee1d12b1ae9fb91ef5aa0fa8feb0",
+            "RESULT_PRE.template.md": "189595bdb36b5ee33a21363e3dfb3fb4faa65309e6a5bed7b0555931f8f8e4c5",
+            "HANDOFF_PRE.template.md": "fd05cf524bd92d2c8ff6d8d38aebdebfdd34d1ff7cb435b7f96362adc61ee77c",
+        }
+        for name, expected in hashes.items():
+            self.assertEqual(hashlib.sha256((SKILL / "templates" / name).read_bytes()).hexdigest(), expected)
+        reference = (SKILL / "references/preprocess_stage.md").read_text(encoding="utf-8")
+        skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        for required in ("样本 accounting", "L0", "L1", "L2", "因果", "下游"):
+            self.assertIn(required, reference)
+        for required in (
+            "templates/START_PRE.template.md", "templates/RESULT_PRE.template.md",
+            "templates/HANDOFF_PRE.template.md", "check-preprocess-result",
+            "no Python checker", "content JSON",
+        ):
+            self.assertIn(required, skill)
 
     def test_appendix_code_scope_policy_and_templates(self):
         reference = (SKILL / "references/appendix_organization.md").read_text(encoding="utf-8")
@@ -201,9 +228,10 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.5.1", "KyMCM Lite 0.5.0", "KyMCM Lite 0.4.0", "KyMCM Lite 0.3.1", "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.6.0", "KyMCM Lite 0.5.1", "KyMCM Lite 0.5.0", "KyMCM Lite 0.4.0", "KyMCM Lite 0.3.1", "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
-            "check-appendix-result", '{"workflow":"kymcm_lite","version":3}',
+            "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
+            '{"workflow":"kymcm_lite","version":3}',
             "Full", "Lite v2", "first standalone Lite v3 release", "not automatically migrated",
             "3c508dc1a48a697efcc8b220cde5187727b8b49ba4b81570ca3ab8750e09120b",
             "HANDOFF_QN_K.md", "sole complete collaboration document", "正式", "辅助",
@@ -214,6 +242,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.6.0 - 2026-07-29", text, relative)
             self.assertIn("0.5.1 - 2026-07-29", text, relative)
             self.assertIn("0.5.0 - 2026-07-29", text, relative)
             self.assertIn("0.4.0 - 2026-07-29", text, relative)

@@ -18,6 +18,7 @@
 - A001 — COPY — `problems/q1/code/solve.py` → `appendix/problems/q1/code/solve.py` — 正式入口
 - A002 — COPY — `problems/q1/code/scheduler.py` → `appendix/problems/q1/code/scheduler.py` — 正式任务调度
 - A003 — CURATE — `problems/q1/code/model.py` → `appendix/problems/q1/code/model.py` — 仅机械删除绘图入口
+PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problems/preprocess/code/clean.py`，或从 `problems/preprocess/data/derived/clean.csv` 映射至 `appendix/problems/preprocess/result/clean.csv`；不得列入 START_PRE、RESULT_PRE 或 HANDOFF_PRE。
 -->
 - A090 — GENERATE — `appendix/environment/README.md` — 复现入口说明
 - A091 — GENERATE — `appendix/environment/requirements.txt` — 最小依赖清单

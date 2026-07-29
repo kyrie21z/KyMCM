@@ -64,6 +64,44 @@ class AppendixRuntimeTests(unittest.TestCase):
         self.assertFalse(any(item.severity == "ERROR" for item in check_appendix_start(FIXTURE)))
         self.assertFalse(any(item.severity == "ERROR" for item in check_appendix_result(FIXTURE)))
 
+    def test_preprocess_sources_targets_and_contract_exclusion(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            pre = workspace / "problems/preprocess"
+            for part in ("spec", "code", "data/derived", "outputs", "notes", "result"):
+                (pre / part).mkdir(parents=True, exist_ok=True)
+            (pre / "code/clean.py").write_text("print('clean')\n", encoding="utf-8")
+            (pre / "data/derived/clean.csv").write_text("id\n1\n", encoding="utf-8")
+            (pre / "notes/schema.md").write_text("# Schema\n", encoding="utf-8")
+            (pre / "spec/START_PRE.md").write_text("# START PRE\n", encoding="utf-8")
+            additions = (
+                "- A006 — COPY — `problems/preprocess/code/clean.py` → "
+                "`appendix/problems/preprocess/code/clean.py` — 公共清洗\n"
+                "- A007 — COPY — `problems/preprocess/data/derived/clean.csv` → "
+                "`appendix/problems/preprocess/result/clean.csv` — 冻结数据\n"
+                "- A008 — COPY — `problems/preprocess/notes/schema.md` → "
+                "`appendix/problems/preprocess/result/schema.md` — 数据字典\n"
+            )
+            self.mutate_start(workspace, "- A090 — GENERATE", additions + "- A090 — GENERATE")
+            self.mutate_start(
+                workspace,
+                "`problems/q1/code/core.py`",
+                "`problems/preprocess/code/clean.py`",
+            )
+            diagnostics = check_appendix_start(workspace)
+            self.assertFalse([item for item in diagnostics if item.severity == "ERROR"], diagnostics)
+            self.mutate_start(
+                workspace,
+                "`problems/preprocess/notes/schema.md`",
+                "`problems/preprocess/spec/START_PRE.md`",
+            )
+            self.assertIn(
+                "LITE-APPENDIX-SOURCE-PATH-001",
+                identifiers(check_appendix_start(workspace)),
+            )
+        finally:
+            temporary.cleanup()
+
     def test_invalid_frozen_context_is_never_read_and_checks_are_read_only(self):
         temporary, workspace = self.fixture_copy()
         try:

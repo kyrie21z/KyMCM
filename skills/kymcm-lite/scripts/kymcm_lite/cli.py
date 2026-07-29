@@ -8,7 +8,10 @@ import subprocess
 import sys
 
 from .appendix_contracts import check_appendix_result, check_appendix_start
-from .contracts import check_result, check_start, doctor
+from .contracts import (
+    check_preprocess_result, check_preprocess_start, check_result, check_start,
+    doctor,
+)
 from .diagnostics import error, exit_code, render
 from .paths import MANAGED_ROOTS, MARKER_BYTES, workspace_path
 
@@ -23,11 +26,14 @@ def positive(value: str) -> int:
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description="KyMCM Lite v3 Markdown handoff checks")
     sub = result.add_subparsers(dest="command", required=True)
-    init = sub.add_parser("init"); init.add_argument("--workspace", required=True); init.add_argument("--questions", type=positive, required=True)
+    init = sub.add_parser("init"); init.add_argument("--workspace", required=True); init.add_argument("--questions", type=positive, required=True); init.add_argument("--preprocess", action="store_true")
     doctor_parser = sub.add_parser("doctor"); doctor_parser.add_argument("--workspace", required=True)
     for name in ("check-start", "check-result"):
         command = sub.add_parser(name); command.add_argument("--workspace", required=True); command.add_argument("--problem", type=positive, required=True); command.add_argument("--subproblem", type=positive)
-    for name in ("check-appendix-start", "check-appendix-result"):
+    for name in (
+        "check-preprocess-start", "check-preprocess-result",
+        "check-appendix-start", "check-appendix-result",
+    ):
         command = sub.add_parser(name); command.add_argument("--workspace", required=True)
     return result
 
@@ -39,7 +45,7 @@ def _write(path: Path, content: bytes | str) -> None:
         path.write_text(content, encoding="utf-8")
 
 
-def initialize(workspace: Path, questions: int) -> int:
+def initialize(workspace: Path, questions: int, preprocess: bool = False) -> int:
     if workspace.is_symlink() or (workspace.exists() and not workspace.is_dir()):
         print(error("LITE-LAYOUT-001", ".", "workspace target is a symlink or is not a directory").render())
         return 1
@@ -63,6 +69,9 @@ def initialize(workspace: Path, questions: int) -> int:
         for problem in range(1, questions + 1):
             root = workspace / f"problems/q{problem}"
             directories.extend((root, root / "spec", root / "code", root / "data", root / "data/derived", root / "outputs", root / "notes", root / "result"))
+        if preprocess:
+            root = workspace / "problems/preprocess"
+            directories.extend((root, root / "spec", root / "code", root / "data", root / "data/derived", root / "outputs", root / "notes", root / "result"))
         for directory in directories:
             directory.mkdir()
             created.append(directory)
@@ -77,7 +86,20 @@ def initialize(workspace: Path, questions: int) -> int:
         raise
     print(f"Initialized KyMCM Lite workspace: {workspace}")
     print(f"Questions: {questions}")
-    print("Next: author problems/q1/spec/START_Q1.md, then run check-start")
+    if preprocess:
+        print("No PRE contracts were created.")
+        print(
+            "Templates: templates/START_PRE.template.md -> "
+            "problems/preprocess/spec/START_PRE.md; "
+            "templates/RESULT_PRE.template.md -> "
+            "problems/preprocess/result/RESULT_PRE.md; "
+            "templates/HANDOFF_PRE.template.md -> "
+            "problems/preprocess/notes/HANDOFF_PRE.md "
+            "(semantic review only; no HANDOFF checker)"
+        )
+        print("Next: author problems/preprocess/spec/START_PRE.md, then run check-preprocess-start")
+    else:
+        print("Next: author problems/q1/spec/START_Q1.md, then run check-start")
     return 0
 
 
@@ -86,7 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     workspace = workspace_path(args.workspace)
     try:
         if args.command == "init":
-            return initialize(workspace, args.questions)
+            return initialize(workspace, args.questions, args.preprocess)
         if not workspace.is_dir():
             diagnostics = [error("LITE-LAYOUT-001", ".", "workspace directory does not exist")]
             for line in render(diagnostics): print(line)
@@ -99,6 +121,10 @@ def main(argv: list[str] | None = None) -> int:
             diagnostics = check_start(workspace, args.problem, args.subproblem)
         elif args.command == "check-result":
             diagnostics = check_result(workspace, args.problem, args.subproblem)
+        elif args.command == "check-preprocess-start":
+            diagnostics = check_preprocess_start(workspace)
+        elif args.command == "check-preprocess-result":
+            diagnostics = check_preprocess_result(workspace)
         elif args.command == "check-appendix-start":
             diagnostics = check_appendix_start(workspace)
         else:

@@ -14,6 +14,8 @@ No other persistent JSON, workflow state, event log, approval, or review hash is
 
 Managed roots are `.kymcm/`, `input/`, `paper/`, `reports/`, and `problems/`. Each `problems/qN/` has `spec/`, `code/`, `data/derived/`, `outputs/`, `notes/`, and `result/`.
 
+The optional fixed `problems/preprocess/` unit has the same directory set. It is not Q0, does not participate in question numbering, and cannot split. If present, every directory must be ordinary and non-symlink. Its exact contracts are `spec/START_PRE.md`, `result/RESULT_PRE.md`, and optional paper-only `notes/HANDOFF_PRE.md`.
+
 Question count is derived from immediate directories matching `q[1-9][0-9]*`. At least q1 is required; numbers must be contiguous from 1 through the maximum. Unknown root entries and unknown entries under `problems/` are allowed unless they interfere with managed paths.
 A legacy `FROZEN_CONTEXT.md` is an ignored root: no command opens, validates, hashes, warns about, migrates, or deletes it.
 
@@ -43,7 +45,15 @@ The selected `problems/qN/spec/START_QN[_K].md` uses:
 
 Section 8 must reduce to `无`, `None`, or `N/A` before execution.
 
-Section 2 contains exactly one visible dependency declaration:
+Section 2 may first contain exactly one visible preprocessing declaration:
+
+```markdown
+**预处理依赖：** 无
+```
+
+or `**预处理依赖：** PRE`. PRE requires structurally valid START_PRE and RESULT_PRE. A legacy QN START without the declaration remains valid when PRE is absent and receives an advisory warning when PRE exists. The declaration precedes the separate question dependency.
+
+Section 2 contains exactly one visible question dependency declaration:
 
 ```markdown
 **前问依赖：** 无
@@ -58,6 +68,12 @@ or a strict ascending direct-predecessor list such as:
 Each token is exactly `QN` or `QN_K`, unique, and strictly ordered by question then suffix. Every dependency belongs to an earlier official question; same-question edges and wildcards are forbidden. A bare token is valid only for a single-mode upstream question, while a suffixed token names exactly one existing split unit and never expands. Every named unit must provide ordinary, non-symlink, UTF-8 START and RESULT files with matching titles and heading structure. Comments and fenced examples do not count. Static checks do not recurse into the predecessor's full validation and do not judge mathematical meaning.
 
 Before authoring, materially revising, reviewing, or executing a dependent START, Codex reads the complete current START and every declared upstream START and RESULT. It compares only inherited or redefined symbols, units, scope, preprocessing, parameters, objectives, constraints, decision rules, paths, values, limitations, and certification claims. Authorized RESULT deviations form part of the effective upstream contract. No-conflict review creates no artifact. A material conflict is reported with exact locations and consequence; execution stops for one highest-impact user decision. See `references/dependency_review.md`.
+
+## Optional preprocess contracts and execution
+
+START_PRE and RESULT_PRE use the exact eight headings in their mirrored templates. PRE runs before dependent QN work: author and check START_PRE, perform semantic design review, pass the minimum parsing/transformation smoke test, execute recoverable shared-data stages, pass L0 audit, write and check RESULT_PRE, then derive HANDOFF_PRE. `references/preprocess_stage.md` defines the shared-data/QN boundary, sample accounting, EDA and causal-expression limits, downstream change review, and checker limits.
+
+RESULT_PRE freezes common fields, units, row universe, cleaning and transformation rules, shared derived data paths, audit results, and limitations. Evidence stays within `problems/preprocess/{code,data/derived,outputs,notes}` and uses the ordinary safe-path rules. HANDOFF_PRE is a derived eight-section paper collaboration document; it cannot be inherited by modeling or copied to appendix outputs.
 
 ## Modeling-plan design and execution order
 
@@ -140,7 +156,7 @@ HANDOFF adds no marker, command, flag, checker, state, approval, hash, report, o
 
 ## Commands and diagnostics
 
-`init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code. In single mode, omit `--subproblem`; in split mode, `check-start` and `check-result` require `--subproblem K`. The other four commands do not accept it.
+`init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. Optional `--preprocess` also creates the exact PRE directories but no PRE contracts; default init creates no PRE path. `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code. In single mode, omit `--subproblem`; in split mode, `check-start` and `check-result` require `--subproblem K`. The other commands do not accept it.
 
 Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`. Errors return 1, warnings alone return 0, and unexpected UTF-8, I/O, subprocess, or environment failure returns 2 with `LITE-TOOL-001`.
 
@@ -148,14 +164,14 @@ Git availability and question-scoped dirty state are advisory. Evidence existenc
 
 ## Optional independent appendix stage
 
-After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. Single and split START/RESULT contracts and matching HANDOFF collaboration documents are contextual references only and cannot be copied into appendix outputs.
+After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. Single and split QN contracts, PRE contracts, and matching HANDOFF collaboration documents are contextual references only and cannot be copied into appendix outputs. PRE code may map to `appendix/problems/preprocess/code/` or representative root `code/`; PRE derived data, outputs, and non-contract notes may map to `appendix/problems/preprocess/result/`.
 
 The two submitted surfaces are distinct:
 
 - `appendix/` contains the complete formal solve code package with plotting excluded, formal result attachments, exactly three generated environment files, optional necessary external input, and optional official `Result.xlsx`.
 - root `code/` contains direct authentic representative files for the paper PDF; core models and relevant scheduling, recovery, batch execution, input/result audit, and other non-core formal implementation are eligible.
 
-The appendix code whitelist covers every source file used by the formal solve pipeline and its runtime/build closure. Plotting, tests, caches, logs, historical or experimental implementations, runtime data, credentials, and unrelated infrastructure stay out. Root-code choices must come from the team's actual `problems/qN/code/` sources and explain their real responsibility and paper value. COPY/CURATE remains traceable and must not change mathematics, execution order, randomness, recovery rules, or result boundaries.
+The appendix code whitelist covers every source file used by the formal solve pipeline and its runtime/build closure. Plotting, tests, caches, logs, historical or experimental implementations, runtime data, credentials, and unrelated infrastructure stay out. Root-code choices must come from the team's actual `problems/qN/code/` or `problems/preprocess/code/` sources and explain their real responsibility and paper value. COPY/CURATE remains traceable and must not change mathematics, execution order, randomness, recovery rules, or result boundaries.
 
 Selecting distinctive authentic engineering code can reduce false alarms caused by naturally similar generic core implementations, but similarity manipulation is forbidden. Never copy others' code, obfuscate, insert junk/dead code, scramble names/control flow, or add code that did not support the formal workflow. No external similarity service, threshold, or originality score is part of Lite.
 
@@ -178,4 +194,4 @@ After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accoun
 
 ## Non-goals
 
-Lite 0.5.1 does not validate mathematical correctness, modeling-plan quality, or HANDOFF completeness/synchronization in Python; infer contract granularity; discover dependencies from prose; expand transitive or wildcard dependencies; compare sibling split units automatically; reconcile contradictions; manage approvals/state; migrate Full or Lite v2 workspaces; generate papers or figures; orchestrate solvers or agents; provide `add-problem`; emit JSON diagnostics; build/delete appendix trees; identify all plotting code; judge originality or external similarity; prove result equivalence; fully resolve dynamic imports/CMake; or verify Excel formula/format semantics. L0/L1/L2 classification, HANDOFF formal/auxiliary separation, appendix completeness, code authenticity, paper interpretation, and proportionality remain agent/human judgments.
+Lite 0.6.0 does not validate mathematical correctness, modeling-plan or EDA quality, causal claims, or HANDOFF completeness/synchronization in Python; infer PRE use or contract granularity; execute cleaning or user code; discover dependencies from prose; expand transitive or wildcard dependencies; compare sibling split units automatically; reconcile contradictions; manage approvals/state; migrate Full or Lite v2 workspaces; generate papers or figures; orchestrate solvers or agents; provide `add-problem`; emit content JSON diagnostics; build/delete appendix trees; identify all plotting code; judge originality or external similarity; prove result equivalence; fully resolve dynamic imports/CMake; or verify Excel formula/format semantics. L0/L1/L2 classification, HANDOFF formal/auxiliary separation, appendix completeness, code authenticity, paper interpretation, and proportionality remain agent/human judgments.

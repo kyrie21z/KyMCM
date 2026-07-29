@@ -1,5 +1,10 @@
 # Changelog
 
+## KyMCM Lite 0.6.0 - 2026-07-29
+
+- Add an optional fixed preprocess stage, exact PRE contracts and paper handoff, two read-only checks, explicit QN PRE inheritance, and appendix support.
+- Preserve PRE-free 0.5.1 workspaces, Lite v3 marker bytes, QN contract headings, and stateless operation.
+
 ## KyMCM Lite 0.5.1 - 2026-07-29
 
 - Redefine appendix code as the complete formal solve pipeline with plotting excluded.

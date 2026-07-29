@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 - 2026-07-29
+
+- Add the optional fixed `problems/preprocess/` stage with exact START_PRE, RESULT_PRE, and HANDOFF_PRE templates and guidance.
+- Add `init --preprocess`, read-only preprocess checks, explicit QN PRE dependencies, downstream staleness warnings, and PRE appendix mappings.
+- Preserve the Lite v3 marker, QN headings and modes, stateless design, and all valid PRE-free 0.5.1 workspaces.
+
 ## 0.5.1 - 2026-07-29
 
 - Treat `appendix/` code as the complete formal solve pipeline with plotting excluded, rather than a mechanically minimal core.

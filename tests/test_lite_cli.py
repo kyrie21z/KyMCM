@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CLI = ROOT / "skills/kymcm-lite/scripts/lite.py"
 FIXTURE = ROOT / "tests/fixtures/lite_synthetic_handoff"
 SPLIT_FIXTURE = ROOT / "tests/fixtures/lite_split_handoff"
+LITE_TEMPLATES = ROOT / "skills/kymcm-lite/templates"
 
 
 def fingerprint(root: Path) -> str:
@@ -48,14 +49,83 @@ class LiteCliTests(unittest.TestCase):
         shutil.copytree(SPLIT_FIXTURE, workspace)
         return temporary, workspace
 
+    def add_preprocess(self, workspace: Path) -> None:
+        root = workspace / "problems/preprocess"
+        for part in ("spec", "code", "data", "data/derived", "outputs", "notes", "result"):
+            (root / part).mkdir(parents=True, exist_ok=True)
+        shutil.copy2(LITE_TEMPLATES / "START_PRE.template.md", root / "spec/START_PRE.md")
+        result = (LITE_TEMPLATES / "RESULT_PRE.template.md").read_text(encoding="utf-8")
+        result = result.replace(
+            "<!-- 示例：- E1 — `problems/preprocess/data/derived/cleaned_data.csv` — 冻结清洗数据 -->",
+            "- E1 — `problems/preprocess/data/derived/cleaned_data.csv` — 冻结清洗数据",
+        )
+        (root / "result/RESULT_PRE.md").write_text(result, encoding="utf-8")
+        (root / "data/derived/cleaned_data.csv").write_text("id,value\\n1,2\\n", encoding="utf-8")
+
+    def test_optional_preprocess_init_commands_dependency_and_read_only_checks(self):
+        with tempfile.TemporaryDirectory() as raw:
+            base = Path(raw)
+            plain = base / "plain"
+            self.run_cli("init", "--workspace", str(plain), "--questions", "1", ok=0)
+            self.assertFalse((plain / "problems/preprocess").exists())
+            enabled = base / "enabled"
+            initialized = self.run_cli(
+                "init", "--workspace", str(enabled), "--questions", "1",
+                "--preprocess", ok=0,
+            )
+            self.assertIn("START_PRE", initialized.stdout)
+            self.assertIn("No PRE contracts were created", initialized.stdout)
+            self.assertIn("templates/RESULT_PRE.template.md", initialized.stdout)
+            self.assertIn("no HANDOFF checker", initialized.stdout)
+            pre = enabled / "problems/preprocess"
+            for part in ("spec", "code", "data", "data/derived", "outputs", "notes", "result"):
+                self.assertTrue((pre / part).is_dir(), part)
+            self.assertFalse(any(pre.rglob("*PRE*.md")))
+            self.assertIn("preprocess=present start=no result=no", self.run_cli(
+                "doctor", "--workspace", str(enabled), ok=0
+            ).stdout)
+            missing = self.run_cli(
+                "check-preprocess-start", "--workspace", str(enabled), ok=1
+            )
+            self.assertIn("LITE-PREPROCESS-START-001", missing.stdout)
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.add_preprocess(workspace)
+            q1 = workspace / "problems/q1/spec/START_Q1.md"
+            q1.write_text(q1.read_text(encoding="utf-8").replace(
+                "**前问依赖：** 无",
+                "**预处理依赖：** PRE\n\n**前问依赖：** 无",
+            ), encoding="utf-8")
+            for command in ("check-preprocess-start", "check-preprocess-result"):
+                before = fingerprint(workspace)
+                completed = self.run_cli(command, "--workspace", str(workspace), ok=0)
+                self.assertEqual(before, fingerprint(workspace), completed.stdout)
+            self.run_cli(
+                "check-start", "--workspace", str(workspace), "--problem", "1", ok=0
+            )
+            bad = workspace / "problems/preprocess/result/RESULT_PRE_1.md"
+            bad.write_text("# RESULT PRE_1\\n", encoding="utf-8")
+            self.assertIn("LITE-PREPROCESS-LAYOUT-001", self.run_cli(
+                "doctor", "--workspace", str(workspace), ok=1
+            ).stdout)
+        finally:
+            temporary.cleanup()
+
     def test_help_exposes_exact_public_commands(self):
         completed = self.run_cli("--help", ok=0)
-        for command in ("init", "doctor", "check-start", "check-result"):
+        for command in (
+            "init", "doctor", "check-preprocess-start",
+            "check-preprocess-result", "check-start", "check-result",
+        ):
             self.assertIn(command, completed.stdout)
         self.assertNotIn("add-problem", completed.stdout)
         for command in ("check-start", "check-result"):
             self.assertIn("--subproblem", self.run_cli(command, "--help", ok=0).stdout)
-        for command in ("init", "doctor", "check-appendix-start", "check-appendix-result"):
+        for command in (
+            "init", "doctor", "check-preprocess-start", "check-preprocess-result",
+            "check-appendix-start", "check-appendix-result",
+        ):
             self.assertNotIn("--subproblem", self.run_cli(command, "--help", ok=0).stdout)
 
     def test_split_selection_titles_missing_result_and_doctor_output(self):

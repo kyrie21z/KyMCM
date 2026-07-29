@@ -9,7 +9,7 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.5.1 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, the existing eight START headings, seven RESULT headings, six commands, modeling checker semantics, and every valid 0.5.0 workspace. APPENDIX_START/RESULT headings and whitelist grammar are unchanged; existing appendix contracts need no mechanical migration. On the next actual appendix reorganization, review `appendix/` for complete formal-solve code coverage with plotting excluded and reselect authentic representative root `code/` files.
+KyMCM Lite 0.6.0 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, the existing eight QN START headings, seven QN RESULT headings, and every valid PRE-free 0.5.1 workspace. It adds an optional fixed PRE tree, two read-only commands, and PRE appendix mappings. Existing QN and appendix contracts need no mechanical migration.
 
 RESULT remains formal, concise, auditable, and the only downstream modeling inheritance surface. HANDOFF is a derived, complete paper-writer collaboration document under `problems/qN/notes/`, never a formal fact source or modeling dependency. Single HANDOFF uses `HANDOFF_QN.md`; split HANDOFF uses exact `HANDOFF_QN_K.md` identities without an aggregate. Appendix organization may reference but cannot copy HANDOFF.
 

@@ -1,4 +1,14 @@
-# KyMCM Lite 0.5.1
+# KyMCM Lite 0.6.0
+
+KyMCM Lite 0.6.0 adds an optional fixed `problems/preprocess/` stage for shared data audit, deterministic cleaning, common data products, and bounded EDA. It adds `init --preprocess`, `check-preprocess-start`, and `check-preprocess-result`; PRE-free KyMCM Lite 0.5.1 workspaces remain valid.
+
+The marker remains exactly `{"workflow":"kymcm_lite","version":3}` and Python 3.11, 3.12, and 3.13 remain supported. The eight QN START and seven QN RESULT headings, single/split modes, `init`, `doctor`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` remain available.
+
+START_PRE freezes execution intent; RESULT_PRE is the authoritative downstream data contract; HANDOFF_PRE is the paper writer's complete data-layer collaboration document and cannot be inherited by modeling. A QN declares `**预处理依赖：** PRE` separately from `**前问依赖：**`, then semantically reviews the complete PRE pair. Appendix whitelists may include PRE code and formal data products but never PRE contracts or HANDOFF_PRE.
+
+Users who copied the Skill must reinstall the complete 0.6.0 directory. Existing workspaces are not automatically migrated or rewritten. Full and Lite v2 remain separate products.
+
+## KyMCM Lite 0.5.1
 
 ## Highlights
 

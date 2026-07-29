@@ -41,10 +41,11 @@ class LiteAppendixCliTests(unittest.TestCase):
         shutil.copytree(FIXTURE, workspace)
         return temporary, workspace
 
-    def test_help_has_six_commands_and_appendix_needs_no_problem(self):
+    def test_help_has_eight_commands_and_appendix_needs_no_problem(self):
         help_result = self.run_cli("--help", ok=0)
         for command in (
             "init", "doctor", "check-start", "check-result",
+            "check-preprocess-start", "check-preprocess-result",
             "check-appendix-start", "check-appendix-result",
         ):
             self.assertIn(command, help_result.stdout)
