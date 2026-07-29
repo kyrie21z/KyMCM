@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.4.0** is the Markdown-first execution protocol with execution-first semantic plan design, per-question single or split START/RESULT contracts, exact direct dependencies, and an optional independent appendix stage. Codex prioritizes solvability preflight, smoke testing, recoverable stages, explicit cost, and risk-triggered validation without adding content JSON, workflow state, or checker complexity.
+- **KyMCM Lite 0.5.0** is the Markdown-first execution protocol with execution-first plan design and evidence-linked paper-writing HANDOFF documents. RESULT remains the concise formal contract and downstream modeling interface; HANDOFF is the paper writer's sole complete collaboration medium. No command, workflow state, or content JSON is added.
 
 ## Install
 

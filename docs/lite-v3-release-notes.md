@@ -1,12 +1,12 @@
-# KyMCM Lite 0.4.0
+# KyMCM Lite 0.5.0
 
 ## Highlights
 
-KyMCM Lite 0.4.0 adds an execution-first modeling-plan design standard for authoring, reviewing, and executing every START handoff. The standard requires an explicit minimum deliverable, auditable inputs and outputs, preflight checks, a smallest representative smoke test, staged and recoverable formal execution, cache/reuse strategy, realistic nested fitting/solving/scenario counts, resource estimates, and L0/L1/L2 validation.
+KyMCM Lite 0.5.0 adds a paper-writing HANDOFF layer for complete executor-to-paper-writer collaboration. RESULT remains the concise formal result contract, certification boundary, and only downstream modeling inheritance surface. The exact matching `problems/qN/notes/HANDOFF_QN[_K].md` is the paper writer's sole complete collaboration document, derived from RESULT and machine evidence.
 
-The bundled canonical reference is `references/modeling_plan_design.md`; its repository mirror is `docs/lite-v3/modeling_plan_design.md`. Both are byte-identical to the supplied source `建模方案设计规范.md`, whose SHA-256 is `3c508dc1a48a697efcc8b220cde5187727b8b49ba4b81570ca3ab8750e09120b`.
+The mirrored `paper_handoff.md` reference defines single/split identity, lifecycle, authority and conflict handling, formal/auxiliary separation, evidence mapping, paper assets, and expression boundaries. The mirrored eight-section HANDOFF template makes full paper-relevant values, validation, anomalies, figures, tables, usable claims, and final review points directly available without expanding RESULT.
 
-This is a semantic planning and execution standard, not a new workspace contract. The six public commands, Lite v3 marker, START/RESULT headings, dependency grammar, checker diagnostics, and read-only runtime behavior are unchanged from 0.3.1.
+No `check-handoff`, flag, state, JSON, manifest, approval, or automatic paper generator is added. `check-result` does not require HANDOFF. The six public commands, Lite v3 marker, START/RESULT/appendix templates, dependency/evidence grammar, and modeling checker behavior are unchanged from 0.4.0.
 
 ## Install
 
@@ -25,11 +25,17 @@ Exit code 0 means valid or warnings only, 1 means a contract or evidence failure
 
 ## Protocol identity
 
-The workspace marker remains exactly `{"workflow":"kymcm_lite","version":3}`. Product version 0.4.0 and protocol generation 3 are independent identifiers. The eight START and seven RESULT headings are unchanged. START section 2 contains exactly one visible `**前问依赖：** 无` or strictly ordered exact earlier-unit list such as `**前问依赖：** Q1, Q2_1`.
+The workspace marker remains exactly `{"workflow":"kymcm_lite","version":3}`. Product version 0.5.0 and protocol generation 3 are independent identifiers. The eight START and seven RESULT headings are unchanged. START section 2 contains exactly one visible `**前问依赖：** 无` or strictly ordered exact earlier-unit list such as `**前问依赖：** Q1, Q2_1`.
+
+## Paper-writing HANDOFF
+
+Create HANDOFF only after the exact matching RESULT passes `check-result` and formal plus paper-relevant auxiliary evidence is stable. Single mode uses `HANDOFF_QN.md`; split mode uses exact `HANDOFF_QN_K.md` documents and never an unsuffixed aggregate.
+
+RESULT controls formal scope, machine evidence controls actual values and assets, and HANDOFF organizes them for paper writing. Every important item is labeled `正式` or `辅助`, maps to real workspace-relative evidence, and states both usable interpretation and forbidden causal, absolute, or extrapolative language. Critical numbers are rechecked against evidence before finalization. HANDOFF cannot expand RESULT, serve as a downstream modeling dependency, or enter appendix outputs.
 
 ## Safety and validation scope
 
-Checkers are read-only. They ignore Markdown examples inside fenced code and HTML comments, reject unsafe or symlinked paths, and never execute evidence or user code. A legacy FROZEN_CONTEXT file is ignored even when malformed or invalid UTF-8. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy single or split START/RESULT contracts.
+Checkers are read-only. They ignore Markdown examples inside fenced code and HTML comments, reject unsafe or symlinked paths, and never execute evidence or user code. A legacy FROZEN_CONTEXT file is ignored even when malformed or invalid UTF-8. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy single or split START/RESULT contracts or matching HANDOFF collaboration documents.
 
 Codex reads each declared upstream START and RESULT when authoring, materially revising, reviewing, or executing a dependent START. Authorized RESULT deviations form part of the effective upstream contract. A no-conflict review creates no report, JSON, approval, event, hash, or evidence artifact.
 
@@ -41,11 +47,15 @@ KyMCM Full 1.0.0 is the separate review-gated workflow with structured mathemati
 
 ## Known limitations
 
-Lite does not provide solvers, model or contract-granularity discovery, automatic dependency discovery, transitive or wildcard expansion, sibling-unit comparison, automatic semantic reconciliation, automatic cost measurement, automatic recovery, paper or figure generation, workflow approvals, JSON diagnostics, dynamic `add-problem`, automatic appendix building/deletion, native multi-OS certification, or mathematical-correctness validation. Dependency completeness, contradiction decisions, modeling-plan quality, and L0/L1/L2 adequacy remain Codex/human responsibilities. Git diagnostics are advisory.
+Lite does not provide solvers, model or contract-granularity discovery, automatic dependency discovery, transitive or wildcard expansion, sibling-unit comparison, automatic semantic reconciliation, automatic cost measurement, automatic recovery, automatic paper or figure generation, workflow approvals, JSON diagnostics, dynamic `add-problem`, automatic appendix building/deletion, native multi-OS certification, or mathematical-correctness validation. HANDOFF completeness, synchronization, evidence fidelity, formal/auxiliary classification, and writing quality remain Codex/ChatGPT and human responsibilities. Final paper numbers still require evidence-level review. Git diagnostics are advisory.
 
 ## Upgrade and compatibility
 
-Users who installed by copying must reinstall the complete Skill for 0.4.0. Symlink installations need only update the repository and restart Codex. Existing 0.3.1 workspaces and contracts need no rewrite; use the enriched START comments and bundled reference when creating or materially revising plans. To migrate 0.2.0, add one dependency declaration to section 2 of every START, ensure declared predecessors have completed START and RESULT files, optionally delete the legacy FROZEN_CONTEXT file, and rerun `doctor`, `check-start`, and `check-result`. Historical workspaces are not automatically migrated. Full, Lite v2, Legacy, malformed, and unknown markers fail closed in Lite v3. Full v1.0.0 remains separate and supported.
+Users who installed by copying must reinstall the complete Skill for 0.5.0. Symlink installations need only update the repository and restart Codex. Existing 0.4.0 workspaces and contracts need no rewrite and no HANDOFF to pass existing commands. Create HANDOFF manually for a completed unit only when it next enters real paper collaboration. Historical workspaces are not automatically migrated. Full, Lite v2, Legacy, malformed, and unknown markers fail closed in Lite v3. Full v1.0.0 remains separate and supported.
+
+## Historical 0.4.0 release
+
+KyMCM Lite 0.4.0 (2026-07-29) added the mirrored execution-first modeling-plan design standard, including preflight, smoke testing, staged recovery, explicit nested cost, and L0/L1/L2 validation guidance. Its preserved canonical source SHA-256 is `3c508dc1a48a697efcc8b220cde5187727b8b49ba4b81570ca3ab8750e09120b`.
 
 ## Historical 0.3.1 release
 

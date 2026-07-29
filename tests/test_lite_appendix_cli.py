@@ -106,6 +106,32 @@ class LiteAppendixCliTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
+    def test_handoff_sources_are_rejected_without_new_command(self):
+        for relative in (
+            "problems/q1/notes/HANDOFF_Q1.md",
+            "problems/q2/notes/HANDOFF_Q2_1.md",
+        ):
+            with self.subTest(relative=relative):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source = workspace / relative
+                    source.parent.mkdir(parents=True, exist_ok=True)
+                    source.write_text(f"# {source.stem.replace('_', ' ')}\n", encoding="utf-8")
+                    contract = workspace / "reports/appendix/APPENDIX_START.md"
+                    contract.write_text(
+                        contract.read_text(encoding="utf-8").replace(
+                            "problems/q1/code/core.py", relative
+                        ),
+                        encoding="utf-8",
+                    )
+                    completed = self.run_cli(
+                        "check-appendix-start", "--workspace", str(workspace), ok=1
+                    )
+                    self.assertIn("LITE-APPENDIX-SOURCE-PATH-001", completed.stdout)
+                    self.assertIn("HANDOFF collaboration documents", completed.stdout)
+                finally:
+                    temporary.cleanup()
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -20,7 +20,7 @@ from kymcm_lite.paths import MARKER_BYTES
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.4.0\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.5.0\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -28,8 +28,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.4.0", text, relative)
-            self.assertNotIn("0.4.0-dev", text, relative)
+            self.assertIn("0.5.0", text, relative)
+            self.assertNotIn("0.5.0-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -57,6 +57,7 @@ class LiteReleaseTests(unittest.TestCase):
         pairs = (
             ("docs/lite-v3/START_QN.template.md", "skills/kymcm-lite/templates/START_QN.template.md"),
             ("docs/lite-v3/RESULT_QN.template.md", "skills/kymcm-lite/templates/RESULT_QN.template.md"),
+            ("docs/lite-v3/HANDOFF_QN.template.md", "skills/kymcm-lite/templates/HANDOFF_QN.template.md"),
             ("docs/lite-v3/APPENDIX_START.template.md", "skills/kymcm-lite/templates/APPENDIX_START.template.md"),
             ("docs/lite-v3/APPENDIX_RESULT.template.md", "skills/kymcm-lite/templates/APPENDIX_RESULT.template.md"),
         )
@@ -73,6 +74,10 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertEqual(
             (ROOT / "docs/lite-v3/modeling_plan_design.md").read_bytes(),
             (SKILL / "references/modeling_plan_design.md").read_bytes(),
+        )
+        self.assertEqual(
+            (ROOT / "docs/lite-v3/paper_handoff.md").read_bytes(),
+            (SKILL / "references/paper_handoff.md").read_bytes(),
         )
         self.assertFalse((ROOT / "docs/lite-v3/FROZEN_CONTEXT.template.md").exists())
         self.assertFalse((SKILL / "templates/FROZEN_CONTEXT.template.md").exists())
@@ -101,6 +106,49 @@ class LiteReleaseTests(unittest.TestCase):
         }
         for relative, expected in frozen_hashes.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected, relative)
+
+    def test_paper_handoff_reference_template_and_semantic_boundaries(self):
+        reference = SKILL / "references/paper_handoff.md"
+        template = SKILL / "templates/HANDOFF_QN.template.md"
+        self.assertEqual(
+            hashlib.sha256(reference.read_bytes()).hexdigest(),
+            "291d364d5142c35faacc479128f30fbc3a01ccb715665cfd98faba70a22c56f9",
+        )
+        self.assertEqual(
+            hashlib.sha256(template.read_bytes()).hexdigest(),
+            "5c027db9c9c4191bbf401386cfbfd6454fb55b0408b41d92c8004cc77737db55",
+        )
+        skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
+        reference_text = reference.read_text(encoding="utf-8")
+        self.assertIn("references/paper_handoff.md", skill)
+        for required in (
+            "sole complete collaboration medium", "RESULT remains the concise formal boundary",
+            "Never use HANDOFF as a later modeling dependency", "cannot be copied",
+        ):
+            self.assertIn(required, skill)
+        for required in (
+            "HANDOFF_QN_K.md", "never an unsuffixed aggregate", "`正式`", "`辅助`",
+            "check-result", "does not require it",
+        ):
+            self.assertIn(required, protocol)
+        for required in (
+            "Machine evidence", "formal and auxiliary", "Evidence mapping",
+            "causal", "extrapolative",
+        ):
+            self.assertIn(required, reference_text)
+
+    def test_check_result_does_not_require_handoff(self):
+        workspace = ROOT / "tests/fixtures/lite_synthetic_handoff"
+        self.assertFalse(any(workspace.rglob("HANDOFF_Q*.md")))
+        completed = subprocess.run(
+            [
+                sys.executable, str(SKILL / "scripts/lite.py"), "check-result",
+                "--workspace", str(workspace), "--problem", "1",
+            ],
+            text=True, capture_output=True,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
 
     def test_standalone_skill_has_no_symlinks(self):
         self.assertFalse(any(path.is_symlink() for path in SKILL.rglob("*")))
@@ -132,17 +180,19 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.4.0", "KyMCM Lite 0.3.1", "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.5.0", "KyMCM Lite 0.4.0", "KyMCM Lite 0.3.1", "KyMCM Lite 0.3.0", "KyMCM Lite 0.2.0", "KyMCM Lite 0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", '{"workflow":"kymcm_lite","version":3}',
             "Full", "Lite v2", "first standalone Lite v3 release", "not automatically migrated",
             "3c508dc1a48a697efcc8b220cde5187727b8b49ba4b81570ca3ab8750e09120b",
+            "HANDOFF_QN_K.md", "sole complete collaboration document", "正式", "辅助",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.5.0 - 2026-07-29", text, relative)
             self.assertIn("0.4.0 - 2026-07-29", text, relative)
             self.assertIn("0.3.1 - 2026-07-24", text, relative)
             self.assertIn("0.3.0 - 2026-07-23", text, relative)

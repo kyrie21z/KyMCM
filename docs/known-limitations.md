@@ -7,7 +7,7 @@
 - Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred but never bundled.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.4.0 limitations:
+KyMCM Lite 0.5.0 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - Git diagnostics are advisory rather than revision bindings.
@@ -18,5 +18,7 @@ KyMCM Lite 0.4.0 limitations:
 - Static dependency checks validate exact-token grammar and upstream contract availability, not mathematical consistency, transitive completeness, wildcard expansion, or semantic contradictions. Same-question dependencies remain unsupported.
 - Direct-dependency completeness and contradiction decisions remain Codex/human responsibilities; successful reviews create no consistency report.
 - L0/L1/L2 classification, smoke-test adequacy, cache/recovery design, nested-cost realism, and modeling-plan quality remain Codex/human responsibilities. The Python checker does not parse or enforce them.
+- Python tools do not validate HANDOFF identity, completeness, synchronization, formal/auxiliary classification, evidence fidelity, or writing quality. Codex/ChatGPT and humans remain responsible, and final paper numbers require evidence-level review.
+- HANDOFF is not an automatic paper generator and cannot be used as a downstream modeling dependency or formal certification source.
 - Appendix checks do not prove semantic equivalence of results, resolve every dynamic import, interpret all CMake, or verify Excel formulas, cached values, merged cells, formatting, or numerical agreement.
-- Appendix work does not migrate Full or Lite v2 workspaces. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy single or split START/RESULT contracts.
+- Appendix work does not migrate Full or Lite v2 workspaces. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy single or split START/RESULT contracts or matching HANDOFF collaboration documents.

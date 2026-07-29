@@ -1,4 +1,4 @@
 interface:
   display_name: "KyMCM Lite"
-  short_description: "Execution-first modeling handoffs and appendix checks"
-  default_prompt: "Use $kymcm-lite to design, review, or execute a recoverable Markdown-first modeling handoff with preflight, smoke testing, staged cost-aware execution, and risk-triggered validation."
+  short_description: "Execution-first modeling and paper handoffs"
+  default_prompt: "Use $kymcm-lite to execute a checked modeling handoff and prepare a complete evidence-linked HANDOFF for the paper writer."

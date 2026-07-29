@@ -31,6 +31,16 @@ RESULT_SECTIONS = (
     "## 6. 局限性与风险",
     "## 7. 下游冻结输出",
 )
+HANDOFF_SECTIONS = (
+    "## 1. 论文定位与可用结论",
+    "## 2. 数据口径与实际执行",
+    "## 3. 模型、参数与判定规则",
+    "## 4. 完整关键结果",
+    "## 5. 验证、敏感性与异常",
+    "## 6. 图表、表格与素材索引",
+    "## 7. 推荐论文表述与边界",
+    "## 8. 前后问衔接与复核事项",
+)
 PERMITTED_SENTINELS = {"无", "None", "N/A"}
 EVIDENCE = re.compile(r"^- E\d+ — `([^`]+)` — \S.*$")
 
@@ -198,6 +208,15 @@ class LiteV3Phase1Tests(unittest.TestCase):
             self.assertIn(required, template)
         self.assertEqual(template.count("**前问依赖：** 无"), 1)
         self.assertEqual(markdown_headings(DOCS / "START_QN.template.md"), ("# START QN", *START_SECTIONS))
+
+    def test_handoff_template_has_exact_identity_headings_and_authority(self):
+        template = DOCS / "HANDOFF_QN.template.md"
+        text = template.read_text(encoding="utf-8")
+        self.assertEqual(markdown_headings(template), ("# HANDOFF QN", *HANDOFF_SECTIONS))
+        self.assertIn("**正式上游：** `problems/qN/result/RESULT_QN.md`", text)
+        self.assertIn("正式范围以匹配 RESULT 为准", text)
+        self.assertIn("具体数值以真实机器证据为准", text)
+        self.assertIn("拆分模式不得创建无后缀汇总 HANDOFF", text)
 
     def test_reviewer_record_has_no_missing_or_ambiguous_items(self):
         record = (DOCS / "reviewer-record.md").read_text(encoding="utf-8")

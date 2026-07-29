@@ -148,15 +148,18 @@ class AppendixRuntimeTests(unittest.TestCase):
             finally:
                 temporary.cleanup()
 
-    def test_split_contracts_are_excluded_sources_and_scanned_for_limitations(self):
+    def test_contracts_and_handoffs_are_excluded_sources_and_scanned_for_limitations(self):
         for relative, title in (
             ("problems/q1/spec/START_Q1_1.md", "# START Q1_1"),
             ("problems/q1/result/RESULT_Q1_1.md", "# RESULT Q1_1"),
+            ("problems/q1/notes/HANDOFF_Q1.md", "# HANDOFF Q1"),
+            ("problems/q1/notes/HANDOFF_Q1_1.md", "# HANDOFF Q1_1"),
         ):
             with self.subTest(relative=relative):
                 temporary, workspace = self.fixture_copy()
                 try:
                     source = workspace / relative
+                    source.parent.mkdir(parents=True, exist_ok=True)
                     source.write_text(f"{title}\n", encoding="utf-8")
                     self.mutate_start(
                         workspace,
@@ -169,6 +172,22 @@ class AppendixRuntimeTests(unittest.TestCase):
                     )
                 finally:
                     temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            source = workspace / "problems/q1/notes/solver_note.md"
+            source.parent.mkdir(parents=True, exist_ok=True)
+            source.write_text("ordinary internal note\n", encoding="utf-8")
+            self.mutate_start(workspace, "problems/q1/code/core.py", source.relative_to(workspace).as_posix())
+            found = [
+                item for item in check_appendix_start(workspace)
+                if item.identifier == "LITE-APPENDIX-SOURCE-PATH-001"
+                and item.location == source.relative_to(workspace).as_posix()
+            ]
+            self.assertTrue(found)
+            self.assertTrue(all("internal references" not in item.message for item in found))
+        finally:
+            temporary.cleanup()
 
         temporary, workspace = self.fixture_copy()
         try:

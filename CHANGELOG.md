@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.5.0 - 2026-07-29
+
+- Add a mirrored paper-writing HANDOFF reference and eight-section single/split template.
+- Make HANDOFF the complete executor-to-paper-writer collaboration layer while preserving RESULT as the formal contract and only downstream modeling inheritance surface.
+- Exclude HANDOFF from appendix sources without adding commands, state, JSON, or a HANDOFF checker.
+
 ## KyMCM Lite 0.4.0 - 2026-07-29
 
 - Add the byte-exact user-authored modeling-plan design standard as a mirrored Skill/repository reference.

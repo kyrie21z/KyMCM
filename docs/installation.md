@@ -1,6 +1,6 @@
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.4.0 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.5.0 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -10,9 +10,9 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.4.0 so the bundled `references/modeling_plan_design.md` is present. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.5.0 so `references/paper_handoff.md` and `templates/HANDOFF_QN.template.md` are present. Symlink installations need only update the repository and restart Codex.
 
-Existing 0.3.1 single/split workspaces require no structural rewrite for 0.4.0. Apply the modeling-plan standard when a START is next materially revised, reviewed, or executed; revise sections 5–7 before formal execution when smoke testing, recovery boundaries, or realistic cost design are missing. Do not rewrite completed historical contracts mechanically.
+Existing 0.4.0 single/split workspaces require no structural rewrite for 0.5.0 and no HANDOFF to pass existing checks. For new paper collaboration, create a matching HANDOFF only after RESULT passes `check-result` and evidence is stable. Do not rewrite completed historical RESULT contracts mechanically.
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 

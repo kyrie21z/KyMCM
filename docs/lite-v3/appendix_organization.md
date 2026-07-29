@@ -2,14 +2,14 @@
 
 附录整理是建模完成后的可选独立阶段。`appendix/` 是随作品提交的最小复现与正式结果附件，根 `code/` 是论文正文后的精简核心算法附录；二者用途不同、互不替代。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
 
-The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference START and RESULT only.
+The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference START, RESULT, and HANDOFF only as internal context.
 
 ## 基本原则
 
 1. 先冻结结构和白名单，再从白名单正向构造，禁止先复制整个工程再反向删除。
 2. 只保留审稿验证所需的最小充分集合；依赖闭包优先于表面文件数最少。
-3. `problems/`、`input/`、`paper/` 以及正式 START/RESULT 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
-4. 建模工作流没有 FROZEN_CONTEXT surface；单一或拆分 START/RESULT 契约只能作为上下文参考，不能复制进、授权或扩展最终包。
+3. `problems/`、`input/`、`paper/` 以及正式 START/RESULT 和论文协作 HANDOFF 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
+4. 建模工作流没有 FROZEN_CONTEXT surface；单一或拆分 START/RESULT 契约及匹配 HANDOFF 只能作为上下文参考，不能复制进、授权或扩展最终包，HANDOFF 也不是正式认证来源。
 5. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON 或持久化清单。
 
 ## `appendix/`
