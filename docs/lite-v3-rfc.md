@@ -1,6 +1,6 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. Superseded for the active workflow by KyMCM Lite 0.3.0, which removes FROZEN_CONTEXT and uses direct START dependencies. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.7.0 behavior; see `skills/kymcm-lite/docs/protocol.md`. Preserved without rewriting historical decisions.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite

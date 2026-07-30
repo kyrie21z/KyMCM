@@ -26,7 +26,7 @@ from .paths import (
 
 APPENDIX_START_HEADINGS = (
     "## 1. 提交范围与比赛要求",
-    "## 2. 论文引用、正式结果与认证边界",
+    "## 2. 正式结果与认证边界",
     "## 3. appendix 目标结构",
     "## 4. appendix 文件白名单",
     "## 5. code 文件白名单",
@@ -40,7 +40,7 @@ APPENDIX_RESULT_HEADINGS = (
     "## 2. 实际整理方案与 APPENDIX_START 偏差",
     "## 3. 白名单执行结果",
     "## 4. 依赖闭包与编译构建验证",
-    "## 5. 正式结果与论文一致性",
+    "## 5. 正式结果一致性",
     "## 6. 强制结果文件核验",
     "## 7. 排除项与敏感信息扫描",
     "## 8. 原始工程只读验证",
@@ -63,7 +63,7 @@ GENERATE_LINE = re.compile(
     r"^- ([AC][0-9]{3,}) — GENERATE — (`[^`]+`) — (\S.*)$"
 )
 EVIDENCE_LINE = re.compile(r"^- (E[0-9]+) — `([^`]*)` — (\S.*)$")
-SOURCE_ROOTS = ("problems/", "input/", "paper/")
+SOURCE_ROOTS = ("problems/", "input/")
 TEXT_SUFFIXES = {
     ".c", ".cc", ".cmake", ".cpp", ".csv", ".cxx", ".h", ".hh", ".hpp",
     ".hxx", ".ini", ".md", ".py", ".rst", ".toml", ".tsv", ".txt",
@@ -323,7 +323,7 @@ def _parse_whitelist(
             ):
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-PATH-001", source,
-                    "source is outside problems/, input/, or paper/",
+                    "source is outside problems/ or input/",
                 ))
             elif re.match(
                 r"(?:problems/q[1-9][0-9]*/(?:spec/START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
@@ -479,13 +479,13 @@ def _git_source_diagnostics(workspace: Path) -> list[Diagnostic]:
     ):
         completed = subprocess.run(
             ["git", "-C", str(workspace), "status", "--porcelain", "--",
-             "problems", "input", "paper"],
+             "problems", "input"],
             text=True, capture_output=True,
         )
         if completed.returncode == 0 and completed.stdout.strip():
             diagnostics.append(warning(
                 "LITE-GIT-DIRTY-WARN-001", ".",
-                "original problems/, input/, or paper/ sources have Git changes",
+                "original problems/ or input/ sources have Git changes",
             ))
     return diagnostics
 

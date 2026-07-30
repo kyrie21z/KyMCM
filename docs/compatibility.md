@@ -9,9 +9,11 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.6.0 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, the existing eight QN START headings, seven QN RESULT headings, and every valid PRE-free 0.5.1 workspace. It adds an optional fixed PRE tree, two read-only commands, and PRE appendix mappings. Existing QN and appendix contracts need no mechanical migration.
+KyMCM Lite 0.7.0 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, the eight QN START headings, seven QN RESULT headings, PRE contracts, single/split identities, dependencies, evidence rules, and eight public commands from 0.6.0. Existing START/RESULT/PRE modeling workspaces remain valid.
 
-RESULT remains formal, concise, auditable, and the only downstream modeling inheritance surface. HANDOFF is a derived, complete paper-writer collaboration document under `problems/qN/notes/`, never a formal fact source or modeling dependency. Single HANDOFF uses `HANDOFF_QN.md`; split HANDOFF uses exact `HANDOFF_QN_K.md` identities without an aggregate. Appendix organization may reference but cannot copy HANDOFF.
+RESULT remains formal, concise, auditable, and the only downstream modeling inheritance surface. HANDOFF is a derived neutral technical-transfer document under `problems/qN/notes/`, never a formal fact source or modeling dependency. Single HANDOFF uses `HANDOFF_QN.md`; split HANDOFF uses exact `HANDOFF_QN_K.md` identities without an aggregate. Appendix organization may reference but cannot copy HANDOFF.
+
+`paper/` is no longer a managed root or appendix source. A legacy directory remains on disk and is completely ignored, even if its contents are malformed, invalid UTF-8, or symlinked. Existing APPENDIX contracts must replace `论文引用、正式结果与认证边界` with `正式结果与认证边界`, replace `正式结果与论文一致性` with `正式结果一致性`, and remove or replace any `paper/...` source. Existing HANDOFF files are not automatically rewritten; use the neutral templates on their next material update.
 
 Single/split behavior remains as introduced in 0.3.1. Each official question may use contiguous `QN_K` START units with matching RESULT units completed independently. Single and split contracts cannot coexist for one question. Dependencies name exact earlier-question single or split units; no bare-token expansion or same-question edge is added.
 

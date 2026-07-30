@@ -660,7 +660,7 @@ def check_preprocess_result(workspace: Path) -> list[Diagnostic]:
 def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
     diagnostics = marker_diagnostics(workspace)
     diagnostics.extend(symlink_diagnostics(workspace, list(MANAGED_ROOTS)))
-    for name in (".kymcm", "input", "paper", "reports", "problems"):
+    for name in (".kymcm", "input", "reports", "problems"):
         path = workspace / name
         if not path.is_dir() or path.is_symlink():
             diagnostics.append(error("LITE-LAYOUT-001", name, "required managed directory is missing or unsafe"))

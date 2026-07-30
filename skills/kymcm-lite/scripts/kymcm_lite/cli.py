@@ -65,7 +65,10 @@ def initialize(workspace: Path, questions: int, preprocess: bool = False) -> int
                 current = current.parent
             workspace.mkdir(parents=True)
             created.extend(reversed(missing_ancestors))
-        directories = [workspace / ".kymcm", workspace / "input", workspace / "paper", workspace / "reports", workspace / "problems"]
+        directories = [
+            workspace / ".kymcm", workspace / "input",
+            workspace / "reports", workspace / "problems",
+        ]
         for problem in range(1, questions + 1):
             root = workspace / f"problems/q{problem}"
             directories.extend((root, root / "spec", root / "code", root / "data", root / "data/derived", root / "outputs", root / "notes", root / "result"))

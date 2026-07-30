@@ -118,7 +118,7 @@ class AppendixRuntimeTests(unittest.TestCase):
         cases = (
             ("## 3. appendix 目标结构", "", "LITE-APPENDIX-START-HEADING-001"),
             ("## 9. 未决问题\n\n无", "## 9. 未决问题\n\n待决定", "LITE-APPENDIX-UNRESOLVED-001"),
-            ("提交最小复现附件和论文后的核心算法。", "<!-- only prompt -->", "LITE-APPENDIX-START-EMPTY-WARN-001"),
+            ("提交完整正式求解附件和最终提交文档中的代表性真实代码。", "<!-- only prompt -->", "LITE-APPENDIX-START-EMPTY-WARN-001"),
             ("按白名单构造 q1 Python、q2 C++、正式结果和最小环境。", "```md\nexample only\n```", "LITE-APPENDIX-START-EMPTY-WARN-001"),
         )
         for old, new, expected in cases:
@@ -129,6 +129,31 @@ class AppendixRuntimeTests(unittest.TestCase):
                     self.assertIn(expected, identifiers(check_appendix_start(workspace)))
                 finally:
                     temporary.cleanup()
+
+        for current, legacy in (
+            ("## 2. 正式结果与认证边界", "## 2. 论文引用、正式结果与认证边界"),
+            ("## 5. 正式结果一致性", "## 5. 正式结果与论文一致性"),
+        ):
+            temporary, workspace = self.fixture_copy()
+            try:
+                contract = (
+                    workspace / "reports/appendix/APPENDIX_START.md"
+                    if "## 2." in current
+                    else workspace / "reports/appendix/APPENDIX_RESULT.md"
+                )
+                contract.write_text(
+                    contract.read_text(encoding="utf-8").replace(current, legacy),
+                    encoding="utf-8",
+                )
+                checker = check_appendix_start if "## 2." in current else check_appendix_result
+                expected = (
+                    "LITE-APPENDIX-START-HEADING-001"
+                    if "## 2." in current
+                    else "LITE-APPENDIX-RESULT-HEADING-001"
+                )
+                self.assertIn(expected, identifiers(checker(workspace)))
+            finally:
+                temporary.cleanup()
 
     def test_copy_curate_generate_and_duplicate_grammar(self):
         cases = (

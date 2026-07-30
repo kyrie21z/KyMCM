@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0 - 2026-07-30
+
+- Refocus Lite on programming-side preprocessing, recoverable modeling execution, evidence-linked results, neutral technical handoffs, and submission-appendix curation.
+- Replace `paper_handoff.md` with mirrored `technical_handoff.md` guidance and neutral QN/PRE HANDOFF templates.
+- Remove `paper/` from managed roots and appendix sources while completely ignoring existing legacy directories without deletion or migration.
+- Migrate the two appendix certification headings while preserving the Lite v3 marker, eight commands, START/RESULT/PRE identities, dependencies, evidence rules, and Full.
+
 ## 0.6.0 - 2026-07-29
 
 - Add the optional fixed `problems/preprocess/` stage with exact START_PRE, RESULT_PRE, and HANDOFF_PRE templates and guidance.

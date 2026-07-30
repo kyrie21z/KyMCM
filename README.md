@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.6.0** is the Markdown-first execution protocol with an optional shared-data PRE stage, execution-first plan design, evidence-linked paper-writing HANDOFF documents, and appendix curation without workflow state or content JSON.
+- **KyMCM Lite 0.7.0** is the programming-side Markdown-first protocol with optional shared-data PRE, recoverable model execution, evidence-linked results, neutral technical HANDOFF documents, and submission-appendix curation without workflow state or content JSON.
 
 ## Install
 
@@ -28,7 +28,7 @@ python skills/kymcm-lite/scripts/lite.py check-appendix-start --workspace ./cont
 python skills/kymcm-lite/scripts/lite.py check-appendix-result --workspace ./contest-lite
 ```
 
-The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, figures, paper text, or a nested Git repository.
+The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not manage legacy `paper/` content.
 
 ## Workflow
 

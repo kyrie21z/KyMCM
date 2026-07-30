@@ -186,7 +186,7 @@ class InitializationTests(unittest.TestCase):
             with mock.patch.object(cli, "_write", side_effect=fail_first), self.assertRaises(OSError):
                 cli.initialize(root, 3)
             self.assertEqual(unrelated.read_text(encoding="utf-8"), "keep")
-            for managed in (".kymcm", "FROZEN_CONTEXT.md", "input", "paper", "reports", "problems"):
+            for managed in (".kymcm", "FROZEN_CONTEXT.md", "input", "reports", "problems"):
                 self.assertFalse((root / managed).exists(), managed)
 
     def test_init_rollback_removes_new_ancestors_but_preserves_existing_parent(self):

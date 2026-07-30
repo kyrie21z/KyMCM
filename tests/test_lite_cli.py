@@ -328,6 +328,7 @@ class LiteCliTests(unittest.TestCase):
                 self.assertEqual(len(list((workspace / "problems").glob("q*"))), count)
                 self.assertEqual([p.relative_to(workspace) for p in workspace.rglob("*.json")], [Path(".kymcm/mode.json")])
                 self.assertFalse((workspace / "FROZEN_CONTEXT.md").exists())
+                self.assertFalse((workspace / "paper").exists())
                 self.assertFalse(any(workspace.rglob("START_*.md")))
                 self.assertFalse(any(workspace.rglob("RESULT_*.md")))
 
@@ -474,7 +475,7 @@ class LiteCliTests(unittest.TestCase):
             self.assertIn("LITE-EVIDENCE-SYMLINK-001", completed.stdout)
         finally: temporary.cleanup()
 
-    def test_warnings_return_zero_and_legacy_frozen_is_never_read(self):
+    def test_warnings_return_zero_and_legacy_roots_are_never_read(self):
         with tempfile.TemporaryDirectory() as raw:
             workspace = Path(raw) / "workspace"
             self.run_cli("init", "--workspace", str(workspace), "--questions", "1", ok=0)
@@ -483,6 +484,10 @@ class LiteCliTests(unittest.TestCase):
         temporary, workspace = self.fixture_copy()
         try:
             (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
+            legacy = workspace / "paper"
+            legacy.mkdir(exist_ok=True)
+            (legacy / "invalid.md").write_bytes(b"\xff\xfe")
+            (legacy / "broken").symlink_to(legacy / "missing")
             before = fingerprint(workspace)
             for args in (
                 ("doctor",),
@@ -491,6 +496,7 @@ class LiteCliTests(unittest.TestCase):
             ):
                 completed = self.run_cli(args[0], "--workspace", str(workspace), *args[1:], ok=0)
                 self.assertNotIn("FROZEN_CONTEXT", completed.stdout + completed.stderr)
+                self.assertNotIn("paper", completed.stdout + completed.stderr)
                 self.assertEqual(fingerprint(workspace), before)
         finally: temporary.cleanup()
 

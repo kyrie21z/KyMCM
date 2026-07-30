@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.7.0 - 2026-07-30
+
+- Refocus Lite as a programming-side workflow for preprocessing, recoverable modeling execution, formal results, neutral technical handoffs, and submission-appendix curation.
+- Stop creating, managing, reading, or accepting `paper/` as an appendix source while safely ignoring existing legacy directories.
+- Replace the writing-oriented HANDOFF reference and templates with neutral technical-transfer guidance; keep RESULT as the formal boundary and only modeling-inheritance surface.
+- Rename the two appendix certification headings, preserve the Lite v3 marker and eight commands, and leave Full unchanged.
+
 ## KyMCM Lite 0.6.0 - 2026-07-29
 
 - Add an optional fixed preprocess stage, exact PRE contracts and paper handoff, two read-only checks, explicit QN PRE inheritance, and appendix support.
