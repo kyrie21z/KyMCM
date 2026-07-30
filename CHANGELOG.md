@@ -1,5 +1,13 @@
 # Changelog
 
+## KyMCM Lite 0.9.0 - 2026-07-30
+
+- Add one optional question-level Supplement Start/Result pair for post-result validation, model revisions, and implementation repairs.
+- Require append-only S1/S2/... plans before execution, matching results afterward, and explicit add/replace semantics without overwriting base contracts or earlier evidence.
+- Refresh the one question-level HANDOFF from base RESULT plus completed Supplement Result entries while preserving exact dependency tokens.
+- Reject Supplement contracts from appendix sources while allowing current effective Supplement code and result assets through existing mappings.
+- Add no Supplement checker, command, state, JSON, manifest, followups directory, PRE Supplement, or Full change.
+
 ## KyMCM Lite 0.8.1 - 2026-07-30
 
 - Replace per-RESULT-unit QN handoffs with one `HANDOFF_QN.md` per official question.

@@ -385,6 +385,8 @@ class AppendixRuntimeTests(unittest.TestCase):
         for relative, title in (
             ("problems/q1/spec/START_Q1_1.md", "# START Q1_1"),
             ("problems/q1/result/RESULT_Q1_1.md", "# RESULT Q1_1"),
+            ("problems/q1/spec/SUPPLEMENT_START_Q1.md", "# SUPPLEMENT START Q1"),
+            ("problems/q1/result/SUPPLEMENT_RESULT_Q1.md", "# SUPPLEMENT RESULT Q1"),
             ("problems/q1/notes/HANDOFF_Q1.md", "# HANDOFF Q1"),
             ("problems/q1/notes/HANDOFF_Q1_1.md", "# HANDOFF Q1_1"),
             ("problems/preprocess/notes/HANDOFF_PRE.md", "# HANDOFF PRE"),
@@ -422,6 +424,39 @@ class AppendixRuntimeTests(unittest.TestCase):
             self.assertTrue(all("internal references" not in item.message for item in found))
         finally:
             temporary.cleanup()
+
+    def test_current_supplement_assets_use_existing_appendix_mappings(self):
+        cases = (
+            (
+                "problems/q1/code/solve.py",
+                "problems/q1/code/s1_validation.py",
+                "print('supplement validation')\n",
+            ),
+            (
+                "problems/q1/outputs/formal.csv",
+                "problems/q1/outputs/s1_formal.csv",
+                "value\n2\n",
+            ),
+            (
+                "problems/q1/outputs/formal.csv",
+                "problems/q1/data/derived/s1_formal.csv",
+                "value\n2\n",
+            ),
+        )
+        for old, relative, content in cases:
+            with self.subTest(relative=relative):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    source = workspace / relative
+                    source.parent.mkdir(parents=True, exist_ok=True)
+                    source.write_text(content, encoding="utf-8")
+                    self.mutate_start(workspace, old, relative)
+                    self.assertNotIn(
+                        "LITE-APPENDIX-SOURCE-PATH-001",
+                        identifiers(check_appendix_start(workspace)),
+                    )
+                finally:
+                    temporary.cleanup()
 
         temporary, workspace = self.fixture_copy()
         try:

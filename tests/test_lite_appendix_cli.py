@@ -118,8 +118,10 @@ class LiteAppendixCliTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def test_handoff_sources_are_rejected_without_new_command(self):
+    def test_internal_contract_sources_are_rejected_without_new_command(self):
         for relative in (
+            "problems/q1/spec/SUPPLEMENT_START_Q1.md",
+            "problems/q1/result/SUPPLEMENT_RESULT_Q1.md",
             "problems/q1/notes/HANDOFF_Q1.md",
             "problems/q2/notes/HANDOFF_Q2_1.md",
             "problems/preprocess/notes/HANDOFF_PRE.md",
@@ -141,7 +143,7 @@ class LiteAppendixCliTests(unittest.TestCase):
                         "check-appendix-start", "--workspace", str(workspace), ok=1
                     )
                     self.assertIn("LITE-APPENDIX-SOURCE-PATH-001", completed.stdout)
-                    self.assertIn("HANDOFF collaboration documents", completed.stdout)
+                    self.assertIn("SUPPLEMENT, and HANDOFF internal documents", completed.stdout)
                 finally:
                     temporary.cleanup()
 

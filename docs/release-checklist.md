@@ -17,13 +17,16 @@
 
 ## KyMCM Lite checks
 
-- Lite 0.8.1 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.9.0 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Supplement Start/Result templates and `supplement_work.md` have byte-identical mirrors; every official question uses at most one pair in single and split modes after complete checked base results.
+- S1/S2/... plans precede execution, matching results follow, completed history is append-only, and the exact types and impact modes are documented without adding a checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement.
+- Current effective state is base RESULT plus completed Supplement Result entries applied in order and explicit scope; exact base RESULT dependency tokens remain unchanged and dependency review reads applicable Supplement entries.
 - Both `modeling_plan_design.md` references have byte parity, and SKILL requires reading the standalone reference.
 - Modeling-plan review covers minimum deliverable, preflight, smoke test, staged artifacts/recovery, explicit nested cost, and L0/L1/L2 without adding state, commands, diagnostics, or success artifacts.
 - `technical_handoff.md` and HANDOFF template mirrors have byte parity; QN uses one problem-level identity and an ordered formal-upstream list while preserving all eight frozen headings.
-- RESULT remains the formal contract and only downstream modeling inheritance surface; HANDOFF is a neutral technical transfer that separates formal/auxiliary material, maps evidence, and states use boundaries.
+- Base RESULT remains the exact dependency-token entry; completed Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries.
 - `check-result` remains independent of HANDOFF; single and split modes use one `HANDOFF_QN.md`, split requires complete checked RESULT coverage, and no HANDOFF command/state/checker exists.
-- Current `HANDOFF_QN.md`, legacy `HANDOFF_QN_K.md`, and HANDOFF_PRE are all rejected as appendix sources; legacy suffixed notes are retained without automatic migration.
+- Supplement Start/Result, current `HANDOFF_QN.md`, legacy `HANDOFF_QN_K.md`, and HANDOFF_PRE are all rejected as appendix sources; current effective Supplement code/data/output assets remain eligible through unchanged mappings.
 - Appendix code covers the complete formal solve pipeline with plotting excluded; root `code/` selects authentic representative core/non-core implementation, including applicable scheduling, recovery, and audit.
 - APPENDIX_START/RESULT keep the 0.7.0 certification headings; whitelist grammar is unchanged, and operational source names pass while runtime data, caches, logs, binaries, unsafe paths, and root-code data remain rejected.
 - Init and doctor do not require `paper/`; legacy directories are ignored without reads or deletion, and appendix sources are limited to `problems/` and `input/`.
@@ -38,4 +41,4 @@
 - Single/split layout, contiguous START suffixes, partial RESULT completion, exact selected titles, and exact upstream unit availability are covered; semantic contradiction review remains a Codex/human responsibility and creates no success artifact.
 - Evidence control-character, scope, traversal, and symlink guards pass.
 - A copied read-only Skill passes from an unrelated working directory.
-- Lite tags use `lite-v<version>`; a 0.8.1 tag requires separate release authorization.
+- Lite tags use `lite-v<version>`; a 0.9.0 tag requires separate release authorization.

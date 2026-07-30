@@ -6,7 +6,7 @@
 
 ## 2. 正式结果与认证边界
 
-<!-- 列出唯一正式 RESULT/数据产品、机器证据、正式附件，以及有限策略类或有限时域等认证边界。 -->
+<!-- 按顺序读取并列出基础 RESULT、已完成 Supplement Result、当前 HANDOFF、当前有效数据产品、机器证据、正式附件，以及有限策略类或有限时域等认证边界；这些 Markdown 合同只作内部上下文，均不得复制。 -->
 
 ## 3. appendix 目标结构
 
@@ -14,7 +14,7 @@
 
 ## 4. appendix 文件白名单
 
-<!-- 覆盖正式求解流程实际使用的所有代码和传递依赖，并明确排除绘图、测试、历史实现和运行产物。每个目标一行；示例仅供格式参考：
+<!-- 覆盖当前有效正式求解流程实际使用的所有代码和传递依赖，包括符合现有路径规则的当前 Supplement 代码/结果附件；明确排除绘图、测试、被替代的旧实现/旧结果和运行产物（比赛明确要求历史对照除外）。每个目标一行；示例仅供格式参考：
 - A001 — COPY — `problems/q1/code/solve.py` → `appendix/problems/q1/code/solve.py` — 正式入口
 - A002 — COPY — `problems/q1/code/scheduler.py` → `appendix/problems/q1/code/scheduler.py` — 正式任务调度
 - A003 — CURATE — `problems/q1/code/model.py` → `appendix/problems/q1/code/model.py` — 仅机械删除绘图入口
@@ -26,7 +26,7 @@ PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problem
 
 ## 5. code 文件白名单
 
-<!-- 选择来自本队真实正式工程、具有提交展示价值、实现辨识度和可读性的代表性直接文件；核心模型以及调度、恢复、审计等非核心实现均可。说明真实职责、选择理由和 COPY/CURATE；禁止复制、混淆、垃圾代码或仅为改变相似度的改写。示例仅供格式参考：
+<!-- 选择来自本队当前有效正式工程、具有提交展示价值、实现辨识度和可读性的代表性直接文件；当前 Supplement 的真实代表性代码以及核心模型、调度、恢复、审计等实现均可。说明真实职责、选择理由和 COPY/CURATE；禁止复制、混淆、垃圾代码或仅为改变相似度的改写。示例仅供格式参考：
 - C001 — CURATE — `problems/q1/code/run_scenarios.py`; `problems/q1/code/checkpoint.py` → `code/q1_scenario_execution.py` — 展示正式情景调度与断点续算
 -->
 

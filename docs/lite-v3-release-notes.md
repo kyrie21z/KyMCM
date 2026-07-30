@@ -1,37 +1,36 @@
-# KyMCM Lite 0.8.1
+# KyMCM Lite 0.9.0
 
-KyMCM Lite 0.8.1 makes QN HANDOFF official-question-scoped. Single and split modes now share the one current path `problems/qN/notes/HANDOFF_QN.md`. A split question may create that transfer only after every contiguous START unit has a matching RESULT and every RESULT passes its existing selected check. The HANDOFF lists all formal upstream RESULT paths, preserves each unit's identity and certification boundary, and does not form an aggregate RESULT or new certified conclusion.
+KyMCM Lite 0.9.0 adds optional question-level Supplement contracts for work discovered after a base question is formally complete. Instead of overwriting the visible base START/RESULT identity, each official question may use one append-only pair:
 
-Existing suffixed `HANDOFF_QN_K.md` files are retained as ordinary legacy notes. Lite does not delete, rename, merge, scan, or migrate them; the next needed technical transfer reads the complete RESULT set and evidence to create the one current problem-level file. HANDOFF_PRE is unchanged.
+```text
+problems/qN/spec/SUPPLEMENT_START_QN.md
+problems/qN/result/SUPPLEMENT_RESULT_QN.md
+```
 
-RESULT remains the formal boundary and only modeling-inheritance surface. Split dependencies continue to name exact tokens such as `Q1_1, Q1_2`; they never inherit the problem-level HANDOFF. No HANDOFF checker, CLI, state, JSON, manifest, approval, hash ledger, SUPPLEMENT, followups directory, or migration command is added.
+Single and split modes share that pair. Each S1/S2/... plan is written and semantically reviewed before its execution; the matching result is appended afterward. Completed entries and their evidence are not overwritten. The supported types are `补充验证`, `方案修订`, and `实现修复`; impact is stated exactly as `追加证据`, `局部替代`, `完全替代`, or `不改变正式状态`.
 
-The 0.8.0 non-visual execution and optional figure workspace rules remain current. Formal PRE/QN work prefers structured statistics, tables, machine-readable data, validation records, and other reproducible evidence; only the smallest diagnostic needed for a named unresolved risk is allowed. Explicitly requested final figures still use the separate `nature-figure` skill under optional `figure/`.
+Current effective technical state is the base RESULT set plus completed Supplement Result entries applied in order and only within explicit scope. Failed or aborted entries preserve technical history and risks but create no new formal numeric conclusion. Supplement-specific implementation and evidence remain in existing QN directories, preferably at new `sN_` paths.
 
-When a user explicitly requests final figures after RESULT, HANDOFF, data, and evidence are stable, the separate `nature-figure` skill may work under the optional workspace root `figure/`. Lite does not infer a figure request, select chart styles, or silently rerun modeling to improve a display. Missing or inconsistent inputs return to PRE or QN work through the existing contracts.
+Dependency grammar is unchanged: later START files still name exact base tokens such as `Q1` or `Q2_1`. Semantic review also reads applicable Supplement entries and treats an unmatched material plan as a pending risk. Material completed changes trigger downstream impact review; affected downstream work uses that question's own Supplement rather than overwriting its base RESULT.
 
-`figure/` is a known optional root, not a managed root. `init` does not create it; `doctor` ignores its contents and does not report it as unknown or as workflow status. It has no required structure, contracts, checker, command, manifest, JSON, workflow state, or dependency semantics. It is outside evidence scope and is not an appendix source. Existing workspaces with or without `figure/` need no migration.
+The one problem-level `HANDOFF_QN.md` is refreshed after every Supplement Result. Its formal-upstream list names base RESULT files first and the question-level Supplement Result next. It preserves base-unit and Sx provenance and distinguishes current effective, superseded, failed, and auxiliary material. HANDOFF remains derived, non-formal, and never becomes a dependency.
 
-The marker remains exactly `{"workflow":"kymcm_lite","version":3}`. Python 3.11, 3.12, and 3.13, the eight public commands, all QN/PRE/appendix headings, single/split identities, dependency grammar, evidence rules, appendix whitelist grammar, and stateless design are unchanged.
+Supplement Markdown contracts are internal documents and are rejected as appendix sources with existing `LITE-APPENDIX-SOURCE-PATH-001`. Current effective Supplement code, derived data, outputs, and representative code remain eligible under the existing source roots and mapping rules. Superseded assets are excluded unless a competition explicitly requires historical comparison.
 
-The commands remain exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`.
+The marker remains exactly `{"workflow":"kymcm_lite","version":3}`. The eight public commands, base START/RESULT and PRE discovery, partial split legality, dependency tokens, evidence scope, all frozen START/RESULT/PRE/HANDOFF/APPENDIX headings, figure behavior, and standalone standard-library runtime remain unchanged. The only runtime change extends appendix internal-document rejection to the two Supplement paths.
 
-## Formal workflow boundary
+The commands remain exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`, supported on Python 3.11, 3.12, and 3.13. The mirrored `supplement_work.md` and `technical_handoff.md` references define formal versus auxiliary and current versus superseded content. The one `HANDOFF_QN.md` replaces no legacy `HANDOFF_QN_K.md`; those notes are not automatically migrated. Dependencies keep exact tokens.
 
-RESULT remains the formal boundary and only modeling-inheritance surface. The mirrored `technical_handoff.md` guidance keeps HANDOFF as a neutral technical transfer for actual execution, formal plus selected auxiliary results, validation, failures, evidence paths, boundaries, interfaces, and review points. HANDOFF may expose a structured data interface usable by a later explicit figure request, but it does not recommend a chart, style, layout, caption, or export format and does not launch figure work.
+The optional `figure/` known optional root and separate `nature-figure` boundary are unchanged. Appendix still selects a complete formal solve code package and authentic representative root code while excluding internal contracts and display-only plotting.
 
-Appendix organization continues to depend on formal RESULT contracts, machine evidence, and explicit submission requirements. `appendix/` remains the complete formal solve code package with plotting excluded; root `code/` remains authentic representative implementation for a final submission document. COPY, CURATE, GENERATE, integrity, dependency, safety, and authenticity rules remain in force. Neither `paper/` nor `figure/` is an appendix source.
+No Supplement checker, CLI option, state, JSON, manifest, approval, hash ledger, new dependency token, `followups/`, per-Sx directory, aggregate RESULT, or PRE Supplement is added. Python does not enforce Sx continuity, plan-before-execution, replacement scope, mathematical correctness, or HANDOFF currency; these remain agent semantic-review and human-review responsibilities.
 
-## Compatibility and limitations
-
-Lite 0.8.1 does not add a FIGURE stage, final-graphics selector, manuscript generator, HANDOFF checker, appendix builder, solver orchestration, workflow state, content JSON, approvals, manifests, automatic migration, or external similarity service. It does not bundle or import `nature-figure`; that skill is an optional separate capability invoked only for an explicit final-figure request.
-
-Valid 0.8.0 workspaces remain structurally valid. The two appendix certification headings introduced in 0.7.0 remain current. Existing legacy `paper/` directories and optional `figure/` directories are retained and ignored without reading their contents, including invalid UTF-8 files and symlinks. Existing HANDOFF files are not automatically migrated.
-
-Users who copied the Skill must reinstall the complete 0.8.1 directory. Full 1.0.0 and historical Lite v2 remain separate and unchanged.
+Existing 0.8.1 workspaces need no migration and need not create Supplement files. Existing user-created files with the new names are not rewritten automatically. Full 1.0.0 remains separate and unchanged.
+Historical Lite v2 remains a separate Full compatibility marker and is not accepted as Lite v3.
 
 ## Historical releases
 
+- 0.8.1 (2026-07-30) made QN HANDOFF official-question-scoped.
 - 0.8.0 (2026-07-30) made formal work non-visual by default and added the optional request-driven figure workspace.
 - 0.7.0 (2026-07-30) refocused Lite on programming-side execution and neutral technical handoffs.
 - 0.6.0 (2026-07-29) added optional fixed PRE contracts, commands, dependencies, and appendix mappings.

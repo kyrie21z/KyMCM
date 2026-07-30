@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.8.1 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, question-level neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.9.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -31,9 +31,11 @@ When the user explicitly requests final figures after results and data stabilize
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, and prepare HANDOFF_PRE only when a complete downstream technical transfer is useful. RESULT_PRE remains the downstream data authority.
 
-After RESULT and evidence stabilize, create one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass before assembling the problem-level transfer; it preserves each unit's certification boundary and never becomes a modeling dependency. Existing suffixed HANDOFF files remain ordinary legacy notes. HANDOFF has no checker or state and cannot enter appendix outputs.
+After the complete base RESULT set passes, optional post-result validation, revision, or implementation repair uses the one problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair. Append and review each Sx plan before execution, append the matching result afterward, never overwrite completed entries or old evidence, and use exact impact scope. Current state is base RESULT plus completed Supplement Result entries. See `references/supplement_work.md`; no Supplement checker or command is added.
 
-The optional appendix stage starts only after formal results, explicit submission requirements, and certification boundaries are stable. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` the execution report. `appendix/` contains the complete formal solve package with plotting excluded; root `code/` contains authentic representative code for a final submission document. Inputs are limited to `problems/` and `input/`. COPY/CURATE remains traceable; copying, obfuscation, junk code, and similarity-driven changes are forbidden.
+After RESULT and evidence stabilize, create one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass before assembling the problem-level transfer. Refresh it after every Supplement Result, preserving base-unit and Sx provenance. Exact base RESULT tokens remain modeling dependencies; HANDOFF has no checker or state and cannot enter appendix outputs.
+
+The optional appendix stage starts only after formal results, completed Supplement work, explicit submission requirements, and certification boundaries are stable. Supplement Markdown contracts are internal context and cannot be copied, while current effective Supplement code and result assets remain eligible under existing mappings. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` the execution report.
 
 KyMCM Full is the separate review-gated end-to-end workflow. Users choose one Skill explicitly; neither guesses or converts the other workspace mode.
 
