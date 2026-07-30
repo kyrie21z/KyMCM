@@ -12,6 +12,7 @@ from .diagnostics import Diagnostic, error
 MARKER_BYTES = b'{"workflow":"kymcm_lite","version":3}\n'
 QUESTION = re.compile(r"q([1-9][0-9]*)")
 MANAGED_ROOTS = (".kymcm", "input", "reports", "problems")
+OPTIONAL_ROOTS = ("figure",)
 LEGACY_IGNORED_ROOTS = ("FROZEN_CONTEXT.md", "paper")
 QUESTION_DIRS = ("spec", "code", "data", "data/derived", "outputs", "notes", "result")
 EVIDENCE_DIRS = ("code", "data/derived", "outputs", "notes")

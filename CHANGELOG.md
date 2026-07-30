@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.8.0 - 2026-07-30
+
+- Make formal PRE and QN execution non-visual by default, with structured evidence before the smallest risk-specific diagnostic.
+- Add `figure/` as an optional, request-driven final-figure workspace used through the separate `nature-figure` skill.
+- Keep that workspace outside initialization, managed layout, doctor reporting, contracts, evidence, appendix sources, and workflow state.
+- Preserve all Lite v3 contracts and commands, the appendix grammar, and KyMCM Full.
+
 ## KyMCM Lite 0.7.0 - 2026-07-30
 
 - Refocus Lite as a programming-side workflow for preprocessing, recoverable modeling execution, formal results, neutral technical handoffs, and submission-appendix curation.

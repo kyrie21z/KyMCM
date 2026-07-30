@@ -360,6 +360,7 @@ class AppendixRuntimeTests(unittest.TestCase):
             ("problems/q1/code/core.py", "problems/q1/code/\tcore.py", "LITE-APPENDIX-SOURCE-PATH-001"),
             ("code/q1_core_algorithm.py", "code/nested/core.py", "LITE-APPENDIX-TARGET-PATH-001"),
             ("problems/q1/code/core.py", "paper/paper.md", "LITE-APPENDIX-SOURCE-PATH-001"),
+            ("problems/q1/code/core.py", "figure/final.py", "LITE-APPENDIX-SOURCE-PATH-001"),
         )
         for old, new, expected in cases:
             with self.subTest(new=new):

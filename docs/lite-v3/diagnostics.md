@@ -1,10 +1,10 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.7.0.
+Status: Normative for KyMCM Lite 0.8.0.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.7.0 has no automatic cleaning, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. HANDOFF identity, completeness, synchronization, formal/auxiliary separation, factual fidelity, appendix formal-code completeness, plotting responsibility, and code authenticity are semantic agent/human review responsibilities rather than Python pass/fail conditions.
+Lite 0.8.0 has no automatic cleaning, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Formal PRE/QN work is non-visual by default; deciding whether the smallest diagnostic is necessary for a named unresolved risk is a semantic agent/human responsibility. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources. HANDOFF identity, completeness, synchronization, formal/auxiliary separation, factual fidelity, appendix formal-code completeness, plotting responsibility, and code authenticity remain semantic review responsibilities rather than Python pass/fail conditions.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.0 - 2026-07-30
+
+- Make formal PRE and QN work non-visual by default: structured evidence comes first, and only the smallest diagnostic needed for a named unresolved risk is permitted.
+- Recognize an optional, request-driven root `figure/` workspace for final figures created through the separate `nature-figure` skill after results and evidence are stable.
+- Keep `figure/` outside managed layout, initialization, doctor output, contracts, evidence, appendix sources, workflow state, and all eight checker commands.
+- Preserve the Lite v3 marker, frozen contract headings, command surface, appendix grammar, standard-library runtime, and Full.
+
 ## 0.7.0 - 2026-07-30
 
 - Refocus Lite on programming-side preprocessing, recoverable modeling execution, evidence-linked results, neutral technical handoffs, and submission-appendix curation.
