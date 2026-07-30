@@ -1,6 +1,12 @@
-# KyMCM Lite 0.8.0
+# KyMCM Lite 0.8.1
 
-KyMCM Lite 0.8.0 makes formal PRE and QN execution non-visual by default. Structured statistics, tables, machine-readable data, validation records, and other reproducible evidence come first. A diagnostic plot is allowed only when a named risk or stopping condition cannot be resolved adequately from non-visual evidence, and then only the smallest diagnostic needed for that decision. Final display figures are never L0/L1/L2 validation and do not consume the formal validation budget.
+KyMCM Lite 0.8.1 makes QN HANDOFF official-question-scoped. Single and split modes now share the one current path `problems/qN/notes/HANDOFF_QN.md`. A split question may create that transfer only after every contiguous START unit has a matching RESULT and every RESULT passes its existing selected check. The HANDOFF lists all formal upstream RESULT paths, preserves each unit's identity and certification boundary, and does not form an aggregate RESULT or new certified conclusion.
+
+Existing suffixed `HANDOFF_QN_K.md` files are retained as ordinary legacy notes. Lite does not delete, rename, merge, scan, or migrate them; the next needed technical transfer reads the complete RESULT set and evidence to create the one current problem-level file. HANDOFF_PRE is unchanged.
+
+RESULT remains the formal boundary and only modeling-inheritance surface. Split dependencies continue to name exact tokens such as `Q1_1, Q1_2`; they never inherit the problem-level HANDOFF. No HANDOFF checker, CLI, state, JSON, manifest, approval, hash ledger, SUPPLEMENT, followups directory, or migration command is added.
+
+The 0.8.0 non-visual execution and optional figure workspace rules remain current. Formal PRE/QN work prefers structured statistics, tables, machine-readable data, validation records, and other reproducible evidence; only the smallest diagnostic needed for a named unresolved risk is allowed. Explicitly requested final figures still use the separate `nature-figure` skill under optional `figure/`.
 
 When a user explicitly requests final figures after RESULT, HANDOFF, data, and evidence are stable, the separate `nature-figure` skill may work under the optional workspace root `figure/`. Lite does not infer a figure request, select chart styles, or silently rerun modeling to improve a display. Missing or inconsistent inputs return to PRE or QN work through the existing contracts.
 
@@ -18,14 +24,15 @@ Appendix organization continues to depend on formal RESULT contracts, machine ev
 
 ## Compatibility and limitations
 
-Lite 0.8.0 does not add a FIGURE stage, final-graphics selector, manuscript generator, HANDOFF checker, appendix builder, solver orchestration, workflow state, content JSON, approvals, manifests, automatic migration, or external similarity service. It does not bundle or import `nature-figure`; that skill is an optional separate capability invoked only for an explicit final-figure request.
+Lite 0.8.1 does not add a FIGURE stage, final-graphics selector, manuscript generator, HANDOFF checker, appendix builder, solver orchestration, workflow state, content JSON, approvals, manifests, automatic migration, or external similarity service. It does not bundle or import `nature-figure`; that skill is an optional separate capability invoked only for an explicit final-figure request.
 
-Valid 0.7.0 workspaces remain valid. The two appendix certification headings introduced in 0.7.0 remain current. Existing legacy `paper/` directories and optional `figure/` directories are retained and ignored without reading their contents, including invalid UTF-8 files and symlinks. Existing HANDOFF files are not automatically migrated.
+Valid 0.8.0 workspaces remain structurally valid. The two appendix certification headings introduced in 0.7.0 remain current. Existing legacy `paper/` directories and optional `figure/` directories are retained and ignored without reading their contents, including invalid UTF-8 files and symlinks. Existing HANDOFF files are not automatically migrated.
 
-Users who copied the Skill must reinstall the complete 0.8.0 directory. Full 1.0.0 and historical Lite v2 remain separate and unchanged.
+Users who copied the Skill must reinstall the complete 0.8.1 directory. Full 1.0.0 and historical Lite v2 remain separate and unchanged.
 
 ## Historical releases
 
+- 0.8.0 (2026-07-30) made formal work non-visual by default and added the optional request-driven figure workspace.
 - 0.7.0 (2026-07-30) refocused Lite on programming-side execution and neutral technical handoffs.
 - 0.6.0 (2026-07-29) added optional fixed PRE contracts, commands, dependencies, and appendix mappings.
 - 0.5.1 (2026-07-29) defined the complete formal solve code package and expanded authentic representative-code eligibility.

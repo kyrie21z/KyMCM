@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.8.1 - 2026-07-30
+
+- Replace per-RESULT-unit QN handoffs with one `HANDOFF_QN.md` per official question.
+- Gate split-mode HANDOFF creation on complete, checked RESULT coverage while retaining exact RESULT identities and dependency tokens.
+- Leave old suffixed HANDOFF files as ordinary legacy notes and add no checker, CLI, state, migration, or SUPPLEMENT protocol.
+- Preserve all frozen headings, the Lite v3 marker and commands, figure/appendix behavior, and KyMCM Full.
+
 ## KyMCM Lite 0.8.0 - 2026-07-30
 
 - Make formal PRE and QN execution non-visual by default, with structured evidence before the smallest risk-specific diagnostic.

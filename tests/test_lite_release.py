@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.8.0\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.8.1\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.8.0", text, relative)
-            self.assertNotIn("0.8.0-dev", text, relative)
+            self.assertIn("0.8.1", text, relative)
+            self.assertNotIn("0.8.1-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -123,7 +123,7 @@ class LiteReleaseTests(unittest.TestCase):
         frozen_hashes = {
             "docs/lite-v3/START_QN.template.md": "4db5837709686701d1d19fbc797567e34b387751c7998beb5a6717784373fc8e",
             "docs/lite-v3/RESULT_QN.template.md": "3794e2b24dedbcb816f09d90e01f400078b5fede85296b1d418dc1a1baa96d45",
-            "docs/lite-v3/HANDOFF_QN.template.md": "a693bf3b7de1197fd79b4f590916719e1dbaaf8db1e2e68faba3d6c64921df3c",
+            "docs/lite-v3/HANDOFF_QN.template.md": "e5a4ffd878ec1b9f1e5a20a9578ce11f483cb608e166ff955939bde4c041e7ca",
         }
         for relative, expected in frozen_hashes.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected, relative)
@@ -173,11 +173,11 @@ class LiteReleaseTests(unittest.TestCase):
         template = SKILL / "templates/HANDOFF_QN.template.md"
         self.assertEqual(
             hashlib.sha256(reference.read_bytes()).hexdigest(),
-            "2fac72b88fb1a9026e1c627602c6665016f8f09b5558f58e69d515f5cdc6c42e",
+            "91fd1ee8cf43c66d810b4deff15cec57db14a47bfb9e7b8994b305ac8265b5e4",
         )
         self.assertEqual(
             hashlib.sha256(template.read_bytes()).hexdigest(),
-            "a693bf3b7de1197fd79b4f590916719e1dbaaf8db1e2e68faba3d6c64921df3c",
+            "e5a4ffd878ec1b9f1e5a20a9578ce11f483cb608e166ff955939bde4c041e7ca",
         )
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
@@ -189,15 +189,43 @@ class LiteReleaseTests(unittest.TestCase):
         ):
             self.assertIn(required, skill)
         for required in (
-            "HANDOFF_QN_K.md", "split mode has no aggregate", "formal", "auxiliary",
-            "check-result", "no command",
+            "one current problem-level `HANDOFF_QN.md`", "Partial split RESULT completion",
+            "Never create a new suffixed `HANDOFF_QN_K.md`", "aggregate RESULT",
+            "formal", "auxiliary", "check-result", "no command",
         ):
             self.assertIn(required, protocol)
         for required in (
             "Machine evidence", "formal plus selected auxiliary", "Evidence and asset mapping",
-            "causal", "extrapolation",
+            "causal", "extrapolation", "every contiguous `START_QN_K.md`",
+            "ordinary legacy notes",
         ):
             self.assertIn(required, reference_text)
+        template_text = template.read_text(encoding="utf-8")
+        self.assertIn("每题只创建这一份问题级 HANDOFF", template_text)
+        self.assertIn("拆分模式按 K 升序列出该问题全部 RESULT_QN_K.md", template_text)
+        self.assertNotIn("HANDOFF_QN_K.md", template_text)
+
+    def test_question_scoped_handoff_identity_and_compatibility(self):
+        skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
+        reference = (SKILL / "references/technical_handoff.md").read_text(encoding="utf-8")
+        combined = "\n".join((skill, protocol, reference))
+        for required in (
+            "problem-level `HANDOFF_QN.md`", "single and split modes",
+            "every contiguous START unit has a matching RESULT",
+            "Partial split completion", "exact RESULT units",
+            "Never create a new `HANDOFF_QN_K.md`",
+            "without deletion, renaming, merging",
+        ):
+            self.assertIn(required, combined)
+        for forbidden in (
+            "split `HANDOFF_QN_K.md`, never an unsuffixed aggregate",
+            "Single and split HANDOFF identities cannot mix",
+            "Identity must match an existing RESULT exactly",
+        ):
+            self.assertNotIn(forbidden, combined)
+        self.assertNotIn("SUPPLEMENT_QN.md", combined)
+        self.assertNotIn("followups/", combined)
 
     def test_current_product_surface_has_no_writing_behavior(self):
         surfaces = [
@@ -275,7 +303,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
             '{"workflow":"kymcm_lite","version":3}',
@@ -283,12 +311,14 @@ class LiteReleaseTests(unittest.TestCase):
             "technical_handoff.md", "HANDOFF", "formal", "auxiliary",
             "complete formal solve code package", "authentic representative",
             "figure/", "nature-figure", "known optional root",
+            "HANDOFF_QN.md", "HANDOFF_QN_K.md", "exact tokens",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.8.1 - 2026-07-30", text, relative)
             self.assertIn("0.8.0 - 2026-07-30", text, relative)
             self.assertIn("0.7.0 - 2026-07-30", text, relative)
             self.assertIn("0.6.0 - 2026-07-29", text, relative)

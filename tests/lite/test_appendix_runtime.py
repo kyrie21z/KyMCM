@@ -387,6 +387,7 @@ class AppendixRuntimeTests(unittest.TestCase):
             ("problems/q1/result/RESULT_Q1_1.md", "# RESULT Q1_1"),
             ("problems/q1/notes/HANDOFF_Q1.md", "# HANDOFF Q1"),
             ("problems/q1/notes/HANDOFF_Q1_1.md", "# HANDOFF Q1_1"),
+            ("problems/preprocess/notes/HANDOFF_PRE.md", "# HANDOFF PRE"),
         ):
             with self.subTest(relative=relative):
                 temporary, workspace = self.fixture_copy()

@@ -522,6 +522,11 @@ class LiteCliTests(unittest.TestCase):
             figure.mkdir()
             (figure / "invalid.bin").write_bytes(b"\xff\xfe")
             (figure / "broken").symlink_to(figure / "missing")
+            legacy_handoff = workspace / "problems/q1/notes/HANDOFF_Q1_1.md"
+            legacy_handoff.write_bytes(b"\xff\xfe")
+            (workspace / "problems/q1/notes/HANDOFF_Q1_2.md").symlink_to(
+                workspace / "problems/q1/notes/missing"
+            )
             before = fingerprint(workspace)
             for args in (
                 ("doctor",),
@@ -532,6 +537,8 @@ class LiteCliTests(unittest.TestCase):
                 self.assertNotIn("FROZEN_CONTEXT", completed.stdout + completed.stderr)
                 self.assertNotIn("paper", completed.stdout + completed.stderr)
                 self.assertNotIn("figure", completed.stdout + completed.stderr)
+                self.assertNotIn("HANDOFF_Q1", completed.stdout + completed.stderr)
+                self.assertTrue(legacy_handoff.exists())
                 self.assertEqual(fingerprint(workspace), before)
         finally: temporary.cleanup()
 

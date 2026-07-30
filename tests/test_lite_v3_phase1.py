@@ -213,10 +213,13 @@ class LiteV3Phase1Tests(unittest.TestCase):
         template = DOCS / "HANDOFF_QN.template.md"
         text = template.read_text(encoding="utf-8")
         self.assertEqual(markdown_headings(template), ("# HANDOFF QN", *HANDOFF_SECTIONS))
-        self.assertIn("**正式上游：** `problems/qN/result/RESULT_QN.md`", text)
-        self.assertIn("正式范围以匹配 RESULT 为准", text)
+        self.assertIn("**正式上游：**", text)
+        self.assertIn("单一模式列出 RESULT_QN.md", text)
+        self.assertIn("拆分模式按 K 升序列出该问题全部 RESULT_QN_K.md", text)
+        self.assertIn("每题只创建这一份问题级 HANDOFF", text)
+        self.assertIn("正式范围以列出的全部 RESULT 为准", text)
         self.assertIn("具体数值以真实机器证据为准", text)
-        self.assertIn("拆分模式不得创建无后缀汇总 HANDOFF", text)
+        self.assertNotIn("HANDOFF_QN_K.md", text)
 
     def test_reviewer_record_has_no_missing_or_ambiguous_items(self):
         record = (DOCS / "reviewer-record.md").read_text(encoding="utf-8")

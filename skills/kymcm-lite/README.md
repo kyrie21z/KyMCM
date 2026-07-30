@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.8.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.8.1 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, question-level neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -31,7 +31,7 @@ When the user explicitly requests final figures after results and data stabilize
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, and prepare HANDOFF_PRE only when a complete downstream technical transfer is useful. RESULT_PRE remains the downstream data authority.
 
-After RESULT and evidence stabilize, create the matching `notes/HANDOFF_QN[_K].md` from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. HANDOFF neutrally records actual execution, complete and auxiliary results, validation, failures, evidence paths, boundaries, interfaces, and review points. RESULT remains formal and is the only modeling-inheritance surface. HANDOFF has no checker or state and cannot enter appendix outputs.
+After RESULT and evidence stabilize, create one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass before assembling the problem-level transfer; it preserves each unit's certification boundary and never becomes a modeling dependency. Existing suffixed HANDOFF files remain ordinary legacy notes. HANDOFF has no checker or state and cannot enter appendix outputs.
 
 The optional appendix stage starts only after formal results, explicit submission requirements, and certification boundaries are stable. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` the execution report. `appendix/` contains the complete formal solve package with plotting excluded; root `code/` contains authentic representative code for a final submission document. Inputs are limited to `problems/` and `input/`. COPY/CURATE remains traceable; copying, obfuscation, junk code, and similarity-driven changes are forbidden.
 
