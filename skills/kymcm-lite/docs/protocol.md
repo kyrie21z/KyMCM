@@ -1,6 +1,6 @@
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.7.0 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, neutral technical handoffs, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts, and it does not select final display graphics.
+KyMCM Lite 0.8.0 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, neutral technical handoffs, explicitly requested final figures, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## Workspace identity and layout
 
@@ -14,7 +14,7 @@ No other persistent JSON, workflow state, event log, approval, review hash, or m
 
 Managed roots are `.kymcm/`, `input/`, `reports/`, and `problems/`. Each `problems/qN/` has `spec/`, `code/`, `data/derived/`, `outputs/`, `notes/`, and `result/`. The optional fixed `problems/preprocess/` unit has the same directory set, is not Q0, cannot split, and uses `START_PRE.md`, `RESULT_PRE.md`, and optional `HANDOFF_PRE.md`.
 
-Question directories are immediate `q[1-9][0-9]*` children, contiguous from q1. A legacy root `FROZEN_CONTEXT.md` or `paper/` directory is completely ignored: no Lite command opens, parses, validates, hashes, migrates, warns about, or deletes it. Unknown root entries remain allowed unless they interfere with managed paths.
+`figure/` is an optional known root for explicitly requested final-figure work. It is not managed, required, initialized, structurally checked, reported, or traversed by Lite commands. Question directories are immediate `q[1-9][0-9]*` children, contiguous from q1. A legacy root `FROZEN_CONTEXT.md` or `paper/` directory is completely ignored: no Lite command opens, parses, validates, hashes, migrates, warns about, or deletes it. Unknown root entries remain allowed unless they interfere with managed paths.
 
 ## Contract modes and dependencies
 
@@ -66,13 +66,13 @@ START_PRE and RESULT_PRE use the exact eight headings in their mirrored template
 
 RESULT_PRE is the authority for common fields, units, row universe, cleaning and transformation rules, shared data products, audit results, and limitations. HANDOFF_PRE is a derived neutral technical handoff for QN executors, reviewers, a future request-driven graphics stage, or other downstream technical collaborators. It is not inherited by modeling and cannot enter appendix outputs.
 
-EDA serves data understanding, model design, or risk identification only. It must not expand for display needs or decide final graphics.
+EDA serves data understanding, model design, or risk identification only and is non-visual by default. Structured statistics, quality tables, and data products take priority. A smallest necessary diagnostic graphic is allowed only when non-visual evidence cannot resolve a named distribution, anomaly, missingness, association, or leakage risk. It must not expand for display needs or decide final graphics.
 
 ## Modeling-plan design and execution
 
 `references/modeling_plan_design.md` is the semantic standard. For each selected unit, Codex authors START and passes `check-start`; reviews dependencies and final plan quality; passes the smallest representative end-to-end smoke test; executes recoverable formal stages; completes mandatory L0 audit; runs L1 only for a named remaining risk; runs L2 only when resources permit and it reduces a named risk, strengthens formal evidence, satisfies an explicit user requirement, or is needed for result certification; then writes RESULT with deviations, omitted optional work, evidence, and limitations.
 
-The START defines the minimum formally complete deliverable, authoritative inputs, identifiability/solvability preflight, smoke-test pass condition, recoverable stages, artifacts, cache and reuse rules, resume point, failure behavior, nested cost, peak memory, parallelism, worst-case recomputation, and budget-pressure deletion order. Formal execution produces results, evidence, data products, and only necessary diagnostics. Final display graphics, captions, prose, structure, and placement are outside the modeling budget and protocol.
+The START defines the minimum formally complete deliverable, authoritative inputs, identifiability/solvability preflight, smoke-test pass condition, recoverable stages, artifacts, cache and reuse rules, resume point, failure behavior, nested cost, peak memory, parallelism, worst-case recomputation, and budget-pressure deletion order. Formal PRE/QN execution is non-visual by default and prefers structured numeric checks, tables, logs, schemas, error metrics, and constraint audits. Only the smallest diagnostic graphic needed to resolve a named risk may enter L0/L1; final display graphics never belong to L0/L1/L2, the modeling budget, or formal delivery.
 
 L0 is mandatory and blocking. L1 has a named trigger. L2 is resource-permitting and non-blocking unless explicitly promoted. The Python checker does not parse these levels, count experiments, judge proportionality or mathematics, or create semantic-review state.
 
@@ -121,12 +121,19 @@ HANDOFF has no command, checker, state, approval, hash, report, JSON, or manifes
 ## Commands and diagnostics
 
 `init --questions N` refuses any existing managed root before writing and creates the marker plus the requested empty question tree. Optional `--preprocess` adds the PRE directories. It creates no contracts, legacy content root, appendix, root code, Git repository, state, content JSON, or evidence.
+It also does not create `figure/`; that root is created only for an explicit final-figure request.
 
 The exact eight public commands are `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`. All checks are read-only and never execute user code. Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`; exit codes are 0 for valid/warnings, 1 for contract failure, and 2 for unexpected tool/environment failure. Git availability and relevant managed-scope dirtiness are advisory.
 
+## Optional final figure workspace
+
+Final-figure work begins only after an explicit user request and after relevant RESULT, HANDOFF, structured data, and machine evidence are stable. Use the external `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under workspace-level `figure/`. KyMCM Lite neither bundles nor imports that skill and remains independently runnable without it.
+
+The root has no required internal structure, contract, checker, CLI, manifest, state, approval, hash ledger, or JSON. Figure work cannot become formal evidence, a modeling dependency, or change RESULT certification. If required fields, granularity, scenarios, or intermediate results are absent, return to PRE/QN to produce evidence rather than silently retraining or resolving. Only meaning-preserving mechanical preparation is allowed in `figure/`.
+
 ## Optional submission appendix organization
 
-After formal results, explicit submission requirements, and certification boundaries are stable, a user may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. Inputs come only from `problems/` and `input/`; internal START, RESULT, and HANDOFF contracts are contextual references and cannot be copied.
+After formal results, explicit submission requirements, and certification boundaries are stable, a user may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. Inputs come only from `problems/` and `input/`; `figure/` is not a source, and internal START, RESULT, and HANDOFF contracts are contextual references that cannot be copied.
 
 The two output surfaces are:
 
@@ -174,6 +181,6 @@ Whitelist grammar remains `A[0-9]{3,}` for appendix entries and `C[0-9]{3,}` for
 
 ## Compatibility and non-goals
 
-The Lite v3 marker, eight public commands, QN START/RESULT headings, PRE START/RESULT headings, single/split identities, dependency grammar, and evidence rules remain unchanged from 0.6.0. Existing START/RESULT/PRE workspaces remain valid. Existing legacy content directories are retained and ignored. Existing APPENDIX contracts require the two documented heading replacements and removal of any now-invalid source entry rooted there. Existing HANDOFF files are not rewritten automatically and should adopt the neutral templates at their next material update.
+The Lite v3 marker, eight public commands, all START/RESULT/HANDOFF/APPENDIX headings, single/split identities, dependency grammar, and evidence rules remain unchanged from 0.7.0. Existing workspaces need not create `figure/`; an existing user-created root is now known and ignored internally. Historical plotting code is not moved automatically. Existing legacy content directories remain ignored.
 
-Lite 0.7.0 does not validate mathematics, plan or EDA quality, causality, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; discover prose dependencies; reconcile contradictions automatically; manage approvals/state; migrate other products; generate or check contest manuscripts; select final graphics; orchestrate agents; add problems dynamically; emit content JSON; build/delete appendix trees; classify plotting code; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics.
+Lite 0.8.0 does not validate mathematics, plan or EDA quality, causality, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; discover prose dependencies; reconcile contradictions automatically; manage approvals/state; migrate other products; generate or check contest manuscripts; infer or automatically select final graphics; silently retrain for graphics; orchestrate agents; add problems dynamically; emit content JSON; build/delete appendix trees; classify plotting code; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics.

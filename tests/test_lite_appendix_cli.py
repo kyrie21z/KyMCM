@@ -89,7 +89,7 @@ class LiteAppendixCliTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def test_invalid_legacy_roots_do_not_affect_appendix_commands(self):
+    def test_invalid_legacy_and_optional_roots_do_not_affect_appendix_commands(self):
         temporary, workspace = self.fixture_copy()
         try:
             (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
@@ -97,8 +97,15 @@ class LiteAppendixCliTests(unittest.TestCase):
             legacy.mkdir(exist_ok=True)
             (legacy / "invalid.md").write_bytes(b"\xff\xfe")
             (legacy / "broken").symlink_to(legacy / "missing")
-            self.run_cli("check-appendix-start", "--workspace", str(workspace), ok=0)
-            self.run_cli("check-appendix-result", "--workspace", str(workspace), ok=0)
+            figure = workspace / "figure"
+            figure.mkdir()
+            (figure / "invalid.bin").write_bytes(b"\xff\xfe")
+            (figure / "broken").symlink_to(figure / "missing")
+            before = fingerprint(workspace)
+            for command in ("check-appendix-start", "check-appendix-result"):
+                completed = self.run_cli(command, "--workspace", str(workspace), ok=0)
+                self.assertNotIn("figure", completed.stdout + completed.stderr)
+                self.assertEqual(before, fingerprint(workspace))
         finally:
             temporary.cleanup()
 
@@ -136,6 +143,26 @@ class LiteAppendixCliTests(unittest.TestCase):
                     self.assertIn("HANDOFF collaboration documents", completed.stdout)
                 finally:
                     temporary.cleanup()
+
+    def test_figure_workspace_is_not_an_appendix_source(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            source = workspace / "figure/final.py"
+            source.parent.mkdir()
+            source.write_text("print('display only')\n", encoding="utf-8")
+            contract = workspace / "reports/appendix/APPENDIX_START.md"
+            contract.write_text(
+                contract.read_text(encoding="utf-8").replace(
+                    "problems/q1/code/core.py", "figure/final.py"
+                ),
+                encoding="utf-8",
+            )
+            completed = self.run_cli(
+                "check-appendix-start", "--workspace", str(workspace), ok=1
+            )
+            self.assertIn("LITE-APPENDIX-SOURCE-PATH-001", completed.stdout)
+        finally:
+            temporary.cleanup()
 
 
 if __name__ == "__main__":

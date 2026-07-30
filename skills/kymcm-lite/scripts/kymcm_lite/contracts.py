@@ -8,7 +8,7 @@ import subprocess
 
 from .diagnostics import Diagnostic, error, warning
 from .paths import (
-    ContractDiscovery, ContractId, LEGACY_IGNORED_ROOTS, MANAGED_ROOTS,
+    ContractDiscovery, ContractId, LEGACY_IGNORED_ROOTS, MANAGED_ROOTS, OPTIONAL_ROOTS,
     PREPROCESS_RESULT, PREPROCESS_ROOT, PREPROCESS_START,
     discover_contracts, discover_questions,
     evidence_path_diagnostics, marker_diagnostics, preprocess_evidence_path_diagnostics,
@@ -673,7 +673,12 @@ def doctor(workspace: Path) -> tuple[list[str], list[Diagnostic]]:
     if not (3, 11) <= (__import__("sys").version_info[:2]) <= (3, 13):
         diagnostics.append(error("LITE-TOOL-001", "python", "Python 3.11 through 3.13 is required"))
     diagnostics.extend(git_warning(workspace))
-    known = set(MANAGED_ROOTS) | set(LEGACY_IGNORED_ROOTS) | {"appendix", "code"}
+    known = (
+        set(MANAGED_ROOTS)
+        | set(OPTIONAL_ROOTS)
+        | set(LEGACY_IGNORED_ROOTS)
+        | {"appendix", "code"}
+    )
     unknown = sorted(path.name for path in workspace.iterdir() if path.name not in known) if workspace.is_dir() else []
     info = [f"INFO workspace={workspace}", f"INFO questions={','.join(map(str, numbers)) or 'none'}"]
     info.append(f"INFO unknown-root-entries={','.join(unknown) if unknown else 'none'}")

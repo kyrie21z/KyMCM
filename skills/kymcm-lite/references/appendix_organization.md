@@ -30,7 +30,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 ## 绘图代码排除
 
-绘图代码不进入 `appendix/problems/qN/code/`、`appendix/problems/preprocess/code/` 或根 `code/`。主要职责为生成最终展示图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
+绘图代码不进入 `appendix/problems/qN/code/`、`appendix/problems/preprocess/code/` 或根 `code/`。独立 `figure/` 工作区不是 appendix 来源。主要职责为生成最终展示图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
 
 正式计算与少量绘图逻辑同文件时，优先从真实源文件机械 CURATE：仅删除绘图入口或函数，不重写数学部分。若无法安全分离，停止并记录人工决策，不静默改写。自动 checker 不根据文件名或 import 猜测全部绘图职责；APPENDIX_START 白名单、Codex 语义审查和人工终审承担该边界。
 

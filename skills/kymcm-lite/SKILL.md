@@ -1,6 +1,6 @@
 ---
 name: kymcm-lite
-description: Execute and review Markdown-first mathematical-modeling workflows with optional shared preprocessing, recoverable computation, evidence-linked results, neutral technical handoffs, and submission appendix curation without workflow state or content JSON.
+description: Execute and review Markdown-first mathematical-modeling workflows with optional shared preprocessing, recoverable computation, evidence-linked results, neutral technical handoffs, request-driven final figures, and submission appendix curation without workflow state or content JSON.
 ---
 
 # KyMCM Lite
@@ -13,7 +13,7 @@ For modeling, treat the selected `START_QN.md`/`RESULT_QN.md` single contract or
 
 Treat `problems/preprocess/`, when present, as one fixed optional unit before dependent questions, never Q0, split, or stateful. Initialize its empty tree with `scripts/lite.py init --workspace PATH --questions N --preprocess`; init creates no contracts. Read `references/preprocess_stage.md`. Author START_PRE from `templates/START_PRE.template.md`, run `check-preprocess-start`, pass the minimal parse-transform-write-readback smoke test, execute recoverable stages, complete L0 audit, author RESULT_PRE from `templates/RESULT_PRE.template.md`, and run `check-preprocess-result`.
 
-When a complete downstream technical transfer is needed, derive HANDOFF_PRE from `templates/HANDOFF_PRE.template.md` and review it semantically against RESULT_PRE and machine evidence. It has no Python checker. PRE owns shared audit, deterministic cleaning, common field/unit semantics, sample accounting, shared derived data, and bounded EDA for data understanding, model design, or risk identification. Question-specific features, splits, objectives, validation, and conclusions remain in QN. PRE does not select final display graphics.
+When a complete downstream technical transfer is needed, derive HANDOFF_PRE from `templates/HANDOFF_PRE.template.md` and review it semantically against RESULT_PRE and machine evidence. It has no Python checker. PRE owns shared audit, deterministic cleaning, common field/unit semantics, sample accounting, shared derived data, and bounded EDA for data understanding, model design, or risk identification. Question-specific features, splits, objectives, validation, and conclusions remain in QN. PRE is non-visual by default and does not select final display graphics.
 
 A QN START declares exactly one visible `**预处理依赖：** 无|PRE` before its separate `**前问依赖：**` declaration. Legacy START files without the PRE declaration remain valid when PRE is absent and receive only an advisory warning when PRE exists. A PRE declaration requires the exact complete START_PRE/RESULT_PRE pair and the semantic contradiction review in `references/dependency_review.md`. Stop on conflicts in fields, units, samples, missingness, joins, time scope, transforms, leakage, limitations, or formal paths. Impact-review dependent completed QN work after material RESULT_PRE changes.
 
@@ -29,7 +29,7 @@ Run in order: author START, run its checker, complete dependency and modeling-pl
 
 Repair deterministic engineering omissions transparently, then rerun the checks and semantic reviews. Ask one highest-impact question before changing mathematics, validation strength, formal success criteria, or a material resource tradeoff. Return to design if the model is unidentifiable, infeasible, unbounded, unsupported, or irreconcilable with budget. Preserve mathematical meaning, parameters, constraints, decisions, data semantics, budgets, and fallback rules. Disclose every authorized START deviation in RESULT.
 
-Only diagnostic visualization that directly tests model or data validity belongs in PRE/QN execution. Do not plan or generate final display graphics, document prose, captions, structure, or placement. Never create Full artifacts, workflow state, approvals, events, review hashes, manifests, or content JSON.
+Formal PRE/QN execution is non-visual by default. Prefer structured evidence: numeric checks, tables, logs, schemas, error metrics, and constraint audits. Produce only the smallest diagnostic visualization required when non-visual evidence cannot resolve a named data- or model-validity risk; record that risk and the diagnostic stopping condition. Do not plan or generate final display graphics, styles, captions, layouts, document placement, or high-resolution delivery assets, and do not include final-figure work in L0/L1/L2 or the formal modeling budget. Never create Full artifacts, workflow state, approvals, events, review hashes, manifests, or content JSON.
 
 ## Technical result handoff
 
@@ -39,9 +39,15 @@ Treat HANDOFF as a neutral complete technical transfer derived from RESULT and m
 
 Repair HANDOFF when it conflicts with RESULT or evidence; return to RESULT/evidence audit when RESULT conflicts with evidence. Review it after material RESULT or downstream-relevant evidence changes. Create no HANDOFF checker, state, approval, hash, JSON, manifest, aggregate, or success report. Never use HANDOFF as a later modeling dependency or copy it into appendix outputs.
 
+## Optional final figure workspace
+
+Enter final-figure work only when the user explicitly requests it after relevant RESULT, HANDOFF, structured data, and machine evidence are stable. Use the `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. Do not infer which figures are wanted, silently retrain or resolve models, or alter RESULT certification; if required data are missing, return to PRE/QN for additional evidence first. Mechanical selection, ordering, joining of certified results, format conversion, and unit-display conversion are allowed only when they preserve numerical meaning.
+
+`figure/` is optional, unconstrained internally, and created only for an explicit request. It is not a managed root, formal evidence scope, modeling dependency, RESULT/HANDOFF contract, or appendix source. Add no figure command, checker, contract, manifest, state, approval, hash ledger, or content JSON, and do not bundle or import `nature-figure`.
+
 ## Optional submission appendix organization
 
-Begin only after required START/RESULT work, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` is outside the protocol and is not an allowed source. START, RESULT, and HANDOFF are internal references only and cannot be copied.
+Begin only after required START/RESULT work, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` and `figure/` are outside appendix source scope. START, RESULT, and HANDOFF are internal references only and cannot be copied.
 
 Make `appendix/` cover the complete formal solve pipeline and dependencies while excluding plotting. Select authentic representative root `code/` files for the final submission document's code appendix; core modeling, preprocessing, scheduling, recovery, audit, and other relevant execution code are eligible.
 

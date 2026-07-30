@@ -39,7 +39,7 @@ An auxiliary result may explain behavior or expose a limitation, but it cannot b
 
 Map each important claim or reusable asset to an existing workspace-relative path. State whether it is formal or auxiliary, what it contains, and what downstream consumer may use it for. Never invent files, copy values without provenance, or use HANDOFF as the only location of a critical number.
 
-HANDOFF may list existing diagnostic assets. It must not select final display graphics, prescribe visual style, captions, placement, or presentation format. A future request-driven figure stage may consume validated data and diagnostics, but it remains outside this workflow.
+HANDOFF may list existing diagnostic assets, identify them as internal diagnostics, and expose structured data interfaces that a later figure task may read. It must not initiate that task, select final display graphics, prescribe chart type, visual style, captions, placement, or presentation format. Explicitly requested final-figure work remains a separate `figure/` workspace.
 
 ## Boundaries
 

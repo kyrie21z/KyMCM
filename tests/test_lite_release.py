@@ -16,12 +16,15 @@ sys.path.insert(0, str(SCRIPTS))
 
 from kymcm_lite.cli import parser
 from kymcm_lite.appendix_contracts import SOURCE_ROOTS
-from kymcm_lite.paths import LEGACY_IGNORED_ROOTS, MANAGED_ROOTS, MARKER_BYTES
+from kymcm_lite.paths import (
+    EVIDENCE_DIRS, LEGACY_IGNORED_ROOTS, MANAGED_ROOTS, MARKER_BYTES,
+    OPTIONAL_ROOTS,
+)
 
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.7.0\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.8.0\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -29,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.7.0", text, relative)
-            self.assertNotIn("0.7.0-dev", text, relative)
+            self.assertIn("0.8.0", text, relative)
+            self.assertNotIn("0.8.0-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -55,9 +58,11 @@ class LiteReleaseTests(unittest.TestCase):
     def test_marker_bytes_are_frozen(self):
         self.assertEqual(MARKER_BYTES, b'{"workflow":"kymcm_lite","version":3}\n')
 
-    def test_legacy_paper_root_is_outside_runtime_scope(self):
+    def test_optional_figure_and_legacy_paper_are_outside_runtime_scope(self):
         self.assertEqual(MANAGED_ROOTS, (".kymcm", "input", "reports", "problems"))
+        self.assertEqual(OPTIONAL_ROOTS, ("figure",))
         self.assertIn("paper", LEGACY_IGNORED_ROOTS)
+        self.assertNotIn("figure", EVIDENCE_DIRS)
         self.assertEqual(SOURCE_ROOTS, ("problems/", "input/"))
 
     def test_repository_and_skill_templates_match(self):
@@ -99,7 +104,7 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertFalse((SKILL / "templates/FROZEN_CONTEXT.template.md").exists())
 
     def test_modeling_plan_reference_and_start_guidance_are_frozen(self):
-        expected_hash = "a3f77a7528c0d5829bdee7dbde4c4686d34cb7b1f7413418ea1c64df4769ee64"
+        expected_hash = "b90c4689fc87e75c7a853441e39b620c3cbc4676ad185bd38a6ac06cee4ae2ed"
         reference = SKILL / "references/modeling_plan_design.md"
         mirror = ROOT / "docs/lite-v3/modeling_plan_design.md"
         self.assertEqual(hashlib.sha256(reference.read_bytes()).hexdigest(), expected_hash)
@@ -116,18 +121,18 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertEqual(template.count("**前问依赖：** 无"), 1)
 
         frozen_hashes = {
-            "docs/lite-v3/START_QN.template.md": "b60c0b09ed6a904b99e16eecd43b2ce9e059188847360a0d286d4d4b0720426a",
+            "docs/lite-v3/START_QN.template.md": "4db5837709686701d1d19fbc797567e34b387751c7998beb5a6717784373fc8e",
             "docs/lite-v3/RESULT_QN.template.md": "3794e2b24dedbcb816f09d90e01f400078b5fede85296b1d418dc1a1baa96d45",
-            "docs/lite-v3/HANDOFF_QN.template.md": "623fe163eb6c5658695a5bac0b832c6a8326aaab96d10ba04f21cd42caab8574",
+            "docs/lite-v3/HANDOFF_QN.template.md": "a693bf3b7de1197fd79b4f590916719e1dbaaf8db1e2e68faba3d6c64921df3c",
         }
         for relative, expected in frozen_hashes.items():
             self.assertEqual(hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(), expected, relative)
 
     def test_preprocess_contracts_and_semantic_boundaries(self):
         hashes = {
-            "START_PRE.template.md": "8f60850084a4ca814654107838366660c4ce384c07130f2eda9cd677ce8c7539",
+            "START_PRE.template.md": "f8c30249682de75c5b82af525df8c74fe5bde2338bcdd0c0a198c071ae249d3b",
             "RESULT_PRE.template.md": "189595bdb36b5ee33a21363e3dfb3fb4faa65309e6a5bed7b0555931f8f8e4c5",
-            "HANDOFF_PRE.template.md": "e5198504045d2243f174c43656082dd21c2373deb0812de95225f43bbf1893e9",
+            "HANDOFF_PRE.template.md": "4c9399565a16d91cfbfc55affd6bde89ad5ee78b6b30a1333576499119461ae8",
         }
         for name, expected in hashes.items():
             self.assertEqual(hashlib.sha256((SKILL / "templates" / name).read_bytes()).hexdigest(), expected)
@@ -168,11 +173,11 @@ class LiteReleaseTests(unittest.TestCase):
         template = SKILL / "templates/HANDOFF_QN.template.md"
         self.assertEqual(
             hashlib.sha256(reference.read_bytes()).hexdigest(),
-            "4097cf896c21bc3049fbeecb9879f7d82d4e7efce1459835666861085aac1564",
+            "2fac72b88fb1a9026e1c627602c6665016f8f09b5558f58e69d515f5cdc6c42e",
         )
         self.assertEqual(
             hashlib.sha256(template.read_bytes()).hexdigest(),
-            "623fe163eb6c5658695a5bac0b832c6a8326aaab96d10ba04f21cd42caab8574",
+            "a693bf3b7de1197fd79b4f590916719e1dbaaf8db1e2e68faba3d6c64921df3c",
         )
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
@@ -210,6 +215,23 @@ class LiteReleaseTests(unittest.TestCase):
         text = "\n".join(path.read_text(encoding="utf-8") for path in surfaces)
         for phrase in forbidden:
             self.assertNotIn(phrase, text, phrase)
+
+    def test_nonvisual_default_and_optional_figure_boundaries(self):
+        skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
+        agent = (SKILL / "agents/openai.yaml").read_text(encoding="utf-8")
+        combined = "\n".join((skill, protocol))
+        for required in (
+            "non-visual by default", "structured evidence", "named risk",
+            "stopping condition", "figure/", "nature-figure",
+            "explicit user request", "appendix source",
+        ):
+            self.assertIn(required, combined)
+        self.assertIn("nature-figure", agent)
+        self.assertFalse((SKILL / "skills/nature-figure").exists())
+        runtime = "\n".join(path.read_text(encoding="utf-8") for path in SCRIPTS.rglob("*.py"))
+        self.assertNotIn("nature-figure", runtime)
+        self.assertNotIn("nature_figure", runtime)
 
     def test_check_result_does_not_require_handoff(self):
         workspace = ROOT / "tests/fixtures/lite_synthetic_handoff"
@@ -253,19 +275,21 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
             '{"workflow":"kymcm_lite","version":3}',
             "Full", "Lite v2", "not automatically migrated",
             "technical_handoff.md", "HANDOFF", "formal", "auxiliary",
             "complete formal solve code package", "authentic representative",
+            "figure/", "nature-figure", "known optional root",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.8.0 - 2026-07-30", text, relative)
             self.assertIn("0.7.0 - 2026-07-30", text, relative)
             self.assertIn("0.6.0 - 2026-07-29", text, relative)
             self.assertIn("0.5.1 - 2026-07-29", text, relative)

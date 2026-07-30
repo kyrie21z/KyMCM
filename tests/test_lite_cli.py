@@ -77,6 +77,7 @@ class LiteCliTests(unittest.TestCase):
             self.assertIn("No PRE contracts were created", initialized.stdout)
             self.assertIn("templates/RESULT_PRE.template.md", initialized.stdout)
             self.assertIn("no HANDOFF checker", initialized.stdout)
+            self.assertFalse((enabled / "figure").exists())
             pre = enabled / "problems/preprocess"
             for part in ("spec", "code", "data", "data/derived", "outputs", "notes", "result"):
                 self.assertTrue((pre / part).is_dir(), part)
@@ -92,6 +93,10 @@ class LiteCliTests(unittest.TestCase):
         temporary, workspace = self.fixture_copy()
         try:
             self.add_preprocess(workspace)
+            figure = workspace / "figure"
+            figure.mkdir()
+            (figure / "invalid.bin").write_bytes(b"\xff\xfe")
+            (figure / "broken").symlink_to(figure / "missing")
             q1 = workspace / "problems/q1/spec/START_Q1.md"
             q1.write_text(q1.read_text(encoding="utf-8").replace(
                 "**前问依赖：** 无",
@@ -100,6 +105,7 @@ class LiteCliTests(unittest.TestCase):
             for command in ("check-preprocess-start", "check-preprocess-result"):
                 before = fingerprint(workspace)
                 completed = self.run_cli(command, "--workspace", str(workspace), ok=0)
+                self.assertNotIn("figure", completed.stdout + completed.stderr)
                 self.assertEqual(before, fingerprint(workspace), completed.stdout)
             self.run_cli(
                 "check-start", "--workspace", str(workspace), "--problem", "1", ok=0
@@ -329,6 +335,7 @@ class LiteCliTests(unittest.TestCase):
                 self.assertEqual([p.relative_to(workspace) for p in workspace.rglob("*.json")], [Path(".kymcm/mode.json")])
                 self.assertFalse((workspace / "FROZEN_CONTEXT.md").exists())
                 self.assertFalse((workspace / "paper").exists())
+                self.assertFalse((workspace / "figure").exists())
                 self.assertFalse(any(workspace.rglob("START_*.md")))
                 self.assertFalse(any(workspace.rglob("RESULT_*.md")))
 
@@ -348,6 +355,29 @@ class LiteCliTests(unittest.TestCase):
             completed = self.run_cli("doctor", "--workspace", str(workspace), ok=0)
             self.assertIn("INFO unknown-root-entries=extra.txt", completed.stdout)
             self.assertEqual(before, fingerprint(workspace))
+        finally:
+            temporary.cleanup()
+
+    def test_optional_figure_root_is_known_unmanaged_and_never_read(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            figure = workspace / "figure"
+            figure.mkdir()
+            (figure / "invalid.bin").write_bytes(b"\xff\xfe\x00")
+            (figure / "broken").symlink_to(figure / "missing")
+            (workspace / "extra.txt").write_text("unknown", encoding="utf-8")
+            before = fingerprint(workspace)
+            completed = self.run_cli("doctor", "--workspace", str(workspace), ok=0)
+            output = completed.stdout + completed.stderr
+            self.assertIn("INFO unknown-root-entries=extra.txt", output)
+            self.assertNotIn("figure", output)
+            self.assertEqual(before, fingerprint(workspace))
+            for command in ("check-start", "check-result"):
+                completed = self.run_cli(
+                    command, "--workspace", str(workspace), "--problem", "1", ok=0
+                )
+                self.assertNotIn("figure", completed.stdout + completed.stderr)
+                self.assertEqual(before, fingerprint(workspace))
         finally:
             temporary.cleanup()
 
@@ -488,6 +518,10 @@ class LiteCliTests(unittest.TestCase):
             legacy.mkdir(exist_ok=True)
             (legacy / "invalid.md").write_bytes(b"\xff\xfe")
             (legacy / "broken").symlink_to(legacy / "missing")
+            figure = workspace / "figure"
+            figure.mkdir()
+            (figure / "invalid.bin").write_bytes(b"\xff\xfe")
+            (figure / "broken").symlink_to(figure / "missing")
             before = fingerprint(workspace)
             for args in (
                 ("doctor",),
@@ -497,6 +531,7 @@ class LiteCliTests(unittest.TestCase):
                 completed = self.run_cli(args[0], "--workspace", str(workspace), *args[1:], ok=0)
                 self.assertNotIn("FROZEN_CONTEXT", completed.stdout + completed.stderr)
                 self.assertNotIn("paper", completed.stdout + completed.stderr)
+                self.assertNotIn("figure", completed.stdout + completed.stderr)
                 self.assertEqual(fingerprint(workspace), before)
         finally: temporary.cleanup()
 

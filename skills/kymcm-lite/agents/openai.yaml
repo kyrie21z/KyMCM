@@ -1,4 +1,4 @@
 interface:
   display_name: "KyMCM Lite"
-  short_description: "Programming-side modeling execution and technical handoffs"
-  default_prompt: "Use $kymcm-lite to preprocess shared data, implement and verify modeling workflows, prepare neutral technical handoffs, and curate formal-solve submission appendices."
+  short_description: "Non-visual modeling execution and technical handoffs"
+  default_prompt: "Use $kymcm-lite to execute non-visual modeling workflows and neutral technical handoffs; for explicitly requested final figures, use nature-figure under figure/."

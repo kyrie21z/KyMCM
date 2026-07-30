@@ -1,8 +1,8 @@
 # KyMCM Lite
 
-KyMCM Lite 0.7.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, neutral technical handoffs, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.8.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
 
-Lite does not generate, plan, read, modify, or check contest manuscripts, and it does not select final display graphics. Existing legacy `paper/` directories are retained but completely ignored.
+Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
 ## Installation
 
@@ -26,6 +26,8 @@ Exit code 0 means structurally valid (warnings may exist), 1 means a contract or
 The formal modeling surfaces are START, matching RESULT, and RESULT-declared evidence. Each question uses either unsuffixed single mode or contiguous split units. Exact earlier-unit dependencies and optional PRE dependencies are structurally checked; semantic contradiction review reads each complete declared upstream START/RESULT pair.
 
 Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and risk-triggered L0/L1/L2 validation. Final display assets and document composition are out of scope.
+
+When the user explicitly requests final figures after results and data stabilize, use the `nature-figure` skill and keep all figure-generation work under workspace-level `figure/`. The root is optional, not created by init, unconstrained internally, and excluded from formal evidence, modeling dependencies, and appendix sources.
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, and prepare HANDOFF_PRE only when a complete downstream technical transfer is useful. RESULT_PRE remains the downstream data authority.
 
