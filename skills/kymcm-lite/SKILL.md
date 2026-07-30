@@ -1,13 +1,13 @@
 ---
 name: kymcm-lite
-description: Execute and review Markdown-first mathematical-modeling workflows with optional shared preprocessing, recoverable computation, evidence-linked results, neutral technical handoffs, request-driven final figures, and submission appendix curation without workflow state or content JSON.
+description: Execute and review Markdown-first mathematical-modeling workflows with optional shared preprocessing, recoverable computation, evidence-linked results, question-level incremental supplements, neutral technical handoffs, request-driven final figures, and submission appendix curation without workflow state or content JSON.
 ---
 
 # KyMCM Lite
 
 Resolve the explicit contest workspace before acting. Require exactly `{"workflow":"kymcm_lite","version":3}` in `.kymcm/mode.json`; fail closed for Full, Lite v2, Legacy, malformed, absent, or unknown modes. Use `scripts/lite.py` for initialization and read-only checks, follow `references/markdown_format.md`, and never read legacy `FROZEN_CONTEXT.md` or `paper/` content.
 
-For modeling, treat the selected `START_QN.md`/`RESULT_QN.md` single contract or contiguous `START_QN_K.md`/`RESULT_QN_K.md` split contracts plus RESULT-declared evidence as the only formal surfaces. Never mix single and split mode; missing split RESULT units are allowed while work remains incomplete. Choose granularity from modeling dependency and execution boundaries, not printed subquestion count.
+For base modeling, treat the selected `START_QN.md`/`RESULT_QN.md` single contract or contiguous `START_QN_K.md`/`RESULT_QN_K.md` split contracts plus RESULT-declared evidence as the formal surfaces. After base completion, completed question-level Supplement Result entries may explicitly append or replace scope as described below. Never mix single and split mode; missing split RESULT units are allowed while work remains incomplete.
 
 ## Optional preprocess stage
 
@@ -31,23 +31,40 @@ Repair deterministic engineering omissions transparently, then rerun the checks 
 
 Formal PRE/QN execution is non-visual by default. Prefer structured evidence: numeric checks, tables, logs, schemas, error metrics, and constraint audits. Produce only the smallest diagnostic visualization required when non-visual evidence cannot resolve a named data- or model-validity risk; record that risk and the diagnostic stopping condition. Do not plan or generate final display graphics, styles, captions, layouts, document placement, or high-resolution delivery assets, and do not include final-figure work in L0/L1/L2 or the formal modeling budget. Never create Full artifacts, workflow state, approvals, events, review hashes, manifests, or content JSON.
 
+## Question-level supplement work
+
+Continue the active base START while a question's base RESULT set is incomplete. After the base question is complete and every applicable `check-result` passes, use one optional problem-level pair for post-result validation, a model/data/certification revision, or an implementation repair:
+
+```text
+problems/qN/spec/SUPPLEMENT_START_QN.md
+problems/qN/result/SUPPLEMENT_RESULT_QN.md
+```
+
+Single and split modes share this one pair. Read `references/supplement_work.md` and use `templates/SUPPLEMENT_START_QN.template.md` and `templates/SUPPLEMENT_RESULT_QN.template.md`. Before any Sx-specific execution, append and semantically review the corresponding S1, S2, ... plan. After execution, append the matching result and disclose deviations, evidence, impact, failures, and downstream consequences. Never rewrite completed entries; a later semantic correction uses the next number.
+
+Use exactly `补充验证`, `方案修订`, or `实现修复`, with explicit `追加证据`, `局部替代`, `完全替代`, or `不改变正式状态` semantics. Current effective state is the base RESULT set plus completed Supplement Result entries in order; an entry replaces only what it names. Keep code and evidence in the existing QN `code/`, `data/derived/`, `outputs/`, and `notes/` directories, prefer new `sN_` paths, and do not overwrite earlier artifacts.
+
+Dependency tokens remain exact base RESULT units such as `Q1` or `Q2_1`. When an upstream question has Supplement files, semantic review reads the complete files and applies completed entries that affect the selected token or its shared interfaces. A pending unmatched plan does not change formal state but is a material pending risk when it may alter the upstream interface. Material completed changes trigger downstream impact review; repair an affected downstream question through its own Supplement rather than overwriting its base RESULT.
+
+Refresh the one `HANDOFF_QN.md` after every new Supplement Result. Add no Supplement checker, CLI, state, JSON, manifest, approval, hash ledger, dependency token, `followups/`, Sx directory, or PRE Supplement. Python does not enforce numbering, plan-before-execution, replacement scope, mathematics, or HANDOFF currency.
+
 ## Technical result handoff
 
 Use one fixed problem-level `HANDOFF_QN.md` for each official question. In single mode, create or refresh it only after the complete START/RESULT pair passes `check-result` and formal plus selected auxiliary evidence is stable. In split mode, wait until every contiguous START unit has a matching RESULT, run `check-result --subproblem K` successfully for every unit, then read all START/RESULT pairs, their declared evidence, and selected auxiliary evidence before creating the one problem-level HANDOFF. Partial split completion cannot produce the current standard HANDOFF.
 
-Follow `references/technical_handoff.md` and `templates/HANDOFF_QN.template.md`. Never create a new `HANDOFF_QN_K.md`; retain any existing suffixed files as ordinary legacy notes without deleting, renaming, merging, or treating them as the current entry point. Treat HANDOFF as a neutral complete technical transfer derived from the question's RESULT set and machine evidence. Preserve every split unit's identity and certification boundary rather than forming a new aggregate conclusion. RESULT remains the concise formal boundary and only downstream modeling inheritance surface; later START dependencies continue to name exact RESULT units. Separate formal from auxiliary results; disclose actual execution, validation, anomalies, failed attempts, omitted L1/L2, paths, limitations, and exact downstream interfaces. HANDOFF must not draft prose, propose document structure or placement, recommend wording, choose final graphics, or trigger extra computation.
+Follow `references/technical_handoff.md` and `templates/HANDOFF_QN.template.md`. Never create a new `HANDOFF_QN_K.md`; retain any existing suffixed files as ordinary legacy notes without deleting, renaming, merging, or treating them as the current entry point. Treat HANDOFF as a neutral complete technical transfer derived from the question's base RESULT set, completed Supplement Results, and machine evidence. Preserve every base unit and Sx identity and certification boundary rather than forming a new aggregate conclusion. Later START dependencies continue to name exact base RESULT units and semantic review applies relevant Supplement entries. Separate formal, superseded, and auxiliary results; disclose actual execution, validation, anomalies, failed attempts, omitted L1/L2, paths, limitations, and exact downstream interfaces.
 
-Repair HANDOFF when it conflicts with RESULT or evidence; return to RESULT/evidence audit when RESULT conflicts with evidence. Review it after material RESULT or downstream-relevant evidence changes. Create no HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report. Never use HANDOFF as a later modeling dependency or copy it into appendix outputs.
+Repair HANDOFF when it conflicts with RESULT, completed Supplement Result, or evidence; return to contract/evidence audit when a formal contract conflicts with evidence. Review and refresh it after every new Supplement Result or other material downstream-relevant change. Create no HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report. Never use HANDOFF as a later modeling dependency or copy it into appendix outputs.
 
 ## Optional final figure workspace
 
-Enter final-figure work only when the user explicitly requests it after relevant RESULT, HANDOFF, structured data, and machine evidence are stable. Use the `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. Do not infer which figures are wanted, silently retrain or resolve models, or alter RESULT certification; if required data are missing, return to PRE/QN for additional evidence first. Mechanical selection, ordering, joining of certified results, format conversion, and unit-display conversion are allowed only when they preserve numerical meaning.
+Enter final-figure work only when the user explicitly requests it after the latest HANDOFF, relevant base RESULT and Supplement Result entries, structured data, and machine evidence are stable. Use the `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. Do not infer which figures are wanted, silently retrain or resolve models, or create a new Supplement conclusion or alter formal state; if required data are missing, return to PRE/QN for additional evidence first.
 
 `figure/` is optional, unconstrained internally, and created only for an explicit request. It is not a managed root, formal evidence scope, modeling dependency, RESULT/HANDOFF contract, or appendix source. Add no figure command, checker, contract, manifest, state, approval, hash ledger, or content JSON, and do not bundle or import `nature-figure`.
 
 ## Optional submission appendix organization
 
-Begin only after required START/RESULT work, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` and `figure/` are outside appendix source scope. START, RESULT, and HANDOFF are internal references only and cannot be copied.
+Begin only after required START/RESULT and Supplement work, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` and `figure/` are outside appendix source scope. START, RESULT, SUPPLEMENT, and HANDOFF are internal references only and cannot be copied.
 
 Make `appendix/` cover the complete formal solve pipeline and dependencies while excluding plotting. Select authentic representative root `code/` files for the final submission document's code appendix; core modeling, preprocessing, scheduling, recovery, audit, and other relevant execution code are eligible.
 

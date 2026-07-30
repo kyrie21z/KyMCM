@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 - 2026-07-30
+
+- Add one optional problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair per official question after complete checked base results.
+- Keep single/split identity question-scoped and append S1/S2/... plans before execution with matching results, three work types, four explicit impact modes, and no completed-history overwrite.
+- Define current effective state as the base RESULT set plus completed Supplement Result entries, refresh HANDOFF after each result, and keep exact base RESULT dependency tokens.
+- Exclude Supplement Markdown contracts from appendix while retaining eligibility for current effective Supplement code, derived data, outputs, and representative implementation.
+- Preserve the marker, eight commands, base/PRE headings and discovery, evidence scope, figure rules, stateless runtime, existing 0.8.1 workspaces, and Full.
+
 ## 0.8.1 - 2026-07-30
 
 - Use one problem-level `HANDOFF_QN.md` per official question in both single and split modes.

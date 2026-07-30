@@ -1,10 +1,10 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.8.1.
+Status: Normative for KyMCM Lite 0.9.0.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.8.1 has no automatic cleaning, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Formal PRE/QN work is non-visual by default; deciding whether the smallest diagnostic is necessary for a named unresolved risk is a semantic agent/human responsibility. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources. Problem-level HANDOFF identity, split completeness, synchronization, formal/auxiliary separation, factual fidelity, appendix formal-code completeness, plotting responsibility, and code authenticity remain semantic agent/human review responsibilities rather than Python pass/fail conditions.
+Lite 0.9.0 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|
@@ -55,7 +55,7 @@ Lite 0.8.1 has no automatic cleaning, EDA/causal certification, final-graphics s
 
 ## Appendix diagnostics
 
-The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference but cannot copy single or split START/RESULT contracts or matching HANDOFF collaboration documents. All paths below are workspace-relative, and secret diagnostics redact matched values.
+The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference but cannot copy single or split START/RESULT, Supplement, or matching HANDOFF internal documents. All paths below are workspace-relative, and secret diagnostics redact matched values.
 
 | Identifier | Severity | Precise trigger |
 |---|---|---|
@@ -66,7 +66,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 | `LITE-APPENDIX-DECLARATION-001` | Error | External-material or mandatory-result declaration is missing, duplicated, malformed, or inconsistent |
 | `LITE-APPENDIX-WHITELIST-FORMAT-001` | Error | Whitelist ID, mode, source list, purpose, environment set, or bullet grammar is invalid |
 | `LITE-APPENDIX-WHITELIST-DUPLICATE-001` | Error | A whitelist ID or target is duplicated |
-| `LITE-APPENDIX-SOURCE-PATH-001` | Error | A source is unsafe, outside permitted roots/mapping, or is a START/RESULT/HANDOFF internal reference |
+| `LITE-APPENDIX-SOURCE-PATH-001` | Error | A source is unsafe, outside permitted roots/mapping, or is a START/RESULT/SUPPLEMENT/HANDOFF internal reference |
 | `LITE-APPENDIX-SOURCE-MISSING-001` | Error | A declared source is not an existing ordinary file |
 | `LITE-APPENDIX-TARGET-PATH-001` | Error | A target is unsafe or outside its exact appendix/code surface |
 | `LITE-APPENDIX-SYMLINK-001` | Error | A source, target, evidence, or traversed component is a symlink |

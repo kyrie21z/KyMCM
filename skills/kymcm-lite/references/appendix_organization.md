@@ -2,25 +2,25 @@
 
 附录整理是正式结果、提交要求和认证边界稳定后的可选独立阶段。`appendix/` 是排除绘图后的完整正式求解代码与正式结果附件，服务提交和复现；根 `code/` 是从本队真实工程选择、用于最终提交文档代码附录的代表性代码。二者用途不同、互不替代。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
 
-The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference START, RESULT, and HANDOFF only as internal context.
+The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference base START/RESULT, Supplement Result, and HANDOFF only as internal context.
 
 ## 基本原则
 
 1. 先冻结结构和白名单，再从白名单正向构造，禁止先复制整个工程再反向删除。
 2. `appendix/` 以正式流程完整性为先；根 `code/` 以真实性、提交展示价值、实现辨识度和可读性为先。
-3. `problems/`、`input/` 以及正式 START/RESULT 和技术 HANDOFF 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
-4. 单一或拆分 START/RESULT 契约及匹配 HANDOFF 只能作为上下文参考，不能复制进、授权或扩展最终包；HANDOFF 也不是正式认证来源。
+3. `problems/`、`input/` 以及正式 START/RESULT、Supplement 和技术 HANDOFF 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
+4. 单一或拆分基础契约、Supplement Start/Result 及匹配 HANDOFF 只能作为上下文参考，不能复制进最终包；HANDOFF 也不是正式认证来源。规划时按顺序读取基础 RESULT、已完成 Supplement Result 和当前 HANDOFF，以确定当前有效状态。
 5. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON、持久化清单或外部相似度服务。
 
 ## 两个代码交付面的职责
 
-`appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 保留生成正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。根 `code/` 不承担完整复现职责，只选择与正式方法、数据处理、执行可靠性或结果审计有明确关系的代表性直接文件。
+`appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 保留生成当前正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。已完成 Supplement 中属于当前有效方案的代码、数据产品和结果附件可按既有白名单进入；被替代的旧实现和结果默认排除，除非比赛明确要求历史对照。根 `code/` 不承担完整复现职责，可选择当前有效 Supplement 的真实代表性代码。
 
 两类代码都必须来自本队真实工程并可追溯到 APPENDIX_START 中的准确源路径。根 `code/` 可以同时展示核心模型与非核心工程实现，不要求每题一个文件，也不要求只展示最常见的核心算法。
 
 ## `appendix/`：完整正式求解代码
 
-`appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 来源可来自 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE 与所有 QN 合同同样禁止复制。代码白名单覆盖正式流程实际使用的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、任务调度、批量或并行执行、断点续算、阶段恢复、缓存复用、失败隔离与重试、状态回读、验证审计、结果核验与正式导出，以及这些路径依赖的本地模块和配置代码。
+`appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 来源可来自 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE、SUPPLEMENT_START_QN、SUPPLEMENT_RESULT_QN 与所有基础 QN 合同同样禁止复制。代码白名单覆盖当前正式流程实际使用的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、任务调度、批量或并行执行、断点续算、阶段恢复、缓存复用、失败隔离与重试、状态回读、验证审计、结果核验与正式导出，以及这些路径依赖的本地模块和配置代码。
 
 排除测试、缓存和字节码、日志和运行输出、历史/废弃/试验实现、临时调试脚本、归档与二进制、模型 checkpoint 数据、求解中间状态、可再生运行产物、内部桥接、凭据、个人环境文件和无关基础设施。调度、恢复、状态、监控或审计语义本身不是排除理由；`scheduler.py`、`checkpoint.py`、`run_status.py`、`resource_monitor.py`、`audit.py` 等真实源码可以进入。
 

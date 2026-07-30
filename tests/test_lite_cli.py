@@ -527,6 +527,10 @@ class LiteCliTests(unittest.TestCase):
             (workspace / "problems/q1/notes/HANDOFF_Q1_2.md").symlink_to(
                 workspace / "problems/q1/notes/missing"
             )
+            supplement_start = workspace / "problems/q1/spec/SUPPLEMENT_START_Q1.md"
+            supplement_result = workspace / "problems/q1/result/SUPPLEMENT_RESULT_Q1.md"
+            supplement_start.write_bytes(b"\xff\xfe")
+            supplement_result.write_bytes(b"\xff\xfe")
             before = fingerprint(workspace)
             for args in (
                 ("doctor",),
@@ -538,9 +542,31 @@ class LiteCliTests(unittest.TestCase):
                 self.assertNotIn("paper", completed.stdout + completed.stderr)
                 self.assertNotIn("figure", completed.stdout + completed.stderr)
                 self.assertNotIn("HANDOFF_Q1", completed.stdout + completed.stderr)
+                self.assertNotIn("SUPPLEMENT", completed.stdout + completed.stderr)
                 self.assertTrue(legacy_handoff.exists())
+                self.assertTrue(supplement_start.exists())
+                self.assertTrue(supplement_result.exists())
                 self.assertEqual(fingerprint(workspace), before)
         finally: temporary.cleanup()
+
+    def test_split_discovery_ignores_question_level_supplement_files(self):
+        temporary, workspace = self.split_fixture_copy()
+        try:
+            supplement_start = workspace / "problems/q2/spec/SUPPLEMENT_START_Q2.md"
+            supplement_result = workspace / "problems/q2/result/SUPPLEMENT_RESULT_Q2.md"
+            supplement_start.write_bytes(b"\xff\xfe")
+            supplement_result.write_bytes(b"\xff\xfe")
+            before = fingerprint(workspace)
+            for args in (
+                ("doctor",),
+                ("check-start", "--problem", "2", "--subproblem", "1"),
+                ("check-result", "--problem", "2", "--subproblem", "2"),
+            ):
+                completed = self.run_cli(args[0], "--workspace", str(workspace), *args[1:], ok=0)
+                self.assertNotIn("SUPPLEMENT", completed.stdout + completed.stderr)
+                self.assertEqual(fingerprint(workspace), before)
+        finally:
+            temporary.cleanup()
 
     def test_dependency_declaration_valid_forms(self):
         for problem in (1, 2, 3):

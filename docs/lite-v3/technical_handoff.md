@@ -4,12 +4,13 @@ HANDOFF is a neutral technical transfer derived from a checked RESULT and real m
 
 ## Authority
 
-1. RESULT defines certified scope, status, limitations, and downstream frozen interfaces.
-2. Machine evidence defines actual values, tables, diagnostics, and data products.
-3. HANDOFF explains and organizes those materials without expanding certification.
-4. Later modeling inherits RESULT only, never HANDOFF.
+1. The base RESULT set defines the original certified scope, status, limitations, and downstream frozen interfaces.
+2. Completed Supplement Result entries add evidence or replace only their explicitly named scope in S1, S2, ... order.
+3. Machine evidence defines actual values, tables, diagnostics, and data products.
+4. HANDOFF explains and organizes the current effective state without expanding certification.
+5. Later modeling keeps exact base RESULT dependency tokens and reads applicable Supplement entries during semantic review; it never inherits HANDOFF.
 
-If HANDOFF conflicts with RESULT, repair HANDOFF. If a HANDOFF value conflicts with machine evidence, repair it from the evidence. If RESULT conflicts with evidence, return to RESULT/evidence audit. Never choose a convenient value silently.
+If HANDOFF conflicts with a base RESULT or completed Supplement Result, repair HANDOFF. If a HANDOFF value conflicts with machine evidence, repair it from the evidence. If a formal contract conflicts with evidence, return to contract/evidence audit. Never choose a convenient value silently.
 
 ## Identity and timing
 
@@ -17,11 +18,11 @@ Use one fixed problem-level `HANDOFF_QN.md` for every official question, in both
 
 Never create a new `HANDOFF_QN_K.md`. Existing suffixed files are retained as ordinary legacy notes without deletion, renaming, merging, or checker impact. PRE continues to use fixed `HANDOFF_PRE.md`.
 
-Review the problem-level HANDOFF after any material RESULT or downstream-relevant evidence change, or after adding a split unit. Do not create an aggregate RESULT, index, manifest, or state object.
+After base completion, refresh the problem-level HANDOFF after every new `SUPPLEMENT_RESULT_QN.md` entry, any other material RESULT or downstream-relevant evidence change, or after adding a split unit. List the base RESULT path(s) first under `正式上游`, then the one Supplement Result path when it contains recorded entries. Do not create an aggregate RESULT, index, manifest, or state object.
 
 ## Required technical content
 
-For single mode, read the complete START_QN, RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. Preserve each unit's identity and certification boundary; do not merge multiple RESULTs into a newly certified claim. Record:
+For single mode, read the complete START_QN, RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. If Supplement files exist, read their complete ordered Start/Result entries and all mapped evidence. Preserve each base unit and Sx identity, status, impact mode, and certification boundary; do not merge them into a newly certified claim. Record:
 
 - task or data-stage identity and certified conclusions;
 - actual inputs, data scope, transforms, model, parameters, solver settings, and authorized deviations;
@@ -30,6 +31,8 @@ For single mode, read the complete START_QN, RESULT_QN, all RESULT-declared evid
 - workspace-relative data, result-table, diagnostic, log, and asset paths mapped to their exact RESULT or split unit;
 - causal, population, time, scenario, numerical, robustness, and extrapolation boundaries;
 - exact downstream inputs, outputs, schemas, units, interfaces, and final review points.
+
+Apply completed Sx entries in order and only within their explicit scope. In section 4, distinguish current effective results from superseded historical results. In section 5, disclose failed or aborted entries and implementation repairs. In section 6, map Supplement evidence to its Sx. In sections 7 and 8, state the current limitations, pending risks, and final effective downstream interface. An unmatched pending Supplement Start does not change formal state, but disclose it when the planned change may affect downstream reuse.
 
 An auxiliary result may explain behavior or expose a limitation, but it cannot be presented as certified. Missing or failed work must be disclosed when it affects downstream interpretation.
 
@@ -44,7 +47,7 @@ HANDOFF may list existing diagnostic assets, identify them as internal diagnosti
 - No prose drafting, document structure, placement advice, recommended wording, or final visual selection.
 - No new computation merely to improve presentation; execute more work only for formal success criteria, a named unresolved risk, user direction, or result certification.
 - HANDOFF is never a later modeling dependency and is never copied into appendix outputs.
-- Appendix organization may read HANDOFF as internal technical context only.
+- Appendix organization may read base RESULT, completed Supplement Result, and HANDOFF as internal technical context only.
 - No HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report is introduced.
 
-Python validates neither HANDOFF identity nor completeness. The executor performs semantic review against RESULT and machine evidence, and downstream consumers recheck critical values and interfaces before use.
+Python validates neither HANDOFF identity nor completeness. The executor performs semantic review against the base RESULT set, complete Supplement files, and machine evidence, and downstream consumers recheck critical values and interfaces before use.

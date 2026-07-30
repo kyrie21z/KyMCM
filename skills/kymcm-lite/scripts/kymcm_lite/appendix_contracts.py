@@ -326,16 +326,18 @@ def _parse_whitelist(
                     "source is outside problems/ or input/",
                 ))
             elif re.match(
-                r"(?:problems/q[1-9][0-9]*/(?:spec/START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
-                r"result/RESULT_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md|"
+                r"(?:problems/q[1-9][0-9]*/(?:spec/(?:START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?|"
+                r"SUPPLEMENT_START_Q[1-9][0-9]*)\.md|"
+                r"result/(?:RESULT_Q[1-9][0-9]*(?:_[1-9][0-9]*)?|"
+                r"SUPPLEMENT_RESULT_Q[1-9][0-9]*)\.md|"
                 r"notes/HANDOFF_Q[1-9][0-9]*(?:_[1-9][0-9]*)?\.md)|"
                 r"problems/preprocess/(?:spec/START_PRE\.md|result/RESULT_PRE\.md|"
                 r"notes/HANDOFF_PRE\.md))$", source
             ):
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-PATH-001", source,
-                    "START and RESULT contracts and HANDOFF collaboration documents "
-                    "are internal references and cannot be copied",
+                    "START, RESULT, SUPPLEMENT, and HANDOFF internal documents "
+                    "are contextual references and cannot be copied",
                 ))
             elif not _ordinary_file(workspace, source):
                 diagnostics.append(error(
