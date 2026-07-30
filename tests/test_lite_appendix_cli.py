@@ -122,6 +122,7 @@ class LiteAppendixCliTests(unittest.TestCase):
         for relative in (
             "problems/q1/notes/HANDOFF_Q1.md",
             "problems/q2/notes/HANDOFF_Q2_1.md",
+            "problems/preprocess/notes/HANDOFF_PRE.md",
         ):
             with self.subTest(relative=relative):
                 temporary, workspace = self.fixture_copy()

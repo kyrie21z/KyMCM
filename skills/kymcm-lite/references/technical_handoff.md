@@ -13,23 +13,21 @@ If HANDOFF conflicts with RESULT, repair HANDOFF. If a HANDOFF value conflicts w
 
 ## Identity and timing
 
-Create a HANDOFF only after its exact RESULT passes the relevant result check and formal plus selected auxiliary evidence is stable:
+Use one fixed problem-level `HANDOFF_QN.md` for every official question, in both single and split modes. For a single question, create it only after `RESULT_QN.md` passes `check-result` and formal plus selected auxiliary evidence is stable. For a split question, wait until every contiguous `START_QN_K.md` has a matching `RESULT_QN_K.md`, every RESULT passes `check-result --subproblem K`, and all formal plus selected auxiliary evidence is stable. Partial split completion remains valid modeling progress but cannot produce the current standard HANDOFF.
 
-- single QN: `HANDOFF_QN.md`;
-- split QN: exact `HANDOFF_QN_K.md`, never an unsuffixed aggregate;
-- PRE: fixed `HANDOFF_PRE.md`.
+Never create a new `HANDOFF_QN_K.md`. Existing suffixed files are retained as ordinary legacy notes without deletion, renaming, merging, or checker impact. PRE continues to use fixed `HANDOFF_PRE.md`.
 
-Do not mix single and split identities, create an index/manifest/state object, or create HANDOFF before the matching RESULT exists. Review it after any material RESULT or downstream-relevant evidence change.
+Review the problem-level HANDOFF after any material RESULT or downstream-relevant evidence change, or after adding a split unit. Do not create an aggregate RESULT, index, manifest, or state object.
 
 ## Required technical content
 
-Read the complete matching START, RESULT, all RESULT-declared evidence, and selected auxiliary evidence. Record:
+For single mode, read the complete START_QN, RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. Preserve each unit's identity and certification boundary; do not merge multiple RESULTs into a newly certified claim. Record:
 
 - task or data-stage identity and certified conclusions;
 - actual inputs, data scope, transforms, model, parameters, solver settings, and authorized deviations;
 - every certified result and useful evidence-supported auxiliary result, labeled separately;
 - validation, anomalies, failed attempts, fallbacks, and omitted L1/L2 work;
-- workspace-relative data, result-table, diagnostic, log, and asset paths;
+- workspace-relative data, result-table, diagnostic, log, and asset paths mapped to their exact RESULT or split unit;
 - causal, population, time, scenario, numerical, robustness, and extrapolation boundaries;
 - exact downstream inputs, outputs, schemas, units, interfaces, and final review points.
 
@@ -47,6 +45,6 @@ HANDOFF may list existing diagnostic assets, identify them as internal diagnosti
 - No new computation merely to improve presentation; execute more work only for formal success criteria, a named unresolved risk, user direction, or result certification.
 - HANDOFF is never a later modeling dependency and is never copied into appendix outputs.
 - Appendix organization may read HANDOFF as internal technical context only.
-- No HANDOFF checker, state, approval, hash, JSON, manifest, aggregate, or success report is introduced.
+- No HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report is introduced.
 
 Python validates neither HANDOFF identity nor completeness. The executor performs semantic review against RESULT and machine evidence, and downstream consumers recheck critical values and interfaces before use.

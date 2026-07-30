@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.1 - 2026-07-30
+
+- Use one problem-level `HANDOFF_QN.md` per official question in both single and split modes.
+- Require every contiguous split unit to have a checked RESULT before creating the question-level HANDOFF, while preserving each RESULT identity and certification boundary.
+- Retain existing suffixed HANDOFF files as ordinary legacy notes without automatic deletion, renaming, merging, or migration.
+- Preserve RESULT dependencies, HANDOFF_PRE, headings, runtime, eight commands, figure/appendix behavior, and Full.
+
 ## 0.8.0 - 2026-07-30
 
 - Make formal PRE and QN work non-visual by default: structured evidence comes first, and only the smallest diagnostic needed for a named unresolved risk is permitted.

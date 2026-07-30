@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.8.0** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, evidence-linked results, neutral technical HANDOFF documents, an optional request-driven `figure/` workspace using `nature-figure`, and submission-appendix curation.
+- **KyMCM Lite 0.8.1** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, one neutral problem-level HANDOFF per official question, an optional request-driven `figure/` workspace using `nature-figure`, and submission-appendix curation.
 
 ## Install
 

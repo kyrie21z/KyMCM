@@ -1,6 +1,6 @@
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.8.0 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, neutral technical handoffs, explicitly requested final figures, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.8.1 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, question-level neutral technical handoffs, explicitly requested final figures, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## Workspace identity and layout
 
@@ -78,14 +78,18 @@ L0 is mandatory and blocking. L1 has a named trigger. L2 is resource-permitting 
 
 ## Technical result handoff
 
-After a matching RESULT passes `check-result` and relevant evidence is stable, an executor may create matching single `HANDOFF_QN.md`, split `HANDOFF_QN_K.md`, or preprocessing `HANDOFF_PRE.md`. Identity must match an existing RESULT exactly. Single and split HANDOFF identities cannot mix, and split mode has no aggregate.
+Each official question uses exactly one current problem-level `HANDOFF_QN.md` in both single and split modes. Single mode may create it after `RESULT_QN.md` passes `check-result` and relevant evidence is stable. Split mode may create it only when every contiguous START unit has a matching RESULT, every RESULT passes `check-result --subproblem K`, and all relevant evidence is stable. Partial split RESULT completion remains valid execution progress but cannot produce the current standard HANDOFF. PRE continues to use `HANDOFF_PRE.md`.
+
+Never create a new suffixed `HANDOFF_QN_K.md`. Existing suffixed files remain ordinary legacy notes and are not deleted, renamed, merged, checked, or treated as the current HANDOFF. Adding a split unit or materially changing any RESULT or downstream-relevant evidence requires semantic review and refresh of `HANDOFF_QN.md`.
 
 QN HANDOFF uses:
 
 ```markdown
 # HANDOFF QN
 
-**正式上游：** `problems/qN/result/RESULT_QN.md`
+**正式上游：**
+
+<!-- 单一模式列出 RESULT_QN.md；拆分模式按 K 升序列出全部 RESULT_QN_K.md。 -->
 
 ## 1. 任务定位与已认证结论
 ## 2. 数据口径与实际执行
@@ -114,7 +118,7 @@ PRE HANDOFF uses:
 ## 8. 下游复核事项
 ```
 
-RESULT remains the formal boundary and only modeling-inheritance surface; machine evidence controls actual values and assets; HANDOFF is a derived explanation and indexing layer. It records actual execution, full and auxiliary results, validation, anomalies, failed attempts, unrun optional work, evidence paths, scope limits, downstream interfaces, and review points. It cannot expand RESULT, become a modeling dependency, or be copied to appendix outputs. See `references/technical_handoff.md`.
+Each RESULT remains the formal boundary for its exact unit and the only modeling-inheritance surface; machine evidence controls actual values and assets; HANDOFF is a derived problem-level explanation and indexing layer. In split mode it reads all completed unit pairs only after the complete RESULT set passes, preserves unit-specific identities and limits, and does not create an aggregate RESULT or new certified conclusion. It records actual execution, full and auxiliary results, validation, anomalies, failed attempts, unrun optional work, evidence paths, scope limits, downstream interfaces, and review points. Later dependencies still name exact RESULT units; HANDOFF cannot become a modeling dependency or be copied to appendix outputs. See `references/technical_handoff.md`.
 
 HANDOFF has no command, checker, state, approval, hash, report, JSON, or manifest. Identity, completeness, synchronization, and factual consistency require semantic review.
 
@@ -181,6 +185,6 @@ Whitelist grammar remains `A[0-9]{3,}` for appendix entries and `C[0-9]{3,}` for
 
 ## Compatibility and non-goals
 
-The Lite v3 marker, eight public commands, all START/RESULT/HANDOFF/APPENDIX headings, single/split identities, dependency grammar, and evidence rules remain unchanged from 0.7.0. Existing workspaces need not create `figure/`; an existing user-created root is now known and ignored internally. Historical plotting code is not moved automatically. Existing legacy content directories remain ignored.
+The Lite v3 marker, eight public commands, all START/RESULT/HANDOFF/APPENDIX headings, START/RESULT single/split identities, dependency grammar, evidence rules, figure workspace, and appendix rules remain unchanged from 0.8.0. Existing workspaces need not create `figure/`; an existing user-created root is known and ignored internally. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes without automatic migration; create the one current `HANDOFF_QN.md` at the next needed technical transfer. Historical plotting code is not moved automatically. Existing legacy content directories remain ignored.
 
-Lite 0.8.0 does not validate mathematics, plan or EDA quality, causality, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; discover prose dependencies; reconcile contradictions automatically; manage approvals/state; migrate other products; generate or check contest manuscripts; infer or automatically select final graphics; silently retrain for graphics; orchestrate agents; add problems dynamically; emit content JSON; build/delete appendix trees; classify plotting code; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics.
+Lite 0.8.1 does not validate mathematics, plan or EDA quality, causality, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; discover prose dependencies; reconcile contradictions automatically; manage approvals/state; migrate old HANDOFF files or other products; generate or check contest manuscripts; infer or automatically select final graphics; silently retrain for graphics; orchestrate agents; add problems dynamically; emit content JSON; build/delete appendix trees; classify plotting code; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics. It adds no SUPPLEMENT or followups protocol.
