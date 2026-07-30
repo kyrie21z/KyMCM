@@ -1,20 +1,20 @@
 # KyMCM Lite 附录整理规范
 
-附录整理是建模完成后的可选独立阶段。`appendix/` 是排除绘图后的完整正式求解代码与正式结果附件，服务提交和复现；根 `code/` 是从本队真实工程选择、准备放入论文 PDF 的代表性代码，服务展示。二者用途不同、互不替代。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
+附录整理是正式结果、提交要求和认证边界稳定后的可选独立阶段。`appendix/` 是排除绘图后的完整正式求解代码与正式结果附件，服务提交和复现；根 `code/` 是从本队真实工程选择、用于最终提交文档代码附录的代表性代码。二者用途不同、互不替代。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
 
 The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference START, RESULT, and HANDOFF only as internal context.
 
 ## 基本原则
 
 1. 先冻结结构和白名单，再从白名单正向构造，禁止先复制整个工程再反向删除。
-2. `appendix/` 以正式流程完整性为先；根 `code/` 以真实性、论文相关性、实现辨识度和可读性为先。
-3. `problems/`、`input/`、`paper/` 以及正式 START/RESULT 和论文协作 HANDOFF 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
+2. `appendix/` 以正式流程完整性为先；根 `code/` 以真实性、提交展示价值、实现辨识度和可读性为先。
+3. `problems/`、`input/` 以及正式 START/RESULT 和技术 HANDOFF 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
 4. 单一或拆分 START/RESULT 契约及匹配 HANDOFF 只能作为上下文参考，不能复制进、授权或扩展最终包；HANDOFF 也不是正式认证来源。
 5. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON、持久化清单或外部相似度服务。
 
 ## 两个代码交付面的职责
 
-`appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 保留生成正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。根 `code/` 不承担完整复现职责，只选择与论文方法、数据处理、执行可靠性或结果审计有明确关系的代表性直接文件。
+`appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 保留生成正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。根 `code/` 不承担完整复现职责，只选择与正式方法、数据处理、执行可靠性或结果审计有明确关系的代表性直接文件。
 
 两类代码都必须来自本队真实工程并可追溯到 APPENDIX_START 中的准确源路径。根 `code/` 可以同时展示核心模型与非核心工程实现，不要求每题一个文件，也不要求只展示最常见的核心算法。
 
@@ -30,7 +30,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 ## 绘图代码排除
 
-绘图代码不进入 `appendix/problems/qN/code/`、`appendix/problems/preprocess/code/` 或根 `code/`。主要职责为生成论文图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
+绘图代码不进入 `appendix/problems/qN/code/`、`appendix/problems/preprocess/code/` 或根 `code/`。主要职责为生成最终展示图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
 
 正式计算与少量绘图逻辑同文件时，优先从真实源文件机械 CURATE：仅删除绘图入口或函数，不重写数学部分。若无法安全分离，停止并记录人工决策，不静默改写。自动 checker 不根据文件名或 import 猜测全部绘图职责；APPENDIX_START 白名单、Codex 语义审查和人工终审承担该边界。
 
@@ -38,7 +38,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 根 `code/` 只含直接文件，不引入完整源码树、数据、结果、README、环境文件、日志、测试或绘图文件。允许选择核心模型、求解逻辑、多阶段调度、情景批处理、断点续算、结果复用、失败隔离与重试、输入审计、结果回读、约束核验、参数配置和实验控制。
 
-每个 C 条目必须说明源文件、正式流程中的真实职责、适合论文展示的理由、COPY/CURATE 模式，以及 CURATE 删除的展示无关内容和保持不变的数学与执行语义。代码不得硬编码最终数值答案，也不得改变模型语义、计算顺序、随机性、平局规则、恢复规则或认证边界。
+每个 C 条目必须说明源文件、正式流程中的真实职责、适合提交展示的理由、COPY/CURATE 模式，以及 CURATE 删除的展示无关内容和保持不变的数学与执行语义。代码不得硬编码最终数值答案，也不得改变模型语义、计算顺序、随机性、平局规则、恢复规则或认证边界。
 
 ## COPY 与 CURATE
 
@@ -50,7 +50,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 合理做法是从本队真实正式工程选择具有实现辨识度的代表性代码。禁止复制、改写或拼接其他队伍、网络答案或不合规来源；禁止只为改变相似度乱改变量名、插入无效分支/死代码/垃圾注释、拆乱表达式或控制流、使用混淆器或自动差异工具，以及添加未参与正式流程的“个性化”代码。
 
-目标是让论文代码准确说明本队如何实现，并减少通用核心实现自然相似造成的误判风险，不是规避查重。不得以“降低查重率”描述任何白名单用途，也不设置外部代码数据库、在线查重、相似度阈值或自动原创性结论。
+目标是让提交代码准确说明本队如何实现，并减少通用核心实现自然相似造成的误判风险，不是规避查重。不得以“降低查重率”描述任何白名单用途，也不设置外部代码数据库、在线查重、相似度阈值或自动原创性结论。
 
 ## 验证、结果、环境与只读规则
 
@@ -62,4 +62,4 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 检查器只读且不执行用户代码、不导入用户模块、不运行求解器或编译器。它检查精确白名单、路径、文件类型、结构、COPY 哈希、静态 Python/import、C/C++ include、有限 CMake 字面路径、XLSX ZIP/XML 基本结构和高置信敏感信息。
 
-检查器不自动判断正式代码覆盖、绘图职责、原创性、外部相似度、CURATE 语义等价、数学正确性、完整动态导入、完整 CMake、Excel 数值/公式/格式或论文展示质量；这些由 Codex 执行证据与人工终审承担。
+检查器不自动判断正式代码覆盖、绘图职责、原创性、外部相似度、CURATE 语义等价、数学正确性、完整动态导入、完整 CMake、Excel 数值/公式/格式或提交展示质量；这些由 Codex 执行证据与人工终审承担。

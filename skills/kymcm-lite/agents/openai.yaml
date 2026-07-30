@@ -1,4 +1,4 @@
 interface:
   display_name: "KyMCM Lite"
-  short_description: "Preprocess, model, hand off, and curate appendices"
-  default_prompt: "Use $kymcm-lite to preprocess shared data, execute checked modeling handoffs, and curate complete formal-solve and representative paper-code appendices."
+  short_description: "Programming-side modeling execution and technical handoffs"
+  default_prompt: "Use $kymcm-lite to preprocess shared data, implement and verify modeling workflows, prepare neutral technical handoffs, and curate formal-solve submission appendices."

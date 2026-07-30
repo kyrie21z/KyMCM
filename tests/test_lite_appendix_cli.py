@@ -89,10 +89,14 @@ class LiteAppendixCliTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def test_invalid_frozen_context_does_not_affect_appendix_commands(self):
+    def test_invalid_legacy_roots_do_not_affect_appendix_commands(self):
         temporary, workspace = self.fixture_copy()
         try:
             (workspace / "FROZEN_CONTEXT.md").write_bytes(b"\xff\xfe")
+            legacy = workspace / "paper"
+            legacy.mkdir(exist_ok=True)
+            (legacy / "invalid.md").write_bytes(b"\xff\xfe")
+            (legacy / "broken").symlink_to(legacy / "missing")
             self.run_cli("check-appendix-start", "--workspace", str(workspace), ok=0)
             self.run_cli("check-appendix-result", "--workspace", str(workspace), ok=0)
         finally:

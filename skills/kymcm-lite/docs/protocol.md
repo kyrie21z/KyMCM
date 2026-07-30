@@ -1,6 +1,8 @@
 # KyMCM Lite v3 Protocol
 
-## Workspace identity
+KyMCM Lite 0.7.0 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, neutral technical handoffs, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts, and it does not select final display graphics.
+
+## Workspace identity and layout
 
 `.kymcm/mode.json` contains exactly:
 
@@ -8,27 +10,22 @@
 {"workflow":"kymcm_lite","version":3}
 ```
 
-No other persistent JSON, workflow state, event log, approval, or review hash is used. Full, historical Lite v2, marker-less Legacy, malformed, and unknown workspaces fail closed.
+No other persistent JSON, workflow state, event log, approval, review hash, or manifest is used. Full, historical Lite v2, marker-less Legacy, malformed, and unknown workspaces fail closed.
 
-## Managed layout and question discovery
+Managed roots are `.kymcm/`, `input/`, `reports/`, and `problems/`. Each `problems/qN/` has `spec/`, `code/`, `data/derived/`, `outputs/`, `notes/`, and `result/`. The optional fixed `problems/preprocess/` unit has the same directory set, is not Q0, cannot split, and uses `START_PRE.md`, `RESULT_PRE.md`, and optional `HANDOFF_PRE.md`.
 
-Managed roots are `.kymcm/`, `input/`, `paper/`, `reports/`, and `problems/`. Each `problems/qN/` has `spec/`, `code/`, `data/derived/`, `outputs/`, `notes/`, and `result/`.
+Question directories are immediate `q[1-9][0-9]*` children, contiguous from q1. A legacy root `FROZEN_CONTEXT.md` or `paper/` directory is completely ignored: no Lite command opens, parses, validates, hashes, migrates, warns about, or deletes it. Unknown root entries remain allowed unless they interfere with managed paths.
 
-The optional fixed `problems/preprocess/` unit has the same directory set. It is not Q0, does not participate in question numbering, and cannot split. If present, every directory must be ordinary and non-symlink. Its exact contracts are `spec/START_PRE.md`, `result/RESULT_PRE.md`, and optional paper-only `notes/HANDOFF_PRE.md`.
+## Contract modes and dependencies
 
-Question count is derived from immediate directories matching `q[1-9][0-9]*`. At least q1 is required; numbers must be contiguous from 1 through the maximum. Unknown root entries and unknown entries under `problems/` are allowed unless they interfere with managed paths.
-A legacy `FROZEN_CONTEXT.md` is an ignored root: no command opens, validates, hashes, warns about, migrates, or deletes it.
+Each question independently uses exactly one mode:
 
-## Contract modes, headings, and dependencies
-
-Each official question independently uses exactly one contract mode:
-
-- single: `START_QN.md` and its optional/in-progress `RESULT_QN.md`;
+- single: `START_QN.md` and optional/completed `RESULT_QN.md`;
 - split: contiguous `START_QN_1.md` through `START_QN_K.md`, with RESULT files for any completed subset.
 
-Single and split START files cannot coexist. Suffixes are positive decimal integers without leading zero. Contracts remain directly in `spec/` and `result/`; no subproblem directories, aggregate contract, manifest, or persistent state is introduced. Choose the mode from modeling dependency and execution boundaries, not mechanically from printed subquestion count.
+Single and split START files cannot coexist. Suffixes are positive decimal integers without leading zero. Contracts remain directly in `spec/` and `result/`; no aggregate contract, subproblem directory, manifest, or state is introduced.
 
-The selected `problems/qN/spec/START_QN[_K].md` uses:
+QN START uses the exact title and headings:
 
 ```markdown
 # START QN
@@ -43,62 +40,11 @@ The selected `problems/qN/spec/START_QN[_K].md` uses:
 ## 8. 未决问题
 ```
 
-Section 8 must reduce to `无`, `None`, or `N/A` before execution.
+Section 8 must reduce to `无`, `None`, or `N/A`. Section 2 may declare `**预处理依赖：** 无` or `**预处理依赖：** PRE`, followed by exactly one visible `**前问依赖：** 无` or strictly ordered exact earlier-unit list such as `Q1, Q2_1`. PRE requires valid START_PRE and RESULT_PRE. Bare dependency tokens name single units only; suffixed tokens name one split unit and never expand. Same-question edges, wildcards, duplicates, missing contracts, and invalid identities are rejected.
 
-Section 2 may first contain exactly one visible preprocessing declaration:
+Before authoring, materially revising, reviewing, or executing a dependent START, Codex reads the complete current START and each declared upstream START/RESULT pair. It compares inherited or redefined symbols, units, scope, preprocessing, parameters, objectives, constraints, rules, paths, values, limitations, and certification claims. Material contradiction stops execution for one highest-impact decision. A successful review creates no artifact.
 
-```markdown
-**预处理依赖：** 无
-```
-
-or `**预处理依赖：** PRE`. PRE requires structurally valid START_PRE and RESULT_PRE. A legacy QN START without the declaration remains valid when PRE is absent and receives an advisory warning when PRE exists. The declaration precedes the separate question dependency.
-
-Section 2 contains exactly one visible question dependency declaration:
-
-```markdown
-**前问依赖：** 无
-```
-
-or a strict ascending direct-predecessor list such as:
-
-```markdown
-**前问依赖：** Q1, Q2_1
-```
-
-Each token is exactly `QN` or `QN_K`, unique, and strictly ordered by question then suffix. Every dependency belongs to an earlier official question; same-question edges and wildcards are forbidden. A bare token is valid only for a single-mode upstream question, while a suffixed token names exactly one existing split unit and never expands. Every named unit must provide ordinary, non-symlink, UTF-8 START and RESULT files with matching titles and heading structure. Comments and fenced examples do not count. Static checks do not recurse into the predecessor's full validation and do not judge mathematical meaning.
-
-Before authoring, materially revising, reviewing, or executing a dependent START, Codex reads the complete current START and every declared upstream START and RESULT. It compares only inherited or redefined symbols, units, scope, preprocessing, parameters, objectives, constraints, decision rules, paths, values, limitations, and certification claims. Authorized RESULT deviations form part of the effective upstream contract. No-conflict review creates no artifact. A material conflict is reported with exact locations and consequence; execution stops for one highest-impact user decision. See `references/dependency_review.md`.
-
-## Optional preprocess contracts and execution
-
-START_PRE and RESULT_PRE use the exact eight headings in their mirrored templates. PRE runs before dependent QN work: author and check START_PRE, perform semantic design review, pass the minimum parsing/transformation smoke test, execute recoverable shared-data stages, pass L0 audit, write and check RESULT_PRE, then derive HANDOFF_PRE. `references/preprocess_stage.md` defines the shared-data/QN boundary, sample accounting, EDA and causal-expression limits, downstream change review, and checker limits.
-
-RESULT_PRE freezes common fields, units, row universe, cleaning and transformation rules, shared derived data paths, audit results, and limitations. Evidence stays within `problems/preprocess/{code,data/derived,outputs,notes}` and uses the ordinary safe-path rules. HANDOFF_PRE is a derived eight-section paper collaboration document; it cannot be inherited by modeling or copied to appendix outputs.
-
-## Modeling-plan design and execution order
-
-`references/modeling_plan_design.md` is the authoritative execution-first semantic standard for authoring, materially revising, reviewing, and executing a selected START. It is a bundled Skill reference, not a workspace contract: it adds no managed file, heading, command, flag, state, JSON object, approval, review hash, or successful-review report. Existing START files remain structurally valid.
-
-For each selected modeling unit, Codex:
-
-1. authors the START under the standard;
-2. runs structural `check-start`;
-3. completes the separate declared-dependency contradiction review;
-4. completes the final modeling-plan design review;
-5. passes a minimum end-to-end smoke test;
-6. runs formal computation in recoverable stages;
-7. completes the basic/L0 result audit;
-8. runs L1 validation only when its named condition is met;
-9. runs L2 validation only when resources permit and it can improve the paper;
-10. writes RESULT with actual deviations, omitted optional work, and limitations.
-
-The START defines the minimum paper-ready deliverable, authoritative inputs, problem-appropriate identifiability/solvability preflight, smoke-test pass condition, recoverable formal stages, inspectable expensive-stage artifacts, cache/reuse conditions, resume point, and engineering-versus-mathematical failure behavior. It explicitly calculates nested fits/solves/scenarios, expected per-run and total cost, relevant peak memory, parallelizable stages, worst-case recomputation, and the deletion order under budget pressure. Proportionality applies: a simple low-cost task may use a tiny smoke test and short phase plan.
-
-L0 is mandatory and blocks completion when it fails. L1 addresses a named remaining risk and runs only when its trigger occurs. L2 is resource-permitting and does not block the principal deliverable unless the user explicitly promotes it. Failed smoke tests block formal execution; failed basic audits return to the responsible stage rather than triggering more sensitivity analysis. Deterministic engineering omissions may be repaired transparently in the current START, but changes to mathematics, validation strength, formal success criteria, or material resource tradeoffs require one highest-impact user decision before execution.
-
-The Python checker remains intentionally lightweight and read-only. It validates Markdown structure, selected contracts, dependencies, evidence, and paths; it does not parse L0/L1/L2, count experiments, require named smoke-test/checkpoint artifacts, judge whether a plan is proportionate, or validate mathematical correctness. A successful semantic review creates no artifact or workflow state.
-
-The matching `problems/qN/result/RESULT_QN[_K].md` uses:
+QN RESULT uses the exact title and headings:
 
 ```markdown
 # RESULT QN
@@ -112,86 +58,122 @@ The matching `problems/qN/result/RESULT_QN[_K].md` uses:
 ## 7. 下游冻结输出
 ```
 
-Section 2 states `无偏差` or an `授权偏差` with its evidence path. Evidence syntax is exactly:
+Section 2 states `无偏差` or an authorized deviation with evidence. Evidence paths are workspace-relative, traversal-free, non-symlink ordinary files within the selected unit's `code`, `data/derived`, `outputs`, or `notes`.
 
-```markdown
-- E1 — `problems/q1/outputs/summary.csv` — 主结果表
-```
+## Optional preprocessing
 
-IDs are unique. Paths are workspace-relative, contain no `..`, and resolve through non-symlink components to ordinary files inside the current question's `code`, `data/derived`, `outputs`, or `notes`.
+START_PRE and RESULT_PRE use the exact eight headings in their mirrored templates. PRE runs before dependent QN work: author and check START_PRE, complete semantic review and a minimum parsing/transformation smoke test, execute recoverable stages, perform L0 audit, write and check RESULT_PRE, and create HANDOFF_PRE only when a fuller downstream technical transfer is useful.
 
-## Paper-writing HANDOFF
+RESULT_PRE is the authority for common fields, units, row universe, cleaning and transformation rules, shared data products, audit results, and limitations. HANDOFF_PRE is a derived neutral technical handoff for QN executors, reviewers, a future request-driven graphics stage, or other downstream technical collaborators. It is not inherited by modeling and cannot enter appendix outputs.
 
-After a matching RESULT passes `check-result` and its formal and paper-relevant auxiliary evidence is stable, the executor creates one internal collaboration document:
+EDA serves data understanding, model design, or risk identification only. It must not expand for display needs or decide final graphics.
 
-- single: `problems/qN/notes/HANDOFF_QN.md` with `# HANDOFF QN`;
-- split: `problems/qN/notes/HANDOFF_QN_K.md` with `# HANDOFF QN_K`.
+## Modeling-plan design and execution
 
-Identity must match an existing completed RESULT exactly. A split question has only suffixed HANDOFF files and never an unsuffixed aggregate. Single/split HANDOFF files cannot mix for one question; no question-level HANDOFF directory, index, manifest, or JSON is introduced.
+`references/modeling_plan_design.md` is the semantic standard. For each selected unit, Codex authors START and passes `check-start`; reviews dependencies and final plan quality; passes the smallest representative end-to-end smoke test; executes recoverable formal stages; completes mandatory L0 audit; runs L1 only for a named remaining risk; runs L2 only when resources permit and it reduces a named risk, strengthens formal evidence, satisfies an explicit user requirement, or is needed for result certification; then writes RESULT with deviations, omitted optional work, evidence, and limitations.
 
-The matching HANDOFF uses:
+The START defines the minimum formally complete deliverable, authoritative inputs, identifiability/solvability preflight, smoke-test pass condition, recoverable stages, artifacts, cache and reuse rules, resume point, failure behavior, nested cost, peak memory, parallelism, worst-case recomputation, and budget-pressure deletion order. Formal execution produces results, evidence, data products, and only necessary diagnostics. Final display graphics, captions, prose, structure, and placement are outside the modeling budget and protocol.
+
+L0 is mandatory and blocking. L1 has a named trigger. L2 is resource-permitting and non-blocking unless explicitly promoted. The Python checker does not parse these levels, count experiments, judge proportionality or mathematics, or create semantic-review state.
+
+## Technical result handoff
+
+After a matching RESULT passes `check-result` and relevant evidence is stable, an executor may create matching single `HANDOFF_QN.md`, split `HANDOFF_QN_K.md`, or preprocessing `HANDOFF_PRE.md`. Identity must match an existing RESULT exactly. Single and split HANDOFF identities cannot mix, and split mode has no aggregate.
+
+QN HANDOFF uses:
 
 ```markdown
 # HANDOFF QN
 
 **正式上游：** `problems/qN/result/RESULT_QN.md`
 
-## 1. 论文定位与可用结论
+## 1. 任务定位与已认证结论
 ## 2. 数据口径与实际执行
 ## 3. 模型、参数与判定规则
-## 4. 完整关键结果
-## 5. 验证、敏感性与异常
-## 6. 图表、表格与素材索引
-## 7. 推荐论文表述与边界
-## 8. 前后问衔接与复核事项
+## 4. 完整结果与辅助结果
+## 5. 验证、异常与失败尝试
+## 6. 数据、表格与资产索引
+## 7. 结论适用边界与禁止推断
+## 8. 下游接口与复核事项
 ```
 
-HANDOFF is the paper writer's sole complete collaboration medium. It is a derived explanation and selection layer: RESULT defines formal scope, conclusion status, limitations, and downstream interfaces; machine evidence defines actual numbers, tables, and figures; HANDOFF organizes those sources for writing. The paper writer reads HANDOFF by default and rechecks critical numbers against its evidence paths before finalization. Later modeling inherits RESULT only, never HANDOFF.
+PRE HANDOFF uses:
 
-Before creating or updating HANDOFF, Codex reads the complete matching START and RESULT, all RESULT-declared evidence, and selected auxiliary evidence. It separates `正式` material within RESULT certification from evidence-supported `辅助` material usable only for explanation, limitation, appendix, or discussion. It maps important claims and assets to real workspace-relative evidence, describes paper placement and required processing, and states usable wording together with causal, scope, and extrapolation boundaries. See `references/paper_handoff.md`.
+```markdown
+# HANDOFF PRE
 
-If HANDOFF conflicts with RESULT scope, status, or limitations, paper handoff stops until HANDOFF is repaired. If a HANDOFF value conflicts with machine evidence, repair it from the evidence. If RESULT conflicts with evidence, return to formal RESULT/evidence audit rather than selecting one silently. Material RESULT or paper-relevant evidence changes require HANDOFF review and update before paper work continues.
+**正式上游：** `problems/preprocess/result/RESULT_PRE.md`
 
-HANDOFF adds no marker, command, flag, checker, state, approval, hash, report, or JSON. `check-result` does not require it, and Python does not validate its identity, completeness, quality, or synchronization. A successful semantic HANDOFF review creates no artifact. Appendix work may use HANDOFF as internal context but cannot copy it or treat it as a formal certification source.
+## 1. 数据阶段定位与已认证结论
+## 2. 数据来源、样本与字段
+## 3. 数据清洗、转换与样本变化
+## 4. 描述统计与探索性发现
+## 5. 数据产品与资产索引
+## 6. 使用边界与禁止推断
+## 7. 各问题数据接口
+## 8. 下游复核事项
+```
+
+RESULT remains the formal boundary and only modeling-inheritance surface; machine evidence controls actual values and assets; HANDOFF is a derived explanation and indexing layer. It records actual execution, full and auxiliary results, validation, anomalies, failed attempts, unrun optional work, evidence paths, scope limits, downstream interfaces, and review points. It cannot expand RESULT, become a modeling dependency, or be copied to appendix outputs. See `references/technical_handoff.md`.
+
+HANDOFF has no command, checker, state, approval, hash, report, JSON, or manifest. Identity, completeness, synchronization, and factual consistency require semantic review.
 
 ## Commands and diagnostics
 
-`init --questions N` refuses any existing managed root before writing, creates the exact marker and variable question tree, and creates no START, RESULT, global context, appendix, root code, Git repository, state, content JSON, or evidence. Optional `--preprocess` also creates the exact PRE directories but no PRE contracts; default init creates no PRE path. `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result` are read-only and never execute user code. In single mode, omit `--subproblem`; in split mode, `check-start` and `check-result` require `--subproblem K`. The other commands do not accept it.
+`init --questions N` refuses any existing managed root before writing and creates the marker plus the requested empty question tree. Optional `--preprocess` adds the PRE directories. It creates no contracts, legacy content root, appendix, root code, Git repository, state, content JSON, or evidence.
 
-Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`. Errors return 1, warnings alone return 0, and unexpected UTF-8, I/O, subprocess, or environment failure returns 2 with `LITE-TOOL-001`.
+The exact eight public commands are `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`. All checks are read-only and never execute user code. Diagnostics use `ERROR|WARNING <ID> <location>: <message>` followed by `SUMMARY errors=N warnings=N`; exit codes are 0 for valid/warnings, 1 for contract failure, and 2 for unexpected tool/environment failure. Git availability and relevant managed-scope dirtiness are advisory.
 
-Git availability and question-scoped dirty state are advisory. Evidence existence and safety are blocking.
+## Optional submission appendix organization
 
-## Optional independent appendix stage
+After formal results, explicit submission requirements, and certification boundaries are stable, a user may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. Inputs come only from `problems/` and `input/`; internal START, RESULT, and HANDOFF contracts are contextual references and cannot be copied.
 
-After modeling and the paper/result scope are stable, an author may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. The modeling workflow has no FROZEN_CONTEXT surface. Single and split QN contracts, PRE contracts, and matching HANDOFF collaboration documents are contextual references only and cannot be copied into appendix outputs. PRE code may map to `appendix/problems/preprocess/code/` or representative root `code/`; PRE derived data, outputs, and non-contract notes may map to `appendix/problems/preprocess/result/`.
+The two output surfaces are:
 
-The two submitted surfaces are distinct:
+- `appendix/`: the complete formal solve code package with plotting excluded, formal result attachments, exactly three generated environment files, optional necessary external input, and optional official `Result.xlsx`;
+- root `code/`: authentic representative implementation for a final submission document, including applicable core modeling, scheduling, recovery, batch execution, and audit code.
 
-- `appendix/` contains the complete formal solve code package with plotting excluded, formal result attachments, exactly three generated environment files, optional necessary external input, and optional official `Result.xlsx`.
-- root `code/` contains direct authentic representative files for the paper PDF; core models and relevant scheduling, recovery, batch execution, input/result audit, and other non-core formal implementation are eligible.
+The whitelist covers the formal solve pipeline and runtime/build closure. Plotting, tests, caches, logs, historical experiments, runtime data, credentials, and unrelated infrastructure stay out. COPY and CURATE remain traceable and cannot alter mathematics, execution order, randomness, recovery rules, or result boundaries. Similarity manipulation, copied code, obfuscation, junk/dead code, and unrelated additions are forbidden.
 
-The appendix code whitelist covers every source file used by the formal solve pipeline and its runtime/build closure. Plotting, tests, caches, logs, historical or experimental implementations, runtime data, credentials, and unrelated infrastructure stay out. Root-code choices must come from the team's actual `problems/qN/code/` or `problems/preprocess/code/` sources and explain their real responsibility and paper value. COPY/CURATE remains traceable and must not change mathematics, execution order, randomness, recovery rules, or result boundaries.
-
-Selecting distinctive authentic engineering code can reduce false alarms caused by naturally similar generic core implementations, but similarity manipulation is forbidden. Never copy others' code, obfuscate, insert junk/dead code, scramble names/control flow, or add code that did not support the formal workflow. No external similarity service, threshold, or originality score is part of Lite.
-
-Whitelist entries use:
+APPENDIX_START uses:
 
 ```markdown
-- A001 — COPY — `source/path` → `appendix/target/path` — purpose
-- A002 — CURATE — `source/one`; `source/two` → `appendix/target/path` — purpose
-- A090 — GENERATE — `appendix/environment/README.md` — purpose
-- C001 — COPY — `problems/q1/code/core.py` → `code/q1_core_algorithm.py` — purpose
+# APPENDIX START
+
+## 1. 提交范围与比赛要求
+## 2. 正式结果与认证边界
+## 3. appendix 目标结构
+## 4. appendix 文件白名单
+## 5. code 文件白名单
+## 6. 依赖闭包与机械裁剪规则
+## 7. 环境、外部资料与强制结果文件
+## 8. 验收方法与停止规则
+## 9. 未决问题
 ```
 
-`A[0-9]{3,}` IDs belong to the appendix whitelist and `C[0-9]{3,}` IDs to the root-code whitelist; IDs and targets are globally unique. COPY has one existing source, CURATE has one or more exact `; `-separated sources, and GENERATE is limited to `appendix/environment/README.md`, `requirements.txt`, and `system_info.txt`. Paths are workspace-relative, non-symlink, contain no traversal or absolute syntax, and obey the source/target/mode rules in `references/appendix_organization.md`.
+APPENDIX_RESULT uses:
 
-APPENDIX_START section 7 declares exactly one of `外部资料：无` / ``外部资料：`appendix/input` `` and exactly one of `强制结果文件：无` / ``强制结果文件：`appendix/Result.xlsx` ``. Section 9 reduces exactly to `无`, `None`, or `N/A`.
+```markdown
+# APPENDIX RESULT
 
-After whitelist-first organization, `reports/appendix/APPENDIX_RESULT.md` accounts for every whitelist ID, records deviations and evidence, and indexes `reports/appendix/evidence/source_integrity.csv`. The CSV header is exactly `path,before_sha256,after_sha256,status`; each source row has identical lowercase SHA-256 values and status `unchanged`. This is execution-provided integrity evidence, not an independent cryptographic timestamp.
+## 1. 最终交付结构
+## 2. 实际整理方案与 APPENDIX_START 偏差
+## 3. 白名单执行结果
+## 4. 依赖闭包与编译构建验证
+## 5. 正式结果一致性
+## 6. 强制结果文件核验
+## 7. 排除项与敏感信息扫描
+## 8. 原始工程只读验证
+## 9. 证据索引
+## 10. 局限性与人工复核事项
+```
 
-`check-appendix-result` enforces the exact declared file set, COPY hashes, directory rules, forbidden/duplicate artifacts, Python syntax and obvious local imports, quoted C/C++ includes, practical literal CMake references, basic XLSX ZIP/XML structure, sensitive information, and visible certification-boundary conflicts. It permits operational source names such as scheduler, checkpoint, supervisor, status, monitor, ledger, and audit while continuing to reject runtime data and forbidden file types. It parses but never imports or executes user code and never invokes solvers, CMake, or compilers. It does not determine plotting responsibility, originality, external similarity, formal-code completeness, or CURATE semantic equivalence; those and substantive workbook/result checks belong in execution evidence and human review.
+Whitelist grammar remains `A[0-9]{3,}` for appendix entries and `C[0-9]{3,}` for root-code entries with COPY, CURATE, and the three fixed GENERATE targets. Section 7 has exact external-material and mandatory-result declarations; section 9 is cleared with `无`, `None`, or `N/A`.
 
-## Non-goals
+`check-appendix-result` checks declared files, COPY hashes, path/directory rules, source integrity, common dependency references, Python syntax, basic XLSX structure, sensitive information, and visible certification-boundary conflicts without importing or executing user code. It does not judge originality, external similarity, complete solve coverage, plotting responsibility, mathematical correctness, or CURATE semantic equivalence.
 
-Lite 0.6.0 does not validate mathematical correctness, modeling-plan or EDA quality, causal claims, or HANDOFF completeness/synchronization in Python; infer PRE use or contract granularity; execute cleaning or user code; discover dependencies from prose; expand transitive or wildcard dependencies; compare sibling split units automatically; reconcile contradictions; manage approvals/state; migrate Full or Lite v2 workspaces; generate papers or figures; orchestrate solvers or agents; provide `add-problem`; emit content JSON diagnostics; build/delete appendix trees; identify all plotting code; judge originality or external similarity; prove result equivalence; fully resolve dynamic imports/CMake; or verify Excel formula/format semantics. L0/L1/L2 classification, HANDOFF formal/auxiliary separation, appendix completeness, code authenticity, paper interpretation, and proportionality remain agent/human judgments.
+## Compatibility and non-goals
+
+The Lite v3 marker, eight public commands, QN START/RESULT headings, PRE START/RESULT headings, single/split identities, dependency grammar, and evidence rules remain unchanged from 0.6.0. Existing START/RESULT/PRE workspaces remain valid. Existing legacy content directories are retained and ignored. Existing APPENDIX contracts require the two documented heading replacements and removal of any now-invalid source entry rooted there. Existing HANDOFF files are not rewritten automatically and should adopt the neutral templates at their next material update.
+
+Lite 0.7.0 does not validate mathematics, plan or EDA quality, causality, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; discover prose dependencies; reconcile contradictions automatically; manage approvals/state; migrate other products; generate or check contest manuscripts; select final graphics; orchestrate agents; add problems dynamically; emit content JSON; build/delete appendix trees; classify plotting code; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics.

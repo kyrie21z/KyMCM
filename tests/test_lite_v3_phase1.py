@@ -32,14 +32,14 @@ RESULT_SECTIONS = (
     "## 7. 下游冻结输出",
 )
 HANDOFF_SECTIONS = (
-    "## 1. 论文定位与可用结论",
+    "## 1. 任务定位与已认证结论",
     "## 2. 数据口径与实际执行",
     "## 3. 模型、参数与判定规则",
-    "## 4. 完整关键结果",
-    "## 5. 验证、敏感性与异常",
-    "## 6. 图表、表格与素材索引",
-    "## 7. 推荐论文表述与边界",
-    "## 8. 前后问衔接与复核事项",
+    "## 4. 完整结果与辅助结果",
+    "## 5. 验证、异常与失败尝试",
+    "## 6. 数据、表格与资产索引",
+    "## 7. 结论适用边界与禁止推断",
+    "## 8. 下游接口与复核事项",
 )
 PERMITTED_SENTINELS = {"无", "None", "N/A"}
 EVIDENCE = re.compile(r"^- E\d+ — `([^`]+)` — \S.*$")
@@ -202,7 +202,7 @@ class LiteV3Phase1Tests(unittest.TestCase):
     def test_start_template_has_execution_first_guidance_without_contract_change(self):
         template = (DOCS / "START_QN.template.md").read_text(encoding="utf-8")
         for required in (
-            "最小直接结论", "冒烟测试", "可恢复执行阶段",
+            "最小正式结论", "冒烟测试", "可恢复执行阶段",
             "嵌套拟合/求解/情景总次数", "L0", "L1", "L2",
         ):
             self.assertIn(required, template)
@@ -234,7 +234,6 @@ class LiteV3Phase1Tests(unittest.TestCase):
         self.assertEqual(len(formal), 6)
         self.assertTrue(all(path.is_file() for path in formal))
         self.assertEqual(sum(path.stat().st_size for path in formal), 10569)
-        self.assertIn("six formal START/RESULT Markdown files totaling 10,569 bytes", (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8"))
         self.assertEqual(evidence_count, 9)
         self.assertFalse(any(FIXTURE.rglob("FROZEN_CONTEXT.md")))
 
