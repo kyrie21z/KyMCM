@@ -1,12 +1,25 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.9.1 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
 ## Installation
 
 Copy the complete `kymcm-lite` directory into the Codex Skills directory. The copied directory is self-contained and requires only the Python 3.11–3.13 standard library.
+
+## Complete ChatGPT Project Source
+
+The repository also provides a deterministic, complete single-file specification for ChatGPT Project Sources. From the repository root, generate it after normative changes and verify that it is synchronized:
+
+```bash
+python scripts/export_kymcm_lite_full_spec.py \
+  --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md
+python scripts/export_kymcm_lite_full_spec.py \
+  --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md --check
+```
+
+Upload `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md` to the ChatGPT project when a complete rule mirror is needed. The generated file is intentionally long, must not be edited by hand, and does not belong in a contest workspace, evidence directory, or appendix.
 
 ## Commands
 

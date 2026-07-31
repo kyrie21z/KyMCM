@@ -1,10 +1,10 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.9.0.
+Status: Normative for KyMCM Lite 0.9.1.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.9.0 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources.
+Lite 0.9.1 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|

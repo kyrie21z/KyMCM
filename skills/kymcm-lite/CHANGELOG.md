@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1 - 2026-07-31
+
+- Add a complete machine-enforced runtime contract alongside the existing protocol and diagnostics catalog.
+- Add the repository-maintained deterministic full-spec export for ChatGPT Project Sources with source hashes, mirror validation, and stale checks.
+- Preserve the Lite v3 marker, eight commands, workspace behavior, valid 0.9.0 workspaces, and Full.
+
 ## 0.9.0 - 2026-07-30
 
 - Add one optional problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair per official question after complete checked base results.
