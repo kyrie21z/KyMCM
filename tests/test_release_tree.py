@@ -16,7 +16,7 @@ def is_tracked_ai_bridge_path(relative: str) -> bool:
 
 class ReleaseTreeTests(unittest.TestCase):
     def test_skill_identity(self):
-        products = (("kymcm-full", "1.0.0", "KyMCM Full"), ("kymcm-lite", "0.9.0", "KyMCM Lite"))
+        products = (("kymcm-full", "1.0.0", "KyMCM Full"), ("kymcm-lite", "0.9.1", "KyMCM Lite"))
         for name, version, display in products:
             with self.subTest(skill=name):
                 root = ROOT / "skills" / name
@@ -56,6 +56,10 @@ class ReleaseTreeTests(unittest.TestCase):
             "docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md",
             "skills/kymcm-lite/references/supplement_work.md",
             "docs/lite-v3/supplement_work.md",
+            "skills/kymcm-lite/references/machine_contract.md",
+            "docs/lite-v3/machine_contract.md",
+            "scripts/export_kymcm_lite_full_spec.py",
+            "docs/lite-v3/KyMCM_Lite_FULL_SPEC.md",
             "skills/kymcm-lite/references/preprocess_stage.md",
             "docs/lite-v3/preprocess_stage.md",
             "skills/kymcm-lite/templates/START_PRE.template.md",
@@ -74,6 +78,11 @@ class ReleaseTreeTests(unittest.TestCase):
         link = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
         for document in ROOT.rglob("*.md"):
             if ".git" in document.parts:
+                continue
+            if document == ROOT / "docs/lite-v3/KyMCM_Lite_FULL_SPEC.md":
+                # The generated document deliberately preserves source Markdown
+                # verbatim; its embedded relative links retain the source file's
+                # original base rather than pretending the export is a website.
                 continue
             for target in link.findall(document.read_text(encoding="utf-8")):
                 if "://" in target or target.startswith("#"):

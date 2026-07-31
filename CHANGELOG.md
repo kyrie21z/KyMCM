@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.1 - 2026-07-31
+
+- Add a deterministic complete single-file KyMCM Lite specification for ChatGPT Project Sources.
+- Add a runtime machine contract, canonical source manifest, SHA-256/mirror validation, `docs/lite-v3/*.md` classification, and exporter `--check` stale-artifact protection.
+- Keep the Lite v3 marker, eight public commands, workspace contracts, existing 0.9.0 compatibility, and KyMCM Full unchanged.
+- Make the generated document intentionally complete and long; it remains a documentation mirror and does not certify mathematical correctness.
+
 ## KyMCM Lite 0.9.0 - 2026-07-30
 
 - Add one optional question-level Supplement Start/Result pair for post-result validation, model revisions, and implementation repairs.

@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.0** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, optional question-level post-result Supplement contracts, one neutral problem-level HANDOFF per official question, a request-driven `figure/` workspace using `nature-figure`, and submission-appendix curation.
+- **KyMCM Lite 0.9.1** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, optional question-level post-result Supplement contracts, one neutral problem-level HANDOFF per official question, a request-driven `figure/` workspace using `nature-figure`, submission-appendix curation, and a deterministic complete ChatGPT Project Source export.
 
 ## Install
 
@@ -27,6 +27,17 @@ python skills/kymcm-lite/scripts/lite.py doctor --workspace ./contest-lite
 python skills/kymcm-lite/scripts/lite.py check-appendix-start --workspace ./contest-lite
 python skills/kymcm-lite/scripts/lite.py check-appendix-result --workspace ./contest-lite
 ```
+
+To export the complete Lite specification for ChatGPT Project Sources, run from the repository root:
+
+```bash
+python scripts/export_kymcm_lite_full_spec.py \
+  --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md
+python scripts/export_kymcm_lite_full_spec.py \
+  --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md --check
+```
+
+The generated file is intentionally complete and long, is not hand-edited, and is not copied into a contest workspace or appendix.
 
 The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not create `figure/`; it is created only for an explicit final-figure request.
 

@@ -7,7 +7,7 @@
 - Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred but never bundled.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.0 limitations:
+KyMCM Lite 0.9.1 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -27,3 +27,4 @@ KyMCM Lite 0.9.0 limitations:
 - Appendix checks do not prove semantic equivalence of results, resolve every dynamic import, interpret all CMake, or verify Excel formulas, cached values, merged cells, formatting, or numerical agreement.
 - Appendix checks do not determine whether every formal solve source was included, reliably identify plotting responsibilities, verify code originality, query external similarity databases, or certify that CURATE preserved behavior. These require execution evidence and human review.
 - Appendix work does not migrate Full or Lite v2 workspaces. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy base START/RESULT, Supplement, or matching HANDOFF internal documents.
+- The complete ChatGPT Project Source is a deterministic documentation mirror, not a proof of mathematical correctness or a substitute for Codex execution and human semantic review. Its `--check` mode verifies synchronization, not model claims.
