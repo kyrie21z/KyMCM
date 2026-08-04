@@ -210,13 +210,15 @@ class LiteFullSpecExportTests(unittest.TestCase):
             "check-start", "check-result", "check-appendix-start", "check-appendix-result",
             "0 = structure", "1 = a contract", "2 = an unexpected",
             "mathematical correctness", "human review",
+            "editable/adopted boundary", "Start/Result invalidation",
+            "artifact overwrite permission", "HANDOFF refresh alone",
         ):
             self.assertIn(required, contract, required)
         self.assertIn('{"workflow":"kymcm_lite","version":3}', contract)
         self.assertIn("LITE-APPENDIX-SOURCE-PATH-001", contract)
 
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.1\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.2\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True
