@@ -1,4 +1,12 @@
-# KyMCM Lite 0.9.2
+# KyMCM Lite 0.9.3
+
+KyMCM Lite 0.9.3 gates every technical HANDOFF on explicit post-execution acceptance of the corresponding RESULT by the user or responsible ChatGPT. Codex executes through RESULT/RESULT_PRE plus the applicable machine check, then stops and reports that semantic acceptance is pending; `check-result`, tests, CI, commits, or stable evidence do not authorize HANDOFF.
+
+Only a new independent HANDOFF task after acceptance may create or refresh `HANDOFF_QN.md` or `HANDOFF_PRE.md`, and that task is read-only: it does not run new computation or modify code, data, START, RESULT, or Supplement contracts. A pending Supplement Result or RESULT_PRE leaves the existing HANDOFF snapshot unchanged; acceptance adopts the Result, while HANDOFF refresh is no longer the adoption trigger. The marker, eight commands, frozen contract headings, stateless runtime, Full, and 0.9.2 workspace compatibility remain unchanged.
+
+This is a documentation and semantic-review release. It adds no approval file, state machine, JSON, manifest, checker, command, or runtime acceptance state. Python cannot enforce the human gate; the complete Project Source export is regenerated and checked.
+
+## KyMCM Lite 0.9.2
 
 KyMCM Lite 0.9.2 changes the semantic lifecycle of the optional question-level Supplement pair while keeping the Lite v3 runtime surface unchanged. The latest numbered Sx is editable and rerunnable in place only while it has not been adopted, has no later Sy, and has no downstream or formal-delivery use. A material Start change first removes or invalidates its same-number Result; the revised execution then writes a replacement Result and refreshes HANDOFF.
 

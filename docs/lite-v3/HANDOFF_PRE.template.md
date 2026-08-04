@@ -1,6 +1,6 @@
 # HANDOFF PRE
 
-> 删除所有提示。本文是公共数据阶段的中立技术交接；正式数据范围以 RESULT_PRE 为准，具体数值和诊断资产以真实机器证据为准。
+> 删除所有提示。仅在 RESULT_PRE 已由用户或负责验收的 ChatGPT 明确验收通过、且收到新的独立 HANDOFF_PRE 任务后使用本模板；`check-preprocess-result`、测试或证据稳定本身不构成授权。HANDOFF_PRE 阶段只读，不重新清洗/计算、不修改代码/数据/START_PRE/RESULT_PRE。本文是公共数据阶段的中立技术交接；正式数据范围以已验收 RESULT_PRE 为准，具体数值和诊断资产以真实机器证据为准。
 
 **正式上游：** `problems/preprocess/result/RESULT_PRE.md`
 

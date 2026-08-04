@@ -1,6 +1,6 @@
 # HANDOFF QN
 
-> 将 `N` 替换为官方问题编号；无论单一或拆分模式，每题只创建这一份问题级 HANDOFF，不附加子单元后缀。删除所有提示。本文是中立技术交接，正式范围以基础 RESULT 与已完成 Supplement Result 的当前有效状态为准，具体数值以真实机器证据为准。
+> 将 `N` 替换为官方问题编号；无论单一或拆分模式，每题只创建这一份问题级 HANDOFF，不附加子单元后缀。删除所有提示。仅在对应 RESULT/已完成 Supplement Result 已由用户或负责验收的 ChatGPT 明确验收通过、且收到新的独立 HANDOFF 任务后使用本模板；`check-result`、测试或证据稳定本身不构成授权。HANDOFF 阶段只读，不重新计算、不修改代码/数据/START/RESULT/Supplement。本文是中立技术交接，正式范围以已验收基础 RESULT 与已验收 Supplement Result 的当前有效状态为准，具体数值以真实机器证据为准。
 
 **正式上游：**
 

@@ -25,7 +25,8 @@ PRE 不选择或认证最终模型，不执行正式优化/预测/评价/机理�
 7. 只做服务问题理解的聚焦 EDA。
 8. 仅在已触发的数据风险上运行 L1；仅在有用且可承受时运行 L2。
 9. 写 RESULT_PRE，运行 `check-preprocess-result`。
-10. RESULT_PRE 与机器证据稳定且需要完整下游技术交接时创建或更新 HANDOFF_PRE。
+10. 机器检查通过后立即停止，报告 RESULT_PRE 等待用户/ChatGPT 的独立语义验收；不要创建或更新 HANDOFF_PRE。
+11. 只有在 RESULT_PRE 明确验收通过、且收到新的独立 HANDOFF_PRE 任务后，才以只读方式创建或刷新 HANDOFF_PRE；该阶段不得重新清洗、计算、修改代码/数据或改写 RESULT_PRE。
 
 复用 `modeling_plan_design.md` 的 execution-first、阶段持久化、cache/resume、预算和失败隔离原则，但不要把模型可识别性等术语机械强加给简单清洗。
 
@@ -52,8 +53,8 @@ EDA 默认不绘图，优先输出结构化描述统计、质量表和可追溯�
 
 声明 PRE 的 QN 必须完整读取 START_PRE 和 RESULT_PRE，核对字段、单位、时间/时区、粒度、样本、筛选/关联、缺失/异常/插补、数据路径/schema、泄漏和外推边界。冲突时列出精确位置与影响并停止询问；不得在 QN 内私自覆盖公共数据错误。
 
-RESULT_PRE 或关键数据产品实质变化后，复核所有声明 PRE 的已完成 QN，判断是否需要重跑并更新 HANDOFF。mtime 提示仅是陈旧启发式，不是版本认证、依赖图或自动重跑。
+RESULT_PRE 或关键数据产品实质变化后，复核所有声明 PRE 的已完成 QN，判断是否需要重跑。新的 RESULT_PRE 在验收前不得写入 HANDOFF；验收通过后仍需新的独立 HANDOFF_PRE 任务才可更新，既有 HANDOFF_PRE 在此之前保持上一个已验收快照。mtime 提示仅是陈旧启发式，不是版本认证、依赖图或自动重跑。
 
 ## Checker 与人工边界
 
-checker 只读检查目录、合同结构、声明语法、证据路径/存在性、安全性、Git advisory 和 mtime advisory。它不执行清洗或 EDA，不判断规则合理性、统计/因果正确性、EDA 完整性、数据泄漏是否已彻底排除，也不决定下游重跑范围。成功检查不创建状态、审批、hash、manifest、内容 JSON 或报告。
+checker 只读检查目录、合同结构、声明语法、证据路径/存在性、安全性、Git advisory 和 mtime advisory。它不执行清洗或 EDA，不判断规则合理性、统计/因果正确性、EDA 完整性、数据泄漏是否已彻底排除，也不决定下游重跑范围，更不判断 RESULT_PRE 是否被人工验收或授权 HANDOFF_PRE。成功检查不创建状态、审批、hash、manifest、内容 JSON 或报告。
