@@ -81,7 +81,8 @@ FORBIDDEN_SUFFIXES = {
     ".obj", ".out", ".pyo", ".pyc", ".so", ".tar", ".whl", ".zip",
 }
 CODE_RUNTIME_DATA_SUFFIXES = {
-    ".bin", ".ckpt", ".pickle", ".pkl", ".pt", ".pth", ".sav",
+    ".bin", ".ckpt", ".joblib", ".npy", ".npz", ".pickle", ".pkl",
+    ".pt", ".pth", ".sav",
 }
 ROOT_CODE_DATA_SUFFIXES = {
     ".csv", ".feather", ".json", ".parquet", ".tsv", ".xls", ".xlsx",
@@ -93,6 +94,29 @@ FORBIDDEN_NAME = re.compile(
 DYNAMIC_PYTHON = re.compile(
     r"\b(?:__import__|exec|importlib\.import_module)\s*\(|"
     r"\bmodule(?:_name|name)\s*[+=]"
+)
+APPENDIX_CODE_SIDE_EFFECT_ID = "LITE-APPENDIX-CODE-SIDE-EFFECT-001"
+PYTHON_PATH_WRITE_METHODS = {"write_text", "write_bytes", "touch", "mkdir"}
+PYTHON_PANDAS_WRITERS = {
+    "to_csv", "to_excel", "to_json", "to_markdown", "to_parquet",
+    "to_pickle", "to_feather", "to_hdf",
+}
+PYTHON_NUMPY_WRITERS = {"save", "savez", "savez_compressed", "savetxt"}
+PYTHON_TEMPFILE_WRITERS = {"NamedTemporaryFile", "TemporaryDirectory", "mkstemp", "mkdtemp"}
+PYTHON_SHUTIL_WRITERS = {"copy", "copy2", "copyfile", "copytree", "move"}
+PYTHON_OS_WRITERS = {"mkdir", "makedirs"}
+PYTHON_MODEL_WRITERS = {"save", "save_model"}
+NATIVE_FOPEN = re.compile(
+    r"\b(?:fopen|freopen)\s*\([^\n;]*?,\s*[\"']([^\"']+)[\"']"
+)
+NATIVE_FD_OPEN = re.compile(r"\b(?:open|_open)\s*\([^\n;]*(?:O_WRONLY|O_RDWR|O_CREAT|O_APPEND)")
+NATIVE_OFSTREAM = re.compile(r"\b(?:std::)?ofstream\b")
+NATIVE_FSTREAM_WRITE = re.compile(
+    r"\b(?:std::)?fstream\b[^\n;]*(?:std::ios(?:_base)?::)?(?:out|app|trunc)\b"
+)
+NATIVE_DIRECTORY_WRITE = re.compile(
+    r"\b(?:mkdir|_mkdir|CreateDirectory(?:A|W)?|create_directory|"
+    r"create_directories|copy_file|rename)\s*\("
 )
 LOCAL_INCLUDE = re.compile(r'^\s*#\s*include\s*"([^"]+)"', re.MULTILINE)
 MACRO_INCLUDE = re.compile(r"^\s*#\s*include\s*(?![<\"])(\S+)", re.MULTILINE)
@@ -791,6 +815,165 @@ def _python_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) -> 
     return diagnostics
 
 
+def _is_code_target(target: str) -> bool:
+    return target.startswith("code/") or bool(
+        re.match(r"appendix/problems/(?:q[1-9][0-9]*|preprocess)/code/", target)
+    )
+
+
+def _ast_root_name(node: ast.AST) -> str | None:
+    """Return the left-most name in a dotted AST expression."""
+    while isinstance(node, ast.Attribute):
+        node = node.value
+    return node.id if isinstance(node, ast.Name) else None
+
+
+def _ast_dotted_name(node: ast.AST) -> str | None:
+    parts: list[str] = []
+    while isinstance(node, ast.Attribute):
+        parts.append(node.attr)
+        node = node.value
+    if not isinstance(node, ast.Name):
+        return None
+    parts.append(node.id)
+    return ".".join(reversed(parts))
+
+
+def _import_aliases(tree: ast.AST, module: str) -> set[str]:
+    aliases: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name == module or alias.name.startswith(f"{module}."):
+                    aliases.add(alias.asname or alias.name.split(".", 1)[0])
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            if node.module == module or node.module.startswith(f"{module}."):
+                for alias in node.names:
+                    aliases.add(alias.asname or alias.name)
+    return aliases
+
+
+def _python_side_effect_diagnostics(
+    workspace: Path, entries: tuple[AppendixEntry, ...]
+) -> list[Diagnostic]:
+    """Find high-confidence Python writes in submitted computation code.
+
+    This is deliberately a conservative AST check.  It reports explicit writer
+    APIs and literal write modes, but does not execute imports, resolve aliases
+    through arbitrary assignments, or infer what dynamically constructed names
+    will do.
+    """
+    diagnostics: list[Diagnostic] = []
+    for entry in entries:
+        if not _is_code_target(entry.target):
+            continue
+        if Path(entry.target).suffix.lower() not in PYTHON_SUFFIXES:
+            continue
+        path = workspace / entry.target
+        if not path.is_file() or path.is_symlink():
+            continue
+        try:
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=entry.target)
+        except (OSError, UnicodeDecodeError, SyntaxError):
+            # Syntax/encoding diagnostics are emitted by the existing checker.
+            continue
+
+        aliases = {
+            module: _import_aliases(tree, module)
+            for module in (
+                "pandas", "numpy", "scipy", "joblib", "pickle", "json",
+                "yaml", "tempfile", "shutil", "os", "shelve", "sqlite3",
+                "torch",
+            )
+        }
+        reported: set[tuple[int, str]] = set()
+
+        def report(node: ast.AST, detail: str) -> None:
+            line = getattr(node, "lineno", 1)
+            key = (line, detail)
+            if key in reported:
+                return
+            reported.add(key)
+            diagnostics.append(error(
+                APPENDIX_CODE_SIDE_EFFECT_ID,
+                f"{entry.target}:{line}",
+                detail,
+            ))
+
+        def matches_module(dotted: str | None, module: str, attr: str) -> bool:
+            if not dotted:
+                return False
+            if dotted == attr and attr in aliases[module]:
+                return True
+            if "." not in dotted:
+                return False
+            root, suffix = dotted.split(".", 1)
+            if not suffix.endswith(f".{attr}") and suffix != attr:
+                return False
+            return root in aliases[module]
+
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Call):
+                continue
+            func = node.func
+            dotted = _ast_dotted_name(func)
+
+            if isinstance(func, ast.Name) and func.id == "open":
+                mode_node: ast.AST | None = None
+                if len(node.args) >= 2:
+                    mode_node = node.args[1]
+                for keyword in node.keywords:
+                    if keyword.arg == "mode":
+                        mode_node = keyword.value
+                if isinstance(mode_node, ast.Constant) and isinstance(mode_node.value, str):
+                    mode = mode_node.value
+                    if any(flag in mode for flag in ("w", "a", "x", "+")):
+                        report(node, "open() uses an explicit file-writing mode")
+                continue
+
+            if isinstance(func, ast.Attribute):
+                attr = func.attr
+                if attr in PYTHON_PATH_WRITE_METHODS:
+                    report(node, f"Path/file writer method {attr}() is not allowed in appendix code")
+                if attr in PYTHON_PANDAS_WRITERS:
+                    report(node, f"tabular writer {attr}() is not allowed in appendix code")
+
+            if any(matches_module(dotted, "pandas", attr) for attr in PYTHON_PANDAS_WRITERS):
+                report(node, "pandas writer API is not allowed in appendix code")
+            if any(matches_module(dotted, "numpy", attr) for attr in PYTHON_NUMPY_WRITERS):
+                report(node, "NumPy save API is not allowed in appendix code")
+            if matches_module(dotted, "scipy", "save_npz"):
+                report(node, "scipy sparse save_npz() is not allowed in appendix code")
+            if any(matches_module(dotted, "joblib", attr) for attr in {"dump"}):
+                report(node, "joblib.dump() is not allowed in appendix code")
+            if any(matches_module(dotted, "pickle", attr) for attr in {"dump"}):
+                report(node, "pickle.dump() is not allowed in appendix code")
+            if any(matches_module(dotted, module, "dump") for module in ("json", "yaml")):
+                report(node, "JSON/YAML dump() is not allowed in appendix code")
+            if any(matches_module(dotted, "tempfile", attr) for attr in PYTHON_TEMPFILE_WRITERS):
+                report(node, "temporary-file/directory API is not allowed in appendix code")
+            if any(matches_module(dotted, "shutil", attr) for attr in PYTHON_SHUTIL_WRITERS):
+                report(node, "shutil file-copy/move API is not allowed in appendix code")
+            if any(matches_module(dotted, "os", attr) for attr in PYTHON_OS_WRITERS):
+                report(node, "OS directory-creation API is not allowed in appendix code")
+            if matches_module(dotted, "shelve", "open") or matches_module(dotted, "sqlite3", "connect"):
+                report(node, "persistent shelve/SQLite API is not allowed in appendix code")
+            if matches_module(dotted, "torch", "save"):
+                report(node, "torch.save() is not allowed in appendix code")
+
+            # Common model persistence calls are blocked only for names that
+            # clearly denote a model/estimator, avoiding a generic ``obj.save``
+            # false positive for ordinary in-memory helpers.
+            if isinstance(func, ast.Attribute) and func.attr in PYTHON_MODEL_WRITERS:
+                receiver = _ast_root_name(func.value)
+                if receiver and (
+                    receiver.lower() in {"model", "estimator", "pipeline", "network", "classifier"}
+                    or receiver.lower().endswith(("model", "estimator", "pipeline"))
+                ):
+                    report(node, f"model persistence method {func.attr}() is not allowed in appendix code")
+    return diagnostics
+
+
 def _native_dependency_diagnostics(
     workspace: Path, entries: tuple[AppendixEntry, ...]
 ) -> list[Diagnostic]:
@@ -836,6 +1019,51 @@ def _native_dependency_diagnostics(
                             "LITE-APPENDIX-OUTPUT-MISSING-001", entry.target,
                             f"CMake references missing literal source {literal}",
                         ))
+    return diagnostics
+
+
+def _native_side_effect_diagnostics(
+    workspace: Path, entries: tuple[AppendixEntry, ...]
+) -> list[Diagnostic]:
+    """Find explicit C/C++ file and directory writers without compiling code."""
+    diagnostics: list[Diagnostic] = []
+    for entry in entries:
+        if not _is_code_target(entry.target):
+            continue
+        path = workspace / entry.target
+        if path.suffix.lower() not in C_SUFFIXES or not path.is_file() or path.is_symlink():
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except (OSError, UnicodeDecodeError):
+            continue
+        seen: set[tuple[int, str]] = set()
+        for line_number, line in enumerate(lines, 1):
+            stripped = line.lstrip()
+            if stripped.startswith("//") or stripped.startswith("*"):
+                continue
+            details: list[str] = []
+            mode_match = NATIVE_FOPEN.search(line)
+            if mode_match and any(flag in mode_match.group(1) for flag in ("w", "a", "x", "+")):
+                details.append("fopen/freopen uses an explicit file-writing mode")
+            if NATIVE_FD_OPEN.search(line):
+                details.append("open() uses a file-writing flag")
+            if NATIVE_OFSTREAM.search(line):
+                details.append("ofstream constructs a file writer")
+            if NATIVE_FSTREAM_WRITE.search(line):
+                details.append("fstream uses an output/truncate flag")
+            if NATIVE_DIRECTORY_WRITE.search(line):
+                details.append("file/directory mutation API is not allowed in appendix code")
+            for detail in details:
+                key = (line_number, detail)
+                if key in seen:
+                    continue
+                seen.add(key)
+                diagnostics.append(error(
+                    APPENDIX_CODE_SIDE_EFFECT_ID,
+                    f"{entry.target}:{line_number}",
+                    detail,
+                ))
     return diagnostics
 
 
@@ -1047,7 +1275,9 @@ def check_appendix_result(workspace: Path) -> list[Diagnostic]:
     diagnostics.extend(_integrity_diagnostics(workspace, plan.entries))
     diagnostics.extend(_forbidden_diagnostics(workspace, plan.entries))
     diagnostics.extend(_python_diagnostics(workspace, plan.entries))
+    diagnostics.extend(_python_side_effect_diagnostics(workspace, plan.entries))
     diagnostics.extend(_native_dependency_diagnostics(workspace, plan.entries))
+    diagnostics.extend(_native_side_effect_diagnostics(workspace, plan.entries))
     diagnostics.extend(_xlsx_diagnostics(workspace, plan))
     diagnostics.extend(_sensitive_diagnostics(workspace, plan.entries))
     if parsed is not None:

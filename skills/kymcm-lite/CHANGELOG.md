@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.5 - 2026-08-04
+
+- Refocus Appendix code on an auditable computation core for input/feature construction, modeling, optimization, statistics, prediction, constraints, validation, and audit; exclude result/interface/report generation, export writers, caches, checkpoints, temporary files, and persistence side effects.
+- Keep formal result assets independent from Appendix code and preserve COPY/CURATE/source-integrity verification without regenerating results.
+- Add the high-confidence static `LITE-APPENDIX-CODE-SIDE-EFFECT-001` Error for Python and C/C++ file/directory writers and persistence APIs, while allowing read-only opens and in-memory result assembly.
+- Reject common runtime-data suffixes in code targets (`.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`, `.sav`, `.ckpt`, `.pt`, `.pth`); disclose dynamic-wrapper and semantic-equivalence limits.
+- Preserve the marker, eight commands, frozen Appendix headings, standard-library runtime, existing workspace compatibility, final-figure contract, Full, and generated-spec workflow.
+
 ## 0.9.4 - 2026-08-04
 
 - Add the authoritative `references/final_figure_typography.md` and byte-identical repository mirror for Lite final display figures.

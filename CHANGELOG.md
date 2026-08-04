@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.9.5 - 2026-08-04
+
+- Refocus optional Appendix code on an auditable computation core and keep formal result assets independent from code regeneration.
+- Add `LITE-APPENDIX-CODE-SIDE-EFFECT-001` for high-confidence Python/C/C++ file and directory writers, and reject common runtime-data suffixes in code targets.
+- Preserve the Lite v3 marker, eight commands, frozen Appendix headings, standard-library runtime, existing workspaces, final-figure contract, and Full.
+
 ## KyMCM Lite 0.9.4 - 2026-08-04
 
 - Define the Lite-only final-figure typography contract: Chinese/CJK punctuation uses `Noto Serif CJK SC`, English/Arabic numerals use `Tinos`, and formulas/symbols use `STIX mathtext` with `mathtext.fontset = stix`.

@@ -13,6 +13,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS = ROOT / "skills/kymcm-lite/scripts"
 FIXTURE = ROOT / "tests/fixtures/lite_appendix_handoff"
+CORE_FIXTURE = ROOT / "tests/fixtures/lite_appendix_computation_core"
 sys.path.insert(0, str(SCRIPTS))
 
 from kymcm_lite.appendix_contracts import (
@@ -290,7 +291,9 @@ class AppendixRuntimeTests(unittest.TestCase):
         targets = (
             "run.log", "module.pyc", "bundle.zip", "native.so",
             "backup/solver.py", "tmp/solver.py", "tests/test_solver.py",
-            "build/solver.py", "__pycache__/solver.py",
+            "build/solver.py", "__pycache__/solver.py", "state.joblib",
+            "features.npy", "features.npz", "model.pickle", "model.pkl",
+            "model.sav", "model.pt", "model.pth",
         )
         old_entry = (
             "- A001 — COPY — `problems/q1/code/solve.py` → "
@@ -704,6 +707,89 @@ class AppendixRuntimeTests(unittest.TestCase):
             found = identifiers(check_appendix_result(workspace))
             self.assertIn("LITE-APPENDIX-CERTIFICATION-WARN-001", found)
             self.assertNotIn("LITE-APPENDIX-DEPENDENCY-WARN-001", found)
+        finally:
+            temporary.cleanup()
+
+    def test_python_computation_core_side_effects_and_read_boundary(self):
+        fixture_writer = (CORE_FIXTURE / "core_write.py").read_text(encoding="utf-8")
+        writers = (
+            fixture_writer,
+            "def solve(values):\n    return open('out.csv', 'w')\n",
+            "from pathlib import Path\nPath('out.txt').write_text('x')\n",
+            "import pandas as pd\ndf.to_csv('out.csv')\n",
+            "import numpy as np\nnp.save('out.npy', arr)\n",
+            "import scipy.sparse\nscipy.sparse.save_npz('out.npz', matrix)\n",
+            "import joblib\njoblib.dump(obj, 'out.joblib')\n",
+            "import pickle\npickle.dump(obj, fp)\n",
+            "import json\njson.dump({}, fp)\n",
+            "import yaml\nyaml.dump({}, fp)\n",
+            "import tempfile\ntempfile.NamedTemporaryFile()\n",
+            "import shutil\nshutil.copy('a', 'b')\n",
+            "import os\nos.makedirs('out')\n",
+            "import shelve\nshelve.open('out.db')\n",
+            "import sqlite3\nsqlite3.connect('out.db')\n",
+            "import torch\ntorch.save(model, 'out.pt')\n",
+            "model.save('out.pt')\n",
+        )
+        for source_text in writers:
+            with self.subTest(source_text=source_text):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    path = workspace / "appendix/problems/q1/code/solve.py"
+                    path.write_text(source_text, encoding="utf-8")
+                    diagnostics = check_appendix_result(workspace)
+                    side_effects = [
+                        item for item in diagnostics
+                        if item.identifier == "LITE-APPENDIX-CODE-SIDE-EFFECT-001"
+                    ]
+                    self.assertTrue(side_effects, diagnostics)
+                    self.assertTrue(all(item.location.startswith(
+                        "appendix/problems/q1/code/solve.py:"
+                    ) for item in side_effects))
+                finally:
+                    temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            path = workspace / "appendix/problems/q1/code/solve.py"
+            path.write_text(
+                (CORE_FIXTURE / "core_read_only.py").read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+            found = identifiers(check_appendix_result(workspace))
+            self.assertNotIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
+        finally:
+            temporary.cleanup()
+
+    def test_native_computation_core_side_effects_and_read_boundary(self):
+        fixture_writer = (CORE_FIXTURE / "core_write.cpp").read_text(encoding="utf-8")
+        writers = (
+            fixture_writer,
+            'int run() { auto* f = fopen("out.csv", "w"); return f != nullptr; }\n',
+            '#include <fstream>\nstd::ofstream out("out.csv");\n',
+            '#include <fstream>\nstd::fstream out("out.csv", std::ios::out);\n',
+            '#include <fcntl.h>\nint fd = open("out.bin", O_CREAT | O_WRONLY);\n',
+            '#include <sys/stat.h>\nint run() { return mkdir("out", 0700); }\n',
+        )
+        target = "appendix/problems/q2/code/solver.cpp"
+        for source_text in writers:
+            with self.subTest(source_text=source_text):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    (workspace / target).write_text(source_text, encoding="utf-8")
+                    found = identifiers(check_appendix_result(workspace))
+                    self.assertIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
+                finally:
+                    temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            (workspace / target).write_text(
+                '#include "solver.hpp"\nint best(int a, int b) { return a > b ? a : b; }\n',
+                encoding="utf-8",
+            )
+            found = identifiers(check_appendix_result(workspace))
+            self.assertNotIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
         finally:
             temporary.cleanup()
 

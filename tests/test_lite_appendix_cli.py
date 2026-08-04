@@ -118,6 +118,21 @@ class LiteAppendixCliTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
+    def test_code_side_effect_is_blocking_and_read_only(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            source = workspace / "appendix/problems/q1/code/solve.py"
+            source.write_text("from pathlib import Path\nPath('out').write_text('x')\n", encoding="utf-8")
+            before = fingerprint(workspace)
+            completed = self.run_cli(
+                "check-appendix-result", "--workspace", str(workspace), ok=1
+            )
+            self.assertIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", completed.stdout)
+            self.assertIn("appendix/problems/q1/code/solve.py:", completed.stdout)
+            self.assertEqual(before, fingerprint(workspace))
+        finally:
+            temporary.cleanup()
+
     def test_internal_contract_sources_are_rejected_without_new_command(self):
         for relative in (
             "problems/q1/spec/SUPPLEMENT_START_Q1.md",
