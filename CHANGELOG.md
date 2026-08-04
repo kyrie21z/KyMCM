@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.9.4 - 2026-08-04
+
+- Define the Lite-only final-figure typography contract: Chinese/CJK punctuation uses `Noto Serif CJK SC`, English/Arabic numerals use `Tinos`, and formulas/symbols use `STIX mathtext` with `mathtext.fontset = stix`.
+- Require the external `nature-figure` Skill to discover, render, and audit those fonts; missing requirements stop formal rendering, while previews remain explicitly non-final and no silent fallback is accepted.
+- Add the byte-identical `final_figure_typography.md` reference/mirror and propagate the contract through Lite SKILL, protocol, agent prompt, release docs, and the deterministic Project Source without changing Lite runtime, commands, templates, Full, or the external Skill.
+
 ## KyMCM Lite 0.9.3 - 2026-08-04
 
 - Gate `HANDOFF_QN.md` and `HANDOFF_PRE.md` on explicit post-execution user/ChatGPT acceptance of the corresponding RESULT/RESULT_PRE and a new independent HANDOFF task.

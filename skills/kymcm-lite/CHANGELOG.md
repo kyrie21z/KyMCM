@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.4 - 2026-08-04
+
+- Add the authoritative `references/final_figure_typography.md` and byte-identical repository mirror for Lite final display figures.
+- Require `Noto Serif CJK SC` for Chinese/CJK punctuation, `Tinos` for English/Arabic numerals, and `STIX mathtext` (`mathtext.fontset = stix`) for formulas and symbols, with semantic routing for mixed text.
+- Make external `nature-figure` responsible for font discovery, rendering, and audit; missing fonts stop formal rendering, previews are non-final, and no font files are downloaded, copied, bundled, or committed.
+- Preserve the marker, eight commands, templates, stateless standard-library runtime, 0.9.3 workspace compatibility, and KyMCM Full unchanged.
+
 ## 0.9.3 - 2026-08-04
 
 - Gate question-level and preprocess HANDOFF documents on explicit post-execution user/ChatGPT acceptance of the corresponding RESULT and a separate independent HANDOFF task.
