@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.3 - 2026-08-04
+
+- Gate `HANDOFF_QN.md` and `HANDOFF_PRE.md` on explicit post-execution user/ChatGPT acceptance of the corresponding RESULT/RESULT_PRE and a new independent HANDOFF task.
+- Make the modeling terminal point RESULT plus machine check, with no automatic HANDOFF during execution; machine checks, tests, CI, commits, and stable evidence do not constitute acceptance.
+- Keep existing HANDOFF files as the last accepted snapshot while a Result or Supplement Result is pending; Result acceptance adopts the scope, while HANDOFF refresh is a separate read-only task.
+- Preserve the Lite v3 marker, eight commands, frozen START/RESULT/PRE headings, stateless runtime, Full, and 0.9.2 workspace compatibility; add no checker, state, approval, JSON, manifest, or runtime acceptance mechanism.
+
 ## KyMCM Lite 0.9.2 - 2026-08-04
 
 - Allow the latest unadopted question-level Supplement Sx to be edited, have its stale same-number Result invalidated, and be rerun in place.

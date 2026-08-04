@@ -218,7 +218,9 @@ class LiteV3Phase1Tests(unittest.TestCase):
         self.assertIn("拆分模式全部 RESULT_QN_K.md", text)
         self.assertIn("SUPPLEMENT_RESULT_QN.md", text)
         self.assertIn("每题只创建这一份问题级 HANDOFF", text)
-        self.assertIn("基础 RESULT 与已完成 Supplement Result", text)
+        self.assertIn("已验收基础 RESULT 与已验收 Supplement Result", text)
+        self.assertIn("明确验收通过", text)
+        self.assertIn("只读", text)
         self.assertIn("具体数值以真实机器证据为准", text)
         self.assertNotIn("HANDOFF_QN_K.md", text)
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.3 - 2026-08-04
+
+- Gate question-level and preprocess HANDOFF documents on explicit post-execution user/ChatGPT acceptance of the corresponding RESULT and a separate independent HANDOFF task.
+- Stop base, Supplement, and PRE execution after the checked Result; checker success, tests, CI, commits, and stable evidence do not authorize HANDOFF.
+- Keep the last accepted HANDOFF snapshot unchanged while a new Result is pending; Result acceptance adopts the scope, and HANDOFF refresh is read-only and request-driven.
+- Preserve the marker, eight commands, frozen contract headings, stateless runtime, Full, and 0.9.2 workspace compatibility without adding runtime state or a checker.
+
 ## 0.9.2 - 2026-08-04
 
 - Allow the latest unadopted Supplement Sx to be edited and rerun after removing or invalidating its same-number Result.

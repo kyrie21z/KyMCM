@@ -7,10 +7,10 @@
 
 ## 0. 使用说明、版本与权威优先级
 
-- Product: `KyMCM Lite`; `VERSION`: `0.9.2`.
+- Product: `KyMCM Lite`; `VERSION`: `0.9.3`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `32`; canonical total bytes: `198246`.
+- Canonical source files: `32`; canonical total bytes: `207589`.
 - Mirror files validated: `17`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
@@ -30,38 +30,38 @@ The complete source text is intentionally long. It is not a summary: each canoni
 
 | No. | canonical path | role | bytes | SHA-256 | mirror path(s) | mirror status |
 |---:|---|---|---:|---|---|---|
-| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `f34248c2449a022d41c918d1e995ad85859a1e9f0e6f89d0af23ae4a55519f71` | — | none |
-| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 13764 | `4e21f1aad39ce854ce494666c338a81a1dd7132fbf632063555a64cc0c3e8464` | — | none |
-| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 20959 | `1ccd39006306cfcc421835938c21ccb5b5394e54936996b28a6f63611272672a` | — | none |
-| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 22256 | `0665b7f3fd5f60390b47f765e2f9b906adaf33fd255e51aee6511945e66ed797` | `docs/lite-v3/machine_contract.md` | byte-identical |
+| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `38ecaa1e4c36c6691944c83df7671fca8b86f5cbf2d4e22c0012aa52df14b149` | — | none |
+| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 15488 | `e2c0250cfd0adfec531cfdb0945ef7a7665efca9dd064861668c9bd47c8d0900` | — | none |
+| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 22004 | `5a97386db3262a206ee60fd1806d2d2e9b9f99d18b58376458e72109a40a9616` | — | none |
+| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 23160 | `c72ca431749221f488d4f85f643a7c1f3a341e408ec209b34958b3bff0753b43` | `docs/lite-v3/machine_contract.md` | byte-identical |
 | 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 11673 | `b64f3b7f5bc668bb0de646b5d942a696b05fabd878f8c6ddb8e7da1be79243ad` | — | none |
 | 6 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 8248 | `cb5fa6a85d3c15a9258f319181c09f433e1c3fb6b1f7f9b012d7a1b45a1e4cb2` | `docs/lite-v3/appendix_organization.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/dependency_review.md` | `reference` | 5783 | `4aeac7bd61bd1c70ee2298b6154235743319ca99b76b2988a81e97c7d6d97ffc` | `docs/lite-v3/dependency_review.md` | byte-identical |
 | 8 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
 | 9 | `skills/kymcm-lite/references/modeling_plan_design.md` | `reference` | 17746 | `b90c4689fc87e75c7a853441e39b620c3cbc4676ad185bd38a6ac06cee4ae2ed` | `docs/lite-v3/modeling_plan_design.md` | byte-identical |
-| 10 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5500 | `8f4b54c6e84556aeec927c1719e07ff18a86f090170dce209cd660c787feeef9` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
-| 11 | `skills/kymcm-lite/references/supplement_work.md` | `reference` | 10487 | `78816748f0d2558dfef558c329c1af72225d0930c843da5df7c3ee8a954d024d` | `docs/lite-v3/supplement_work.md` | byte-identical |
-| 12 | `skills/kymcm-lite/references/technical_handoff.md` | `reference` | 5934 | `1807e3f5dcdcf9b1791e7d63fed1165f0fc36cc376c47abeda281796737a54b0` | `docs/lite-v3/technical_handoff.md` | byte-identical |
+| 10 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5995 | `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
+| 11 | `skills/kymcm-lite/references/supplement_work.md` | `reference` | 11176 | `ad120b1bc2ba0702e3b267806c56817fcf5633ab5f99a29de2a08d511008187f` | `docs/lite-v3/supplement_work.md` | byte-identical |
+| 12 | `skills/kymcm-lite/references/technical_handoff.md` | `reference` | 6756 | `2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419` | `docs/lite-v3/technical_handoff.md` | byte-identical |
 | 13 | `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md` | `template` | 1479 | `eb6b11e9a5c6b6db7816fb1f1c60270f4db6035c72acd77adcafc32da8f64848` | `docs/lite-v3/APPENDIX_RESULT.template.md` | byte-identical |
 | 14 | `skills/kymcm-lite/templates/APPENDIX_START.template.md` | `template` | 3389 | `8d65b6909fe88300c561a489129b2339f783e2b9298cb700f20e7cb2385633b4` | `docs/lite-v3/APPENDIX_START.template.md` | byte-identical |
-| 15 | `skills/kymcm-lite/templates/HANDOFF_PRE.template.md` | `template` | 1689 | `4c9399565a16d91cfbfc55affd6bde89ad5ee78b6b30a1333576499119461ae8` | `docs/lite-v3/HANDOFF_PRE.template.md` | byte-identical |
-| 16 | `skills/kymcm-lite/templates/HANDOFF_QN.template.md` | `template` | 2516 | `0a58beba15a7f4bcf325adbe577ceddb679813b9e10119beef2384aeb7fa25ad` | `docs/lite-v3/HANDOFF_QN.template.md` | byte-identical |
+| 15 | `skills/kymcm-lite/templates/HANDOFF_PRE.template.md` | `template` | 2008 | `b486f30425c74dce973b8d55891b284871161e86a54dbec0836d3801d5c387fb` | `docs/lite-v3/HANDOFF_PRE.template.md` | byte-identical |
+| 16 | `skills/kymcm-lite/templates/HANDOFF_QN.template.md` | `template` | 2842 | `2495e222fc350934367956d67c0f74f069cab8c2097f3c06cee4f74c04b11014` | `docs/lite-v3/HANDOFF_QN.template.md` | byte-identical |
 | 17 | `skills/kymcm-lite/templates/RESULT_PRE.template.md` | `template` | 1085 | `189595bdb36b5ee33a21363e3dfb3fb4faa65309e6a5bed7b0555931f8f8e4c5` | `docs/lite-v3/RESULT_PRE.template.md` | byte-identical |
 | 18 | `skills/kymcm-lite/templates/RESULT_QN.template.md` | `template` | 1195 | `3794e2b24dedbcb816f09d90e01f400078b5fede85296b1d418dc1a1baa96d45` | `docs/lite-v3/RESULT_QN.template.md` | byte-identical |
 | 19 | `skills/kymcm-lite/templates/START_PRE.template.md` | `template` | 1999 | `f8c30249682de75c5b82af525df8c74fe5bde2338bcdd0c0a198c071ae249d3b` | `docs/lite-v3/START_PRE.template.md` | byte-identical |
 | 20 | `skills/kymcm-lite/templates/START_QN.template.md` | `template` | 3503 | `4db5837709686701d1d19fbc797567e34b387751c7998beb5a6717784373fc8e` | `docs/lite-v3/START_QN.template.md` | byte-identical |
 | 21 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
 | 22 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
-| 23 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 407 | `cf08fed758a7a287d070fca868d68e4a7d26fea1ecf21a993390a4df59fc7355` | — | none |
-| 24 | `skills/kymcm-lite/README.md` | `product-documentation` | 5413 | `41a3b37b0778b414433cabc4e476212f2fe8dbca1a73a84bf87f5a964fd3c400` | — | none |
-| 25 | `docs/compatibility.md` | `product-documentation` | 5366 | `278ef981c31d003d69e99c917d216617a9a3875e25118bd861f5fa43838ed019` | — | none |
-| 26 | `docs/installation.md` | `product-documentation` | 2976 | `729fd0798fca491de821cc54ed88eaef94e8dc5022639f48dd04d725aaa8c076` | — | none |
-| 27 | `docs/known-limitations.md` | `product-documentation` | 4091 | `65404128348f9a8c9cd69f607a47aa39d1335ee9cb647eb990949b45af2eee2b` | — | none |
-| 28 | `docs/lite-v3-rfc.md` | `product-documentation` | 17764 | `0e69c45af54c77188ea94dbae4ee1a10ad3bf80596c4f3fa7a77e2af4f480424` | — | none |
-| 29 | `docs/lite-v3-release-notes.md` | `product-documentation` | 7557 | `baab0f23391d55ca3786003e96f84420db43e8a229fe76e2eb26004690dbfa97` | — | none |
-| 30 | `docs/release-checklist.md` | `repository-maintenance` | 5951 | `88a8cbe0fda38e96b8feafb66f383d890be88e0133fd1f4e8e0308e7d4260550` | — | none |
+| 23 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 535 | `df5956ebf255b9589bebe9673cee5237bfa42646c3d0d5115336d6e1f6a1f587` | — | none |
+| 24 | `skills/kymcm-lite/README.md` | `product-documentation` | 5848 | `c14c2f642ec76205bba7fdbd98d186401f8ddb9eef63321f87e0808a2e6be7c4` | — | none |
+| 25 | `docs/compatibility.md` | `product-documentation` | 5563 | `001692051c3fb8614224420d10ba51272c6cb84c41d8773b15e1d5b81ba482da` | — | none |
+| 26 | `docs/installation.md` | `product-documentation` | 2989 | `d55553836516cba0a8435d2bb5386eeebb9ddddd4847bc09da1c7a1e5425155f` | — | none |
+| 27 | `docs/known-limitations.md` | `product-documentation` | 4406 | `59b5231f42221a121f195e4f3e2b7a3997c2feee1f85339e0b4ca8be7d66686e` | — | none |
+| 28 | `docs/lite-v3-rfc.md` | `product-documentation` | 18057 | `2b5df79df4544f9c568a04b118e08c7ce5ce916d84ab57e7fee701c584986206` | — | none |
+| 29 | `docs/lite-v3-release-notes.md` | `product-documentation` | 8747 | `e5f26aba40b64fc4f9c98f974d842984974d8a285609939f51ea161c4df8330f` | — | none |
+| 30 | `docs/release-checklist.md` | `repository-maintenance` | 6352 | `88768e40a129680ba9217d0645a84b735a6b293fc7e5f2cf8c705c37537c7809` | — | none |
 | 31 | `docs/system-dependencies.md` | `repository-maintenance` | 722 | `1f68349eb0d5b643560c5d5921c0329d64c2cdb7dfefb37e172a1e790448b730` | — | none |
-| 32 | `README.md` | `product-documentation` | 4113 | `64b8e2947204b8b4ed2f0c6d13732e4f1c3fc70b83a2c25d4744285bbbd9cfed` | — | none |
+| 32 | `README.md` | `product-documentation` | 4160 | `0aa30065431fc1b5afc9bc36f336ed808152085fdeeaf6a781d6c215009eddbb` | — | none |
 
 ## 2. Core skill
 
@@ -70,7 +70,7 @@ Role: `identity`
 Authority: runtime identity
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
-0.9.2
+0.9.3
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
 
 
@@ -90,13 +90,13 @@ Resolve the explicit contest workspace before acting. Require exactly `{"workflo
 
 The repository-maintained complete ChatGPT Project Source is generated by `scripts/export_kymcm_lite_full_spec.py`. It is a documentation mirror, not a new contract or workspace file; upload it to ChatGPT Project Sources when a complete rule set is useful, and never copy it into a contest workspace, evidence tree, or appendix.
 
-For base modeling, treat the selected `START_QN.md`/`RESULT_QN.md` single contract or contiguous `START_QN_K.md`/`RESULT_QN_K.md` split contracts plus RESULT-declared evidence as the formal surfaces. After base completion, question-level Supplement Result entries may explicitly append or replace scope as described below. The latest Supplement that has not been adopted may be edited and rerun in place; adopted entries remain append-only and frozen. Never mix single and split mode; missing split RESULT units are allowed while work remains incomplete.
+For base modeling, treat the selected `START_QN.md`/`RESULT_QN.md` single contract or contiguous `START_QN_K.md`/`RESULT_QN_K.md` split contracts plus RESULT-declared evidence as the formal surfaces. The modeling execution terminal point is the corresponding RESULT file(s) plus a successful machine check; then stop and report that the RESULT is waiting for independent user/ChatGPT semantic acceptance. A green `check-result`, tests, CI, a commit, or stable evidence is not acceptance and never authorizes HANDOFF. Only after explicit post-execution RESULT acceptance and a new independent HANDOFF task may a technical handoff be created or refreshed. If one task asks both for model execution and HANDOFF, split it at the RESULT acceptance boundary and stop before HANDOFF. The latest Supplement that has not been adopted may be edited and rerun in place; adopted entries remain append-only and frozen. Never mix single and split mode; missing split RESULT units are allowed while work remains incomplete.
 
 ## Optional preprocess stage
 
 Treat `problems/preprocess/`, when present, as one fixed optional unit before dependent questions, never Q0, split, or stateful. Initialize its empty tree with `scripts/lite.py init --workspace PATH --questions N --preprocess`; init creates no contracts. Read `references/preprocess_stage.md`. Author START_PRE from `templates/START_PRE.template.md`, run `check-preprocess-start`, pass the minimal parse-transform-write-readback smoke test, execute recoverable stages, complete L0 audit, author RESULT_PRE from `templates/RESULT_PRE.template.md`, and run `check-preprocess-result`.
 
-When a complete downstream technical transfer is needed, derive HANDOFF_PRE from `templates/HANDOFF_PRE.template.md` and review it semantically against RESULT_PRE and machine evidence. It has no Python checker. PRE owns shared audit, deterministic cleaning, common field/unit semantics, sample accounting, shared derived data, and bounded EDA for data understanding, model design, or risk identification. Question-specific features, splits, objectives, validation, and conclusions remain in QN. PRE is non-visual by default and does not select final display graphics.
+After `check-preprocess-result`, stop and report that RESULT_PRE is waiting for independent user/ChatGPT semantic acceptance. A complete downstream technical transfer may be derived from `templates/HANDOFF_PRE.template.md` only after that acceptance and a new explicit HANDOFF_PRE task; it has no Python checker. PRE owns shared audit, deterministic cleaning, common field/unit semantics, sample accounting, shared derived data, and bounded EDA for data understanding, model design, or risk identification. Question-specific features, splits, objectives, validation, and conclusions remain in QN. PRE is non-visual by default and does not select final display graphics.
 
 A QN START declares exactly one visible `**预处理依赖：** 无|PRE` before its separate `**前问依赖：**` declaration. Legacy START files without the PRE declaration remain valid when PRE is absent and receive only an advisory warning when PRE exists. A PRE declaration requires the exact complete START_PRE/RESULT_PRE pair and the semantic contradiction review in `references/dependency_review.md`. Stop on conflicts in fields, units, samples, missingness, joins, time scope, transforms, leakage, limitations, or formal paths. Impact-review dependent completed QN work after material RESULT_PRE changes.
 
@@ -108,7 +108,7 @@ Before implementing or materially revising a dependent START, read the complete 
 
 Before authoring, reviewing, revising, or executing START, read `references/modeling_plan_design.md` completely. Define the minimum formally complete deliverable; audit dependencies and inputs; preflight identifiability, feasibility, boundedness, numerical meaning, and computational solvability; design the smallest end-to-end smoke test; divide formal work into recoverable stages with inspectable artifacts and exact cache/reuse conditions; estimate nested run count, time, memory, parallelism, and worst-case recomputation; classify experiments as mandatory L0, risk-triggered L1, or resource-permitting L2.
 
-Run in order: author START, run its checker, complete dependency and modeling-plan semantic reviews, pass smoke, execute formal stages, pass basic/L0 audit, run L1 only for its named triggered risk, and run L2 only when affordable and it reduces an explicit remaining risk or strengthens required certification. Do not add computation for presentation value. A failed smoke blocks formal work; a failed basic audit returns to the responsible stage.
+Run in order: author START, run its checker, complete dependency and modeling-plan semantic reviews, pass smoke, execute formal stages, pass basic/L0 audit, run L1 only for its named triggered risk, and run L2 only when affordable and it reduces an explicit remaining risk or strengthens required certification, write RESULT, run its checker, and stop for explicit semantic acceptance. Do not add computation for presentation value. A failed smoke blocks formal work; a failed basic audit returns to the responsible stage. Do not create or update HANDOFF during this execution sequence.
 
 Repair deterministic engineering omissions transparently, then rerun the checks and semantic reviews. Ask one highest-impact question before changing mathematics, validation strength, formal success criteria, or a material resource tradeoff. Return to design if the model is unidentifiable, infeasible, unbounded, unsupported, or irreconcilable with budget. Preserve mathematical meaning, parameters, constraints, decisions, data semantics, budgets, and fallback rules. Disclose every authorized START deviation in RESULT.
 
@@ -116,38 +116,38 @@ Formal PRE/QN execution is non-visual by default. Prefer structured evidence: nu
 
 ## Question-level supplement work
 
-Continue the active base START while a question's base RESULT set is incomplete. After the base question is complete and every applicable `check-result` passes, use one optional problem-level pair for post-result validation, a model/data/certification revision, or an implementation repair:
+Continue the active base START while a question's base RESULT set is incomplete. After the base question is complete and every applicable `check-result` passes, use one optional problem-level pair for post-result validation, a model/data/certification revision, or an implementation repair. Each Supplement execution also ends at its checked Result and an explicit acceptance wait; it does not enter HANDOFF automatically:
 
 ```text
 problems/qN/spec/SUPPLEMENT_START_QN.md
 problems/qN/result/SUPPLEMENT_RESULT_QN.md
 ```
 
-Single and split modes share this one pair. Read `references/supplement_work.md` and use `templates/SUPPLEMENT_START_QN.template.md` and `templates/SUPPLEMENT_RESULT_QN.template.md`. Before any Sx-specific execution, append and semantically review the corresponding S1, S2, ... plan. The latest unadopted Sx may be revised in place; if its Start changes materially, remove or invalidate its old Result before rerunning. After execution, write the matching result and disclose deviations, evidence, impact, failures, and downstream consequences. An adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen; later semantic correction uses the next number.
+Single and split modes share this one pair. Read `references/supplement_work.md` and use `templates/SUPPLEMENT_START_QN.template.md` and `templates/SUPPLEMENT_RESULT_QN.template.md`. Before any Sx-specific execution, append and semantically review the corresponding S1, S2, ... plan. The latest unadopted Sx may be revised in place; if its Start changes materially, remove or invalidate its old Result before rerunning. After execution, write the matching result, disclose deviations, evidence, impact, failures, and downstream consequences, run the applicable machine check, and stop for explicit semantic acceptance. An adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen; later semantic correction uses the next number.
 
-Use exactly `补充验证`, `方案修订`, or `实现修复`, with explicit `追加证据`, `局部替代`, `完全替代`, or `不改变正式状态` semantics. Current effective state is the base RESULT set plus completed Supplement Result entries in order; an entry replaces only what it names. Keep code and evidence in the existing QN `code/`, `data/derived/`, `outputs/`, and `notes/` directories, prefer new `sN_` paths, and allow only the latest unadopted Sx to rebuild its own artifacts. Never overwrite base, adopted, or earlier-Sx artifacts. Adoption is a semantic review/confirmation boundary, not a Python runtime state.
+Use exactly `补充验证`, `方案修订`, or `实现修复`, with explicit `追加证据`, `局部替代`, `完全替代`, or `不改变正式状态` semantics. Current adopted effective state is the base RESULT set plus completed and explicitly accepted Supplement Result entries in order; a pending Result remains outside that state and HANDOFF snapshot. An accepted entry replaces only what it names. Keep code and evidence in the existing QN `code/`, `data/derived/`, `outputs/`, and `notes/` directories, prefer new `sN_` paths, and allow only the latest unadopted Sx to rebuild its own artifacts. Never overwrite base, adopted, or earlier-Sx artifacts. Adoption is a semantic review/confirmation boundary, not a Python runtime state.
 
-Dependency tokens remain exact base RESULT units such as `Q1` or `Q2_1`. When an upstream question has Supplement files, semantic review reads the complete files and applies completed entries that affect the selected token or its shared interfaces. If an editable Sx Result is removed or invalidated, downstream work must not use its old interface. A completed downstream use, later Sy baseline, formal delivery, or explicit user acceptance adopts and freezes Sx. A pending unmatched plan does not change formal state but is a material pending risk when it may alter the upstream interface. Material completed changes trigger downstream impact review; repair an affected downstream question through its own Supplement rather than overwriting its base RESULT.
+Dependency tokens remain exact base RESULT units such as `Q1` or `Q2_1`. When an upstream question has Supplement files, semantic review reads the complete files and applies accepted entries that affect the selected token or its shared interfaces. If an editable Sx Result is removed or invalidated, downstream work must not use its old interface. A completed downstream use, later Sy baseline, formal delivery, or explicit user acceptance adopts and freezes Sx. A pending unmatched plan does not change formal state but is a material pending risk when it may alter the upstream interface. Material accepted changes trigger downstream impact review; repair an affected downstream question through its own Supplement rather than overwriting its base RESULT.
 
-Refresh the one `HANDOFF_QN.md` after every new Supplement Result. Add no Supplement checker, CLI, state, JSON, manifest, approval, hash ledger, dependency token, `followups/`, Sx directory, or PRE Supplement. Python does not enforce numbering, plan-before-execution, replacement scope, mathematics, or HANDOFF currency.
+RESULT acceptance adopts/freezes a completed Sx within its stated impact scope; the existing HANDOFF remains the last accepted snapshot while a new Sx is pending. Only a later independent task that names the accepted Result and explicitly requests HANDOFF may refresh the one `HANDOFF_QN.md`. Add no Supplement checker, CLI, state, JSON, manifest, approval, hash ledger, dependency token, `followups/`, Sx directory, or PRE Supplement. Python does not enforce numbering, plan-before-execution, replacement scope, mathematics, RESULT acceptance, HANDOFF authorization, or HANDOFF currency.
 
 ## Technical result handoff
 
-Use one fixed problem-level `HANDOFF_QN.md` for each official question. In single mode, create or refresh it only after the complete START/RESULT pair passes `check-result` and formal plus selected auxiliary evidence is stable. In split mode, wait until every contiguous START unit has a matching RESULT, run `check-result --subproblem K` successfully for every unit, then read all START/RESULT pairs, their declared evidence, and selected auxiliary evidence before creating the one problem-level HANDOFF. Partial split completion cannot produce the current standard HANDOFF.
+Use one fixed problem-level `HANDOFF_QN.md` for each official question. In single mode, create or refresh it only in a new explicit HANDOFF task after the complete START/RESULT pair has passed `check-result`, the user/ChatGPT has independently accepted the RESULT, and formal plus selected auxiliary evidence is stable. In split mode, wait until every contiguous START unit has a matching RESULT, run `check-result --subproblem K` successfully for every unit, obtain explicit acceptance of the complete RESULT set, and then handle HANDOFF only in a separate explicit task. Partial split completion cannot produce the current standard HANDOFF.
 
-Follow `references/technical_handoff.md` and `templates/HANDOFF_QN.template.md`. Never create a new `HANDOFF_QN_K.md`; retain any existing suffixed files as ordinary legacy notes without deleting, renaming, merging, or treating them as the current entry point. Treat HANDOFF as a neutral complete technical transfer derived from the question's base RESULT set, completed Supplement Results, and machine evidence. Preserve every base unit and Sx identity and certification boundary rather than forming a new aggregate conclusion. Later START dependencies continue to name exact base RESULT units and semantic review applies relevant Supplement entries. Separate formal, superseded, and auxiliary results; disclose actual execution, validation, anomalies, failed attempts, omitted L1/L2, paths, limitations, and exact downstream interfaces.
+Follow `references/technical_handoff.md` and `templates/HANDOFF_QN.template.md`. Never create a new `HANDOFF_QN_K.md`; retain any existing suffixed files as ordinary legacy notes without deleting, renaming, merging, or treating them as the current entry point. Treat HANDOFF as a neutral complete technical transfer derived from the question's base RESULT set, accepted Supplement Results, and machine evidence. Preserve every base unit and Sx identity and certification boundary rather than forming a new aggregate conclusion. Later START dependencies continue to name exact base RESULT units and semantic review applies relevant accepted Supplement entries. Separate formal, superseded, and auxiliary results; disclose actual execution, validation, anomalies, failed attempts, omitted L1/L2, paths, limitations, and exact downstream interfaces.
 
-Repair HANDOFF when it conflicts with RESULT, completed Supplement Result, or evidence; return to contract/evidence audit when a formal contract conflicts with evidence. Review and refresh it after every new Supplement Result or other material downstream-relevant change. Create no HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report. Never use HANDOFF as a later modeling dependency or copy it into appendix outputs.
+HANDOFF tasks are read-only technical transfer work: read the accepted RESULT set, accepted Supplement Results, START contracts, and machine evidence, but do not run new model computation, change code/data, or modify RESULT contracts. Repair HANDOFF when it conflicts with an accepted RESULT, accepted Supplement Result, or evidence; if a formal contract conflicts with evidence, stop and return to RESULT/evidence audit. A new material accepted Result does not itself refresh HANDOFF; it remains the last accepted snapshot until a separate explicit HANDOFF request. Create no HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report. Never use HANDOFF as a later modeling dependency or copy it into appendix outputs.
 
 ## Optional final figure workspace
 
-Enter final-figure work only when the user explicitly requests it after the latest HANDOFF, relevant base RESULT and Supplement Result entries, structured data, and machine evidence are stable. Use the `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. Do not infer which figures are wanted, silently retrain or resolve models, or create a new Supplement conclusion or alter formal state; if required data are missing, return to PRE/QN for additional evidence first.
+Enter final-figure work only when the user explicitly requests it after the relevant RESULT set has been accepted, any requested HANDOFF task has completed, and structured data and machine evidence are stable. Use the `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. Do not infer which figures are wanted, silently retrain or resolve models, or create a new Supplement conclusion or alter formal state; if required data are missing, return to PRE/QN for additional evidence first.
 
 `figure/` is optional, unconstrained internally, and created only for an explicit request. It is not a managed root, formal evidence scope, modeling dependency, RESULT/HANDOFF contract, or appendix source. Add no figure command, checker, contract, manifest, state, approval, hash ledger, or content JSON, and do not bundle or import `nature-figure`.
 
 ## Optional submission appendix organization
 
-Begin only after required START/RESULT and Supplement work, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` and `figure/` are outside appendix source scope. START, RESULT, SUPPLEMENT, and HANDOFF are internal references only and cannot be copied.
+Begin only after required START/RESULT and Supplement work has been semantically accepted, any requested HANDOFF is current, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` and `figure/` are outside appendix source scope. START, RESULT, SUPPLEMENT, and HANDOFF are internal references only and cannot be copied.
 
 Make `appendix/` cover the complete formal solve pipeline and dependencies while excluding plotting. Select authentic representative root `code/` files for the final submission document's code appendix; core modeling, preprocessing, scheduling, recovery, audit, and other relevant execution code are eligible.
 
@@ -164,7 +164,7 @@ Authority: Lite protocol
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.9.2 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.9.3 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## External complete specification export
 
@@ -230,7 +230,7 @@ Section 2 states `无偏差` or an authorized deviation with evidence. Evidence 
 
 ## Optional preprocessing
 
-START_PRE and RESULT_PRE use the exact eight headings in their mirrored templates. PRE runs before dependent QN work: author and check START_PRE, complete semantic review and a minimum parsing/transformation smoke test, execute recoverable stages, perform L0 audit, write and check RESULT_PRE, and create HANDOFF_PRE only when a fuller downstream technical transfer is useful.
+START_PRE and RESULT_PRE use the exact eight headings in their mirrored templates. PRE runs before dependent QN work: author and check START_PRE, complete semantic review and a minimum parsing/transformation smoke test, execute recoverable stages, perform L0 audit, write and check RESULT_PRE, stop for explicit user/ChatGPT semantic acceptance, and only then handle HANDOFF_PRE in a separate explicit task when a fuller downstream technical transfer is useful. `check-preprocess-result` is a machine gate for structural/evidence readiness, not semantic acceptance or HANDOFF authorization.
 
 RESULT_PRE is the authority for common fields, units, row universe, cleaning and transformation rules, shared data products, audit results, and limitations. HANDOFF_PRE is a derived neutral technical handoff for QN executors, reviewers, a future request-driven graphics stage, or other downstream technical collaborators. It is not inherited by modeling and cannot enter appendix outputs.
 
@@ -267,20 +267,20 @@ Current effective state is:
 
 ```text
 base RESULT set
-+ completed Supplement Result entries applied in S1, S2, ... order
++ completed and accepted Supplement Result entries applied in S1, S2, ... order
 ```
 
 Each entry replaces only what it explicitly names; unmentioned base and earlier-Sx content remains effective. A removed or invalidated current-editable Result is not part of current formal state. Supplement-specific work stays in the existing QN `code/`, `data/derived/`, `outputs/`, and `notes/` directories. Only the latest unadopted Sx may overwrite/rebuild its own `sN_` artifacts; base, adopted, and earlier-Sx artifacts remain protected. Evidence scope remains unchanged, and Supplement Markdown contracts are not machine evidence.
 
-Dependency grammar remains exact base tokens such as `Q1` and `Q2_1`; no Sx or Supplement token is valid. For an upstream question with Supplement files, semantic review reads both complete files, validates order and correspondence, and applies completed entries affecting the exact token or shared interface. If an editable Result is removed or invalidated, downstream work cannot read its old interface; a completed downstream use, later Sy baseline, formal delivery, or explicit acceptance adopts Sx. Refreshing HANDOFF alone does not adopt it. An unmatched plan does not change current state but is a prominent pending risk when material. Ambiguous scope, gaps, result-without-plan, evidence conflict, or an indeterminate current interface stops execution for one highest-impact question. A material completed change triggers impact review of completed downstream questions; required downstream rework uses that downstream question's own next Supplement.
+Dependency grammar remains exact base tokens such as `Q1` and `Q2_1`; no Sx or Supplement token is valid. For an upstream question with Supplement files, semantic review reads both complete files, validates order and correspondence, and applies accepted entries affecting the exact token or shared interface. If an editable Result is removed or invalidated, downstream work cannot read its old interface; a completed downstream use, later Sy baseline, formal delivery, or explicit acceptance adopts Sx. Refreshing HANDOFF alone does not adopt it. An unmatched plan does not change current state but is a prominent pending risk when material. Ambiguous scope, gaps, result-without-plan, evidence conflict, or an indeterminate current interface stops execution for one highest-impact question. A material accepted change triggers impact review of completed downstream questions; required downstream rework uses that downstream question's own next Supplement.
 
-Refresh the one `HANDOFF_QN.md` after every new Supplement Result. Python adds no Supplement command or checker and does not enforce Sx continuity, plan-before-execution, replacement scope, mathematical validity, or HANDOFF currency. See `references/supplement_work.md`.
+Do not refresh the one `HANDOFF_QN.md` merely because a new Supplement Result exists. After writing and checking a Supplement Result, stop for explicit semantic acceptance; the existing HANDOFF remains the last accepted snapshot. Once the Result is accepted, a separate explicit HANDOFF task may refresh it. Python adds no Supplement command or checker and does not enforce Sx continuity, plan-before-execution, replacement scope, mathematical validity, RESULT acceptance, HANDOFF authorization, or HANDOFF currency. See `references/supplement_work.md`.
 
 ## Technical result handoff
 
-Each official question uses exactly one current problem-level `HANDOFF_QN.md` in both single and split modes. Single mode may create it after `RESULT_QN.md` passes `check-result` and relevant evidence is stable. Split mode may create it only when every contiguous START unit has a matching RESULT, every RESULT passes `check-result --subproblem K`, and all relevant evidence is stable. Partial split RESULT completion remains valid execution progress but cannot produce the current standard HANDOFF. PRE continues to use `HANDOFF_PRE.md`.
+Each official question uses exactly one current problem-level `HANDOFF_QN.md` in both single and split modes. Single mode may create or refresh it only in a new explicit HANDOFF task after `RESULT_QN.md` passes `check-result`, the user/ChatGPT explicitly accepts the RESULT after execution, and relevant evidence is stable. Split mode may create or refresh it only in a separate explicit task after every contiguous START unit has a matching RESULT, every RESULT passes `check-result --subproblem K`, and the complete RESULT set is explicitly accepted. Partial split RESULT completion remains valid execution progress but cannot produce the current standard HANDOFF. PRE continues to use `HANDOFF_PRE.md`.
 
-Never create a new suffixed `HANDOFF_QN_K.md`. Existing suffixed files remain ordinary legacy notes and are not deleted, renamed, merged, checked, or treated as the current HANDOFF. Adding a split unit or materially changing any RESULT or downstream-relevant evidence requires semantic review and refresh of `HANDOFF_QN.md`.
+Never create a new suffixed `HANDOFF_QN_K.md`. Existing suffixed files remain ordinary legacy notes and are not deleted, renamed, merged, checked, or treated as the current HANDOFF. Adding a split unit or materially changing any RESULT or downstream-relevant evidence requires semantic review; it does not authorize an automatic HANDOFF refresh. A new HANDOFF task must name the accepted Result snapshot it transfers.
 
 QN HANDOFF uses:
 
@@ -318,9 +318,9 @@ PRE HANDOFF uses:
 ## 8. 下游复核事项
 ```
 
-Each base RESULT remains the formal boundary for its exact unit; completed Supplement Result entries append or explicitly replace scope in order; machine evidence controls actual values and assets; HANDOFF is a derived problem-level explanation and indexing layer. In split mode it reads all completed unit pairs only after the complete RESULT set passes. When Supplement exists, it also reads the complete ordered Start/Result files and mapped evidence. It preserves base-unit and Sx identities and limits, distinguishes current effective from superseded history, discloses failures and repairs, and does not create an aggregate RESULT or new certified conclusion.
+Each base RESULT remains the formal boundary for its exact unit; completed and accepted Supplement Result entries append or explicitly replace scope in order; machine evidence controls actual values and assets; HANDOFF is a derived problem-level explanation and indexing layer. In split mode it reads all completed unit pairs only after the complete RESULT set passes and is accepted. When Supplement exists, it also reads the complete ordered accepted Start/Result files and mapped evidence. It preserves base-unit and Sx identities and limits, distinguishes current effective from superseded history, discloses failures and repairs, and does not create an aggregate RESULT or new certified conclusion.
 
-Under `正式上游`, list base RESULT files first and then `SUPPLEMENT_RESULT_QN.md` when it has recorded entries. Keep formal, auxiliary, and superseded material explicitly separated. Refresh HANDOFF after every new Supplement Result. Later dependencies still name exact base RESULT units and resolve applicable Supplement entries through semantic review; HANDOFF cannot become a modeling dependency or be copied to appendix outputs. See `references/technical_handoff.md`.
+Under `正式上游`, list base RESULT files first and then `SUPPLEMENT_RESULT_QN.md` when it has recorded accepted entries. Keep formal, auxiliary, and superseded material explicitly separated. The existing HANDOFF remains the last accepted snapshot while a new Result is pending; after acceptance, only a separate explicit HANDOFF task may refresh it. Later dependencies still name exact base RESULT units and resolve applicable Supplement entries through semantic review; HANDOFF cannot become a modeling dependency or be copied to appendix outputs. See `references/technical_handoff.md`.
 
 HANDOFF has no command, checker, state, approval, hash, report, JSON, or manifest. Identity, completeness, synchronization, and factual consistency require semantic review.
 
@@ -333,15 +333,15 @@ The exact eight public commands are `init`, `doctor`, `check-preprocess-start`, 
 
 ## Optional final figure workspace
 
-Final-figure work begins only after an explicit user request and after the latest HANDOFF, relevant base RESULT and Supplement Result entries, structured data, and machine evidence are stable. Use the external `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under workspace-level `figure/`. KyMCM Lite neither bundles nor imports that skill and remains independently runnable without it.
+Final-figure work begins only after an explicit user request, accepted relevant RESULT/Supplement Result entries, any requested HANDOFF task, structured data, and machine evidence are stable. Use the external `nature-figure` skill and keep figure-generation code, prepared plotting data, and generated assets under workspace-level `figure/`. KyMCM Lite neither bundles nor imports that skill and remains independently runnable without it.
 
 The root has no required internal structure, contract, checker, CLI, manifest, state, approval, hash ledger, or JSON. Figure work cannot become formal evidence, a modeling dependency, create a new Supplement conclusion, or change formal state. If required fields, granularity, scenarios, or intermediate results are absent, return to PRE/QN to produce evidence rather than silently retraining or resolving.
 
 ## Optional submission appendix organization
 
-After formal results, completed Supplement work, explicit submission requirements, and certification boundaries are stable, a user may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. Inputs come only from `problems/` and `input/`; `figure/` is not a source, and internal START, RESULT, SUPPLEMENT, and HANDOFF contracts are contextual references that cannot be copied.
+After formal results and Supplement work have been semantically accepted, any requested HANDOFF is current, and explicit submission requirements and certification boundaries are stable, a user may create `reports/appendix/APPENDIX_START.md`. It is the sole source-to-target whitelist. Inputs come only from `problems/` and `input/`; `figure/` is not a source, and internal START, RESULT, SUPPLEMENT, and HANDOFF contracts are contextual references that cannot be copied.
 
-Appendix planning reads base RESULT, completed Supplement Result, and the current HANDOFF as internal context. Current effective Supplement code, derived data, and result attachments may enter through the existing whitelist and mapping rules. Superseded implementations and results stay out unless the competition explicitly requires historical comparison. Root `code/` may select authentic representative code from the current effective Supplement implementation.
+Appendix planning reads base RESULT, accepted Supplement Result, and the current HANDOFF as internal context. Current effective Supplement code, derived data, and result attachments may enter through the existing whitelist and mapping rules. Superseded implementations and results stay out unless the competition explicitly requires historical comparison. Root `code/` may select authentic representative code from the current effective Supplement implementation.
 
 The two output surfaces are:
 
@@ -391,7 +391,7 @@ Whitelist grammar remains `A[0-9]{3,}` for appendix entries and `C[0-9]{3,}` for
 
 The Lite v3 marker, eight public commands, all START/RESULT/PRE/HANDOFF/APPENDIX headings, base START/RESULT single/split identities, partial split legality, dependency token grammar, evidence scope, figure workspace, and appendix whitelist grammar remain unchanged. Existing 0.8.1 workspaces need not create Supplement files. Supplement names do not participate in base discovery. Existing user-created same-name files receive no automatic migration. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes. Historical plotting code and legacy content are not moved.
 
-Lite 0.9.2 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts; infer final graphics; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, or PRE Supplement; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics.
+Lite 0.9.3 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, or HANDOFF semantics; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts; infer final graphics; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, or PRE Supplement; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 
 
@@ -402,7 +402,7 @@ Role: `machine-contract`
 Authority: runtime behavior
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/machine_contract.md -->
-# KyMCM Lite 0.9.2 machine-enforced contract
+# KyMCM Lite 0.9.3 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -420,10 +420,11 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.2` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.0 and
-0.9.1 workspaces need no migration because this release changes semantic
-Supplement guidance and documentation, not a workspace file or checker.
+Lite version `0.9.3` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.0, 0.9.1,
+and 0.9.2 workspaces need no migration because this release changes semantic
+RESULT-acceptance/HANDOFF guidance and documentation, not a workspace file or
+checker.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -501,7 +502,10 @@ symlinked `START_PRE`, `RESULT_PRE`, or `HANDOFF_PRE` contract-like entries are
 errors. `check-preprocess-start` requires the complete PRE layout and
 `START_PRE.md`; `check-preprocess-result` additionally requires
 `RESULT_PRE.md`. `HANDOFF_PRE.md` has no Python checker and is a derived,
-semantic-only technical transfer.
+semantic-only technical transfer. `check-preprocess-result` does not inspect
+human semantic acceptance of RESULT_PRE, cannot authorize or block HANDOFF_PRE,
+and Python does not prevent a user or agent from creating that unmanaged
+Markdown file early.
 
 The PRE START title is exactly `# START PRE` and its headings, in order, are:
 
@@ -579,7 +583,10 @@ unsuffixed RESULT in split mode is not.
 split mode they require `--subproblem K`, and K must be one of the active START
 units. Omission, an unavailable unit, or an invalid layout emits
 `LITE-CONTRACT-SELECT-001`. `check-result` checks the selected START first, so a
-base contract error remains visible even when the RESULT is present.
+base contract error remains visible even when the RESULT is present. A zero
+`check-result` exit only reports structural/evidence readiness; it does not
+inspect human semantic acceptance or authorize HANDOFF. The checker does not
+require, read, or block an early `HANDOFF_QN.md`.
 
 ## 7. QN START and RESULT structure
 
@@ -694,13 +701,15 @@ suffixed Supplement, Sx directory, `followups/`, PRE Supplement, Supplement
 checker, command, state, JSON, manifest, approval, hash ledger, or dependency
 token. S1/S2/... continuity, plan-before-execution, exact work type, impact
 scope, effective state, editable/adopted boundary, Start/Result invalidation,
-artifact overwrite permission, downstream impact, and HANDOFF currency are
-semantic review obligations, not Python-enforced facts. Only the latest
-unadopted Sx may be edited in place; an adopted Sx, a non-latest Sx, or an Sx
-with a later Sy is frozen. A material Start edit invalidates its old Result
-until the revised execution writes a replacement. HANDOFF refresh alone does
-not adopt an Sx; actual downstream use, formal delivery, later Sy baseline, or
-explicit acceptance can do so.
+artifact overwrite permission, downstream impact, Result acceptance, HANDOFF
+authorization/timing, and HANDOFF currency are semantic review obligations,
+not Python-enforced facts. Only the latest unadopted Sx may be edited in place;
+an adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen. A material
+Start edit invalidates its old Result until the revised execution writes a
+replacement. Passing `check-result`, tests, CI, a commit, or stable evidence
+does not constitute acceptance or authorize HANDOFF. Result acceptance adopts
+an Sx; HANDOFF refresh alone does not adopt an Sx. HANDOFF refresh is a
+separate explicit read-only task and is not an adoption trigger.
 Supplement Markdown is an internal appendix source and is rejected with
 `LITE-APPENDIX-SOURCE-PATH-001`; current effective code/data/output assets may
 use the existing appendix mappings.
@@ -708,9 +717,12 @@ use the existing appendix mappings.
 There is one neutral problem-level `HANDOFF_QN.md` per official question. The
 checker does not require it for `check-result`, does not validate it, and does
 not treat it as a dependency. Split mode waits for every contiguous checked
-RESULT before a semantic reviewer assembles it. Existing suffixed legacy
-handoffs are retained as ordinary notes. HANDOFF, like START/RESULT/SUPPLEMENT,
-is rejected as an appendix source.
+RESULT and explicit acceptance of the complete Result set before a separate
+read-only HANDOFF task assembles it. Existing suffixed legacy handoffs are
+retained as ordinary notes. HANDOFF, like START/RESULT/SUPPLEMENT, is rejected
+as an appendix source. The HANDOFF phase does not run new computation or
+modify code, data, START, RESULT, or Supplement contracts; conflicts return to
+Result/evidence audit.
 
 `figure/` remains optional and known only. It is created solely for an explicit
 final-figure request, is not read by any checker, is not formal evidence or an
@@ -856,7 +868,8 @@ unit, sample, transform, limitation, or certification claim is contradictory.
 They do not enforce Supplement numbering/timing/impact/effective-state
 semantics, whether an Sx is editable or adopted, adoption triggers,
 Start/Result invalidation, artifact overwrite permission, completed-entry
-immutability, downstream impact, HANDOFF identity or currency, final-figure selection, plotting responsibility, code originality,
+immutability, downstream impact, Result acceptance, HANDOFF authorization,
+HANDOFF timing/identity/currency, final-figure selection, plotting responsibility, code originality,
 semantic CURATE equivalence, complete formal-source coverage, or external
 similarity. They do not validate every dynamic import, CMake interpretation,
 Excel formula/cache/format/numerical agreement, solver behavior, or submitted
@@ -1782,7 +1795,8 @@ PRE 不选择或认证最终模型，不执行正式优化/预测/评价/机理�
 7. 只做服务问题理解的聚焦 EDA。
 8. 仅在已触发的数据风险上运行 L1；仅在有用且可承受时运行 L2。
 9. 写 RESULT_PRE，运行 `check-preprocess-result`。
-10. RESULT_PRE 与机器证据稳定且需要完整下游技术交接时创建或更新 HANDOFF_PRE。
+10. 机器检查通过后立即停止，报告 RESULT_PRE 等待用户/ChatGPT 的独立语义验收；不要创建或更新 HANDOFF_PRE。
+11. 只有在 RESULT_PRE 明确验收通过、且收到新的独立 HANDOFF_PRE 任务后，才以只读方式创建或刷新 HANDOFF_PRE；该阶段不得重新清洗、计算、修改代码/数据或改写 RESULT_PRE。
 
 复用 `modeling_plan_design.md` 的 execution-first、阶段持久化、cache/resume、预算和失败隔离原则，但不要把模型可识别性等术语机械强加给简单清洗。
 
@@ -1809,11 +1823,11 @@ EDA 默认不绘图，优先输出结构化描述统计、质量表和可追溯�
 
 声明 PRE 的 QN 必须完整读取 START_PRE 和 RESULT_PRE，核对字段、单位、时间/时区、粒度、样本、筛选/关联、缺失/异常/插补、数据路径/schema、泄漏和外推边界。冲突时列出精确位置与影响并停止询问；不得在 QN 内私自覆盖公共数据错误。
 
-RESULT_PRE 或关键数据产品实质变化后，复核所有声明 PRE 的已完成 QN，判断是否需要重跑并更新 HANDOFF。mtime 提示仅是陈旧启发式，不是版本认证、依赖图或自动重跑。
+RESULT_PRE 或关键数据产品实质变化后，复核所有声明 PRE 的已完成 QN，判断是否需要重跑。新的 RESULT_PRE 在验收前不得写入 HANDOFF；验收通过后仍需新的独立 HANDOFF_PRE 任务才可更新，既有 HANDOFF_PRE 在此之前保持上一个已验收快照。mtime 提示仅是陈旧启发式，不是版本认证、依赖图或自动重跑。
 
 ## Checker 与人工边界
 
-checker 只读检查目录、合同结构、声明语法、证据路径/存在性、安全性、Git advisory 和 mtime advisory。它不执行清洗或 EDA，不判断规则合理性、统计/因果正确性、EDA 完整性、数据泄漏是否已彻底排除，也不决定下游重跑范围。成功检查不创建状态、审批、hash、manifest、内容 JSON 或报告。
+checker 只读检查目录、合同结构、声明语法、证据路径/存在性、安全性、Git advisory 和 mtime advisory。它不执行清洗或 EDA，不判断规则合理性、统计/因果正确性、EDA 完整性、数据泄漏是否已彻底排除，也不决定下游重跑范围，更不判断 RESULT_PRE 是否被人工验收或授权 HANDOFF_PRE。成功检查不创建状态、审批、hash、manifest、内容 JSON 或报告。
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/preprocess_stage.md -->
 
 
@@ -1828,7 +1842,7 @@ Authority: specialized reference
 
 Use Supplement only after an official question's base contracts are complete and checked. It records post-result validation, a model/data/certification revision, or an implementation repair without overwriting the visible identity of the base START/RESULT. It is an optional question-level extension, not a second workflow or a Git replacement.
 
-The current effective technical state is the base RESULT set plus completed, currently valid Supplement Result entries applied in S1, S2, ... order. A completed entry adds evidence or replaces only the content it explicitly names. Unmentioned base and earlier-Sx conclusions remain effective. Machine evidence controls actual values, files, and diagnostics; HANDOFF summarizes but is never a fact source or modeling dependency.
+The current effective technical state is the base RESULT set plus completed, currently valid and explicitly accepted Supplement Result entries applied in S1, S2, ... order. A completed entry adds evidence or replaces only the content it explicitly names. Until the user/ChatGPT accepts an Sx Result, the entry remains pending and does not change the adopted effective state. Unmentioned base and earlier-Sx conclusions remain effective. Machine evidence controls actual values, files, and diagnostics; HANDOFF summarizes but is never a fact source or modeling dependency.
 
 Do not use Supplement while base work is incomplete. In single mode, require `RESULT_QN.md` to exist and pass `check-result --problem N`. In split mode, require every contiguous START unit to have a matching RESULT and every `check-result --problem N --subproblem K` to pass. Until then, revise the active base START, code, and execution plan.
 
@@ -1851,13 +1865,13 @@ For every Sx:
 2. Append and semantically review the complete Sx plan before running any Sx-specific code.
 3. Execute the work without rewriting the plan from hindsight.
 4. Append the matching Sx result, including deviations, failure, fallback, omitted work, evidence, impact, and downstream consequences.
-5. Refresh the one question-level HANDOFF from the new current effective state.
+5. Run the applicable machine check, self-review the Result, and stop for explicit user/ChatGPT semantic acceptance. Do not create or refresh HANDOFF in this execution phase.
 
 ## Editable and adopted entries
 
 The latest numbered Sx is the **current editable Sx** only when all of the following remain true: it has no later Sy Start or Result; no completed downstream question has used its current interface or conclusion; no later Supplement names it as an inheritance baseline; its code, data, or results have not entered an appendix, formal submission package, or other confirmed delivery; the user has not confirmed it as frozen; and an edit will not silently invalidate an externally used value, interface, or certification boundary.
 
-An Sx is **adopted** and frozen when any of the following occurs: the user accepts or freezes its formal result; a later question completes work based on its current interface; a later Sy names it as an inheritance baseline; its artifacts enter an appendix, formal submission package, or external delivery; or changing it would invalidate completed downstream work, formal delivery, or a certification statement. Merely committing, running locally, refreshing HANDOFF, or creating the entry does not adopt it. HANDOFF use by a downstream question does adopt it under the downstream-use rule.
+An Sx is **adopted** and frozen when any of the following occurs: the user/ChatGPT explicitly accepts or freezes its formal Result; a later question completes work based on its current interface; a later Sy names it as an inheritance baseline; its artifacts enter an appendix, formal submission package, or external delivery; or changing it would invalidate completed downstream work, formal delivery, or a certification statement. Merely committing, running locally, passing a checker, refreshing HANDOFF, or creating the entry does not adopt it. HANDOFF use by a downstream question does adopt it under the downstream-use rule.
 
 When adoption cannot be established, treat Sx as frozen and create the next Sy. An adopted Sx may never be rewritten; a change uses the next number and undergoes the ordinary downstream impact review.
 
@@ -1865,11 +1879,11 @@ The current editable Sx may be edited and rerun in place: revise its target, par
 
 ## Start/Result validity and failures
 
-The plan-before-execution rule remains strict. If a current editable Sx already has a Result and its Start receives a material change affecting execution or conclusions, that old Result immediately becomes invalid. Before rerunning, remove the same-number Result entry or replace it with an explicit non-formal incomplete placeholder; prefer removing it so the Result file returns to the previous continuous completed prefix. Only after the revised plan is executed may the same-number Result be written again. Refresh HANDOFF after the new Result. Never leave a material “new Start + old Result” pair as a valid state.
+The plan-before-execution rule remains strict. If a current editable Sx already has a Result and its Start receives a material change affecting execution or conclusions, that old Result immediately becomes invalid. Before rerunning, remove the same-number Result entry or replace it with an explicit non-formal incomplete placeholder; prefer removing it so the Result file returns to the previous continuous completed prefix. Only after the revised plan is executed may the same-number Result be written again. After the new Result is checked, stop for acceptance; the existing HANDOFF stays unchanged until the new Result is accepted and a separate HANDOFF task is requested. Never leave a material “new Start + old Result” pair as a valid state.
 
 Meaning-neutral spelling, formatting, or dead-link repairs need not rerun, but the reviewer must confirm that mathematics, data, paths, execution, and conclusions are unchanged.
 
-Ordinary engineering failures in a current editable Sx may be fixed and rerun without a new number: path, syntax, index, configuration, small parameter-selection, or temporary runtime errors that do not affect model meaning or the certified interface. Material failures affecting mathematics, feasibility, model choice, conclusion boundaries, or downstream interfaces must be disclosed in the final Sx Result and HANDOFF. A failed or aborted entry does not create a new formal numeric conclusion.
+Ordinary engineering failures in a current editable Sx may be fixed and rerun without a new number: path, syntax, index, configuration, small parameter-selection, or temporary runtime errors that do not affect model meaning or the certified interface. Material failures affecting mathematics, feasibility, model choice, conclusion boundaries, or downstream interfaces must be disclosed in the final Sx Result; they must not be written into HANDOFF before acceptance. A failed or aborted entry does not create a new formal numeric conclusion.
 
 ## Types and impact modes
 
@@ -1895,13 +1909,13 @@ Formal Supplement work remains non-visual by default. Use structured evidence an
 
 Dependency grammar does not change. A later START still names only exact base RESULT tokens such as `Q1` or `Q2_1`; `S1`, `Q1@S1`, and `SUPPLEMENT_Q1` are invalid dependency identities. When a dependency question has Supplement files, read its complete base pair, complete Supplement Start/Result files, all completed entries targeting that token, and cross-unit entries affecting shared data, interfaces, or limitations.
 
-If an editable Sx Result is removed or invalidated, downstream work must not read its old interface. If downstream work has already completed, assume that Sx was adopted and refuse an in-place edit. If downstream work has not started, it may read a newly completed same-number Result after semantic review. A material completed Result triggers impact review of completed downstream questions; if their work must change, create that downstream question's own next Supplement rather than overwriting its base RESULT.
+If an editable Sx Result is removed or invalidated, downstream work must not read its old interface. If downstream work has already completed, assume that Sx was adopted and refuse an in-place edit. If downstream work has not started, it may read a newly completed same-number Result only after semantic acceptance. A material accepted Result triggers impact review of completed downstream questions; if their work must change, create that downstream question's own next Supplement rather than overwriting its base RESULT.
 
 An unmatched pending Start does not change formal state, but treat a material planned upstream change as a prominent pending risk. Stop and ask one highest-impact question when numbering has a gap, a Result lacks a plan, replacement scope is ambiguous, evidence conflicts, or the current interface cannot be determined.
 
-Refresh `problems/qN/notes/HANDOFF_QN.md` after every new Supplement Result. List base RESULT files first under `正式上游`, then `SUPPLEMENT_RESULT_QN.md`. Preserve base-unit and Sx provenance, distinguish effective from superseded history, omit ordinary debug values discarded by an editable redo, disclose material failures and repairs, map Supplement evidence, and state the final current interface. HANDOFF remains derived, non-formal, unchecked by Python, and excluded from appendix. Refreshing HANDOFF alone does not freeze an Sx; actual downstream use does.
+After writing a new Supplement Result, keep `problems/qN/notes/HANDOFF_QN.md` unchanged while the Result is pending acceptance. Once the user/ChatGPT accepts the Result, only a separate explicit HANDOFF task may refresh it. List base RESULT files first under `正式上游`, then `SUPPLEMENT_RESULT_QN.md`. Preserve base-unit and Sx provenance, distinguish effective from superseded history, omit ordinary debug values discarded by an editable redo, disclose material failures and repairs, map Supplement evidence, and state the final current interface. HANDOFF remains derived, non-formal, unchecked by Python, and excluded from appendix. RESULT acceptance adopts/freezes an Sx; HANDOFF refresh alone does not freeze an Sx or authorize the transfer.
 
-Python does not enforce whether Sx is editable or adopted, adoption triggers, Start/Result invalidation, overwrite permission, downstream impact, Sx continuity, plan-before-execution, replacement scope, mathematical correctness, or HANDOFF currency. Agent semantic review and final human review remain mandatory.
+Python does not enforce whether Sx is editable or adopted, adoption triggers, Start/Result invalidation, overwrite permission, downstream impact, Sx continuity, plan-before-execution, replacement scope, mathematical correctness, Result acceptance, HANDOFF authorization/timing, or HANDOFF currency. Agent semantic review and final human review remain mandatory.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/supplement_work.md -->
 
 
@@ -1912,7 +1926,7 @@ Authority: specialized reference
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/technical_handoff.md -->
 # KyMCM Lite technical HANDOFF
 
-HANDOFF is a neutral technical transfer derived from a checked RESULT and real machine evidence. It gives modelers, reviewers, diagnostic-visualization executors, and other downstream technical collaborators a complete, traceable account of what was executed and what may safely be reused. It is not a formal fact source, a second RESULT, or a writing artifact.
+HANDOFF is a neutral technical transfer derived from an explicitly accepted RESULT and real machine evidence. It gives modelers, reviewers, diagnostic-visualization executors, and other downstream technical collaborators a complete, traceable account of what was executed and what may safely be reused. It is not a formal fact source, a second RESULT, or a writing artifact. A successful machine check is only structural/evidence readiness; it is not acceptance.
 
 ## Authority
 
@@ -1922,19 +1936,19 @@ HANDOFF is a neutral technical transfer derived from a checked RESULT and real m
 4. HANDOFF explains and organizes the current effective state without expanding certification.
 5. Later modeling keeps exact base RESULT dependency tokens and reads applicable Supplement entries during semantic review; it never inherits HANDOFF.
 
-If HANDOFF conflicts with a base RESULT or completed Supplement Result, repair HANDOFF. If a HANDOFF value conflicts with machine evidence, repair it from the evidence. If a formal contract conflicts with evidence, return to contract/evidence audit. Never choose a convenient value silently.
+If HANDOFF conflicts with a base RESULT or accepted Supplement Result, repair HANDOFF. If a HANDOFF value conflicts with machine evidence, repair it from the evidence. If a formal contract conflicts with evidence, return to contract/evidence audit. Never choose a convenient value silently.
 
 ## Identity and timing
 
-Use one fixed problem-level `HANDOFF_QN.md` for every official question, in both single and split modes. For a single question, create it only after `RESULT_QN.md` passes `check-result` and formal plus selected auxiliary evidence is stable. For a split question, wait until every contiguous `START_QN_K.md` has a matching `RESULT_QN_K.md`, every RESULT passes `check-result --subproblem K`, and all formal plus selected auxiliary evidence is stable. Partial split completion remains valid modeling progress but cannot produce the current standard HANDOFF.
+Use one fixed problem-level `HANDOFF_QN.md` for every official question, in both single and split modes. For a single question, create or refresh it only in a new independent HANDOFF task after `RESULT_QN.md` passes `check-result`, the user/ChatGPT has explicitly accepted the RESULT after execution, and formal plus selected auxiliary evidence is stable. For a split question, wait until every contiguous `START_QN_K.md` has a matching `RESULT_QN_K.md`, every RESULT passes `check-result --subproblem K`, and the complete RESULT set has been explicitly accepted; then use a separate HANDOFF task. Partial split completion remains valid modeling progress but cannot produce the current standard HANDOFF. Acceptance cannot be inferred from tests, CI, commits, clean evidence, or a zero checker exit code.
 
 Never create a new `HANDOFF_QN_K.md`. Existing suffixed files are retained as ordinary legacy notes without deletion, renaming, merging, or checker impact. PRE continues to use fixed `HANDOFF_PRE.md`.
 
-After base completion, refresh the problem-level HANDOFF after every new `SUPPLEMENT_RESULT_QN.md` entry, any other material RESULT or downstream-relevant evidence change, or after adding a split unit. List the base RESULT path(s) first under `正式上游`, then the one Supplement Result path when it contains recorded entries. Do not create an aggregate RESULT, index, manifest, or state object.
+After base completion, keep the existing HANDOFF as the last accepted snapshot while a new base or Supplement Result is pending acceptance. A newly accepted Result still does not refresh it automatically: only a separate explicit HANDOFF task may refresh the problem-level HANDOFF after the accepted Result and evidence are available. List the base RESULT path(s) first under `正式上游`, then the one Supplement Result path when it contains recorded entries. Do not create an aggregate RESULT, index, manifest, or state object.
 
 ## Required technical content
 
-For single mode, read the complete START_QN, RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. If Supplement files exist, read their complete ordered Start/Result entries and all mapped evidence. Preserve each base unit and Sx identity, status, impact mode, and certification boundary; do not merge them into a newly certified claim. Record:
+For single mode, read the complete START_QN, accepted RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching accepted RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. If Supplement files exist, read their complete ordered accepted Start/Result entries and all mapped evidence. Preserve each base unit and Sx identity, status, impact mode, and certification boundary; do not merge them into a newly certified claim. Record:
 
 - task or data-stage identity and certified conclusions;
 - actual inputs, data scope, transforms, model, parameters, solver settings, and authorized deviations;
@@ -1959,10 +1973,10 @@ HANDOFF may list existing diagnostic assets, identify them as internal diagnosti
 - No prose drafting, document structure, placement advice, recommended wording, or final visual selection.
 - No new computation merely to improve presentation; execute more work only for formal success criteria, a named unresolved risk, user direction, or result certification.
 - HANDOFF is never a later modeling dependency and is never copied into appendix outputs.
-- Appendix organization may read base RESULT, completed Supplement Result, and HANDOFF as internal technical context only.
+- Appendix organization may read base RESULT, accepted Supplement Result, and HANDOFF as internal technical context only.
 - No HANDOFF checker, state, approval, hash, JSON, manifest, aggregate RESULT, or success report is introduced.
 
-Python validates neither HANDOFF identity nor completeness. The executor performs semantic review against the base RESULT set, complete Supplement files, and machine evidence, and downstream consumers recheck critical values and interfaces before use.
+HANDOFF is a read-only phase: do not run new model computation, change code/data, or modify START/RESULT/Supplement contracts while writing it. If the accepted Result and evidence conflict, stop and return to Result/evidence audit instead of repairing formal facts inside HANDOFF. Python validates neither HANDOFF identity, completeness, acceptance, nor timing. The executor performs semantic review against the accepted RESULT set, complete accepted Supplement files, and machine evidence, and downstream consumers recheck critical values and interfaces before use.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/technical_handoff.md -->
 
 
@@ -2083,7 +2097,7 @@ Authority: contract template
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/templates/HANDOFF_PRE.template.md -->
 # HANDOFF PRE
 
-> 删除所有提示。本文是公共数据阶段的中立技术交接；正式数据范围以 RESULT_PRE 为准，具体数值和诊断资产以真实机器证据为准。
+> 删除所有提示。仅在 RESULT_PRE 已由用户或负责验收的 ChatGPT 明确验收通过、且收到新的独立 HANDOFF_PRE 任务后使用本模板；`check-preprocess-result`、测试或证据稳定本身不构成授权。HANDOFF_PRE 阶段只读，不重新清洗/计算、不修改代码/数据/START_PRE/RESULT_PRE。本文是公共数据阶段的中立技术交接；正式数据范围以已验收 RESULT_PRE 为准，具体数值和诊断资产以真实机器证据为准。
 
 **正式上游：** `problems/preprocess/result/RESULT_PRE.md`
 
@@ -2128,7 +2142,7 @@ Authority: contract template
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/templates/HANDOFF_QN.template.md -->
 # HANDOFF QN
 
-> 将 `N` 替换为官方问题编号；无论单一或拆分模式，每题只创建这一份问题级 HANDOFF，不附加子单元后缀。删除所有提示。本文是中立技术交接，正式范围以基础 RESULT 与已完成 Supplement Result 的当前有效状态为准，具体数值以真实机器证据为准。
+> 将 `N` 替换为官方问题编号；无论单一或拆分模式，每题只创建这一份问题级 HANDOFF，不附加子单元后缀。删除所有提示。仅在对应 RESULT/已完成 Supplement Result 已由用户或负责验收的 ChatGPT 明确验收通过、且收到新的独立 HANDOFF 任务后使用本模板；`check-result`、测试或证据稳定本身不构成授权。HANDOFF 阶段只读，不重新计算、不修改代码/数据/START/RESULT/Supplement。本文是中立技术交接，正式范围以已验收基础 RESULT 与已验收 Supplement Result 的当前有效状态为准，具体数值以真实机器证据为准。
 
 **正式上游：**
 
@@ -2447,7 +2461,7 @@ Authority: agent metadata
 interface:
   display_name: "KyMCM Lite"
   short_description: "Non-visual modeling with incremental supplements"
-  default_prompt: "Use $kymcm-lite for non-visual modeling; after checked base results, use optional question-level Supplement Start/Result entries for additional validation or revision, refresh the one question-level HANDOFF, and use nature-figure only for explicitly requested final figures."
+  default_prompt: "Use $kymcm-lite for non-visual modeling; execute each base or Supplement unit through RESULT plus its machine check, stop and wait for explicit user/ChatGPT semantic acceptance, and create or refresh the one question-level HANDOFF only in a new independent read-only HANDOFF task after acceptance. Apply the same gate to PRE/RESULT_PRE and use nature-figure only for explicitly requested final figures."
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/agents/openai.yaml -->
 
 
@@ -2460,7 +2474,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/README.md -->
 # KyMCM Lite
 
-KyMCM Lite 0.9.2 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.9.3 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -2502,13 +2516,13 @@ Before authoring, revising, reviewing, or executing START, use `references/model
 
 When the user explicitly requests final figures after results and data stabilize, use the `nature-figure` skill and keep all figure-generation work under workspace-level `figure/`. The root is optional, not created by init, unconstrained internally, and excluded from formal evidence, modeling dependencies, and appendix sources.
 
-When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, and prepare HANDOFF_PRE only when a complete downstream technical transfer is useful. RESULT_PRE remains the downstream data authority.
+When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, stop for explicit user/ChatGPT acceptance, and prepare HANDOFF_PRE only in a new independent read-only HANDOFF_PRE task after acceptance. RESULT_PRE remains the downstream data authority; `check-preprocess-result` alone is not acceptance.
 
-After the complete base RESULT set passes, optional post-result validation, revision, or implementation repair uses the one problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair. Record S1, S2, ... plans before execution and matching results afterward. The latest unadopted Sx may be edited, have its old Result removed/invalidated, and be rerun in place; an adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen. Only that latest Sx may rebuild its own `sN_` artifacts; base and adopted history remains protected. Current state is base RESULT plus completed, currently valid Supplement Result entries. See `references/supplement_work.md`; no Supplement checker or command is added.
+After the complete base RESULT set passes, optional post-result validation, revision, or implementation repair uses the one problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair. Record S1, S2, ... plans before execution and matching results afterward; run the machine check and stop for explicit user/ChatGPT acceptance. The latest unadopted Sx may be edited, have its old Result removed/invalidated, and be rerun in place; an adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen. Only that latest Sx may rebuild its own `sN_` artifacts; base and adopted history remains protected. Current adopted state is base RESULT plus accepted, currently valid Supplement Result entries; a pending Result does not change the last accepted HANDOFF snapshot. See `references/supplement_work.md`; no Supplement checker or command is added.
 
-After RESULT and evidence stabilize, create one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass before assembling the problem-level transfer. Refresh it after every Supplement Result, preserving base-unit and Sx provenance. Exact base RESULT tokens remain modeling dependencies; HANDOFF has no checker or state and cannot enter appendix outputs.
+After RESULT and evidence stabilize, the user/ChatGPT must explicitly accept the RESULT; only a new independent, read-only HANDOFF task may then create or refresh one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass and the complete Result set to be accepted. A new Supplement Result never refreshes HANDOFF automatically. Exact base RESULT tokens remain modeling dependencies; HANDOFF has no checker or state and cannot enter appendix outputs.
 
-The optional appendix stage starts only after formal results, completed Supplement work, explicit submission requirements, and certification boundaries are stable. Supplement Markdown contracts are internal context and cannot be copied, while current effective Supplement code and result assets remain eligible under existing mappings. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` the execution report.
+The optional appendix stage starts only after formal results and completed Supplement work are accepted, any requested HANDOFF is current, and explicit submission requirements and certification boundaries are stable. Supplement Markdown contracts are internal context and cannot be copied, while current effective Supplement code and result assets remain eligible under existing mappings. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` the execution report.
 
 KyMCM Full is the separate review-gated end-to-end workflow. Users choose one Skill explicitly; neither guesses or converts the other workspace mode.
 
@@ -2532,15 +2546,15 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.9.2 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure behavior, and eight public commands. Existing 0.8.1, 0.9.0, and 0.9.1 workspaces remain valid and need no migration or Supplement files.
+KyMCM Lite 0.9.3 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure behavior, and eight public commands. Existing 0.8.1, 0.9.0, 0.9.1, and 0.9.2 workspaces remain valid and need no migration or Supplement files.
 
-After a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
+Historical 0.9.2 Supplement compatibility: after a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
 
-The 0.9.2 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or runtime compatibility. Python does not decide adoption, Result invalidation, or artifact overwrite permission; those remain semantic review responsibilities.
+The 0.9.3 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, or artifact overwrite permission; those remain semantic review responsibilities.
 
 `figure/` is an optional known root for explicitly requested final-figure work. Existing workspaces need not create it; init does not create it; an existing user-created root no longer appears as unknown. Lite does not inspect its contents, and it remains outside formal evidence and appendix source scope. Historical plotting code is not moved automatically.
 
-Base RESULT remains the exact dependency-token entry. Current effective state is base RESULT plus completed Supplement Result entries applied in order and explicit scope. HANDOFF is a derived neutral technical-transfer document under `problems/qN/notes/`, never a formal fact source or modeling dependency. Refresh it after each Supplement Result. Appendix may read base RESULT, Supplement Result, and HANDOFF as context but cannot copy those Markdown contracts; current effective Supplement code and result assets remain eligible under existing mappings.
+Base RESULT remains the exact dependency-token entry. Current adopted state is base RESULT plus accepted Supplement Result entries applied in order and explicit scope. HANDOFF is a derived neutral technical-transfer document under `problems/qN/notes/`, never a formal fact source or modeling dependency. After each checked Result, stop for explicit user/ChatGPT acceptance; the existing HANDOFF remains the last accepted snapshot until a separate explicit HANDOFF task refreshes it. Appendix may read base RESULT, Supplement Result, and HANDOFF as context but cannot copy those Markdown contracts; current effective Supplement code and result assets remain eligible under existing mappings.
 
 `paper/` is no longer a managed root or appendix source. A legacy directory remains on disk and is completely ignored, even if its contents are malformed, invalid UTF-8, or symlinked. Existing APPENDIX contracts must replace `论文引用、正式结果与认证边界` with `正式结果与认证边界`, replace `正式结果与论文一致性` with `正式结果一致性`, and remove or replace any `paper/...` source. Existing suffixed `HANDOFF_QN_K.md` files are not deleted, renamed, or merged; they remain ordinary notes until the next needed transfer creates the one current `HANDOFF_QN.md`.
 
@@ -2561,7 +2575,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/installation.md -->
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.2 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.3 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -2571,7 +2585,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.2 so its references, templates, semantic Supplement rules, runtime contract, and release metadata stay synchronized. Existing 0.8.1, 0.9.0, and 0.9.1 contest workspaces require no migration and need not create Supplement files. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.3 so its references, templates, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.8.1, 0.9.0, 0.9.1, and 0.9.2 contest workspaces require no migration and need not create Supplement files. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -2610,7 +2624,7 @@ Authority: product documentation
 - Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred but never bundled.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.2 limitations:
+KyMCM Lite 0.9.3 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -2624,9 +2638,10 @@ KyMCM Lite 0.9.2 limitations:
 - Direct-dependency completeness and contradiction decisions remain Codex/human responsibilities; successful reviews create no consistency report.
 - L0/L1/L2 classification, smoke-test adequacy, cache/recovery design, nested-cost realism, and modeling-plan quality remain Codex/human responsibilities. The Python checker does not parse or enforce them.
 - Python tools do not validate HANDOFF identity, completeness, synchronization, formal/auxiliary classification, or evidence fidelity. Semantic reviewers remain responsible.
+- Python cannot enforce the human RESULT acceptance gate, distinguish an independent HANDOFF task, or prevent an agent from violating the timing boundary; a zero `check-result`/`check-preprocess-result`, green tests/CI, commit, or stable evidence is not semantic acceptance.
 - Python tools do not validate Supplement Sx continuity, plan-before-execution, Start/Result correspondence, whether the latest Sx is editable or adopted, adoption triggers, Start/Result invalidation, Sx artifact overwrite permission, replacement scope, mathematical correctness, completed-entry immutability, downstream impact, or HANDOFF currency. Agent semantic review and final human review remain responsible.
 - HANDOFF cannot be used as a downstream modeling dependency or formal certification source.
-- Lite does not automatically merge or migrate legacy suffixed QN HANDOFF notes; a semantic reviewer must build the current problem-level HANDOFF after all split RESULT units pass.
+- Lite does not automatically merge or migrate legacy suffixed QN HANDOFF notes; a semantic reviewer must build the current problem-level HANDOFF after all split RESULT units pass and the complete Result set is accepted.
 - Appendix checks do not prove semantic equivalence of results, resolve every dynamic import, interpret all CMake, or verify Excel formulas, cached values, merged cells, formatting, or numerical agreement.
 - Appendix checks do not determine whether every formal solve source was included, reliably identify plotting responsibilities, verify code originality, query external similarity databases, or certify that CURATE preserved behavior. These require execution evidence and human review.
 - Appendix work does not migrate Full or Lite v2 workspaces. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy base START/RESULT, Supplement, or matching HANDOFF internal documents.
@@ -2641,7 +2656,9 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-rfc.md -->
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.1 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.3 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+
+Current 0.9.3 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. The historical design below is not retroactively rewritten.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
@@ -2996,7 +3013,15 @@ Role: `product-documentation`
 Authority: product documentation
 
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-release-notes.md -->
-# KyMCM Lite 0.9.2
+# KyMCM Lite 0.9.3
+
+KyMCM Lite 0.9.3 gates every technical HANDOFF on explicit post-execution acceptance of the corresponding RESULT by the user or responsible ChatGPT. Codex executes through RESULT/RESULT_PRE plus the applicable machine check, then stops and reports that semantic acceptance is pending; `check-result`, tests, CI, commits, or stable evidence do not authorize HANDOFF.
+
+Only a new independent HANDOFF task after acceptance may create or refresh `HANDOFF_QN.md` or `HANDOFF_PRE.md`, and that task is read-only: it does not run new computation or modify code, data, START, RESULT, or Supplement contracts. A pending Supplement Result or RESULT_PRE leaves the existing HANDOFF snapshot unchanged; acceptance adopts the Result, while HANDOFF refresh is no longer the adoption trigger. The marker, eight commands, frozen contract headings, stateless runtime, Full, and 0.9.2 workspace compatibility remain unchanged.
+
+This is a documentation and semantic-review release. It adds no approval file, state machine, JSON, manifest, checker, command, or runtime acceptance state. Python cannot enforce the human gate; the complete Project Source export is regenerated and checked.
+
+## KyMCM Lite 0.9.2
 
 KyMCM Lite 0.9.2 changes the semantic lifecycle of the optional question-level Supplement pair while keeping the Lite v3 runtime surface unchanged. The latest numbered Sx is editable and rerunnable in place only while it has not been adopted, has no later Sy, and has no downstream or formal-delivery use. A material Start change first removes or invalidates its same-number Result; the revised execution then writes a replacement Result and refreshes HANDOFF.
 
@@ -3082,16 +3107,17 @@ Authority: repository maintenance
 
 ## KyMCM Lite checks
 
-- Lite 0.9.2 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.9.3 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - The complete ChatGPT Project Source is generated by `scripts/export_kymcm_lite_full_spec.py`; normal generation followed by `--check` passes, and the generated artifact is not initialized into a workspace or appendix.
 - Export manifest bytes/SHA-256 values, reference/template coverage, mirror parity, and `docs/lite-v3/*.md` included/excluded classification pass without timestamps, absolute paths, host data, or recursive self-inclusion.
 - Supplement Start/Result templates and `supplement_work.md` have byte-identical mirrors; every official question uses at most one pair in single and split modes after complete checked base results.
 - S1/S2/... plans precede execution, matching results follow, the latest unadopted Sx may be edited/re-run after invalidating its old Result, adopted history is append-only, and the exact types and impact modes are documented without adding a checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement.
-- Current effective state is base RESULT plus completed Supplement Result entries applied in order and explicit scope; exact base RESULT dependency tokens remain unchanged and dependency review reads applicable Supplement entries.
+- Current adopted effective state is base RESULT plus accepted Supplement Result entries applied in order and explicit scope; exact base RESULT dependency tokens remain unchanged and dependency review reads applicable accepted entries.
+- Every execution stops at RESULT/RESULT_PRE plus its machine check and waits for explicit user/ChatGPT semantic acceptance; a checker success, tests, CI, commit, or stable evidence is not acceptance or HANDOFF authorization. A separate explicit HANDOFF task is required afterward.
 - Both `modeling_plan_design.md` references have byte parity, and SKILL requires reading the standalone reference.
 - Modeling-plan review covers minimum deliverable, preflight, smoke test, staged artifacts/recovery, explicit nested cost, and L0/L1/L2 without adding state, commands, diagnostics, or success artifacts.
 - `technical_handoff.md` and HANDOFF template mirrors have byte parity; QN uses one problem-level identity and an ordered formal-upstream list while preserving all eight frozen headings.
-- Base RESULT remains the exact dependency-token entry; completed Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries.
+- Base RESULT remains the exact dependency-token entry; accepted Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries; the old HANDOFF remains the last accepted snapshot while a new Result is pending.
 - `check-result` remains independent of HANDOFF; single and split modes use one `HANDOFF_QN.md`, split requires complete checked RESULT coverage, and no HANDOFF command/state/checker exists.
 - Supplement Start/Result, current `HANDOFF_QN.md`, legacy `HANDOFF_QN_K.md`, and HANDOFF_PRE are all rejected as appendix sources; current effective Supplement code/data/output assets remain eligible through unchanged mappings.
 - Appendix code covers the complete formal solve pipeline with plotting excluded; root `code/` selects authentic representative core/non-core implementation, including applicable scheduling, recovery, and audit.
@@ -3099,7 +3125,7 @@ Authority: repository maintenance
 - Init and doctor do not require `paper/`; legacy directories are ignored without reads or deletion, and appendix sources are limited to `problems/` and `input/`.
 - Formal PRE/QN work is non-visual by default, structured evidence is preferred, and any diagnostic is the smallest one needed for a named risk that non-visual evidence cannot resolve; final figures never count as L0/L1/L2 or formal validation budget.
 - `figure/` is exactly one optional known root: init does not create it, doctor ignores arbitrary contents without status or unknown-root output, and it is absent from managed roots, evidence scope, dependencies, contracts, appendix sources, and every checker.
-- Explicitly requested final figures use the separate `nature-figure` skill only after RESULT/HANDOFF/data/evidence stabilize; Lite neither bundles/imports it nor adds figure structure, state, JSON, manifests, commands, or silent model reruns.
+- Explicitly requested final figures use the separate `nature-figure` skill only after accepted RESULT/Supplement work and any requested HANDOFF task complete; Lite neither bundles/imports it nor adds figure structure, state, JSON, manifests, commands, or silent model reruns.
 - Copying, obfuscation, junk/dead code, and similarity-driven rewrites are explicitly forbidden; no external similarity service or automatic originality/plotting checker is added.
 - Lite runtime uses only the standard library and remains independent of Full.
 - Unit, modeling CLI, appendix CLI, portability, Phase 1, release, and release-tree suites pass.
@@ -3137,7 +3163,7 @@ Authority: product documentation
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.2** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, a request-driven `figure/` workspace using `nature-figure`, submission-appendix curation, and a deterministic complete ChatGPT Project Source export.
+- **KyMCM Lite 0.9.3** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, a request-driven `figure/` workspace using `nature-figure`, submission-appendix curation, and a deterministic complete ChatGPT Project Source export.
 
 ## Install
 
@@ -3205,8 +3231,8 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/machine_contract.md`
   mirror: `docs/lite-v3/machine_contract.md`
-  bytes: `22256`
-  SHA-256: `0665b7f3fd5f60390b47f765e2f9b906adaf33fd255e51aee6511945e66ed797`
+  bytes: `23160`
+  SHA-256: `c72ca431749221f488d4f85f643a7c1f3a341e408ec209b34958b3bff0753b43`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/appendix_organization.md`
@@ -3229,20 +3255,20 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/preprocess_stage.md`
   mirror: `docs/lite-v3/preprocess_stage.md`
-  bytes: `5500`
-  SHA-256: `8f4b54c6e84556aeec927c1719e07ff18a86f090170dce209cd660c787feeef9`
+  bytes: `5995`
+  SHA-256: `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/supplement_work.md`
   mirror: `docs/lite-v3/supplement_work.md`
-  bytes: `10487`
-  SHA-256: `78816748f0d2558dfef558c329c1af72225d0930c843da5df7c3ee8a954d024d`
+  bytes: `11176`
+  SHA-256: `ad120b1bc2ba0702e3b267806c56817fcf5633ab5f99a29de2a08d511008187f`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/technical_handoff.md`
   mirror: `docs/lite-v3/technical_handoff.md`
-  bytes: `5934`
-  SHA-256: `1807e3f5dcdcf9b1791e7d63fed1165f0fc36cc376c47abeda281796737a54b0`
+  bytes: `6756`
+  SHA-256: `2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md`
@@ -3259,14 +3285,14 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/templates/HANDOFF_PRE.template.md`
   mirror: `docs/lite-v3/HANDOFF_PRE.template.md`
-  bytes: `1689`
-  SHA-256: `4c9399565a16d91cfbfc55affd6bde89ad5ee78b6b30a1333576499119461ae8`
+  bytes: `2008`
+  SHA-256: `b486f30425c74dce973b8d55891b284871161e86a54dbec0836d3801d5c387fb`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/templates/HANDOFF_QN.template.md`
   mirror: `docs/lite-v3/HANDOFF_QN.template.md`
-  bytes: `2516`
-  SHA-256: `0a58beba15a7f4bcf325adbe577ceddb679813b9e10119beef2384aeb7fa25ad`
+  bytes: `2842`
+  SHA-256: `2495e222fc350934367956d67c0f74f069cab8c2097f3c06cee4f74c04b11014`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/templates/RESULT_PRE.template.md`

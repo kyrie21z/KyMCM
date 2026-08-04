@@ -1,4 +1,4 @@
-# KyMCM Lite 0.9.2 machine-enforced contract
+# KyMCM Lite 0.9.3 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,10 +16,11 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.2` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.0 and
-0.9.1 workspaces need no migration because this release changes semantic
-Supplement guidance and documentation, not a workspace file or checker.
+Lite version `0.9.3` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.0, 0.9.1,
+and 0.9.2 workspaces need no migration because this release changes semantic
+RESULT-acceptance/HANDOFF guidance and documentation, not a workspace file or
+checker.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -97,7 +98,10 @@ symlinked `START_PRE`, `RESULT_PRE`, or `HANDOFF_PRE` contract-like entries are
 errors. `check-preprocess-start` requires the complete PRE layout and
 `START_PRE.md`; `check-preprocess-result` additionally requires
 `RESULT_PRE.md`. `HANDOFF_PRE.md` has no Python checker and is a derived,
-semantic-only technical transfer.
+semantic-only technical transfer. `check-preprocess-result` does not inspect
+human semantic acceptance of RESULT_PRE, cannot authorize or block HANDOFF_PRE,
+and Python does not prevent a user or agent from creating that unmanaged
+Markdown file early.
 
 The PRE START title is exactly `# START PRE` and its headings, in order, are:
 
@@ -175,7 +179,10 @@ unsuffixed RESULT in split mode is not.
 split mode they require `--subproblem K`, and K must be one of the active START
 units. Omission, an unavailable unit, or an invalid layout emits
 `LITE-CONTRACT-SELECT-001`. `check-result` checks the selected START first, so a
-base contract error remains visible even when the RESULT is present.
+base contract error remains visible even when the RESULT is present. A zero
+`check-result` exit only reports structural/evidence readiness; it does not
+inspect human semantic acceptance or authorize HANDOFF. The checker does not
+require, read, or block an early `HANDOFF_QN.md`.
 
 ## 7. QN START and RESULT structure
 
@@ -290,13 +297,15 @@ suffixed Supplement, Sx directory, `followups/`, PRE Supplement, Supplement
 checker, command, state, JSON, manifest, approval, hash ledger, or dependency
 token. S1/S2/... continuity, plan-before-execution, exact work type, impact
 scope, effective state, editable/adopted boundary, Start/Result invalidation,
-artifact overwrite permission, downstream impact, and HANDOFF currency are
-semantic review obligations, not Python-enforced facts. Only the latest
-unadopted Sx may be edited in place; an adopted Sx, a non-latest Sx, or an Sx
-with a later Sy is frozen. A material Start edit invalidates its old Result
-until the revised execution writes a replacement. HANDOFF refresh alone does
-not adopt an Sx; actual downstream use, formal delivery, later Sy baseline, or
-explicit acceptance can do so.
+artifact overwrite permission, downstream impact, Result acceptance, HANDOFF
+authorization/timing, and HANDOFF currency are semantic review obligations,
+not Python-enforced facts. Only the latest unadopted Sx may be edited in place;
+an adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen. A material
+Start edit invalidates its old Result until the revised execution writes a
+replacement. Passing `check-result`, tests, CI, a commit, or stable evidence
+does not constitute acceptance or authorize HANDOFF. Result acceptance adopts
+an Sx; HANDOFF refresh alone does not adopt an Sx. HANDOFF refresh is a
+separate explicit read-only task and is not an adoption trigger.
 Supplement Markdown is an internal appendix source and is rejected with
 `LITE-APPENDIX-SOURCE-PATH-001`; current effective code/data/output assets may
 use the existing appendix mappings.
@@ -304,9 +313,12 @@ use the existing appendix mappings.
 There is one neutral problem-level `HANDOFF_QN.md` per official question. The
 checker does not require it for `check-result`, does not validate it, and does
 not treat it as a dependency. Split mode waits for every contiguous checked
-RESULT before a semantic reviewer assembles it. Existing suffixed legacy
-handoffs are retained as ordinary notes. HANDOFF, like START/RESULT/SUPPLEMENT,
-is rejected as an appendix source.
+RESULT and explicit acceptance of the complete Result set before a separate
+read-only HANDOFF task assembles it. Existing suffixed legacy handoffs are
+retained as ordinary notes. HANDOFF, like START/RESULT/SUPPLEMENT, is rejected
+as an appendix source. The HANDOFF phase does not run new computation or
+modify code, data, START, RESULT, or Supplement contracts; conflicts return to
+Result/evidence audit.
 
 `figure/` remains optional and known only. It is created solely for an explicit
 final-figure request, is not read by any checker, is not formal evidence or an
@@ -452,7 +464,8 @@ unit, sample, transform, limitation, or certification claim is contradictory.
 They do not enforce Supplement numbering/timing/impact/effective-state
 semantics, whether an Sx is editable or adopted, adoption triggers,
 Start/Result invalidation, artifact overwrite permission, completed-entry
-immutability, downstream impact, HANDOFF identity or currency, final-figure selection, plotting responsibility, code originality,
+immutability, downstream impact, Result acceptance, HANDOFF authorization,
+HANDOFF timing/identity/currency, final-figure selection, plotting responsibility, code originality,
 semantic CURATE equivalence, complete formal-source coverage, or external
 similarity. They do not validate every dynamic import, CMake interpretation,
 Excel formula/cache/format/numerical agreement, solver behavior, or submitted
