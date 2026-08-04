@@ -1,4 +1,21 @@
-# KyMCM Lite 0.9.3
+# KyMCM Lite 0.9.4
+
+KyMCM Lite 0.9.4 freezes one Lite-only typography contract for explicitly requested final display figures. After the relevant RESULT and Supplement Result entries are accepted and any requested HANDOFF task is complete, Lite reads `skills/kymcm-lite/references/final_figure_typography.md` and passes its exact requirements to the external `nature-figure` Skill:
+
+```text
+Chinese/CJK punctuation  -> Noto Serif CJK SC
+English/Arabic numerals  -> Tinos
+Formulas and symbols     -> STIX mathtext
+Matplotlib setting        -> mathtext.fontset = stix
+```
+
+`nature-figure` discovers fonts, renders, and audits actual output. If any required font is unavailable, formal rendering stops and reports the missing item; silent fallback, approximate-font substitution, font downloads, font copying, and font binaries in the repository are forbidden. A user-requested preview must be marked non-final and report any fallback. Lite does not render, import, vendor, or runtime-depend on `nature-figure`, and it adds no figure command, checker, state, JSON, manifest, or approval file.
+
+The contract covers semantic routing of mixed Chinese, English, numeric, punctuation, and mathtext content and a minimum external audit for PNG/PDF/SVG output. The byte-identical reference mirror is included in the generated complete Project Source. Existing 0.9.3 workspaces need no migration; historical figures are not redrawn or retroactively declared compliant. KyMCM Full's built-in renderer and Microsoft YaHei/CJK sans-serif behavior remain unchanged.
+
+This is a documentation and external-figure-contract release. The Lite v3 marker, eight commands, frozen templates, RESULT acceptance/HANDOFF timing, Supplement/PRE behavior, standard-library runtime, and Full boundary remain unchanged.
+
+## KyMCM Lite 0.9.3
 
 KyMCM Lite 0.9.3 gates every technical HANDOFF on explicit post-execution acceptance of the corresponding RESULT by the user or responsible ChatGPT. Codex executes through RESULT/RESULT_PRE plus the applicable machine check, then stops and reports that semantic acceptance is pending; `check-result`, tests, CI, commits, or stable evidence do not authorize HANDOFF.
 

@@ -122,7 +122,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_manifest_and_canonical_completeness(self):
         sources = exporter.collect_sources(ROOT)
         document = SPEC.read_text(encoding="utf-8")
-        self.assertEqual(len(sources), 32)
+        self.assertEqual(len(sources), 33)
         self.assertEqual(
             {source.role for source in sources},
             {
@@ -184,7 +184,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_mirror_hashes_and_mapping(self):
         sources = exporter.collect_sources(ROOT)
         mirrored = [source for source in sources if source.mirrors]
-        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 17)
+        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 18)
         for source in mirrored:
             for mirror in source.mirrors:
                 path = ROOT / mirror
@@ -218,8 +218,21 @@ class LiteFullSpecExportTests(unittest.TestCase):
         self.assertIn('{"workflow":"kymcm_lite","version":3}', contract)
         self.assertIn("LITE-APPENDIX-SOURCE-PATH-001", contract)
 
+    def test_typography_reference_is_exported_without_full_ambiguity(self):
+        reference = (ROOT / "skills/kymcm-lite/references/final_figure_typography.md").read_text(
+            encoding="utf-8"
+        )
+        document = SPEC.read_text(encoding="utf-8")
+        self.assertIn("skills/kymcm-lite/references/final_figure_typography.md", document)
+        for exact in ("Noto Serif CJK SC", "Tinos", "STIX mathtext", "mathtext.fontset = stix"):
+            self.assertIn(exact, reference)
+            self.assertIn(exact, document)
+        self.assertIn("stop the formal final-figure task", reference)
+        self.assertIn("silent fallback", reference)
+        self.assertIn("does not change, replace, or generalize that Full behavior", reference)
+
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.3\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.4\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True
