@@ -1,4 +1,4 @@
-# KyMCM Lite 0.9.1 machine-enforced contract
+# KyMCM Lite 0.9.2 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,10 +16,10 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.1` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.0
-workspaces need no migration because this release adds documentation and an
-external specification export, not a workspace file or checker.
+Lite version `0.9.2` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.0 and
+0.9.1 workspaces need no migration because this release changes semantic
+Supplement guidance and documentation, not a workspace file or checker.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -288,9 +288,15 @@ problems/qN/result/SUPPLEMENT_RESULT_QN.md
 The base discoverer ignores these names. `init` creates neither. There is no
 suffixed Supplement, Sx directory, `followups/`, PRE Supplement, Supplement
 checker, command, state, JSON, manifest, approval, hash ledger, or dependency
-token. S1/S2/... append-only continuity, plan-before-execution, exact work type,
-impact scope, effective state, replacement boundaries, downstream impact, and
-HANDOFF currency are semantic review obligations, not Python-enforced facts.
+token. S1/S2/... continuity, plan-before-execution, exact work type, impact
+scope, effective state, editable/adopted boundary, Start/Result invalidation,
+artifact overwrite permission, downstream impact, and HANDOFF currency are
+semantic review obligations, not Python-enforced facts. Only the latest
+unadopted Sx may be edited in place; an adopted Sx, a non-latest Sx, or an Sx
+with a later Sy is frozen. A material Start edit invalidates its old Result
+until the revised execution writes a replacement. HANDOFF refresh alone does
+not adopt an Sx; actual downstream use, formal delivery, later Sy baseline, or
+explicit acceptance can do so.
 Supplement Markdown is an internal appendix source and is rejected with
 `LITE-APPENDIX-SOURCE-PATH-001`; current effective code/data/output assets may
 use the existing appendix mappings.
@@ -444,8 +450,9 @@ decide whether PRE is semantically appropriate or whether an upstream symbol,
 unit, sample, transform, limitation, or certification claim is contradictory.
 
 They do not enforce Supplement numbering/timing/impact/effective-state
-semantics, completed-entry immutability, downstream impact, HANDOFF identity or
-currency, final-figure selection, plotting responsibility, code originality,
+semantics, whether an Sx is editable or adopted, adoption triggers,
+Start/Result invalidation, artifact overwrite permission, completed-entry
+immutability, downstream impact, HANDOFF identity or currency, final-figure selection, plotting responsibility, code originality,
 semantic CURATE equivalence, complete formal-source coverage, or external
 similarity. They do not validate every dynamic import, CMake interpretation,
 Excel formula/cache/format/numerical agreement, solver behavior, or submitted

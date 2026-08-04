@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.9.2 - 2026-08-04
+
+- Allow the latest unadopted question-level Supplement Sx to be edited, have its stale same-number Result invalidated, and be rerun in place.
+- Freeze adopted, non-latest, or later-Sy-baselined entries and protect base/adopted/earlier-Sx artifacts; keep adoption, downstream impact, and overwrite decisions in semantic review rather than Python state.
+- Update Supplement templates, mirrors, machine-contract boundaries, current compatibility/release guidance, and the deterministic complete Project Source without changing the marker, eight commands, runtime checker surface, or Full.
+
 ## KyMCM Lite 0.9.1 - 2026-07-31
 
 - Add a deterministic complete single-file KyMCM Lite specification for ChatGPT Project Sources.

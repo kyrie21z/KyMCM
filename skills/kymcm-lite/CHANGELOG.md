@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.2 - 2026-08-04
+
+- Allow the latest unadopted Supplement Sx to be edited and rerun after removing or invalidating its same-number Result.
+- Freeze adopted/non-latest entries and their artifacts, retain continuous numbering and exact impact semantics, and keep adoption and downstream review outside Python runtime state.
+- Preserve the Lite v3 marker, eight commands, workspace contracts, Full, and 0.9.0/0.9.1 workspace compatibility.
+
 ## 0.9.1 - 2026-07-31
 
 - Add a complete machine-enforced runtime contract alongside the existing protocol and diagnostics catalog.

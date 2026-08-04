@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.1 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.9.2 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs, explicitly requested final figures, and submission-appendix curation without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -44,7 +44,7 @@ When the user explicitly requests final figures after results and data stabilize
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, and prepare HANDOFF_PRE only when a complete downstream technical transfer is useful. RESULT_PRE remains the downstream data authority.
 
-After the complete base RESULT set passes, optional post-result validation, revision, or implementation repair uses the one problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair. Append and review each Sx plan before execution, append the matching result afterward, never overwrite completed entries or old evidence, and use exact impact scope. Current state is base RESULT plus completed Supplement Result entries. See `references/supplement_work.md`; no Supplement checker or command is added.
+After the complete base RESULT set passes, optional post-result validation, revision, or implementation repair uses the one problem-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair. Record S1, S2, ... plans before execution and matching results afterward. The latest unadopted Sx may be edited, have its old Result removed/invalidated, and be rerun in place; an adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen. Only that latest Sx may rebuild its own `sN_` artifacts; base and adopted history remains protected. Current state is base RESULT plus completed, currently valid Supplement Result entries. See `references/supplement_work.md`; no Supplement checker or command is added.
 
 After RESULT and evidence stabilize, create one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass before assembling the problem-level transfer. Refresh it after every Supplement Result, preserving base-unit and Sx provenance. Exact base RESULT tokens remain modeling dependencies; HANDOFF has no checker or state and cannot enter appendix outputs.
 

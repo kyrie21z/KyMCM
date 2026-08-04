@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.1\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.2\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.9.1", text, relative)
-            self.assertNotIn("0.9.1-dev", text, relative)
+            self.assertIn("0.9.2", text, relative)
+            self.assertNotIn("0.9.2-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -243,9 +243,9 @@ class LiteReleaseTests(unittest.TestCase):
         start = SKILL / "templates/SUPPLEMENT_START_QN.template.md"
         result = SKILL / "templates/SUPPLEMENT_RESULT_QN.template.md"
         reference = SKILL / "references/supplement_work.md"
-        self.assertEqual(hashlib.sha256(start.read_bytes()).hexdigest(), "e1ba7785f204bf44697acc28f94baae48d3ac2806fad9c9bc92ac18ce22b7a4a")
-        self.assertEqual(hashlib.sha256(result.read_bytes()).hexdigest(), "734c6d4ed2f7d36cc3312f6baca167dac3653acbfd1673048482a61ffde8a1d8")
-        self.assertEqual(hashlib.sha256(reference.read_bytes()).hexdigest(), "5b8959d4042f1f82229b6888ecbef148b2a828fdec8e1e2d1b2f3af90ed26c59")
+        self.assertEqual(hashlib.sha256(start.read_bytes()).hexdigest(), "6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48")
+        self.assertEqual(hashlib.sha256(result.read_bytes()).hexdigest(), "c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2")
+        self.assertEqual(hashlib.sha256(reference.read_bytes()).hexdigest(), "78816748f0d2558dfef558c329c1af72225d0930c843da5df7c3ee8a954d024d")
         self.assertEqual(start.read_text(encoding="utf-8").splitlines()[0], "# SUPPLEMENT START QN")
         self.assertEqual(result.read_text(encoding="utf-8").splitlines()[0], "# SUPPLEMENT RESULT QN")
         combined = "\n".join(
@@ -257,9 +257,18 @@ class LiteReleaseTests(unittest.TestCase):
             "方案修订", "实现修复", "追加证据", "局部替代", "完全替代",
             "不改变正式状态", "S1, S2", "plan-before-execution",
             "base RESULT", "HANDOFF_QN.md", "dependency token",
-            "PRE Supplement",
+            "PRE Supplement", "latest unadopted", "adopted", "invalidates",
+            "downstream use", "overwrite/rebuild",
         ):
             self.assertIn(required, combined)
+
+        self.assertIn("最新且尚未被采用的 Sx 可以原位修改", start.read_text(encoding="utf-8"))
+        self.assertIn("已有后续 Sy 的 Sx 冻结", start.read_text(encoding="utf-8"))
+        self.assertIn("实质修改 Start 后，必须先移除/替换旧 Result", start.read_text(encoding="utf-8"))
+        self.assertIn("最新且尚未被采用的 Sx 可以先删除/替换同编号 Result", result.read_text(encoding="utf-8"))
+        self.assertIn("新 Start 与旧 Result 不得并存", result.read_text(encoding="utf-8"))
+        self.assertIn("alone does not freeze", combined)
+        self.assertIn("HANDOFF alone", combined)
 
     def test_current_product_surface_has_no_writing_behavior(self):
         surfaces = [
@@ -337,7 +346,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
             '{"workflow":"kymcm_lite","version":3}',
@@ -348,12 +357,14 @@ class LiteReleaseTests(unittest.TestCase):
             "HANDOFF_QN.md", "HANDOFF_QN_K.md", "exact tokens",
             "SUPPLEMENT_START_QN.md", "SUPPLEMENT_RESULT_QN.md",
             "KyMCM_Lite_FULL_SPEC.md", "export_kymcm_lite_full_spec.py", "--check",
+            "latest unadopted", "adopted", "invalidates", "HANDOFF",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.9.2 - 2026-08-04", text, relative)
             self.assertIn("0.9.1 - 2026-07-31", text, relative)
             self.assertIn("0.9.0 - 2026-07-30", text, relative)
             self.assertIn("0.8.1 - 2026-07-30", text, relative)
