@@ -10,7 +10,7 @@
 - Product: `KyMCM Lite`; `VERSION`: `0.9.5`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `33`; canonical total bytes: `228693`.
+- Canonical source files: `33`; canonical total bytes: `228975`.
 - Mirror files validated: `18`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
@@ -33,9 +33,9 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `8780409dbc52c96276102c5a079a7d3e325510d7bf87af5257508ecc088a3730` | — | none |
 | 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 16448 | `aa636e1ed02439933d954c465f2d299637740376e8877f1b6ca2f2ef32205f1a` | — | none |
 | 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 23488 | `ed61488753bf99ec6a6f9b32df2fae8d17d04978787718d5350e611beccd3ccf` | — | none |
-| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 24872 | `009ba7a7cc425d1d2c2ae587ff16803e6fbcc069d4beb6a4329021ca7b37379f` | `docs/lite-v3/machine_contract.md` | byte-identical |
+| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 25035 | `7425957663423f9fdb7ddc3557b96e45d13ab2358a1897c67c3a7f53e8343f8a` | `docs/lite-v3/machine_contract.md` | byte-identical |
 | 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 12018 | `fe44d22df69ef38333cc8f6f5432003e93ed7077d963305832e6bb0bd1137049` | — | none |
-| 6 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 8784 | `4163521996e5d418b96a06c4cfb575ba73b8c9401840ed1ad20c6f0eb217bffd` | `docs/lite-v3/appendix_organization.md` | byte-identical |
+| 6 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 8903 | `0e7ff54345576191d0d5c55708b6395670b7c7837fbb9224db829262df379e8c` | `docs/lite-v3/appendix_organization.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/dependency_review.md` | `reference` | 5783 | `4aeac7bd61bd1c70ee2298b6154235743319ca99b76b2988a81e97c7d6d97ffc` | `docs/lite-v3/dependency_review.md` | byte-identical |
 | 8 | `skills/kymcm-lite/references/final_figure_typography.md` | `reference` | 7420 | `efd8621b178bfc7da406872b4f818973d2960932ea483a5e275c44ec1943c343` | `docs/lite-v3/final_figure_typography.md` | byte-identical |
 | 9 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
@@ -816,6 +816,8 @@ executables, root-code README/data files, duplicate byte-identical formal
 results, and sensitive paths/credentials/private keys/machine identity. Code
 targets additionally reject `.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`,
 `.sav`, `.ckpt`, `.pt`, and `.pth` runtime-data suffixes. They do not reject
+CSV, Markdown, or XLSX result-like files in code targets; those suffixes are
+permitted only under result/environment/mandatory-result surfaces. They do not reject
 operational source names such as scheduler, checkpoint, status, monitor, ledger,
 or audit by name alone. Python sources are parsed with `ast`; obvious local
 modules must be present and dynamic imports/execution are advisory warnings.
@@ -1041,7 +1043,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 三层规则必须同时满足：
 
-- **代码层**：代码目标不得包含上述高置信输出副作用或运行时数据后缀（`.joblib`、`.npy`、`.npz`、`.pickle`、`.pkl`、`.sav`、`.ckpt`、`.pt`、`.pth`）。
+- **代码层**：代码目标不得包含上述高置信输出副作用、运行时数据后缀（`.joblib`、`.npy`、`.npz`、`.pickle`、`.pkl`、`.sav`、`.ckpt`、`.pt`、`.pth`）或 CSV/Markdown/XLSX 结果样式文件；这些结果样式只允许出现在 result、environment 或强制结果面。
 - **文档层**：APPENDIX_START/RESULT 只描述计算核心、独立结果资产、来源、证据和限制，不把“运行后生成结果”当作交付步骤；模板标题和冻结段落不得改写。
 - **流程层**：先接受正式 RESULT 和证据，再执行 COPY/CURATE 与静态验收；不在 appendix 阶段重新求解、导出、回填或覆盖正式结果。
 
@@ -3409,14 +3411,14 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/machine_contract.md`
   mirror: `docs/lite-v3/machine_contract.md`
-  bytes: `24872`
-  SHA-256: `009ba7a7cc425d1d2c2ae587ff16803e6fbcc069d4beb6a4329021ca7b37379f`
+  bytes: `25035`
+  SHA-256: `7425957663423f9fdb7ddc3557b96e45d13ab2358a1897c67c3a7f53e8343f8a`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/appendix_organization.md`
   mirror: `docs/lite-v3/appendix_organization.md`
-  bytes: `8784`
-  SHA-256: `4163521996e5d418b96a06c4cfb575ba73b8c9401840ed1ad20c6f0eb217bffd`
+  bytes: `8903`
+  SHA-256: `0e7ff54345576191d0d5c55708b6395670b7c7837fbb9224db829262df379e8c`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/dependency_review.md`

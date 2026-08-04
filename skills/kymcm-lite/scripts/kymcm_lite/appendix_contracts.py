@@ -84,6 +84,7 @@ CODE_RUNTIME_DATA_SUFFIXES = {
     ".bin", ".ckpt", ".joblib", ".npy", ".npz", ".pickle", ".pkl",
     ".pt", ".pth", ".sav",
 }
+CODE_RESULT_SUFFIXES = {".csv", ".md", ".xlsx"}
 ROOT_CODE_DATA_SUFFIXES = {
     ".csv", ".feather", ".json", ".parquet", ".tsv", ".xls", ".xlsx",
 }
@@ -719,6 +720,11 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
             diagnostics.append(error(
                 "LITE-APPENDIX-FORBIDDEN-001", entry.target,
                 "submitted name or file type is forbidden",
+            ))
+        if code_target and relative.suffix.lower() in CODE_RESULT_SUFFIXES:
+            diagnostics.append(error(
+                "LITE-APPENDIX-FORBIDDEN-001", entry.target,
+                "CSV/Markdown/XLSX result-like files are allowed only in result, environment, or mandatory-result targets",
             ))
         if entry.target.startswith("code/"):
             lowered = name.lower()

@@ -293,7 +293,8 @@ class AppendixRuntimeTests(unittest.TestCase):
             "backup/solver.py", "tmp/solver.py", "tests/test_solver.py",
             "build/solver.py", "__pycache__/solver.py", "state.joblib",
             "features.npy", "features.npz", "model.pickle", "model.pkl",
-            "model.sav", "model.pt", "model.pth",
+            "model.sav", "model.pt", "model.pth", "result.csv", "notes.md",
+            "Result.xlsx",
         )
         old_entry = (
             "- A001 — COPY — `problems/q1/code/solve.py` → "

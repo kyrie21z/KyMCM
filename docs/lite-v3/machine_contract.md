@@ -411,6 +411,8 @@ executables, root-code README/data files, duplicate byte-identical formal
 results, and sensitive paths/credentials/private keys/machine identity. Code
 targets additionally reject `.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`,
 `.sav`, `.ckpt`, `.pt`, and `.pth` runtime-data suffixes. They do not reject
+CSV, Markdown, or XLSX result-like files in code targets; those suffixes are
+permitted only under result/environment/mandatory-result surfaces. They do not reject
 operational source names such as scheduler, checkpoint, status, monitor, ledger,
 or audit by name alone. Python sources are parsed with `ast`; obvious local
 modules must be present and dynamic imports/execution are advisory warnings.

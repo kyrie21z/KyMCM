@@ -21,7 +21,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 三层规则必须同时满足：
 
-- **代码层**：代码目标不得包含上述高置信输出副作用或运行时数据后缀（`.joblib`、`.npy`、`.npz`、`.pickle`、`.pkl`、`.sav`、`.ckpt`、`.pt`、`.pth`）。
+- **代码层**：代码目标不得包含上述高置信输出副作用、运行时数据后缀（`.joblib`、`.npy`、`.npz`、`.pickle`、`.pkl`、`.sav`、`.ckpt`、`.pt`、`.pth`）或 CSV/Markdown/XLSX 结果样式文件；这些结果样式只允许出现在 result、environment 或强制结果面。
 - **文档层**：APPENDIX_START/RESULT 只描述计算核心、独立结果资产、来源、证据和限制，不把“运行后生成结果”当作交付步骤；模板标题和冻结段落不得改写。
 - **流程层**：先接受正式 RESULT 和证据，再执行 COPY/CURATE 与静态验收；不在 appendix 阶段重新求解、导出、回填或覆盖正式结果。
 
