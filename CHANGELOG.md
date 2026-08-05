@@ -1,5 +1,11 @@
 # Changelog
 
+## KyMCM Lite 0.9.6 - 2026-08-05
+
+- Add the fixed five-section AI-tool usage details LaTeX template, two-column current tool/model table, two real screenshot paths/captions, and conservative adoption/review/overall declarations.
+- Add the fixed paper declaration snippet and exact final PDF filename `AI 工具使用详情.pdf` for the 2026 trial regulation.
+- Keep XeLaTeX/TeX Live optional and outside Lite runtime; add no CLI, checker, diagnostic, state, JSON, manifest, approval, Full change, or existing workflow behavior change.
+
 ## KyMCM Lite 0.9.5 - 2026-08-04
 
 - Refocus optional Appendix code on an auditable computation core and keep formal result assets independent from code regeneration.

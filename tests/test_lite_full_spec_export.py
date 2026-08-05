@@ -122,7 +122,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_manifest_and_canonical_completeness(self):
         sources = exporter.collect_sources(ROOT)
         document = SPEC.read_text(encoding="utf-8")
-        self.assertEqual(len(sources), 33)
+        self.assertEqual(len(sources), 36)
         self.assertEqual(
             {source.role for source in sources},
             {
@@ -144,7 +144,8 @@ class LiteFullSpecExportTests(unittest.TestCase):
         for directory in ("skills/kymcm-lite/references", "skills/kymcm-lite/templates"):
             ordinary = {
                 path.relative_to(ROOT).as_posix()
-                for path in (ROOT / directory).glob("*.md")
+                for path in (ROOT / directory).iterdir()
+                if path.suffix in {".md", ".tex"}
                 if path.is_file() and not path.is_symlink()
             }
             self.assertTrue(ordinary <= paths, directory)
@@ -161,7 +162,8 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_docs_lite_v3_classification_and_exclusions(self):
         actual = {
             path.relative_to(ROOT).as_posix()
-            for path in (ROOT / "docs/lite-v3").glob("*.md")
+            for path in (ROOT / "docs/lite-v3").iterdir()
+            if path.suffix in {".md", ".tex"}
             if path.is_file() and not path.is_symlink()
         }
         sources = exporter.collect_sources(ROOT)
@@ -184,7 +186,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_mirror_hashes_and_mapping(self):
         sources = exporter.collect_sources(ROOT)
         mirrored = [source for source in sources if source.mirrors]
-        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 18)
+        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 21)
         for source in mirrored:
             for mirror in source.mirrors:
                 path = ROOT / mirror
@@ -232,7 +234,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
         self.assertIn("does not change, replace, or generalize that Full behavior", reference)
 
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.5\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.6\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True

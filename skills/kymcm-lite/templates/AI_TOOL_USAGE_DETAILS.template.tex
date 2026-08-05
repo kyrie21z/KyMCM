@@ -1,0 +1,77 @@
+\documentclass[UTF8,fontset=fandol,12pt,a4paper]{ctexart}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage[hidelinks]{hyperref}
+
+\setstretch{1.25}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.45em}
+\captionsetup[figure]{labelformat=empty}
+\hypersetup{pdftitle={AI 工具使用详情}}
+
+\title{AI 工具使用详情}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{AI 工具清单}
+
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.40\textwidth}
+                >{\raggedright\arraybackslash}p{0.40\textwidth}}
+\toprule
+工具名称 & 版本或模型 \\
+\midrule
+ChatGPT & GPT-5.6 Thinking \\
+Codex CLI & GPT-5.6 Codex \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{具体使用目的和环节}
+
+本参赛队在竞赛过程中使用 AI 工具辅助完成赛题理解、建模方案讨论和必要的合理性检查、程序实现与调试、结果检查以及论文表达优化等工作。AI 工具仅提供分析建议、代码辅助和表达参考，模型选择、数学假设、参数设定、计算执行、结果判断和最终结论均由参赛队主导完成。
+
+\section{主要提示方式与使用过程}
+
+主要通过自然语言指令组织任务，先将任务分解为问题理解、方案讨论、实现、调试和核验等环节，再通过多轮交互逐步推进。交互中根据需要提供赛题要求、数据说明、当前方案、代码片段或待解决问题，并依据 AI 输出补充约束、纠正理解或要求修改。下列两图为本次比赛中与工具清单对应的真实典型交互示例。
+
+\begin{center}
+\IfFileExists{figures/chatgpt_example.png}{%
+  \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{figures/chatgpt_example.png}%
+}{%
+  \PackageError{AI工具使用详情}{缺少必需的真实交互截图：chatgpt_example.png}{请放入本次比赛的真实 ChatGPT 交互截图后重新编译。}%
+}
+\captionof{figure}{图 1：ChatGPT 典型交互示例}
+\end{center}
+
+\clearpage
+
+\begin{center}
+\IfFileExists{figures/codex_example.png}{%
+  \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{figures/codex_example.png}%
+}{%
+  \PackageError{AI工具使用详情}{缺少必需的真实交互截图：codex_example.png}{请放入本次比赛的真实 Codex CLI 交互截图后重新编译。}%
+}
+\captionof{figure}{图 2：Codex CLI 典型交互示例}
+\end{center}
+
+\clearpage
+
+\section{AI 输出的采纳、修改与核验情况}
+
+对 AI 输出的建模建议、数学推导、程序代码和结果解释，参赛队在纳入正式作品前进行了人工审查；不符合赛题条件、数据口径、数学假设或实际计算结果的内容予以修改或不予采纳。AI 辅助生成或修改的代码经实际运行和必要测试后使用，模型与关键结果通过约束检查、边界检查、数量级和数值合理性分析及必要的对照核验进行确认。语言表达类建议由参赛队结合论文上下文进行人工修改和定稿。
+
+\section{总体声明}
+
+AI 工具仅作为辅助分析、代码实现、程序调试和语言表达工具。参赛作品中的问题理解、模型选择、数学假设、参数设定、结果分析和最终结论均由参赛队主导完成。所有纳入参赛作品的 AI 输出均经过必要的人工审查、修改和核验，参赛队对作品的完整性、准确性和合规性承担全部责任。
+
+\end{document}

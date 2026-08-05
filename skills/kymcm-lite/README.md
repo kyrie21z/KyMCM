@@ -1,8 +1,10 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.5 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with a fixed external typography contract, and computation-core submission-appendix curation with independent result assets and static side-effect checks, without workflow state or content JSON.
+KyMCM Lite 0.9.6 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with a fixed external typography contract, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
+
+Using KyMCM Lite itself is AI tool usage. After accepted results, HANDOFF, and stable Appendix work, use `references/ai_tool_usage_details.md` and copy `templates/AI_TOOL_USAGE_DETAILS.template.tex`; each competition replaces only the two real screenshots and compiles `AI 工具使用详情.pdf`. The fixed declaration snippet belongs before paper references when required. This material is outside RESULT/HANDOFF, Appendix, evidence, modeling dependencies, and final-figure work; Lite does not generate it from workspace files and adds no CLI, checker, state, JSON, manifest, or approval. XeLaTeX is an optional final-material build dependency, and factual/privacy/visual review remains human work.
 
 ## Installation
 

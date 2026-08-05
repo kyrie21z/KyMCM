@@ -1,4 +1,4 @@
-# KyMCM Lite 0.9.5 machine-enforced contract
+# KyMCM Lite 0.9.6 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,12 +16,12 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.5` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.4 and
-earlier workspaces need no migration. The release refocuses new or reorganized
-appendix curation on a computation-only code surface and adds a read-only
-static side-effect diagnostic; it does not rewrite existing workspace files or
-add runtime state.
+Lite version `0.9.6` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.5 and
+earlier workspaces need no migration. The release adds a fixed final-submission
+AI-tool disclosure template and preserves the computation-only Appendix surface
+and read-only static side-effect diagnostic; it does not rewrite existing
+workspace files or add runtime state.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -516,3 +516,23 @@ command; and it must not be copied into user workspaces. Rebuild the generated
 full specification after normative source changes and verify it with the
 exporter's `--check` mode. The generated document is a deterministic repository
 mirror, not a new runtime contract.
+
+## 16. Final AI tool usage details boundary
+
+The fixed AI-tool usage details LaTeX templates and declaration snippet are
+static final-submission materials. They are not Lite Python runtime inputs and
+are not read by `init`, `doctor`, or any of the eight public checks. Runtime
+does not read screenshots, archive chat logs, generate `AI 工具使用详情.pdf`,
+compile LaTeX, or judge the truth, representativeness, privacy redaction, or
+visual quality of a declaration. No new diagnostic, state, manifest, JSON,
+approval object, or command exists for this material.
+
+The filenames, five-section structure, two-column tool table, fixed current
+tool/model rows, screenshot paths/captions, declaration placement, and process
+boundaries are frozen by the canonical references/templates, their repository
+mirrors, and release tests. XeLaTeX compilation, PDF rendering, and visual and
+factual acceptance are executor and human responsibilities. This material is
+outside START/RESULT/PRE/Supplement/HANDOFF contracts, evidence, Appendix code,
+modeling dependencies, and the optional `figure/` workspace. A future tool or
+model change requires a new Lite release update to the canonical template; a
+contest workspace must not silently edit the fixed正文.
