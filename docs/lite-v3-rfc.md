@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.5 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.6 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.5 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite passes the exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contract to external `nature-figure`, which stops on missing fonts and audits the output. New or reorganized Appendix code is computation-core-only, formal result assets remain independent, and high-confidence Python/C/C++ writers are blocked statically. The historical design below is not retroactively rewritten.
+Current 0.9.6 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite passes the exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contract to external `nature-figure`, which stops on missing fonts and audits the output. New or reorganized Appendix code is computation-core-only, formal result assets remain independent, and high-confidence Python/C/C++ writers are blocked statically. After accepted modeling and appendix work, a separate final compliance stage may copy the fixed AI-tool disclosure template, replace two real screenshots, and compile `AI 工具使用详情.pdf`; this stage adds no runtime surface and does not rewrite the historical design below.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite

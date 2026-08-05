@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.5** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure` with the mandatory `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contract. Its submission appendix now curates auditable computation-core code and independent result assets, with static high-confidence side-effect blocking and a deterministic complete ChatGPT Project Source export.
+- **KyMCM Lite 0.9.6** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure` with the mandatory `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contract. Its submission appendix curates auditable computation-core code and independent result assets, with static high-confidence side-effect blocking and a deterministic complete ChatGPT Project Source export. It also provides a fixed final-submission AI-tool disclosure template whose two real screenshots are compiled to `AI 工具使用详情.pdf`.
 
 ## Install
 
@@ -39,7 +39,7 @@ python scripts/export_kymcm_lite_full_spec.py \
 
 The generated file is intentionally complete and long, is not hand-edited, and is not copied into a contest workspace or appendix.
 
-The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not create `figure/`; it is created only for an explicit final-figure request.
+The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not create `figure/` or `reports/ai-usage/`; those are created only for explicit final-figure work or final-submission compliance work.
 
 ## Workflow
 
@@ -61,4 +61,4 @@ python -m unittest discover -s tests/full -v
 python -m unittest tests.test_full_cli tests.test_full_portability tests.test_figure_system tests.test_markdown_format -v
 ```
 
-No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the test suite. Lite final figures do require the user to install `Noto Serif CJK SC`, `Tinos`, and STIX mathtext support locally for the separate `nature-figure` task; KyMCM does not download or distribute fonts. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).
+No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the test suite. The optional XeLaTeX/TeX Live build for the fixed AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite final figures still require the user to install `Noto Serif CJK SC`, `Tinos`, and STIX mathtext support locally for the separate `nature-figure` task. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).

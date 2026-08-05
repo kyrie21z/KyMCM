@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.6 - 2026-08-05
+
+- Add the fixed `AI_TOOL_USAGE_DETAILS.template.tex` and declaration snippet for final submission compliance under the 2026 AI-tool usage trial rules.
+- Freeze five sections, a two-column ChatGPT/Codex tool table, two real screenshot paths/captions, conservative adoption/review prose, and exact PDF output `AI 工具使用详情.pdf`.
+- Add the byte-identical `ai_tool_usage_details.md` reference and LaTeX mirrors, with XeLaTeX as an optional final-material build dependency and no bundled fonts.
+- Preserve the Lite v3 marker, eight commands, stateless standard-library runtime, Appendix/PRE/Supplement/HANDOFF/figure/base modeling behavior, and KyMCM Full unchanged.
+
 ## 0.9.5 - 2026-08-04
 
 - Refocus Appendix code on an auditable computation core for input/feature construction, modeling, optimization, statistics, prediction, constraints, validation, and audit; exclude result/interface/report generation, export writers, caches, checkpoints, temporary files, and persistence side effects.

@@ -185,21 +185,31 @@ def _spec(
     return Source(relative, role, authority, section, content, mirrors)
 
 
-def _ordinary_markdown_paths(root: Path, directory: str) -> tuple[str, ...]:
+def _ordinary_text_paths(
+    root: Path,
+    directory: str,
+    suffixes: tuple[str, ...],
+    *,
+    label: str = "text",
+) -> tuple[str, ...]:
     base = _path_for(root, directory)
     if not base.is_dir() or base.is_symlink():
         raise ExporterError(f"required directory is missing or unsafe: {directory}")
     paths: list[str] = []
     for path in sorted(base.iterdir(), key=lambda item: item.name):
-        if path.suffix != ".md":
+        if path.suffix not in suffixes:
             continue
         relative = path.relative_to(root).as_posix()
         if path.is_symlink():
-            raise ExporterError(f"Markdown source must not be a symlink: {relative}")
+            raise ExporterError(f"{label} source must not be a symlink: {relative}")
         if not path.is_file():
-            raise ExporterError(f"Markdown source is not an ordinary file: {relative}")
+            raise ExporterError(f"{label} source is not an ordinary file: {relative}")
         paths.append(relative)
     return tuple(paths)
+
+
+def _ordinary_markdown_paths(root: Path, directory: str) -> tuple[str, ...]:
+    return _ordinary_text_paths(root, directory, (".md",), label="Markdown")
 
 
 def _validate_lite_doc_classification(
@@ -207,7 +217,7 @@ def _validate_lite_doc_classification(
     reference_mirrors: Iterable[str],
     template_mirrors: Iterable[str],
 ) -> None:
-    actual = set(_ordinary_markdown_paths(root, "docs/lite-v3"))
+    actual = set(_ordinary_text_paths(root, "docs/lite-v3", (".md", ".tex")))
     included = {
         path for path, _role in REPOSITORY_NORMATIVE_DOCS if path.startswith("docs/lite-v3/")
     }
@@ -227,7 +237,8 @@ def _validate_lite_doc_classification(
         )
     if unexpected:
         raise ExporterError(
-            "ordinary docs/lite-v3 Markdown is unclassified: " + ", ".join(unexpected)
+            "ordinary docs/lite-v3 Markdown or TeX is unclassified: "
+            + ", ".join(unexpected)
         )
 
 
@@ -251,7 +262,9 @@ def collect_sources(root: Path | str) -> tuple[Source, ...]:
     )
     sources.append(_spec(repository, PROTOCOL_FILE, "protocol", "Lite protocol", SECTION_TITLES[1], mirror=False))
 
-    references = _ordinary_markdown_paths(repository, "skills/kymcm-lite/references")
+    references = _ordinary_text_paths(
+        repository, "skills/kymcm-lite/references", (".md", ".tex")
+    )
     reference_mirrors: list[str] = []
     for relative in references:
         if Path(relative).name == MACHINE_CONTRACT_NAME:
@@ -282,7 +295,9 @@ def collect_sources(root: Path | str) -> tuple[Source, ...]:
     )
     sources[insertion:insertion] = machine + [diagnostics]
 
-    templates = _ordinary_markdown_paths(repository, "skills/kymcm-lite/templates")
+    templates = _ordinary_text_paths(
+        repository, "skills/kymcm-lite/templates", (".md", ".tex")
+    )
     template_sources: list[Source] = []
     template_mirrors: list[str] = []
     for relative in templates:
@@ -380,8 +395,8 @@ def _render_preamble(sources: Sequence[Source]) -> str:
         "1. Python runtime and its frozen tests (observable acceptance, diagnostics, and exit codes).",
         "2. `skills/kymcm-lite/SKILL.md` (overall agent behavior and boundaries).",
         "3. `skills/kymcm-lite/docs/protocol.md` (complete Lite protocol).",
-        "4. `skills/kymcm-lite/references/*.md` (specialized semantics).",
-        "5. `skills/kymcm-lite/templates/*.md` (contract structures and authoring requirements).",
+        "4. `skills/kymcm-lite/references/*.md` and `*.tex` (specialized semantics).",
+        "5. `skills/kymcm-lite/templates/*.md` and `*.tex` (contract structures and authoring requirements).",
         "6. Agent metadata, README, and repository current documentation (usage and maintenance guidance only).",
         "7. Changelogs, historical plans, benchmarks, and reviewer records (history/verification only; excluded from canonical正文).",
         "",
@@ -431,7 +446,7 @@ def _render_exclusions() -> str:
     lines.extend(
         (
             "",
-            "Within `docs/lite-v3/`, every ordinary Markdown file is classified. The included set consists of current diagnostics and the validated mirrors of references/templates; the excluded set consists of the generated target, benchmark files, and reviewer record. An unclassified ordinary Markdown file blocks export.",
+            "Within `docs/lite-v3/`, every ordinary Markdown or TeX file is classified. The included set consists of current diagnostics and the validated mirrors of references/templates; the excluded set consists of the generated target, benchmark files, and reviewer record. An unclassified ordinary Markdown or TeX file blocks export.",
             "",
         )
     )

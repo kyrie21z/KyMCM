@@ -16,7 +16,7 @@ def is_tracked_ai_bridge_path(relative: str) -> bool:
 
 class ReleaseTreeTests(unittest.TestCase):
     def test_skill_identity(self):
-        products = (("kymcm-full", "1.0.0", "KyMCM Full"), ("kymcm-lite", "0.9.5", "KyMCM Lite"))
+        products = (("kymcm-full", "1.0.0", "KyMCM Full"), ("kymcm-lite", "0.9.6", "KyMCM Lite"))
         for name, version, display in products:
             with self.subTest(skill=name):
                 root = ROOT / "skills" / name
@@ -60,6 +60,12 @@ class ReleaseTreeTests(unittest.TestCase):
             "docs/lite-v3/machine_contract.md",
             "skills/kymcm-lite/references/final_figure_typography.md",
             "docs/lite-v3/final_figure_typography.md",
+            "skills/kymcm-lite/references/ai_tool_usage_details.md",
+            "docs/lite-v3/ai_tool_usage_details.md",
+            "skills/kymcm-lite/templates/AI_TOOL_USAGE_DETAILS.template.tex",
+            "docs/lite-v3/AI_TOOL_USAGE_DETAILS.template.tex",
+            "skills/kymcm-lite/templates/AI_TOOL_USAGE_DECLARATION.template.tex",
+            "docs/lite-v3/AI_TOOL_USAGE_DECLARATION.template.tex",
             "scripts/export_kymcm_lite_full_spec.py",
             "docs/lite-v3/KyMCM_Lite_FULL_SPEC.md",
             "skills/kymcm-lite/references/preprocess_stage.md",

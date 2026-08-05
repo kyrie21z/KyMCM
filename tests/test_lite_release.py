@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.5\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.6\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.9.5", text, relative)
-            self.assertNotIn("0.9.5-dev", text, relative)
+            self.assertIn("0.9.6", text, relative)
+            self.assertNotIn("0.9.6-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
