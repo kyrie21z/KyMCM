@@ -169,13 +169,29 @@ class LiteReleaseTests(unittest.TestCase):
         for required in (
             "计算核心", "独立正式结果", "绘图、显示和接口代码排除",
             "输入、特征/参数", "优化", "统计", "预测", "约束", "审计",
+            "第一层：文件写入与持久化副作用",
+            "第二层：结果与文档构造",
+            "第三层：展示/导出入口与孤儿代码清理",
+            "每个 `CURATE` 条目都必须记录",
             "禁止复制", "混淆", "垃圾", "外部相似度",
         ):
             self.assertIn(required, reference)
-        for required in ("计算核心", "独立正式结果", "代表性", "绘图", "相似度"):
+        self.assertNotIn("代码层/文档层/流程层", reference)
+        for required in (
+            "计算核心", "独立正式结果", "代表性", "绘图", "相似度",
+            "每个 CURATE 条目必须记录", "第一层", "第二层", "第三层",
+            "孤儿", "数学、数据和执行语义",
+        ):
             self.assertIn(required, start)
-        for required in ("计算核心", "独立正式结果", "静态副作用", "根 code/ 选择理由"):
+        for required in (
+            "计算核心", "独立正式结果", "静态副作用", "根 code/ 选择理由",
+            "三层删除", "第一层", "第二层", "第三层", "孤儿代码",
+        ):
             self.assertIn(required, result)
+        machine = (SKILL / "references/machine_contract.md").read_text(encoding="utf-8")
+        self.assertIn("They also reject CSV,", machine)
+        self.assertIn("Markdown, and XLSX result-like files in code targets", machine)
+        self.assertNotIn("They do not reject\nCSV, Markdown, or XLSX", machine)
         for required in (
             "auditable computation core", "authentic representative computation-core",
             "independent formal result attachments", "high-confidence Python/C/C++ output APIs",

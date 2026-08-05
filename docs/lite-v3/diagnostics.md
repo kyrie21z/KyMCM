@@ -82,7 +82,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 | `LITE-APPENDIX-INTEGRITY-001` | Error | `source_integrity.csv` is missing or structurally/hash/status invalid |
 | `LITE-APPENDIX-DUPLICATE-001` | Error | Two declared formal-result files are byte-identical |
 | `LITE-APPENDIX-PYTHON-001` | Error | Submitted Python has invalid syntax or a missing obvious local module |
-| `LITE-APPENDIX-CODE-SIDE-EFFECT-001` | Error | A computation-code target contains a high-confidence explicit file/directory writer or persistence API; read-only opens and in-memory assembly are allowed |
+| `LITE-APPENDIX-CODE-SIDE-EFFECT-001` | Error | A computation-code target contains a high-confidence explicit file/directory writer or persistence API, including Path/io/direct-import writer aliases and lexical C/C++ writers; read-only opens, pure in-memory pandas/JSON/YAML/SQLite calls, and ordinary custom-object methods are allowed |
 | `LITE-APPENDIX-DEPENDENCY-WARN-001` | Warning | Dynamic loading or CMake features prevent complete static dependency closure proof |
 | `LITE-APPENDIX-XLSX-001` | Error | Declared Result.xlsx is not a valid basic workbook ZIP/XML structure |
 | `LITE-APPENDIX-SENSITIVE-001` | Error | A high-confidence local path, credential, private key, authorization value, or machine identity is detected |

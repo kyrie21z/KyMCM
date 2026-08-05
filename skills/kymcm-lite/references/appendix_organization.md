@@ -19,11 +19,13 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 高置信写入包括 Python 的显式写模式 `open`、`Path` 写入/建目录、pandas/NumPy/SciPy/joblib/pickle/JSON/YAML writer、临时文件、shutil copy/move、OS 建目录、shelve/SQLite、torch/model save，以及 C/C++ 的 `fopen` 写模式、`ofstream`、输出型 `fstream`、写标志 `open` 和目录/复制 API。静态 checker 以 `LITE-APPENDIX-CODE-SIDE-EFFECT-001` 阻断这些调用；只读打开、内存对象和不构成写入的纯函数允许保留。动态包装器、运行时拼接字符串、间接库调用和语义等价仍需人工审查。
 
-三层规则必须同时满足：
+三层删除规则必须同时满足，不能用笼统标签替代：
 
-- **代码层**：代码目标不得包含上述高置信输出副作用、运行时数据后缀（`.joblib`、`.npy`、`.npz`、`.pickle`、`.pkl`、`.sav`、`.ckpt`、`.pt`、`.pth`）或 CSV/Markdown/XLSX 结果样式文件；这些结果样式只允许出现在 result、environment 或强制结果面。
-- **文档层**：APPENDIX_START/RESULT 只描述计算核心、独立结果资产、来源、证据和限制，不把“运行后生成结果”当作交付步骤；模板标题和冻结段落不得改写。
-- **流程层**：先接受正式 RESULT 和证据，再执行 COPY/CURATE 与静态验收；不在 appendix 阶段重新求解、导出、回填或覆盖正式结果。
+- **第一层：文件写入与持久化副作用**。删除结果、报告、缓存、checkpoint、模型、数据库、临时文件和目录的写入，包括 CSV、Markdown、Excel、JSON、JOBLIB、NPY/NPZ、pickle、parquet、feather、日志、缓存和临时目录生成。高置信 API 由 `LITE-APPENDIX-CODE-SIDE-EFFECT-001` 静态阻断。
+- **第二层：结果与文档构造**。即使最终写入已经删除，仍删除硬编码结果表/接口表（如 `Q2-03`—`Q2-11`）、RESULT/HANDOFF/Supplement/APPENDIX RESULT/依赖审查/状态报告/日志文案、正式结果表和证据索引拼装、仅为导出准备的格式化列，以及不再参与计算的结果包装对象。该层由 Codex 语义审查和人工终审负责，不使用过宽的 DataFrame 或字符串扫描。
+- **第三层：展示/导出入口与孤儿代码清理**。删除只调用导出、报告、缓存或展示逻辑的 `main()`/CLI、只服务于输出目录/文件名/接口编号/报告路径的参数常量、前两层删除后失去调用者的函数和模块、未使用 import/变量/常量/辅助函数，以及只打印正式结果而不参与计算或审计的入口。保留的入口必须真正驱动输入读取、模型计算和合法性审计，并只返回内存结果或执行断言。
+
+每个 `CURATE` 条目都必须记录：保留的计算核心、第一层删除内容、第二层删除内容、第三层删除内容，以及保持不变的数学、数据和执行语义。
 
 ## `appendix/` 交付面
 

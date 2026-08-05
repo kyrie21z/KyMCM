@@ -410,8 +410,8 @@ bytecode, binaries, runtime checkpoint data, temporary/backup/final-like names,
 executables, root-code README/data files, duplicate byte-identical formal
 results, and sensitive paths/credentials/private keys/machine identity. Code
 targets additionally reject `.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`,
-`.sav`, `.ckpt`, `.pt`, and `.pth` runtime-data suffixes. They do not reject
-CSV, Markdown, or XLSX result-like files in code targets; those suffixes are
+`.sav`, `.ckpt`, `.pt`, and `.pth` runtime-data suffixes. They also reject CSV,
+Markdown, and XLSX result-like files in code targets; those suffixes are
 permitted only under result/environment/mandatory-result surfaces. They do not reject
 operational source names such as scheduler, checkpoint, status, monitor, ledger,
 or audit by name alone. Python sources are parsed with `ast`; obvious local
@@ -428,6 +428,15 @@ includes and literal CMake sources must be present; macro/generated closure is
 an advisory warning. Declared XLSX is checked as a ZIP/XML workbook with at
 least one sheet. No submitted code, solver, compiler, build command, or user
 program is executed by the checker.
+
+Appendix CURATE uses three deletion layers: first remove file writes and
+persistence side effects; second remove result/document construction such as
+hard-coded result tables, formal prose, and export-only formatting; third remove
+display/export entrypoints and orphan imports, variables, constants, functions,
+and modules. Every CURATE entry records the retained computation core, all three
+deletion layers, and the mathematical, data, and execution semantics kept
+unchanged. The checker can enforce only high-confidence first-layer writers; the
+second and third layers require Codex semantic review and final human review.
 
 Appendix result must account for every whitelist ID, reject unknown IDs, state no
 deviation or an authorized deviation with safe evidence, index at least one

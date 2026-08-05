@@ -97,7 +97,7 @@ DYNAMIC_PYTHON = re.compile(
     r"\bmodule(?:_name|name)\s*[+=]"
 )
 APPENDIX_CODE_SIDE_EFFECT_ID = "LITE-APPENDIX-CODE-SIDE-EFFECT-001"
-PYTHON_PATH_WRITE_METHODS = {"write_text", "write_bytes", "touch", "mkdir"}
+PYTHON_PATH_WRITE_METHODS = {"open", "write_text", "write_bytes", "touch", "mkdir"}
 PYTHON_PANDAS_WRITERS = {
     "to_csv", "to_excel", "to_json", "to_markdown", "to_parquet",
     "to_pickle", "to_feather", "to_hdf",
@@ -845,18 +845,106 @@ def _ast_dotted_name(node: ast.AST) -> str | None:
     return ".".join(reversed(parts))
 
 
-def _import_aliases(tree: ast.AST, module: str) -> set[str]:
-    aliases: set[str] = set()
+def _python_import_bindings(
+    tree: ast.AST,
+) -> tuple[dict[str, set[str]], dict[tuple[str, str], set[str]], set[str]]:
+    """Return high-confidence module, direct-function, and Path bindings."""
+    modules = (
+        "io", "pathlib", "pandas", "numpy", "scipy", "joblib", "pickle",
+        "json", "yaml", "tempfile", "shutil", "os", "shelve", "sqlite3",
+        "torch",
+    )
+    module_aliases: dict[str, set[str]] = {module: set() for module in modules}
+    direct_aliases: dict[tuple[str, str], set[str]] = {}
+    path_constructors: set[str] = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for alias in node.names:
-                if alias.name == module or alias.name.startswith(f"{module}."):
-                    aliases.add(alias.asname or alias.name.split(".", 1)[0])
+                bound = alias.asname or alias.name.split(".", 1)[0]
+                for module in modules:
+                    if alias.name == module or alias.name.startswith(f"{module}."):
+                        module_aliases[module].add(bound)
         elif isinstance(node, ast.ImportFrom) and node.module:
-            if node.module == module or node.module.startswith(f"{module}."):
-                for alias in node.names:
-                    aliases.add(alias.asname or alias.name)
-    return aliases
+            for alias in node.names:
+                bound = alias.asname or alias.name
+                direct_aliases.setdefault((node.module, alias.name), set()).add(bound)
+                if node.module == "pathlib" and alias.name == "Path":
+                    path_constructors.add(bound)
+    return module_aliases, direct_aliases, path_constructors
+
+
+def _ast_static_string(node: ast.AST | None) -> str | None:
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return node.value
+    return None
+
+
+def _ast_static_none(node: ast.AST | None) -> bool:
+    return isinstance(node, ast.Constant) and node.value is None
+
+
+def _ast_static_bool(node: ast.AST | None) -> bool | None:
+    if isinstance(node, ast.Constant) and isinstance(node.value, bool):
+        return node.value
+    return None
+
+
+def _mask_c_cpp_literals_and_comments(text: str) -> str:
+    """Mask comments and ordinary C/C++ literals while retaining newlines."""
+    chars = list(text)
+    length = len(chars)
+    index = 0
+    while index < length:
+        if chars[index] == "/" and index + 1 < length and chars[index + 1] == "/":
+            chars[index] = " "
+            chars[index + 1] = " "
+            index += 2
+            while index < length and chars[index] != "\n":
+                chars[index] = " "
+                index += 1
+            continue
+        if chars[index] == "/" and index + 1 < length and chars[index + 1] == "*":
+            chars[index] = " "
+            chars[index + 1] = " "
+            index += 2
+            while index < length:
+                if chars[index] == "*" and index + 1 < length and chars[index + 1] == "/":
+                    chars[index] = " "
+                    chars[index + 1] = " "
+                    index += 2
+                    break
+                if chars[index] != "\n":
+                    chars[index] = " "
+                index += 1
+            continue
+        if chars[index] in {"\"", "'"}:
+            quote = chars[index]
+            chars[index] = " "
+            index += 1
+            escaped = False
+            while index < length:
+                current = chars[index]
+                if current == "\n":
+                    escaped = False
+                    index += 1
+                    continue
+                if escaped:
+                    chars[index] = " "
+                    escaped = False
+                    index += 1
+                    continue
+                if current == "\\":
+                    chars[index] = " "
+                    escaped = True
+                    index += 1
+                    continue
+                chars[index] = " "
+                index += 1
+                if current == quote:
+                    break
+            continue
+        index += 1
+    return "".join(chars)
 
 
 def _python_side_effect_diagnostics(
@@ -884,14 +972,44 @@ def _python_side_effect_diagnostics(
             # Syntax/encoding diagnostics are emitted by the existing checker.
             continue
 
-        aliases = {
-            module: _import_aliases(tree, module)
-            for module in (
-                "pandas", "numpy", "scipy", "joblib", "pickle", "json",
-                "yaml", "tempfile", "shutil", "os", "shelve", "sqlite3",
-                "torch",
-            )
-        }
+        aliases, direct_aliases, path_constructors = _python_import_bindings(tree)
+        path_variables: set[str] = set()
+
+        def is_path_constructor(node: ast.AST) -> bool:
+            dotted = _ast_dotted_name(node)
+            if dotted in path_constructors:
+                return True
+            if not dotted or "." not in dotted:
+                return False
+            root, suffix = dotted.split(".", 1)
+            return root in aliases["pathlib"] and suffix == "Path"
+
+        def is_path_expression(node: ast.AST) -> bool:
+            if isinstance(node, ast.Name) and node.id in path_variables:
+                return True
+            return isinstance(node, ast.Call) and is_path_constructor(node.func)
+
+        def collect_path_variables() -> None:
+            changed = True
+            while changed:
+                changed = False
+                for candidate in ast.walk(tree):
+                    value: ast.AST | None = None
+                    targets: list[ast.AST] = []
+                    if isinstance(candidate, ast.Assign):
+                        value = candidate.value
+                        targets = list(candidate.targets)
+                    elif isinstance(candidate, ast.AnnAssign):
+                        value = candidate.value
+                        targets = [candidate.target]
+                    if value is None or not is_path_expression(value):
+                        continue
+                    for target in targets:
+                        if isinstance(target, ast.Name) and target.id not in path_variables:
+                            path_variables.add(target.id)
+                            changed = True
+
+        collect_path_variables()
         reported: set[tuple[int, str]] = set()
 
         def report(node: ast.AST, detail: str) -> None:
@@ -909,8 +1027,13 @@ def _python_side_effect_diagnostics(
         def matches_module(dotted: str | None, module: str, attr: str) -> bool:
             if not dotted:
                 return False
-            if dotted == attr and attr in aliases[module]:
-                return True
+            for (bound_module, bound_attr), names in direct_aliases.items():
+                if (
+                    bound_attr == attr
+                    and (bound_module == module or bound_module.startswith(f"{module}."))
+                    and dotted in names
+                ):
+                    return True
             if "." not in dotted:
                 return False
             root, suffix = dotted.split(".", 1)
@@ -918,34 +1041,93 @@ def _python_side_effect_diagnostics(
                 return False
             return root in aliases[module]
 
+        def explicit_mode(call: ast.Call, position: int = 1) -> str | None:
+            mode_node: ast.AST | None = call.args[position] if len(call.args) > position else None
+            for keyword in call.keywords:
+                if keyword.arg == "mode":
+                    mode_node = keyword.value
+            return _ast_static_string(mode_node)
+
+        def has_write_mode(call: ast.Call, position: int = 1) -> bool:
+            mode = explicit_mode(call, position)
+            return mode is not None and any(flag in mode for flag in ("w", "a", "x", "+"))
+
+        def explicit_destination(
+            call: ast.Call, *, keyword: str, position: int = 0
+        ) -> bool:
+            destination: ast.AST | None = None
+            found = False
+            if len(call.args) > position:
+                destination = call.args[position]
+                found = True
+            for item in call.keywords:
+                if item.arg == keyword:
+                    destination = item.value
+                    found = True
+            return found and not _ast_static_none(destination)
+
+        def explicit_stream(call: ast.Call, keyword: str) -> bool:
+            return explicit_destination(call, keyword=keyword, position=1)
+
+        def sqlite_is_memory(call: ast.Call) -> bool:
+            database: ast.AST | None = call.args[0] if call.args else None
+            for item in call.keywords:
+                if item.arg == "database":
+                    database = item.value
+            value = _ast_static_string(database)
+            if value == ":memory:":
+                return True
+            if value is None or not re.search(r"(?:^|[?&])mode=memory(?:&|$)", value):
+                return False
+            uri = None
+            for item in call.keywords:
+                if item.arg == "uri":
+                    uri = _ast_static_bool(item.value)
+            return uri is True
+
         for node in ast.walk(tree):
             if not isinstance(node, ast.Call):
                 continue
             func = node.func
             dotted = _ast_dotted_name(func)
 
-            if isinstance(func, ast.Name) and func.id == "open":
-                mode_node: ast.AST | None = None
-                if len(node.args) >= 2:
-                    mode_node = node.args[1]
-                for keyword in node.keywords:
-                    if keyword.arg == "mode":
-                        mode_node = keyword.value
-                if isinstance(mode_node, ast.Constant) and isinstance(mode_node.value, str):
-                    mode = mode_node.value
-                    if any(flag in mode for flag in ("w", "a", "x", "+")):
-                        report(node, "open() uses an explicit file-writing mode")
+            if (
+                isinstance(func, ast.Name) and func.id == "open"
+            ) or matches_module(dotted, "io", "open"):
+                if has_write_mode(node):
+                    report(node, "open/io.open() uses an explicit file-writing mode")
                 continue
 
             if isinstance(func, ast.Attribute):
                 attr = func.attr
-                if attr in PYTHON_PATH_WRITE_METHODS:
-                    report(node, f"Path/file writer method {attr}() is not allowed in appendix code")
+                if attr in PYTHON_PATH_WRITE_METHODS and is_path_expression(func.value):
+                    if attr != "open" or has_write_mode(node, position=0):
+                        report(node, f"Path writer method {attr}() is not allowed in appendix code")
                 if attr in PYTHON_PANDAS_WRITERS:
-                    report(node, f"tabular writer {attr}() is not allowed in appendix code")
+                    if attr in {"to_csv", "to_json"}:
+                        blocked = explicit_destination(node, keyword="path_or_buf")
+                    elif attr == "to_markdown":
+                        blocked = explicit_destination(node, keyword="buf")
+                    else:
+                        blocked = True
+                    if blocked:
+                        report(node, f"tabular writer {attr}() is not allowed in appendix code")
 
-            if any(matches_module(dotted, "pandas", attr) for attr in PYTHON_PANDAS_WRITERS):
-                report(node, "pandas writer API is not allowed in appendix code")
+            if not (
+                isinstance(func, ast.Attribute)
+                and func.attr in PYTHON_PANDAS_WRITERS
+            ):
+                for pandas_writer in PYTHON_PANDAS_WRITERS:
+                    if not matches_module(dotted, "pandas", pandas_writer):
+                        continue
+                    if pandas_writer in {"to_csv", "to_json"}:
+                        blocked = explicit_destination(node, keyword="path_or_buf")
+                    elif pandas_writer == "to_markdown":
+                        blocked = explicit_destination(node, keyword="buf")
+                    else:
+                        blocked = True
+                    if blocked:
+                        report(node, f"pandas writer {pandas_writer}() is not allowed in appendix code")
             if any(matches_module(dotted, "numpy", attr) for attr in PYTHON_NUMPY_WRITERS):
                 report(node, "NumPy save API is not allowed in appendix code")
             if matches_module(dotted, "scipy", "save_npz"):
@@ -954,15 +1136,19 @@ def _python_side_effect_diagnostics(
                 report(node, "joblib.dump() is not allowed in appendix code")
             if any(matches_module(dotted, "pickle", attr) for attr in {"dump"}):
                 report(node, "pickle.dump() is not allowed in appendix code")
-            if any(matches_module(dotted, module, "dump") for module in ("json", "yaml")):
-                report(node, "JSON/YAML dump() is not allowed in appendix code")
+            if matches_module(dotted, "json", "dump") and explicit_stream(node, "fp"):
+                report(node, "JSON dump() with a file stream is not allowed in appendix code")
+            if matches_module(dotted, "yaml", "dump") and explicit_stream(node, "stream"):
+                report(node, "YAML dump() with a file stream is not allowed in appendix code")
             if any(matches_module(dotted, "tempfile", attr) for attr in PYTHON_TEMPFILE_WRITERS):
                 report(node, "temporary-file/directory API is not allowed in appendix code")
             if any(matches_module(dotted, "shutil", attr) for attr in PYTHON_SHUTIL_WRITERS):
                 report(node, "shutil file-copy/move API is not allowed in appendix code")
             if any(matches_module(dotted, "os", attr) for attr in PYTHON_OS_WRITERS):
                 report(node, "OS directory-creation API is not allowed in appendix code")
-            if matches_module(dotted, "shelve", "open") or matches_module(dotted, "sqlite3", "connect"):
+            if matches_module(dotted, "shelve", "open"):
+                report(node, "persistent shelve/SQLite API is not allowed in appendix code")
+            if matches_module(dotted, "sqlite3", "connect") and not sqlite_is_memory(node):
                 report(node, "persistent shelve/SQLite API is not allowed in appendix code")
             if matches_module(dotted, "torch", "save"):
                 report(node, "torch.save() is not allowed in appendix code")
@@ -1040,16 +1226,23 @@ def _native_side_effect_diagnostics(
         if path.suffix.lower() not in C_SUFFIXES or not path.is_file() or path.is_symlink():
             continue
         try:
-            lines = path.read_text(encoding="utf-8").splitlines()
+            source_text = path.read_text(encoding="utf-8")
+            lines = _mask_c_cpp_literals_and_comments(source_text).splitlines()
+            source_lines = source_text.splitlines()
         except (OSError, UnicodeDecodeError):
             continue
         seen: set[tuple[int, str]] = set()
         for line_number, line in enumerate(lines, 1):
             stripped = line.lstrip()
-            if stripped.startswith("//") or stripped.startswith("*"):
+            if stripped.startswith("//"):
                 continue
             details: list[str] = []
-            mode_match = NATIVE_FOPEN.search(line)
+            mode_match = None
+            fopen_match = re.search(r"\b(?:fopen|freopen)\s*\(", line)
+            if fopen_match and line_number <= len(source_lines):
+                mode_match = NATIVE_FOPEN.search(
+                    source_lines[line_number - 1][fopen_match.start():]
+                )
             if mode_match and any(flag in mode_match.group(1) for flag in ("w", "a", "x", "+")):
                 details.append("fopen/freopen uses an explicit file-writing mode")
             if NATIVE_FD_OPEN.search(line):

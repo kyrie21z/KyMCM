@@ -717,19 +717,37 @@ class AppendixRuntimeTests(unittest.TestCase):
             fixture_writer,
             "def solve(values):\n    return open('out.csv', 'w')\n",
             "from pathlib import Path\nPath('out.txt').write_text('x')\n",
+            "from pathlib import Path\nPath('out.txt').open('w')\n",
+            "from pathlib import Path\np = Path('out.txt')\np.open(mode='w')\n",
+            "import io\nio.open('out.txt', 'w')\n",
+            "from io import open as io_open\nio_open('out.txt', 'w')\n",
             "import pandas as pd\ndf.to_csv('out.csv')\n",
+            "import pandas as pd\ndf.to_json(path_or_buf='out.json')\n",
+            "import pandas as pd\ndf.to_markdown(buf='out.md')\n",
             "import numpy as np\nnp.save('out.npy', arr)\n",
+            "from numpy import save as np_save\nnp_save('out.npy', arr)\n",
             "import scipy.sparse\nscipy.sparse.save_npz('out.npz', matrix)\n",
             "import joblib\njoblib.dump(obj, 'out.joblib')\n",
+            "from joblib import dump as joblib_dump\njoblib_dump(obj, 'out.joblib')\n",
             "import pickle\npickle.dump(obj, fp)\n",
+            "from pickle import dump as pickle_dump\npickle_dump(obj, fp)\n",
             "import json\njson.dump({}, fp)\n",
+            "from json import dump as json_dump\njson_dump({}, fp)\n",
             "import yaml\nyaml.dump({}, fp)\n",
+            "import yaml\nyaml.dump({}, stream)\n",
+            "from yaml import dump as yaml_dump\nyaml_dump({}, fp)\n",
             "import tempfile\ntempfile.NamedTemporaryFile()\n",
+            "from tempfile import mkstemp\nmkstemp()\n",
             "import shutil\nshutil.copy('a', 'b')\n",
+            "from shutil import move\nmove('a', 'b')\n",
             "import os\nos.makedirs('out')\n",
+            "from os import mkdir\nmkdir('out')\n",
             "import shelve\nshelve.open('out.db')\n",
+            "from shelve import open as shelve_open\nshelve_open('out.db')\n",
             "import sqlite3\nsqlite3.connect('out.db')\n",
+            "from sqlite3 import connect\nconnect('out.db')\n",
             "import torch\ntorch.save(model, 'out.pt')\n",
+            "from torch import save as torch_save\ntorch_save(model, 'out.pt')\n",
             "model.save('out.pt')\n",
         )
         for source_text in writers:
@@ -762,6 +780,34 @@ class AppendixRuntimeTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
+        allowed = (
+            "open('input.csv')\n",
+            "open('input.csv', 'rb')\n",
+            "from pathlib import Path\nPath('input.csv').open('r')\n",
+            "from pathlib import Path\np = Path('input.csv')\np.open()\n",
+            "import io\nio.open('input.csv', 'rb')\n",
+            "import pandas as pd\ndf.to_csv()\n",
+            "import pandas as pd\ndf.to_csv(path_or_buf=None)\n",
+            "import pandas as pd\ndf.to_json()\n",
+            "import pandas as pd\ndf.to_markdown()\n",
+            "import yaml\nyaml.dump({})\n",
+            "import yaml\nyaml.dump({}, stream=None)\n",
+            "import json\njson.dump({}, None)\n",
+            "import sqlite3\nsqlite3.connect(':memory:')\n",
+            "import sqlite3\nsqlite3.connect('file:memdb?mode=memory&cache=shared', uri=True)\n",
+            "class Custom:\n    def write_text(self, value):\n        return value\n    def mkdir(self):\n        return None\n    def save(self):\n        return None\ncustom = Custom()\ncustom.write_text('x')\ncustom.mkdir()\ncustom.save()\n",
+        )
+        for source_text in allowed:
+            with self.subTest(allowed_source_text=source_text):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    path = workspace / "appendix/problems/q1/code/solve.py"
+                    path.write_text(source_text, encoding="utf-8")
+                    found = identifiers(check_appendix_result(workspace))
+                    self.assertNotIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
+                finally:
+                    temporary.cleanup()
+
     def test_native_computation_core_side_effects_and_read_boundary(self):
         fixture_writer = (CORE_FIXTURE / "core_write.cpp").read_text(encoding="utf-8")
         writers = (
@@ -787,6 +833,23 @@ class AppendixRuntimeTests(unittest.TestCase):
         try:
             (workspace / target).write_text(
                 '#include "solver.hpp"\nint best(int a, int b) { return a > b ? a : b; }\n',
+                encoding="utf-8",
+            )
+            found = identifiers(check_appendix_result(workspace))
+            self.assertNotIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
+        finally:
+            temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            (workspace / target).write_text(
+                '/*\n'
+                'std::ofstream out("x");\n'
+                'fopen("x", "w");\n'
+                '*/\n'
+                'const char* text = "std::ofstream";\n'
+                '// fopen("x", "w");\n'
+                'int best(int a, int b) { return a > b ? a : b; }\n',
                 encoding="utf-8",
             )
             found = identifiers(check_appendix_result(workspace))
