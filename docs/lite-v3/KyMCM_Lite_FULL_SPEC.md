@@ -7,10 +7,10 @@
 
 ## 0. 使用说明、版本与权威优先级
 
-- Product: `KyMCM Lite`; `VERSION`: `0.9.4`.
+- Product: `KyMCM Lite`; `VERSION`: `0.9.5`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `33`; canonical total bytes: `221293`.
+- Canonical source files: `33`; canonical total bytes: `232410`.
 - Mirror files validated: `18`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
@@ -30,12 +30,12 @@ The complete source text is intentionally long. It is not a summary: each canoni
 
 | No. | canonical path | role | bytes | SHA-256 | mirror path(s) | mirror status |
 |---:|---|---|---:|---|---|---|
-| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `a61cc7a990558a2b76c4a814eb233267e219158dcf184b6b30ce458d27027674` | — | none |
-| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 15982 | `995f723032b4cf0bde5df0fd2f43206898fa90fdc30b299fff1baf87fabce6c5` | — | none |
-| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 22849 | `710384feb15bd0ffa83ea0baf5d3996593780596d1263dabd41189af53ebe6e1` | — | none |
-| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 23155 | `ddc763a548787199d7003efd59873ab16aba8aa54cb2a27f41173b855766457b` | `docs/lite-v3/machine_contract.md` | byte-identical |
-| 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 11673 | `b64f3b7f5bc668bb0de646b5d942a696b05fabd878f8c6ddb8e7da1be79243ad` | — | none |
-| 6 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 8248 | `cb5fa6a85d3c15a9258f319181c09f433e1c3fb6b1f7f9b012d7a1b45a1e4cb2` | `docs/lite-v3/appendix_organization.md` | byte-identical |
+| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `8780409dbc52c96276102c5a079a7d3e325510d7bf87af5257508ecc088a3730` | — | none |
+| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 16921 | `caf007e589d7c5af5099c253ff20ac0b88b600b2d4010dc9044c5cba35a3b605` | — | none |
+| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 24037 | `94eaa13b8d07ee55ef524a9af515598b51d79e77ab590abb7b5c787c48f732b8` | — | none |
+| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 25660 | `2eb84e3b167745986c2a0506844f139507b7f63cf98ef01a9b4292163336b7b6` | `docs/lite-v3/machine_contract.md` | byte-identical |
+| 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 12151 | `64f88dcff72e3c7f0cfe690adb3b493d4bddfc03fb77e131136330fddf416fcd` | — | none |
+| 6 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 9747 | `f7666723db4596ac0be0ecea2c93b169b86f4c760fb4c926b496a0b2381f6741` | `docs/lite-v3/appendix_organization.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/dependency_review.md` | `reference` | 5783 | `4aeac7bd61bd1c70ee2298b6154235743319ca99b76b2988a81e97c7d6d97ffc` | `docs/lite-v3/dependency_review.md` | byte-identical |
 | 8 | `skills/kymcm-lite/references/final_figure_typography.md` | `reference` | 7420 | `efd8621b178bfc7da406872b4f818973d2960932ea483a5e275c44ec1943c343` | `docs/lite-v3/final_figure_typography.md` | byte-identical |
 | 9 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
@@ -43,8 +43,8 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 11 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5995 | `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
 | 12 | `skills/kymcm-lite/references/supplement_work.md` | `reference` | 11176 | `ad120b1bc2ba0702e3b267806c56817fcf5633ab5f99a29de2a08d511008187f` | `docs/lite-v3/supplement_work.md` | byte-identical |
 | 13 | `skills/kymcm-lite/references/technical_handoff.md` | `reference` | 6756 | `2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419` | `docs/lite-v3/technical_handoff.md` | byte-identical |
-| 14 | `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md` | `template` | 1479 | `eb6b11e9a5c6b6db7816fb1f1c60270f4db6035c72acd77adcafc32da8f64848` | `docs/lite-v3/APPENDIX_RESULT.template.md` | byte-identical |
-| 15 | `skills/kymcm-lite/templates/APPENDIX_START.template.md` | `template` | 3389 | `8d65b6909fe88300c561a489129b2339f783e2b9298cb700f20e7cb2385633b4` | `docs/lite-v3/APPENDIX_START.template.md` | byte-identical |
+| 14 | `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md` | `template` | 2173 | `50842bba8b38c52a1889d1c5adf7fad9b51bb3d99946fc347db0a85fe2ad6665` | `docs/lite-v3/APPENDIX_RESULT.template.md` | byte-identical |
+| 15 | `skills/kymcm-lite/templates/APPENDIX_START.template.md` | `template` | 4353 | `bcf0f410f6d3974073c5651e27c86de270e1fee8430d7a16255c325ae7e0bbbf` | `docs/lite-v3/APPENDIX_START.template.md` | byte-identical |
 | 16 | `skills/kymcm-lite/templates/HANDOFF_PRE.template.md` | `template` | 2008 | `b486f30425c74dce973b8d55891b284871161e86a54dbec0836d3801d5c387fb` | `docs/lite-v3/HANDOFF_PRE.template.md` | byte-identical |
 | 17 | `skills/kymcm-lite/templates/HANDOFF_QN.template.md` | `template` | 2842 | `2495e222fc350934367956d67c0f74f069cab8c2097f3c06cee4f74c04b11014` | `docs/lite-v3/HANDOFF_QN.template.md` | byte-identical |
 | 18 | `skills/kymcm-lite/templates/RESULT_PRE.template.md` | `template` | 1085 | `189595bdb36b5ee33a21363e3dfb3fb4faa65309e6a5bed7b0555931f8f8e4c5` | `docs/lite-v3/RESULT_PRE.template.md` | byte-identical |
@@ -54,15 +54,15 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 22 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
 | 23 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
 | 24 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 883 | `9867de45d160c2181e7ff9e06b57f72024f221d295a032c0d555781a8d61c547` | — | none |
-| 25 | `skills/kymcm-lite/README.md` | `product-documentation` | 6262 | `c1b7a25dea9283e24a1731593691cd7661f36415b2dedc36e2f89215a2dd61d0` | — | none |
-| 26 | `docs/compatibility.md` | `product-documentation` | 5952 | `0695e4a7ecc11a9fad67780db470761a7b36f5e4bfab18c5e2db0d569d421a42` | — | none |
-| 27 | `docs/installation.md` | `product-documentation` | 3263 | `1ce7f5baccd5b9a899ed13acee0a469149f4502aedf5e6badb89c47229204a18` | — | none |
-| 28 | `docs/known-limitations.md` | `product-documentation` | 4912 | `452488caefb3540cb7778e60a37e92055be4dc9abca90b8f11ac1a953cc6e8b4` | — | none |
-| 29 | `docs/lite-v3-rfc.md` | `product-documentation` | 18257 | `aabb050a5b1b21409753a6e9006a6672214eb6928b05c2a7a40d95988b790a3a` | — | none |
-| 30 | `docs/lite-v3-release-notes.md` | `product-documentation` | 10538 | `c6dbae1148ad85f2bb0fc6e917aefbedfa0c947704ed0ed380d0d5354e864546` | — | none |
-| 31 | `docs/release-checklist.md` | `repository-maintenance` | 6769 | `0241c8c74dd8a03ffc3a54c57234fbde60afab0575d1b2c1200e7ed7130bc91a` | — | none |
-| 32 | `docs/system-dependencies.md` | `repository-maintenance` | 1019 | `80ffb8c069800e48d2778f49900a26c8006df1e5b1a5a147a0f840853faccc56` | — | none |
-| 33 | `README.md` | `product-documentation` | 4474 | `d3704427649311d4e41e07a563373213ed52d0fec33f82c335b0ca7f341789a1` | — | none |
+| 25 | `skills/kymcm-lite/README.md` | `product-documentation` | 6341 | `384698583e7f729fd2521602801c8d7ed4e4f685c4a14e22456dd8486c6ac978` | — | none |
+| 26 | `docs/compatibility.md` | `product-documentation` | 6427 | `2bdb8d65e315516ceb2ff8a28755aef32609499c56cfa0ed99e2e5de3e4f7706` | — | none |
+| 27 | `docs/installation.md` | `product-documentation` | 3363 | `ad15db023f5830af4b83feb652ad7495d9c711d657c51c1dd1de1f99bbbceb84` | — | none |
+| 28 | `docs/known-limitations.md` | `product-documentation` | 5195 | `07cfa3d678b3eb2c122a093779e7be1914a71e00a03739b91aadbb1ccac1fe72` | — | none |
+| 29 | `docs/lite-v3-rfc.md` | `product-documentation` | 18422 | `92ab7e4f3ade4d91134da2d824b2ef93769255f4a3ef596b15c80f34cc2d6abe` | — | none |
+| 30 | `docs/lite-v3-release-notes.md` | `product-documentation` | 11940 | `b9aab1da50f9050eaf43893fcc48dfc8cfdb901b09ad05ab915bf6368d921dd4` | — | none |
+| 31 | `docs/release-checklist.md` | `repository-maintenance` | 6913 | `0509be3e57fb506135136da4dfa6f2969741ab5fab0718cf67e5029089e92f26` | — | none |
+| 32 | `docs/system-dependencies.md` | `repository-maintenance` | 1119 | `9576318deae4ec4241aa608a03f347672d1d671b326b340e9424d60adb9b01bd` | — | none |
+| 33 | `README.md` | `product-documentation` | 4576 | `22e26676d2a060ee2c06caef46f9ba89a44c5d9063af95bddcdba1e8a9564d4b` | — | none |
 
 ## 2. Core skill
 
@@ -71,7 +71,7 @@ Role: `identity`
 Authority: runtime identity
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
-0.9.4
+0.9.5
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
 
 
@@ -150,9 +150,11 @@ Enter final-figure work only when the user explicitly requests it after the rele
 
 Begin only after required START/RESULT and Supplement work has been semantically accepted, any requested HANDOFF is current, explicit submission requirements, formal result versions, and certification boundaries are stable. Read `reports/appendix/APPENDIX_START.md`, then run `check-appendix-start`. Construct only its frozen whitelist targets. Treat original `problems/` and `input/` as read-only; `paper/` and `figure/` are outside appendix source scope. START, RESULT, SUPPLEMENT, and HANDOFF are internal references only and cannot be copied.
 
-Make `appendix/` cover the complete formal solve pipeline and dependencies while excluding plotting. Select authentic representative root `code/` files for the final submission document's code appendix; core modeling, preprocessing, scheduling, recovery, audit, and other relevant execution code are eligible.
+Make `appendix/` cover the auditable computation core and its local dependencies while excluding plotting, display/interface code, report prose, and export writers. Select authentic representative root `code/` files for the final submission document's code appendix; input/feature construction, modeling, optimization, statistics, prediction, constraints, validation, and audit code are eligible when they do not write result or runtime artifacts. Formal result assets are independent targets and are never regenerated by the checker or submitted code.
 
-Keep COPY/CURATE traceable to the team's real source. Never copy others' code, obfuscate, add junk/dead code, or rewrite for similarity manipulation. If computation and plotting cannot be separated safely, stop for human confirmation. Perform compilation, build, workbook, and source-integrity verification without modifying original sources. Store evidence under `reports/appendix/evidence/`, write APPENDIX_RESULT, and run `check-appendix-result`. The checker validates structure and evidence, not plotting responsibility, originality, external similarity, complete formal-code coverage, CURATE semantic equivalence, or mathematical correctness. Follow `references/appendix_organization.md`.
+Apply three deletion layers to every CURATE: (1) remove file writes and persistence side effects; (2) remove result/document construction such as hard-coded tables, formal prose, and export-only formatting; and (3) remove display/export entrypoints plus orphan imports, variables, constants, functions, and modules. Each CURATE record must state the retained computation core, all three deletion layers, and the mathematical, data, and execution semantics kept unchanged.
+
+Keep COPY/CURATE traceable to the team's real source. Never copy others' code, obfuscate, add junk/dead code, or rewrite for similarity manipulation. If computation and plotting cannot be separated safely, stop for human confirmation. Perform compilation, build, workbook, and source-integrity verification without modifying original sources. Store evidence under `reports/appendix/evidence/`, write APPENDIX_RESULT, and run `check-appendix-result`. The checker blocks high-confidence file/directory writers in computation code with `LITE-APPENDIX-CODE-SIDE-EFFECT-001` and rejects runtime-data suffixes; read-only opens and in-memory result assembly remain allowed. Dynamic wrappers, indirect writes, plotting responsibility, originality, external similarity, complete core coverage, CURATE semantic equivalence, and mathematical correctness remain human-review limits. Follow `references/appendix_organization.md`.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/SKILL.md -->
 
 
@@ -165,7 +167,7 @@ Authority: Lite protocol
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.9.4 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures with the external `final_figure_typography.md` contract, and optional submission-appendix curation. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.9.5 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures with the external `final_figure_typography.md` contract, and computation-core submission-appendix curation with independent result assets and static side-effect checks. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## External complete specification export
 
@@ -346,10 +348,12 @@ Appendix planning reads base RESULT, accepted Supplement Result, and the current
 
 The two output surfaces are:
 
-- `appendix/`: the complete formal solve code package with plotting excluded, formal result attachments, exactly three generated environment files, optional necessary external input, and optional official `Result.xlsx`;
-- root `code/`: authentic representative implementation for a final submission document, including applicable core modeling, scheduling, recovery, batch execution, and audit code.
+- `appendix/`: auditable computation core code with plotting/display/interface/export code excluded, independent formal result attachments, exactly three generated environment files, optional necessary external input, and optional official `Result.xlsx`;
+- root `code/`: authentic representative computation-core implementation for a final submission document, without result writers, caches, checkpoints, temporary files, or other persistence side effects.
 
-The whitelist covers the formal solve pipeline and runtime/build closure. Plotting, tests, caches, logs, historical experiments, runtime data, credentials, and unrelated infrastructure stay out. COPY and CURATE remain traceable and cannot alter mathematics, execution order, randomness, recovery rules, or result boundaries. Similarity manipulation, copied code, obfuscation, junk/dead code, and unrelated additions are forbidden.
+The whitelist covers the computation core and independent result assets. Plotting, display/interface/report exporters, tests, caches, logs, checkpoints, historical experiments, runtime data, credentials, and unrelated infrastructure stay out. COPY and CURATE remain traceable and cannot alter mathematics, execution order, randomness, recovery rules, or result boundaries. The appendix result is never regenerated by the checker or by submitted code. `check-appendix-result` blocks high-confidence Python/C/C++ output APIs with `LITE-APPENDIX-CODE-SIDE-EFFECT-001`; dynamic wrappers and semantic equivalence remain human-review limits. Similarity manipulation, copied code, obfuscation, junk/dead code, and unrelated additions are forbidden.
+
+Every CURATE follows three deletion layers: first remove file writes and persistence side effects; second remove result/document construction, including hard-coded result/interface tables, formal prose, and export-only formatting; third remove display/export entrypoints and orphan imports, variables, constants, functions, and modules. APPENDIX_START records the retained core, each layer's deletions, and unchanged mathematical, data, and execution semantics; APPENDIX_RESULT reports the actual three-layer execution and its human-review limits.
 
 APPENDIX_START uses:
 
@@ -386,13 +390,13 @@ APPENDIX_RESULT uses:
 
 Whitelist grammar remains `A[0-9]{3,}` for appendix entries and `C[0-9]{3,}` for root-code entries with COPY, CURATE, and the three fixed GENERATE targets. Section 7 has exact external-material and mandatory-result declarations; section 9 is cleared with `无`, `None`, or `N/A`.
 
-`check-appendix-result` checks declared files, COPY hashes, path/directory rules, source integrity, common dependency references, Python syntax, basic XLSX structure, sensitive information, and visible certification-boundary conflicts without importing or executing user code. It does not judge originality, external similarity, complete solve coverage, plotting responsibility, mathematical correctness, or CURATE semantic equivalence.
+`check-appendix-result` checks declared files, COPY hashes, path/directory rules, source integrity, common dependency references, Python syntax, high-confidence code side effects, runtime-data suffixes, basic XLSX structure, sensitive information, and visible certification-boundary conflicts without importing or executing user code. It does not judge dynamic wrappers, originality, external similarity, complete core coverage, plotting responsibility, mathematical correctness, or CURATE semantic equivalence.
 
 ## Compatibility and non-goals
 
 The Lite v3 marker, eight public commands, all START/RESULT/PRE/HANDOFF/APPENDIX headings, base START/RESULT single/split identities, partial split legality, dependency token grammar, evidence scope, figure workspace, and appendix whitelist grammar remain unchanged. Existing 0.8.1 workspaces need not create Supplement files. Supplement names do not participate in base discovery. Existing user-created same-name files receive no automatic migration. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes. Historical plotting code and legacy content are not moved.
 
-Lite 0.9.4 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, or actual external font usage; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts; infer final graphics; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, or figure-font checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; or fully interpret dynamic imports, CMake, and spreadsheet semantics. Final-figure font discovery, rendering, and audit remain the external `nature-figure` responsibility under `references/final_figure_typography.md`.
+Lite 0.9.5 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, or actual external font usage; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts; infer final graphics; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, or figure-font checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Final-figure font discovery, rendering, and audit remain the external `nature-figure` responsibility under `references/final_figure_typography.md`.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 
 
@@ -403,7 +407,7 @@ Role: `machine-contract`
 Authority: runtime behavior
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/machine_contract.md -->
-# KyMCM Lite 0.9.4 machine-enforced contract
+# KyMCM Lite 0.9.5 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -421,11 +425,12 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.4` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.0, 0.9.1,
-0.9.2, and 0.9.3 workspaces need no migration because this release changes
-final-figure guidance and documentation, not a workspace file, runtime, or
-checker.
+Lite version `0.9.5` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.4 and
+earlier workspaces need no migration. The release refocuses new or reorganized
+appendix curation on a computation-only code surface and adds a read-only
+static side-effect diagnostic; it does not rewrite existing workspace files or
+add runtime state.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -791,25 +796,56 @@ symlink components, and must satisfy the source-to-target mapping. Sources under
 Markdown contracts are contextual internal documents and cannot be copied.
 Original `problems/` and `input/` remain read-only.
 
+`appendix/problems/*/code/` and direct root `code/` targets are the computation
+core: input/feature construction, model and optimization logic, statistics,
+prediction, constraints, and validation/audit paths may be retained, but code
+must not generate formal result tables, interface/report prose, export files,
+or runtime/cache/checkpoint artifacts. `appendix/*/result/` and other formal
+result assets are curated independently and are not regenerated by the checker
+or by an appendix command.
+
 `appendix/` and root `code/` must contain exactly the declared ordinary files;
 extra files, missing targets, symlinks, empty/undeclared directories, and
 misplaced question directories are errors. Root `code/` permits direct files
-only. COPY target bytes must equal the source SHA-256. Every declared source is
-listed in `source_integrity.csv` with the exact header
+only. COPY target bytes must equal the source SHA-256. Formal result assets are
+independent appendix targets: the checker validates their structure and hashes
+but never regenerates them from appendix code. Every declared source is listed
+in `source_integrity.csv` with the exact header
 `path,before_sha256,after_sha256,status`, equal lowercase SHA-256 values, and
 status `unchanged`.
 
 Static checks reject hidden/cache/build/archive/test/tmp directories, logs,
 bytecode, binaries, runtime checkpoint data, temporary/backup/final-like names,
 executables, root-code README/data files, duplicate byte-identical formal
-results, and sensitive paths/credentials/private keys/machine identity. They do
-not reject operational names such as scheduler, checkpoint, status, monitor,
-ledger, or audit by name alone. Python sources are parsed with `ast`; obvious
-local modules must be present and dynamic imports/execution are advisory
-warnings. C/C++ local includes and literal CMake sources must be present;
-macro/generated closure is an advisory warning. Declared XLSX is checked as a
-ZIP/XML workbook with at least one sheet. No submitted code, solver, compiler,
-build command, or user program is executed by the checker.
+results, and sensitive paths/credentials/private keys/machine identity. Code
+targets additionally reject `.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`,
+`.sav`, `.ckpt`, `.pt`, and `.pth` runtime-data suffixes. They also reject CSV,
+Markdown, and XLSX result-like files in code targets; those suffixes are
+permitted only under result/environment/mandatory-result surfaces. They do not reject
+operational source names such as scheduler, checkpoint, status, monitor, ledger,
+or audit by name alone. Python sources are parsed with `ast`; obvious local
+modules must be present and dynamic imports/execution are advisory warnings.
+For computation-code targets, `LITE-APPENDIX-CODE-SIDE-EFFECT-001` is an Error
+for high-confidence explicit file/directory writers: literal write-mode
+`open`, `Path` writers, pandas/NumPy/SciPy/joblib/pickle/JSON/YAML persistence,
+temporary-file APIs, shutil copy/move, OS directory creation, shelve/SQLite,
+torch/model persistence, and the corresponding C/C++ fopen/ofstream/fstream,
+open-flag, and directory APIs. Read-only opens and in-memory result assembly
+remain allowed. The diagnostic is static and does not resolve arbitrary
+wrappers, aliases, dynamic strings, or semantic model equivalence. C/C++ local
+includes and literal CMake sources must be present; macro/generated closure is
+an advisory warning. Declared XLSX is checked as a ZIP/XML workbook with at
+least one sheet. No submitted code, solver, compiler, build command, or user
+program is executed by the checker.
+
+Appendix CURATE uses three deletion layers: first remove file writes and
+persistence side effects; second remove result/document construction such as
+hard-coded result tables, formal prose, and export-only formatting; third remove
+display/export entrypoints and orphan imports, variables, constants, functions,
+and modules. Every CURATE entry records the retained computation core, all three
+deletion layers, and the mathematical, data, and execution semantics kept
+unchanged. The checker can enforce only high-confidence first-layer writers; the
+second and third layers require Codex semantic review and final human review.
 
 Appendix result must account for every whitelist ID, reject unknown IDs, state no
 deviation or an authorized deviation with safe evidence, index at least one
@@ -872,7 +908,10 @@ Start/Result invalidation, artifact overwrite permission, completed-entry
 immutability, downstream impact, Result acceptance, HANDOFF authorization,
 HANDOFF timing/identity/currency, final-figure selection, plotting responsibility, code originality,
 semantic CURATE equivalence, complete formal-source coverage, or external
-similarity. They do not validate every dynamic import, CMake interpretation,
+similarity. The side-effect diagnostic cannot prove that a wrapper, dynamic
+alias, generated path, or indirect library call is write-free; it also cannot
+prove that CURATE preserved semantic equivalence or that result assets match a
+recomputed run. They do not validate every dynamic import, CMake interpretation,
 Excel formula/cache/format/numerical agreement, solver behavior, or submitted
 program execution. These boundaries require Codex semantic review and final
 human review. A warning is not a mathematical certification.
@@ -896,11 +935,11 @@ Authority: diagnostic catalog
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3/diagnostics.md -->
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.9.1.
+Status: Normative for KyMCM Lite 0.9.5.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.9.1 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources.
+Lite 0.9.5 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources. The Appendix code-side-effect diagnostic is static and high-confidence only; it does not execute code or prove indirect writes are absent.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|
@@ -978,6 +1017,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 | `LITE-APPENDIX-INTEGRITY-001` | Error | `source_integrity.csv` is missing or structurally/hash/status invalid |
 | `LITE-APPENDIX-DUPLICATE-001` | Error | Two declared formal-result files are byte-identical |
 | `LITE-APPENDIX-PYTHON-001` | Error | Submitted Python has invalid syntax or a missing obvious local module |
+| `LITE-APPENDIX-CODE-SIDE-EFFECT-001` | Error | A computation-code target contains a high-confidence explicit file/directory writer or persistence API, including Path/io/direct-import writer aliases and lexical C/C++ writers; read-only opens, pure in-memory pandas/JSON/YAML/SQLite calls, and ordinary custom-object methods are allowed |
 | `LITE-APPENDIX-DEPENDENCY-WARN-001` | Warning | Dynamic loading or CMake features prevent complete static dependency closure proof |
 | `LITE-APPENDIX-XLSX-001` | Error | Declared Result.xlsx is not a valid basic workbook ZIP/XML structure |
 | `LITE-APPENDIX-SENSITIVE-001` | Error | A high-confidence local path, credential, private key, authorization value, or machine identity is detected |
@@ -995,69 +1035,78 @@ Authority: specialized reference
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/appendix_organization.md -->
 # KyMCM Lite 附录整理规范
 
-附录整理是正式结果、提交要求和认证边界稳定后的可选独立阶段。`appendix/` 是排除绘图后的完整正式求解代码与正式结果附件，服务提交和复现；根 `code/` 是从本队真实工程选择、用于最终提交文档代码附录的代表性代码。二者用途不同、互不替代。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
+附录整理是正式结果、提交要求和认证边界稳定后的可选独立阶段。`appendix/` 与根 `code/` 都只收录本队真实工程中的可审计计算核心；正式结果附件是独立交付面，不由附录代码重新生成。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
 
-The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference base START/RESULT, Supplement Result, and HANDOFF only as internal context.
+The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference base START/RESULT, accepted Supplement Result, and the current HANDOFF only as internal context; none of those contracts may be copied.
 
 ## 基本原则
 
 1. 先冻结结构和白名单，再从白名单正向构造，禁止先复制整个工程再反向删除。
-2. `appendix/` 以正式流程完整性为先；根 `code/` 以真实性、提交展示价值、实现辨识度和可读性为先。
-3. `problems/`、`input/` 以及正式 START/RESULT、Supplement 和技术 HANDOFF 始终只读；复制、裁剪、重命名和机械清理仅发生在 `appendix/`、`code/` 与 `reports/appendix/evidence/`。
-4. 单一或拆分基础契约、Supplement Start/Result 及匹配 HANDOFF 只能作为上下文参考，不能复制进最终包；HANDOFF 也不是正式认证来源。规划时按顺序读取基础 RESULT、已完成 Supplement Result 和当前 HANDOFF，以确定当前有效状态。
-5. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON、持久化清单或外部相似度服务。
+2. `appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 是可审计的计算核心：输入、特征/参数、模型、优化、统计、预测、约束、验证和审计路径可以保留，但不承担正式结果表、接口/报告文本、导出或运行状态文件的生成。
+3. 根 `code/` 是提交文档中的真实代表性计算核心，可以选择一题或多题的核心实现；它不承担完整复现，也不能用来规避 appendix 的计算边界。
+4. `appendix/*/result/`、`appendix/Result.xlsx`（如适用）和其他独立正式结果资产独立 COPY/CURATE，必须与已接受 RESULT 和机器证据一致；checker 只核验，不运行附录代码、不重新生成结果。
+5. `problems/`、`input/` 以及正式 START/RESULT、Supplement 和技术 HANDOFF 始终只读；修改只发生在 `appendix/`、根 `code/` 与 `reports/appendix/evidence/`。
+6. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON、持久化清单、自动迁移或外部相似度服务。
 
-## 两个代码交付面的职责
+## 计算核心与结果资产的边界
 
-`appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 保留生成当前正式结果实际使用的代码全集及传递依赖，不为追求文件数最少而删去正式流程。已完成 Supplement 中属于当前有效方案的代码、数据产品和结果附件可按既有白名单进入；被替代的旧实现和结果默认排除，除非比赛明确要求历史对照。根 `code/` 不承担完整复现职责，可选择当前有效 Supplement 的真实代表性代码。
+计算核心可以读取输入、构造特征和情景、建立目标与约束、调用求解器、执行统计和预测、核验约束并组装内存中的结果对象。正式结果表、接口协议、Markdown/HTML/JSON 报告、CSV/XLSX/Parquet/Feather/NPY/NPZ/Joblib/Pickle 导出、缓存、checkpoint、阶段账本、临时目录、数据库和模型持久化均属于独立结果/运行副作用，不得由提交代码生成。
 
-两类代码都必须来自本队真实工程并可追溯到 APPENDIX_START 中的准确源路径。根 `code/` 可以同时展示核心模型与非核心工程实现，不要求每题一个文件，也不要求只展示最常见的核心算法。
+高置信写入包括 Python 的显式写模式 `open`、`Path` 写入/建目录、pandas/NumPy/SciPy/joblib/pickle/JSON/YAML writer、临时文件、shutil copy/move、OS 建目录、shelve/SQLite、torch/model save，以及 C/C++ 的 `fopen` 写模式、`ofstream`、输出型 `fstream`、写标志 `open` 和目录/复制 API。静态 checker 以 `LITE-APPENDIX-CODE-SIDE-EFFECT-001` 阻断这些调用；只读打开、内存对象和不构成写入的纯函数允许保留。动态包装器、运行时拼接字符串、间接库调用和语义等价仍需人工审查。
 
-## `appendix/`：完整正式求解代码
+三层删除规则必须同时满足，不能用笼统标签替代：
 
-`appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 来源可来自 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE、SUPPLEMENT_START_QN、SUPPLEMENT_RESULT_QN 与所有基础 QN 合同同样禁止复制。代码白名单覆盖当前正式流程实际使用的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、任务调度、批量或并行执行、断点续算、阶段恢复、缓存复用、失败隔离与重试、状态回读、验证审计、结果核验与正式导出，以及这些路径依赖的本地模块和配置代码。
+- **第一层：文件写入与持久化副作用**。删除结果、报告、缓存、checkpoint、模型、数据库、临时文件和目录的写入，包括 CSV、Markdown、Excel、JSON、JOBLIB、NPY/NPZ、pickle、parquet、feather、日志、缓存和临时目录生成。高置信 API 由 `LITE-APPENDIX-CODE-SIDE-EFFECT-001` 静态阻断。
+- **第二层：结果与文档构造**。即使最终写入已经删除，仍删除硬编码结果表/接口表（如 `Q2-03`—`Q2-11`）、RESULT/HANDOFF/Supplement/APPENDIX RESULT/依赖审查/状态报告/日志文案、正式结果表和证据索引拼装、仅为导出准备的格式化列，以及不再参与计算的结果包装对象。该层由 Codex 语义审查和人工终审负责，不使用过宽的 DataFrame 或字符串扫描。
+- **第三层：展示/导出入口与孤儿代码清理**。删除只调用导出、报告、缓存或展示逻辑的 `main()`/CLI、只服务于输出目录/文件名/接口编号/报告路径的参数常量、前两层删除后失去调用者的函数和模块、未使用 import/变量/常量/辅助函数，以及只打印正式结果而不参与计算或审计的入口。保留的入口必须真正驱动输入读取、模型计算和合法性审计，并只返回内存结果或执行断言。
 
-排除测试、缓存和字节码、日志和运行输出、历史/废弃/试验实现、临时调试脚本、归档与二进制、模型 checkpoint 数据、求解中间状态、可再生运行产物、内部桥接、凭据、个人环境文件和无关基础设施。调度、恢复、状态、监控或审计语义本身不是排除理由；`scheduler.py`、`checkpoint.py`、`run_status.py`、`resource_monitor.py`、`audit.py` 等真实源码可以进入。
+每个 `CURATE` 条目都必须记录：保留的计算核心、第一层删除内容、第二层删除内容、第三层删除内容，以及保持不变的数学、数据和执行语义。
 
-结果只保留最终策略、代表性或最坏轨迹、核心汇总表和必要证书，排除 RESULT Markdown、日志、manifest、checkpoint 数据、阶段账本数据、内部审计报告和可重建中间文件。每项结论只保留一个正式结果版本。比赛强制的 `Result.xlsx`（如适用）只能在 `appendix/Result.xlsx` 出现一次，沿用官方模板、数值一致，并接受 COPY 哈希和基本可打开性检查。
+## `appendix/` 交付面
 
-`appendix/environment/` 只能包含 `README.md`、`requirements.txt` 与 `system_info.txt`。`appendix/input/` 仅在确实使用了审稿人无法取得且验证必需的非标准外部资料时存在，绝不创建空目录。
+`appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 可来自允许的 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE、Supplement 合同及基础 QN 合同禁止复制。
 
-## 绘图代码排除
+代码白名单覆盖当前正式结果所依赖的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、统计/预测、验证审计和本地传递模块。调度、批处理、并行、恢复和监控源码只有在仍属于计算核心或验证路径、且不写入缓存/checkpoint/日志/结果接口时才可进入；`scheduler.py` 这类名称本身不是排除理由。
 
-绘图代码不进入 `appendix/problems/qN/code/`、`appendix/problems/preprocess/code/` 或根 `code/`。独立 `figure/` 工作区不是 appendix 来源。主要职责为生成最终展示图、调整视觉样式/排版、转换结果为 PNG/PDF/SVG，或仅为可视化读取结果而不参与正式数值计算的代码都应排除。
+结果只保留已接受的最终策略、代表性或最坏轨迹、核心汇总表和必要证书，排除 RESULT Markdown、接口/报告文本、日志、manifest、checkpoint 数据、阶段账本、内部审计报告和可重建中间文件。每项结论只保留一个正式结果版本，强制 `Result.xlsx` 只能出现一次并接受 COPY 哈希和基本可打开性检查。
 
-正式计算与少量绘图逻辑同文件时，优先从真实源文件机械 CURATE：仅删除绘图入口或函数，不重写数学部分。若无法安全分离，停止并记录人工决策，不静默改写。自动 checker 不根据文件名或 import 猜测全部绘图职责；APPENDIX_START 白名单、Codex 语义审查和人工终审承担该边界。
+`appendix/environment/` 只能包含 `README.md`、`requirements.txt` 与 `system_info.txt`。`appendix/input/` 仅在审稿人无法取得且验证确实必需的非标准外部资料存在时使用，绝不创建空目录。
+
+## 绘图、显示和接口代码排除
+
+绘图代码、最终展示排版、图像/表格转换、仅读取结果的显示脚本、交互式接口和报告/导出构造器不进入 appendix code 或根 `code/`。独立 `figure/` 工作区不是 appendix 来源。
+
+正式计算与少量绘图逻辑同文件时，优先从真实源文件机械 CURATE：仅删除显示入口或函数，不重写数学部分；若无法安全分离，停止并记录人工决策，不静默改写。自动 checker 不根据文件名或 import 猜测全部职责；APPENDIX_START 白名单、Codex 语义审查和人工终审承担该边界。
 
 ## 根 `code/`：代表性真实实现
 
-根 `code/` 只含直接文件，不引入完整源码树、数据、结果、README、环境文件、日志、测试或绘图文件。允许选择核心模型、求解逻辑、多阶段调度、情景批处理、断点续算、结果复用、失败隔离与重试、输入审计、结果回读、约束核验、参数配置和实验控制。
+根 `code/` 只含直接文件，不引入完整源码树、数据、结果、README、环境文件、日志、测试或绘图文件。允许选择核心模型、求解逻辑、特征/统计/预测、约束核验、参数配置和必要的内存中实验控制；只有不产生提交副作用的计算调度或恢复片段才可展示。
 
-每个 C 条目必须说明源文件、正式流程中的真实职责、适合提交展示的理由、COPY/CURATE 模式，以及 CURATE 删除的展示无关内容和保持不变的数学与执行语义。代码不得硬编码最终数值答案，也不得改变模型语义、计算顺序、随机性、平局规则、恢复规则或认证边界。
+每个 C 条目必须说明源文件、正式流程中的真实职责、提交展示理由、COPY/CURATE 模式、删除的显示/接口部分和保持不变的数学与执行语义。代码不得硬编码最终数值答案，不得改变模型语义、计算顺序、随机性、平局规则、恢复规则或认证边界。
 
 ## COPY 与 CURATE
 
-`appendix/` 默认优先 COPY 并保留原相对结构。CURATE 仅用于机械分离同文件绘图、调整提交所需 import/相对路径、合并少量真实小模块，或删除日志、调试入口和未调用包装；不得删去正式依赖或改变数学与执行行为。
+`appendix/` 默认优先 COPY 并保留原相对结构。CURATE 仅用于机械分离显示代码、调整提交所需 import/相对路径、合并少量真实小模块或删除未调用的展示包装；不得删去正式计算依赖、改写算法或恢复写入副作用。
 
-根 `code/` 可 COPY 真实源文件，也可 CURATE 一个或少量真实源文件形成可读片段。可以补充必要注释、类型或入口说明，但不得虚构行为。所有源文件都进入 `source_integrity.csv` 的只读核验。
+根 `code/` 可 COPY 真实源文件，也可 CURATE 一个或少量真实源文件形成可读片段。可以补充必要注释、类型或入口说明，但不得虚构行为。所有源文件都进入 `source_integrity.csv` 的只读核验；结果资产不因代码 CURATE 而自动重算。
 
 ## 真实性、原创性与相似性边界
 
 合理做法是从本队真实正式工程选择具有实现辨识度的代表性代码。禁止复制、改写或拼接其他队伍、网络答案或不合规来源；禁止只为改变相似度乱改变量名、插入无效分支/死代码/垃圾注释、拆乱表达式或控制流、使用混淆器或自动差异工具，以及添加未参与正式流程的“个性化”代码。
 
-目标是让提交代码准确说明本队如何实现，并减少通用核心实现自然相似造成的误判风险，不是规避查重。不得以“降低查重率”描述任何白名单用途，也不设置外部代码数据库、在线查重、相似度阈值或自动原创性结论。
+目标是准确说明本队如何实现，不是规避查重。不得以“降低查重率”描述任何白名单用途，也不设置外部代码数据库、在线查重、相似度阈值或自动原创性结论。
 
 ## 验证、结果、环境与只读规则
 
-所有输出不得含绝对本地路径、用户名路径、凭据、令牌或敏感机器信息。部分验证、有限策略类、受限状态覆盖或有限时域偏离分析不得被表述为全局最优或完整均衡认证。
+所有输出不得含绝对本地路径、用户名路径、凭据、令牌或敏感机器信息。有限策略、受限状态覆盖或有限时域偏离分析不得被表述为全局最优或完整均衡认证。
 
-验证应覆盖完整正式入口、传递依赖、调度/恢复路径、实际编译或构建、COPY 哈希、CURATE 语义边界、绘图排除、根 `code/` 来源真实性、结果唯一性、环境最小化、敏感信息和源文件只读。无法安全分离绘图与计算或无法确认语义等价时停止人工复核。
+验证应覆盖核心入口和本地依赖、静态副作用扫描、实际编译/构建（如适用）、独立结果资产与已接受 RESULT 的一致性、COPY 哈希、CURATE 语义边界、绘图/接口排除、根 `code/` 来源真实性、结果唯一性、环境最小化、敏感信息和源文件只读。无法安全分离或无法确认语义等价时停止人工复核。
 
 ## 自动 checker 的能力边界
 
-检查器只读且不执行用户代码、不导入用户模块、不运行求解器或编译器。它检查精确白名单、路径、文件类型、结构、COPY 哈希、静态 Python/import、C/C++ include、有限 CMake 字面路径、XLSX ZIP/XML 基本结构和高置信敏感信息。
+检查器只读且不执行用户代码、不导入用户模块、不运行求解器或编译器。它检查精确白名单、路径、文件类型、结构、COPY 哈希、静态 Python/import、C/C++ include、有限 CMake 字面路径、静态高置信写入 API、XLSX ZIP/XML 基本结构和敏感信息。
 
-检查器不自动判断正式代码覆盖、绘图职责、原创性、外部相似度、CURATE 语义等价、数学正确性、完整动态导入、完整 CMake、Excel 数值/公式/格式或提交展示质量；这些由 Codex 执行证据与人工终审承担。
+检查器不自动判断正式代码覆盖、绘图/接口职责、原创性、外部相似度、CURATE 语义等价、数学正确性、完整动态导入、动态写入包装、完整 CMake、Excel 数值/公式/格式或提交展示质量；这些由执行证据、Codex 语义审查和人工终审承担。
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/appendix_organization.md -->
 
 
@@ -2110,7 +2159,7 @@ Authority: contract template
 
 ## 1. 最终交付结构
 
-<!-- 分别列出 appendix/ 的完整正式求解代码包、正式结果附件与根 code/ 的提交文档代表性代码；若包含 PRE，单列 preprocess/code 与 preprocess/result。 -->
+<!-- 分别列出 appendix/ 的计算核心、独立正式结果附件与根 code/ 的提交文档代表性核心；若包含 PRE，单列 preprocess/code 与 preprocess/result。说明结果附件不是由附录代码现场生成。 -->
 
 ## 2. 实际整理方案与 APPENDIX_START 偏差
 
@@ -2118,15 +2167,15 @@ Authority: contract template
 
 ## 3. 白名单执行结果
 
-<!-- 逐一说明每个 A/C ID，并总结 appendix 正式代码覆盖与根 code 选择理由。 -->
+<!-- 逐一说明每个 A/C ID，并报告三层删除的实际执行结果：第一层文件写入与持久化副作用、第二层结果与文档构造、第三层展示/导出入口与孤儿代码清理；同时总结计算核心覆盖、独立结果资产、静态副作用扫描与根 code/ 选择理由。 -->
 
 ## 4. 依赖闭包与编译构建验证
 
-<!-- 验证完整正式入口、传递依赖、调度/恢复路径、Python 编译和 C/C++ 构建及其证据。 -->
+<!-- 验证计算核心入口、传递依赖、必要的调度/恢复语义、静态副作用扫描、Python 编译和 C/C++ 构建及其证据；不运行附录代码来生成或覆盖正式结果。 -->
 
 ## 5. 正式结果一致性
 
-<!-- 说明正式 RESULT、机器证据、附件与 Result.xlsx 的数值、版本和认证边界一致性。 -->
+<!-- 说明正式 RESULT、机器证据、独立结果附件与 Result.xlsx 的数值、版本和认证边界一致性；结果不由附录代码重新生成。 -->
 
 ## 6. 强制结果文件核验
 
@@ -2134,7 +2183,7 @@ Authority: contract template
 
 ## 7. 排除项与敏感信息扫描
 
-<!-- 记录绘图、测试、历史实现、运行产物、重复项和敏感信息的排除与扫描。 -->
+<!-- 记录结果表、接口表、RESULT/HANDOFF/日志文案构造、绘图、显示/接口、测试、历史实现、导出器、持久化副作用、运行产物、缓存/checkpoint、重复项、展示入口、孤儿代码、静态副作用和敏感信息的排除与扫描。 -->
 
 ## 8. 原始工程只读验证
 
@@ -2146,7 +2195,7 @@ Authority: contract template
 
 ## 10. 局限性与人工复核事项
 
-<!-- 列出绘图分离、CURATE 语义等价、根 code 来源真实性、数学正确性、动态导入、CMake 和 Excel 语义等人工复核限制。 -->
+<!-- 列出第二层结果/文档构造和第三层入口/孤儿清理无法由 checker 完全证明、绘图/接口分离、CURATE 语义等价、根 code 来源真实性、数学正确性、动态写入包装、动态导入、CMake 和 Excel 语义等人工复核限制。 -->
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/templates/APPENDIX_RESULT.template.md -->
 
 
@@ -2159,23 +2208,23 @@ Authority: contract template
 
 ## 1. 提交范围与比赛要求
 
-<!-- 说明用户明确给出的比赛提交要求和附件限制。appendix/ 收录排除绘图后的完整正式求解代码；根 code/ 选择用于最终提交文档代码附录的真实代表性代码；两者都不收录绘图代码。 -->
+<!-- 说明用户明确给出的比赛提交要求和附件限制。appendix/ 与根 code/ 只收录可审计计算核心；正式结果附件独立交付，不由附录代码重新生成；两者都不收录绘图、显示、接口或报告导出代码。 -->
 
 ## 2. 正式结果与认证边界
 
-<!-- 按顺序读取并列出基础 RESULT、已完成 Supplement Result、当前 HANDOFF、当前有效数据产品、机器证据、正式附件，以及有限策略类或有限时域等认证边界；这些 Markdown 合同只作内部上下文，均不得复制。 -->
+<!-- 按顺序读取并列出基础 RESULT、已完成 Supplement Result、当前 HANDOFF、当前有效数据产品、机器证据、独立正式结果附件，以及有限策略类或有限时域等认证边界；这些 Markdown 合同只作内部上下文，均不得复制。 -->
 
 ## 3. appendix 目标结构
 
-<!-- 冻结 appendix/ 的完整正式求解代码结构和根 code/ 的代表性直接文件；不要先复制整个工程。 -->
+<!-- 冻结 appendix/ 的计算核心结构、独立 result 资产和根 code/ 的代表性直接文件；不要先复制整个工程，也不要规划运行后导出结果。 -->
 
 ## 4. appendix 文件白名单
 
-<!-- 覆盖当前有效正式求解流程实际使用的所有代码和传递依赖，包括符合现有路径规则的当前 Supplement 代码/结果附件；明确排除绘图、测试、被替代的旧实现/旧结果和运行产物（比赛明确要求历史对照除外）。每个目标一行；示例仅供格式参考：
-- A001 — COPY — `problems/q1/code/solve.py` → `appendix/problems/q1/code/solve.py` — 正式入口
-- A002 — COPY — `problems/q1/code/scheduler.py` → `appendix/problems/q1/code/scheduler.py` — 正式任务调度
-- A003 — CURATE — `problems/q1/code/model.py` → `appendix/problems/q1/code/model.py` — 仅机械删除绘图入口
-PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problems/preprocess/code/clean.py`，或从 `problems/preprocess/data/derived/clean.csv` 映射至 `appendix/problems/preprocess/result/clean.csv`；不得列入 START_PRE、RESULT_PRE 或 HANDOFF_PRE。
+<!-- 覆盖当前有效计算核心实际使用的所有代码和传递依赖，以及独立、已接受且符合路径规则的结果附件；明确排除绘图、显示/接口、测试、被替代的旧实现/旧结果、日志、缓存、checkpoint、临时文件和任何导出器（比赛明确要求历史对照除外）。代码不得生成结果表或持久化运行状态；每个目标一行；示例仅供格式参考：
+- A001 — COPY — `problems/q1/code/solve.py` → `appendix/problems/q1/code/solve.py` — 输入、模型、优化与内存中结果核心
+- A002 — COPY — `problems/q1/outputs/formal.csv` → `appendix/problems/q1/result/formal.csv` — 已接受正式结果附件，独立于代码交付
+- A003 — CURATE — `problems/q1/code/model.py` → `appendix/problems/q1/code/model.py` — 仅机械删除显示入口并保留计算语义
+PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problems/preprocess/code/clean.py`，或从允许的 `problems/preprocess/data/derived/clean.csv` 映射至 `appendix/problems/preprocess/result/clean.csv`；不得列入 START_PRE、RESULT_PRE 或 HANDOFF_PRE。
 -->
 - A090 — GENERATE — `appendix/environment/README.md` — 复现入口说明
 - A091 — GENERATE — `appendix/environment/requirements.txt` — 最小依赖清单
@@ -2183,13 +2232,13 @@ PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problem
 
 ## 5. code 文件白名单
 
-<!-- 选择来自本队当前有效正式工程、具有提交展示价值、实现辨识度和可读性的代表性直接文件；当前 Supplement 的真实代表性代码以及核心模型、调度、恢复、审计等实现均可。说明真实职责、选择理由和 COPY/CURATE；禁止复制、混淆、垃圾代码或仅为改变相似度的改写。示例仅供格式参考：
-- C001 — CURATE — `problems/q1/code/run_scenarios.py`; `problems/q1/code/checkpoint.py` → `code/q1_scenario_execution.py` — 展示正式情景调度与断点续算
+<!-- 选择来自本队当前有效正式工程、具有提交展示价值、实现辨识度和可读性的代表性计算核心直接文件；当前 Supplement 的真实代表性代码以及特征、模型、优化、统计、预测、约束和审计实现均可。仅在不产生文件/目录/持久化副作用时展示调度或恢复片段。说明真实职责、选择理由和 COPY/CURATE；禁止复制、混淆、垃圾代码或仅为改变相似度的改写。示例仅供格式参考：
+- C001 — CURATE — `problems/q1/code/model.py`; `problems/q1/code/constraints.py` → `code/q1_model_core.py` — 展示模型、约束和内存中验证，不生成结果文件
 -->
 
 ## 6. 依赖闭包与机械裁剪规则
 
-<!-- 区分 appendix code 的正式流程完整性与 root code 的提交展示代表性；记录绘图排除、COPY/CURATE 来源、入口与传递依赖，以及不得改变数学语义、执行顺序、随机性、恢复规则和结果边界。 -->
+<!-- 区分 appendix code 的计算核心与独立结果资产、root code 的代表性核心；每个 CURATE 条目必须记录：保留的计算核心、第一层（文件写入与持久化副作用）删除内容、第二层（结果与文档构造）删除内容、第三层（展示/导出入口与孤儿代码清理）删除内容，以及保持不变的数学、数据和执行语义；同时记录绘图/显示/接口排除、来源、入口与传递依赖，以及不得写文件/建目录或改变数学语义、执行顺序、随机性、恢复规则和结果边界。 -->
 
 ## 7. 环境、外部资料与强制结果文件
 
@@ -2201,7 +2250,7 @@ PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problem
 
 ## 8. 验收方法与停止规则
 
-<!-- 说明正式代码覆盖、绘图排除、根 code 来源追溯、编译/构建、工作簿、哈希和敏感信息审查；禁止混淆、垃圾代码和非正式代码。计算与绘图无法安全分离时停止并人工确认。 -->
+<!-- 说明计算核心覆盖、独立结果与 RESULT 一致性、静态副作用扫描、第二层结果/文档构造人工审查、第三层展示/导出入口删除与裁剪后孤儿 import/变量/常量/函数/模块清理、绘图/显示/接口排除、根 code 来源追溯、编译/构建、工作簿、哈希和敏感信息审查；禁止混淆、垃圾代码、结果导出器和运行状态文件。计算与显示无法安全分离时停止并人工确认。 -->
 
 ## 9. 未决问题
 
@@ -2593,7 +2642,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/README.md -->
 # KyMCM Lite
 
-KyMCM Lite 0.9.4 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with a fixed external typography contract, and submission-appendix curation without workflow state or content JSON.
+KyMCM Lite 0.9.5 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with a fixed external typography contract, and computation-core submission-appendix curation with independent result assets and static side-effect checks, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -2665,7 +2714,7 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.9.4 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure boundaries, and eight public commands. Existing 0.8.1, 0.9.0, 0.9.1, 0.9.2, and 0.9.3 workspaces remain valid and need no migration or Supplement files. New final-figure requests use the external typography contract in `skills/kymcm-lite/references/final_figure_typography.md`; historical figures are not retroactively changed, and an old figure may be called 0.9.4-compliant only after an explicit regeneration request and successful external font audit.
+KyMCM Lite 0.9.5 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure boundaries, and eight public commands. Existing 0.9.4 and earlier workspaces remain valid and need no migration or automatic appendix rewrite. New or reorganized appendix code follows the computation-core-only rule, independent result assets, and static `LITE-APPENDIX-CODE-SIDE-EFFECT-001` check; old packages are not silently changed and may require manual curation before a new result check. New final-figure requests use the external typography contract in `skills/kymcm-lite/references/final_figure_typography.md`; historical figures are not retroactively changed, and an old figure may be called 0.9.4-compliant only after an explicit regeneration request and successful external font audit.
 
 Historical 0.9.2 Supplement compatibility: after a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
 
@@ -2681,7 +2730,7 @@ Single/split behavior remains as introduced in 0.3.1. Each official question may
 
 A 0.2.0 workspace needs one direct-dependency declaration in every START and completed START/RESULT contracts for declared predecessors. A legacy `FROZEN_CONTEXT.md`, including malformed or invalid UTF-8 content, is ignored by every command and may remain on disk. No automatic migration or deletion is provided. Converting an older question to split mode is manual: replace its unsuffixed contracts with contiguous suffixed contracts, fix titles and downstream exact dependency tokens, then run `doctor` and selected checks.
 
-The optional appendix commands fail only when explicitly invoked and their contracts are absent or invalid. Operational source names such as scheduler, checkpoint, status, monitor, ledger, and audit are accepted as code; runtime checkpoint/status data, logs, caches, binaries, results/data in root `code/`, and unsafe paths remain forbidden. The checker does not classify plotting responsibility, originality, or external similarity. The modeling workflow has no FROZEN_CONTEXT surface; appendix organization may reference, but cannot copy, single or split START/RESULT contracts or matching HANDOFF collaboration documents.
+The optional appendix commands fail only when explicitly invoked and their contracts are absent or invalid. Operational source names such as scheduler, checkpoint, status, monitor, ledger, and audit are accepted as code when the source is computational and side-effect-free; runtime checkpoint/status data, logs, caches, binaries, result writers, results/data in root `code/`, and unsafe paths remain forbidden. New appendix code is checked for high-confidence Python/C/C++ output APIs by `LITE-APPENDIX-CODE-SIDE-EFFECT-001`; dynamic wrappers and semantic equivalence remain human review. Formal result assets are independent and are not regenerated by the checker. The modeling workflow has no FROZEN_CONTEXT surface; appendix organization may reference, but cannot copy, single or split START/RESULT contracts or matching HANDOFF collaboration documents.
 
 Lite does not read Full v1, historical Lite v2, or marker-less Legacy workspaces. Full and Lite do not guess each other's mode, and no automatic migration is provided.
 <!-- END KYMCM-LITE SOURCE: docs/compatibility.md -->
@@ -2694,7 +2743,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/installation.md -->
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.4 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.5 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -2704,7 +2753,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.4 so its references, final-figure typography contract, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.8.1, 0.9.0, 0.9.1, 0.9.2, and 0.9.3 contest workspaces require no migration and need not create Supplement files. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.5 so its references, computation-core appendix policy, static side-effect diagnostic, final-figure typography contract, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.9.4 and earlier contest workspaces require no migration and need not create Supplement files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -2723,7 +2772,7 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for PDF compilation. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. For KyMCM Lite 0.9.4 final figures, the separate `nature-figure` Skill must find `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally; missing requirements stop formal rendering rather than silently falling back. Do not copy or download proprietary font files into this repository.
+LaTeX is optional and needed only for PDF compilation. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. For KyMCM Lite 0.9.5 final figures, the separate `nature-figure` Skill must find `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally; missing requirements stop formal rendering rather than silently falling back. Do not copy or download proprietary font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
 <!-- END KYMCM-LITE SOURCE: docs/installation.md -->
@@ -2740,10 +2789,10 @@ Authority: product documentation
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.4.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.5.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.4 limitations:
+KyMCM Lite 0.9.5 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -2762,8 +2811,8 @@ KyMCM Lite 0.9.4 limitations:
 - Python tools do not validate Supplement Sx continuity, plan-before-execution, Start/Result correspondence, whether the latest Sx is editable or adopted, adoption triggers, Start/Result invalidation, Sx artifact overwrite permission, replacement scope, mathematical correctness, completed-entry immutability, downstream impact, or HANDOFF currency. Agent semantic review and final human review remain responsible.
 - HANDOFF cannot be used as a downstream modeling dependency or formal certification source.
 - Lite does not automatically merge or migrate legacy suffixed QN HANDOFF notes; a semantic reviewer must build the current problem-level HANDOFF after all split RESULT units pass and the complete Result set is accepted.
-- Appendix checks do not prove semantic equivalence of results, resolve every dynamic import, interpret all CMake, or verify Excel formulas, cached values, merged cells, formatting, or numerical agreement.
-- Appendix checks do not determine whether every formal solve source was included, reliably identify plotting responsibilities, verify code originality, query external similarity databases, or certify that CURATE preserved behavior. These require execution evidence and human review.
+- Appendix checks do not prove semantic equivalence of results, resolve every dynamic import, interpret all CMake, or verify Excel formulas, cached values, merged cells, formatting, or numerical agreement. The computation-core side-effect diagnostic catches only high-confidence explicit writer APIs; dynamic wrappers, indirect writes, runtime-generated paths, and library semantics remain manual review.
+- Appendix checks do not determine whether every computation-core source was included, reliably identify plotting/display/interface responsibilities, verify code originality, query external similarity databases, or certify that CURATE preserved behavior. Independent result assets are not regenerated by the checker. These require execution evidence and human review.
 - Appendix work does not migrate Full or Lite v2 workspaces. The active modeling workflow has no global context file, and appendix organization may reference but cannot copy base START/RESULT, Supplement, or matching HANDOFF internal documents.
 - The complete ChatGPT Project Source is a deterministic documentation mirror, not a proof of mathematical correctness or a substitute for Codex execution and human semantic review. Its `--check` mode verifies synchronization, not model claims.
 <!-- END KYMCM-LITE SOURCE: docs/known-limitations.md -->
@@ -2776,9 +2825,9 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-rfc.md -->
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.4 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.5 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.4 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite passes the exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contract to external `nature-figure`, which stops on missing fonts and audits the output. The historical design below is not retroactively rewritten.
+Current 0.9.5 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite passes the exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contract to external `nature-figure`, which stops on missing fonts and audits the output. New or reorganized Appendix code is computation-core-only, formal result assets remain independent, and high-confidence Python/C/C++ writers are blocked statically. The historical design below is not retroactively rewritten.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
@@ -3133,7 +3182,15 @@ Role: `product-documentation`
 Authority: product documentation
 
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-release-notes.md -->
-# KyMCM Lite 0.9.4
+# KyMCM Lite 0.9.5
+
+KyMCM Lite 0.9.5 refocuses optional submission-appendix curation on an auditable computation core. `appendix/problems/*/code/` and direct root `code/` targets retain input/feature construction, model and optimization logic, statistics, prediction, constraints, validation, and audit paths, while result tables, interface/report prose, export writers, caches, checkpoints, temporary files, databases, and model persistence remain outside the code surface. Formal result assets are independent COPY/CURATE targets and are never regenerated by the checker or by submitted code.
+
+`check-appendix-result` adds the high-confidence static Error `LITE-APPENDIX-CODE-SIDE-EFFECT-001` for Python and C/C++ file/directory writers and persistence APIs, and code-target suffix rules reject common runtime data (`.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`, `.sav`, `.ckpt`, `.pt`, `.pth`). Read-only opens and in-memory assembly remain allowed; dynamic wrappers, indirect writes, and semantic equivalence remain human-review limits. The Lite v3 marker, eight commands, frozen Appendix headings, standard-library runtime, existing 0.9.4 workspaces, final-figure typography, and KyMCM Full remain unchanged.
+
+This is a computation-core curation and static-audit release. It adds no workspace migration, state, JSON, manifest, approval object, command, result regeneration, or automatic rewrite.
+
+## KyMCM Lite 0.9.4
 
 KyMCM Lite 0.9.4 freezes one Lite-only typography contract for explicitly requested final display figures. After the relevant RESULT and Supplement Result entries are accepted and any requested HANDOFF task is complete, Lite reads `skills/kymcm-lite/references/final_figure_typography.md` and passes its exact requirements to the external `nature-figure` Skill:
 
@@ -3244,7 +3301,7 @@ Authority: repository maintenance
 
 ## KyMCM Lite checks
 
-- Lite 0.9.4 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.9.5 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - The complete ChatGPT Project Source is generated by `scripts/export_kymcm_lite_full_spec.py`; normal generation followed by `--check` passes, and the generated artifact is not initialized into a workspace or appendix.
 - Export manifest bytes/SHA-256 values, reference/template coverage, mirror parity, and `docs/lite-v3/*.md` included/excluded classification pass without timestamps, absolute paths, host data, or recursive self-inclusion.
 - Supplement Start/Result templates and `supplement_work.md` have byte-identical mirrors; every official question uses at most one pair in single and split modes after complete checked base results.
@@ -3257,8 +3314,8 @@ Authority: repository maintenance
 - Base RESULT remains the exact dependency-token entry; accepted Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries; the old HANDOFF remains the last accepted snapshot while a new Result is pending.
 - `check-result` remains independent of HANDOFF; single and split modes use one `HANDOFF_QN.md`, split requires complete checked RESULT coverage, and no HANDOFF command/state/checker exists.
 - Supplement Start/Result, current `HANDOFF_QN.md`, legacy `HANDOFF_QN_K.md`, and HANDOFF_PRE are all rejected as appendix sources; current effective Supplement code/data/output assets remain eligible through unchanged mappings.
-- Appendix code covers the complete formal solve pipeline with plotting excluded; root `code/` selects authentic representative core/non-core implementation, including applicable scheduling, recovery, and audit.
-- APPENDIX_START/RESULT keep the 0.7.0 certification headings; whitelist grammar is unchanged, and operational source names pass while runtime data, caches, logs, binaries, unsafe paths, and root-code data remain rejected.
+- Appendix code covers the auditable computation core with plotting/display/interface/export writers excluded; independent result assets remain separate; root `code/` selects authentic representative core implementation without persistence side effects.
+- APPENDIX_START/RESULT keep the 0.7.0 certification headings; whitelist grammar is unchanged, and operational source names pass while high-confidence result writers, runtime data, caches, logs, binaries, unsafe paths, and root-code data remain rejected by `LITE-APPENDIX-CODE-SIDE-EFFECT-001` or existing structural checks.
 - Init and doctor do not require `paper/`; legacy directories are ignored without reads or deletion, and appendix sources are limited to `problems/` and `input/`.
 - Formal PRE/QN work is non-visual by default, structured evidence is preferred, and any diagnostic is the smallest one needed for a named risk that non-visual evidence cannot resolve; final figures never count as L0/L1/L2 or formal validation budget.
 - `figure/` is exactly one optional known root: init does not create it, doctor ignores arbitrary contents without status or unknown-root output, and it is absent from managed roots, evidence scope, dependencies, contracts, appendix sources, and every checker.
@@ -3287,7 +3344,7 @@ Required for Lite runtime: Python 3.11–3.13. Git is optional for Lite and prod
 
 The repository exporter `scripts/export_kymcm_lite_full_spec.py` uses only the Python standard library and needs no network, Git command, credentials, or third-party package. It writes the deterministic ChatGPT Project Source only when explicitly invoked.
 
-Optional: a LaTeX distribution for PDF compilation. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. KyMCM Lite 0.9.4 final figures use the separate `nature-figure` Skill and require locally installed `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; Lite does not download, bundle, or check those fonts in CI, and missing fonts stop formal rendering. OpenAI access is required only for the separate optional image-generation helper. CI and the checkpoint/figure test suites need neither network access nor credentials.
+Optional: a LaTeX distribution for PDF compilation. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. KyMCM Lite 0.9.5 final figures use the separate `nature-figure` Skill and require locally installed `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; Lite does not download, bundle, or check those fonts in CI, and missing fonts stop formal rendering. Appendix side-effect checks use only the Python standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper. CI and the checkpoint/figure test suites need neither network access nor credentials.
 <!-- END KYMCM-LITE SOURCE: docs/system-dependencies.md -->
 
 
@@ -3301,7 +3358,7 @@ Authority: product documentation
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.4** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure` with the mandatory `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contract. It also provides submission-appendix curation and a deterministic complete ChatGPT Project Source export.
+- **KyMCM Lite 0.9.5** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure` with the mandatory `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contract. Its submission appendix now curates auditable computation-core code and independent result assets, with static high-confidence side-effect blocking and a deterministic complete ChatGPT Project Source export.
 
 ## Install
 
@@ -3369,14 +3426,14 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/machine_contract.md`
   mirror: `docs/lite-v3/machine_contract.md`
-  bytes: `23155`
-  SHA-256: `ddc763a548787199d7003efd59873ab16aba8aa54cb2a27f41173b855766457b`
+  bytes: `25660`
+  SHA-256: `2eb84e3b167745986c2a0506844f139507b7f63cf98ef01a9b4292163336b7b6`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/appendix_organization.md`
   mirror: `docs/lite-v3/appendix_organization.md`
-  bytes: `8248`
-  SHA-256: `cb5fa6a85d3c15a9258f319181c09f433e1c3fb6b1f7f9b012d7a1b45a1e4cb2`
+  bytes: `9747`
+  SHA-256: `f7666723db4596ac0be0ecea2c93b169b86f4c760fb4c926b496a0b2381f6741`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/dependency_review.md`
@@ -3417,14 +3474,14 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md`
   mirror: `docs/lite-v3/APPENDIX_RESULT.template.md`
-  bytes: `1479`
-  SHA-256: `eb6b11e9a5c6b6db7816fb1f1c60270f4db6035c72acd77adcafc32da8f64848`
+  bytes: `2173`
+  SHA-256: `50842bba8b38c52a1889d1c5adf7fad9b51bb3d99946fc347db0a85fe2ad6665`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/templates/APPENDIX_START.template.md`
   mirror: `docs/lite-v3/APPENDIX_START.template.md`
-  bytes: `3389`
-  SHA-256: `8d65b6909fe88300c561a489129b2339f783e2b9298cb700f20e7cb2385633b4`
+  bytes: `4353`
+  SHA-256: `bcf0f410f6d3974073c5651e27c86de270e1fee8430d7a16255c325ae7e0bbbf`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/templates/HANDOFF_PRE.template.md`

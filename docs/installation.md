@@ -1,6 +1,6 @@
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.4 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.5 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -10,7 +10,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.4 so its references, final-figure typography contract, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.8.1, 0.9.0, 0.9.1, 0.9.2, and 0.9.3 contest workspaces require no migration and need not create Supplement files. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.5 so its references, computation-core appendix policy, static side-effect diagnostic, final-figure typography contract, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.9.4 and earlier contest workspaces require no migration and need not create Supplement files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -29,6 +29,6 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for PDF compilation. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. For KyMCM Lite 0.9.4 final figures, the separate `nature-figure` Skill must find `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally; missing requirements stop formal rendering rather than silently falling back. Do not copy or download proprietary font files into this repository.
+LaTeX is optional and needed only for PDF compilation. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. For KyMCM Lite 0.9.5 final figures, the separate `nature-figure` Skill must find `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally; missing requirements stop formal rendering rather than silently falling back. Do not copy or download proprietary font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
