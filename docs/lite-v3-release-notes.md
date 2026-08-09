@@ -1,4 +1,12 @@
-# KyMCM Lite 0.9.6
+# KyMCM Lite 0.9.7
+
+KyMCM Lite 0.9.7 integrates the frozen Pt1 core figure rules, Pt2 `kymcm-figure-style-v1`, and Pt3 `kymcm-figure-color-v1` as canonical Lite references with byte-identical `docs/lite-v3/` mirrors. Final-figure instructions and reviews now load the core rules; Codex/Matplotlib data-driven figures and general figure specifications/reviews also load the style, color, and independent typography authorities before invoking external `nature-figure`.
+
+The frozen documentation defines PDF/PNG-only formal output, no internal figure title or explanatory prose, final physical-size templates, ≥8 pt text, geometry and layout rules, semantic/qualitative colors, batlow and vik continuous maps, redundant accessibility encoding, and the existing exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` routing. The earlier typography reference's SVG audit language is replaced by the accepted PDF/PNG contract. The complete ChatGPT Project Source, mirror classification, release tree, and protected hashes are refreshed accordingly.
+
+This is a documentation and integration release. It adds no plotting runtime, chart-template library, color/style Python module, `cmcrameri` dependency, visual checker, CLI, contract, manifest, state, content JSON, or tool-routing workflow. The basic/enhanced chart hierarchy, special-chart/tool routing, and final-figure workflow remain paused. Existing 0.9.6 workspaces require no migration; the Lite v3 marker, eight commands, RESULT/HANDOFF/PRE/Supplement/Appendix semantics, fixed AI-use package, standard-library runtime, and KyMCM Full remain unchanged.
+
+## KyMCM Lite 0.9.6
 
 KyMCM Lite 0.9.6 adds a fixed final-submission AI-tool disclosure package for the 2026 trial regulation. The canonical `AI_TOOL_USAGE_DETAILS.template.tex` has exactly five sections, a two-column table fixed to ChatGPT/GPT-5.6 Thinking and Codex CLI/GPT-5.6 Codex, two fixed real-screenshot paths/captions, conservative adoption/review and overall declaration prose, and fail-closed missing-image checks. The only competition-time content replacements are the two real screenshots; XeLaTeX writes the exact `AI 工具使用详情.pdf` output. `AI_TOOL_USAGE_DECLARATION.template.tex` is a fixed non-numbered snippet for placement before paper references.
 

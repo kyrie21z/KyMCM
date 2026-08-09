@@ -25,7 +25,7 @@ PROTECTED_HASHES = {
     "skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md": "c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2",
     "skills/kymcm-lite/templates/HANDOFF_QN.template.md": "2495e222fc350934367956d67c0f74f069cab8c2097f3c06cee4f74c04b11014",
     "skills/kymcm-lite/templates/HANDOFF_PRE.template.md": "b486f30425c74dce973b8d55891b284871161e86a54dbec0836d3801d5c387fb",
-    "skills/kymcm-lite/references/final_figure_typography.md": "efd8621b178bfc7da406872b4f818973d2960932ea483a5e275c44ec1943c343",
+    "skills/kymcm-lite/references/final_figure_typography.md": "e6ed88bc2ee3f27588a0f4bc1451f0083b1d5365807da4e0d98c15cb97cc6c79",
 }
 
 
@@ -142,7 +142,7 @@ class LiteAIToolUsageTemplateTests(unittest.TestCase):
             self.assertFalse(any(path.name == relative for path in ROOT.rglob(relative)))
 
     def test_version_and_protected_lite_surfaces(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.6\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.7\n")
         for relative, expected in PROTECTED_HASHES.items():
             actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
             self.assertEqual(actual, expected, relative)

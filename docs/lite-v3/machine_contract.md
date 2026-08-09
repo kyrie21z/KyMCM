@@ -1,4 +1,4 @@
-# KyMCM Lite 0.9.6 machine-enforced contract
+# KyMCM Lite 0.9.7 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,12 +16,12 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.6` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.5 and
-earlier workspaces need no migration. The release adds a fixed final-submission
-AI-tool disclosure template and preserves the computation-only Appendix surface
-and read-only static side-effect diagnostic; it does not rewrite existing
-workspace files or add runtime state.
+Lite version `0.9.7` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.6 and
+earlier workspaces need no migration. The release adds frozen final-figure core,
+style, and color references while preserving the fixed AI-tool disclosure
+package, computation-only Appendix surface, and read-only static side-effect
+diagnostic; it does not rewrite existing workspace files or add runtime state.
 
 ## 2. Identity, marker, and fail-closed behavior
 

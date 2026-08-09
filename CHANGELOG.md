@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.7 - 2026-08-09
+
+- Add frozen Pt1 core, Pt2 `kymcm-figure-style-v1`, and Pt3 `kymcm-figure-color-v1` references with byte-identical repository mirrors.
+- Route final-figure instructions and reviews through the core reference, and Codex/Matplotlib data-driven work through the style, color, and independent typography authorities.
+- Align formal output guidance to PDF/PNG-only delivery and the no-internal-title rule; refresh the complete ChatGPT Project Source and release protections.
+- Preserve the Lite v3 marker, eight commands, standard-library runtime, existing 0.9.6 workspaces, paused figure-design topics, and KyMCM Full unchanged.
+
 ## KyMCM Lite 0.9.6 - 2026-08-05
 
 - Add the fixed five-section AI-tool usage details LaTeX template, two-column current tool/model table, two real screenshot paths/captions, and conservative adoption/review/overall declarations.

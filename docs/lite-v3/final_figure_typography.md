@@ -55,7 +55,6 @@ The following is a non-runtime semantic example, not Lite configuration or a dep
     "mathtext.fontset": "stix",
     "axes.unicode_minus": False,
     "pdf.fonttype": 42,
-    "svg.fonttype": "none",
 }
 ```
 
@@ -80,13 +79,13 @@ There is no silent fallback to a system default, an approximate family, or a mis
 
 `nature-figure` is responsible for font discovery, actual rendering, output, and the final font audit. At minimum, the audit must verify:
 
-1. Chinese title/axis/legend/annotation text actually uses `Noto Serif CJK SC`.
+1. Chinese axis/legend/annotation/panel-label text actually uses `Noto Serif CJK SC`.
 2. English, numerals, percentages, scientific notation, and units actually use `Tinos`.
 3. `$...$` expressions actually use STIX mathtext.
 4. Mixed samples are not rendered as one incorrectly unified Noto or Tinos block.
 5. There are no missing-glyph, font-fallback, or font-family-not-found warnings.
-6. Required PNG/PDF/SVG outputs remain visually consistent.
-7. PDF/SVG embedding does not corrupt, replace, or distort Chinese or mathematical glyphs.
+6. Required PDF and PNG outputs remain visually consistent.
+7. PDF font embedding does not corrupt, replace, or distort Chinese or mathematical glyphs.
 8. The output directory contains no font binary.
 9. The delivery note records all three checks and any explicitly authorized deviation.
 

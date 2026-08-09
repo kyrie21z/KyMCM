@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.7 - 2026-08-09
+
+- Add the frozen `final_figure_core_rules.md`, `final_figure_style.md`, and `final_figure_color.md` references with byte-identical repository mirrors.
+- Route final-figure instructions and reviews through the core reference, and Codex/Matplotlib data-driven work through the style, color, and independent typography authorities.
+- Freeze PDF/PNG-only formal output, physical templates, geometry, minimum text, palette semantics, batlow/vik maps, and accessibility review without adding plotting code.
+- Preserve the Lite v3 marker, eight commands, standard-library runtime, existing 0.9.6 workspaces, paused figure-design topics, and KyMCM Full unchanged.
+
 ## 0.9.6 - 2026-08-05
 
 - Add the fixed `AI_TOOL_USAGE_DETAILS.template.tex` and declaration snippet for final submission compliance under the 2026 AI-tool usage trial rules.
