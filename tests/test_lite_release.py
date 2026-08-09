@@ -77,6 +77,9 @@ class LiteReleaseTests(unittest.TestCase):
             ("docs/lite-v3/HANDOFF_PRE.template.md", "skills/kymcm-lite/templates/HANDOFF_PRE.template.md"),
             ("docs/lite-v3/APPENDIX_START.template.md", "skills/kymcm-lite/templates/APPENDIX_START.template.md"),
             ("docs/lite-v3/APPENDIX_RESULT.template.md", "skills/kymcm-lite/templates/APPENDIX_RESULT.template.md"),
+            ("docs/lite-v3/final_figure_core_rules.md", "skills/kymcm-lite/references/final_figure_core_rules.md"),
+            ("docs/lite-v3/final_figure_style.md", "skills/kymcm-lite/references/final_figure_style.md"),
+            ("docs/lite-v3/final_figure_color.md", "skills/kymcm-lite/references/final_figure_color.md"),
         )
         for repository, standalone in pairs:
             self.assertEqual((ROOT / repository).read_bytes(), (ROOT / standalone).read_bytes(), repository)
@@ -366,7 +369,7 @@ class LiteReleaseTests(unittest.TestCase):
             "stop the formal final-figure task", "silent fallback", "download a font",
             "copy it from another directory", "font binary", "preview/non-final",
             "nature-figure", "does not render figures", "CI does not need these fonts",
-            "minimum routing probe", "PDF/SVG", "user-requested different font",
+            "minimum routing probe", "PDF and PNG", "user-requested different font",
         ):
             self.assertIn(required, reference, required)
         self.assertIn("references/final_figure_typography.md", skill)
@@ -391,6 +394,44 @@ class LiteReleaseTests(unittest.TestCase):
                 self.assertNotIn("Noto Serif CJK SC", text, template.name)
                 self.assertNotIn("Tinos", text, template.name)
                 self.assertNotIn("STIX mathtext", text, template.name)
+
+    def test_frozen_final_figure_rules_are_documented_without_runtime_surface(self):
+        core = (SKILL / "references/final_figure_core_rules.md").read_text(encoding="utf-8")
+        style = (SKILL / "references/final_figure_style.md").read_text(encoding="utf-8")
+        color = (SKILL / "references/final_figure_color.md").read_text(encoding="utf-8")
+        skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
+        agent = (SKILL / "agents/openai.yaml").read_text(encoding="utf-8")
+
+        for name in (
+            "final_figure_core_rules.md", "final_figure_style.md",
+            "final_figure_color.md", "final_figure_typography.md",
+        ):
+            self.assertIn(name, skill)
+            self.assertIn(name, protocol)
+            self.assertIn(name, agent)
+
+        for required in (
+            "no figure title", "PDF and PNG", "4 columns × 3 rows",
+            "two-row serpentine", "rounded rectangle", "diamond",
+        ):
+            self.assertIn(required, core, required)
+        for required in (
+            "160 × 60 mm", "160 × 80 mm", "160 × 105 mm", "128 × 80 mm",
+            "9.5 pt", "8.5 pt", "8 pt", "FIGURE_STYLE_V1", "600 dpi",
+            'bbox_inches="tight"', "showfliers=False", "rasterized=True",
+        ):
+            self.assertIn(required, style, required)
+        for required in (
+            "#264653", "#E76F51", "#A61B29", "#D9D9D9",
+            "KY_MCM_QUALITATIVE_V1", "batlow", "vik", "TwoSlopeNorm",
+            "get_qualitative_colors(n)", "get_semantic_color(role)",
+        ):
+            self.assertIn(required, color, required)
+
+        runtime = "\n".join(path.read_text(encoding="utf-8") for path in SCRIPTS.rglob("*.py"))
+        for forbidden in ("matplotlib", "cmcrameri", "FIGURE_STYLE_V1", "KY_MCM_FIGURE_COLOR_V1"):
+            self.assertNotIn(forbidden, runtime, forbidden)
 
     def test_check_result_does_not_require_handoff(self):
         workspace = ROOT / "tests/fixtures/lite_synthetic_handoff"

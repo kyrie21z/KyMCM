@@ -122,7 +122,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_manifest_and_canonical_completeness(self):
         sources = exporter.collect_sources(ROOT)
         document = SPEC.read_text(encoding="utf-8")
-        self.assertEqual(len(sources), 36)
+        self.assertEqual(len(sources), 39)
         self.assertEqual(
             {source.role for source in sources},
             {
@@ -186,7 +186,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_mirror_hashes_and_mapping(self):
         sources = exporter.collect_sources(ROOT)
         mirrored = [source for source in sources if source.mirrors]
-        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 21)
+        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 24)
         for source in mirrored:
             for mirror in source.mirrors:
                 path = ROOT / mirror
@@ -232,6 +232,22 @@ class LiteFullSpecExportTests(unittest.TestCase):
         self.assertIn("stop the formal final-figure task", reference)
         self.assertIn("silent fallback", reference)
         self.assertIn("does not change, replace, or generalize that Full behavior", reference)
+
+    def test_frozen_figure_references_are_exported(self):
+        document = SPEC.read_text(encoding="utf-8")
+        expected = {
+            "final_figure_core_rules.md": ("4 columns × 3 rows", "PDF and PNG"),
+            "final_figure_style.md": ("F-STANDARD", "FIGURE_STYLE_V1", "600 dpi"),
+            "final_figure_color.md": ("KY_MCM_QUALITATIVE_V1", "batlow", "vik"),
+        }
+        for name, required in expected.items():
+            path = ROOT / "skills/kymcm-lite/references" / name
+            mirror = ROOT / "docs/lite-v3" / name
+            self.assertEqual(path.read_bytes(), mirror.read_bytes(), name)
+            self.assertIn(f"skills/kymcm-lite/references/{name}", document, name)
+            text = path.read_text(encoding="utf-8")
+            for phrase in required:
+                self.assertIn(phrase, text, f"{name}: {phrase}")
 
     def test_release_surface_and_full_identity_unchanged(self):
         self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.6\n")
