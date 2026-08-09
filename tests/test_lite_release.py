@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.6\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.7\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.9.6", text, relative)
-            self.assertNotIn("0.9.6-dev", text, relative)
+            self.assertIn("0.9.7", text, relative)
+            self.assertNotIn("0.9.7-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -475,7 +475,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
             '{"workflow":"kymcm_lite","version":3}',
@@ -487,12 +487,14 @@ class LiteReleaseTests(unittest.TestCase):
             "SUPPLEMENT_START_QN.md", "SUPPLEMENT_RESULT_QN.md",
             "KyMCM_Lite_FULL_SPEC.md", "export_kymcm_lite_full_spec.py", "--check",
             "latest unadopted", "adopted", "invalidates", "HANDOFF", "explicit", "accepted", "read-only",
+            "kymcm-figure-style-v1", "kymcm-figure-color-v1", "PDF/PNG-only",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.9.7 - 2026-08-09", text, relative)
             self.assertIn("0.9.5 - 2026-08-04", text, relative)
             self.assertIn("0.9.4 - 2026-08-04", text, relative)
             self.assertIn("0.9.3 - 2026-08-04", text, relative)

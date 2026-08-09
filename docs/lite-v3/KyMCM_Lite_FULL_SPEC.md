@@ -7,10 +7,10 @@
 
 ## 0. 使用说明、版本与权威优先级
 
-- Product: `KyMCM Lite`; `VERSION`: `0.9.6`.
+- Product: `KyMCM Lite`; `VERSION`: `0.9.7`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `39`; canonical total bytes: `276099`.
+- Canonical source files: `39`; canonical total bytes: `277856`.
 - Mirror files validated: `24`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
@@ -30,12 +30,12 @@ The complete source text is intentionally long. It is not a summary: each canoni
 
 | No. | canonical path | role | bytes | SHA-256 | mirror path(s) | mirror status |
 |---:|---|---|---:|---|---|---|
-| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `fd51233354c9a61adaf49572b45f44f7e9cc76fc2465ea25beca00ef95856ee1` | — | none |
+| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `6c38d2d8c19dec053f658ac7e8963ce25e98f2ab00fe058e62c07010c1988c6c` | — | none |
 | 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 18784 | `225c2332f56ee46827731a1acbad390b3e5e9a5320b7a2dff200978895b272a3` | — | none |
-| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 26215 | `ebd604b8393048d97b17175df90cffad64fd0527d1313b6e1397fd25b9ac5821` | — | none |
-| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 26932 | `3f41996428bbfdfd706270de39ddc385d3dfa0bc8ad9eaca5bc0bd0e10c4a5e8` | `docs/lite-v3/machine_contract.md` | byte-identical |
+| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 26215 | `181a78bbba2f120bc56858971dba424473e3d41631e680065fe74e5f48f97108` | — | none |
+| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 26971 | `06a7763ee6bd5ddde5f8de850ff9056367c35521acc077c00825621ce49b10c2` | `docs/lite-v3/machine_contract.md` | byte-identical |
 | 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 12151 | `64f88dcff72e3c7f0cfe690adb3b493d4bddfc03fb77e131136330fddf416fcd` | — | none |
-| 6 | `skills/kymcm-lite/references/ai_tool_usage_details.md` | `reference` | 5254 | `faf0198caee71980a9ddeee4edf5f75678bda22ea8063bc3e812195ef0b5e567` | `docs/lite-v3/ai_tool_usage_details.md` | byte-identical |
+| 6 | `skills/kymcm-lite/references/ai_tool_usage_details.md` | `reference` | 5254 | `891652326b66c909b096b8eec179218cc5f06da0f41ffa11590820cf64460e6e` | `docs/lite-v3/ai_tool_usage_details.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 9747 | `f7666723db4596ac0be0ecea2c93b169b86f4c760fb4c926b496a0b2381f6741` | `docs/lite-v3/appendix_organization.md` | byte-identical |
 | 8 | `skills/kymcm-lite/references/dependency_review.md` | `reference` | 5783 | `4aeac7bd61bd1c70ee2298b6154235743319ca99b76b2988a81e97c7d6d97ffc` | `docs/lite-v3/dependency_review.md` | byte-identical |
 | 9 | `skills/kymcm-lite/references/final_figure_color.md` | `reference` | 9048 | `2f18162e930ac899f1f7c49685d2a2df66c0a5f3ecedfa3c188098247efdf31d` | `docs/lite-v3/final_figure_color.md` | byte-identical |
@@ -60,15 +60,15 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 28 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
 | 29 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
 | 30 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 1022 | `1cdfd6a607e1f21f1c9ded06061fea56a615026c5f0684219be3f9c2752d0b51` | — | none |
-| 31 | `skills/kymcm-lite/README.md` | `product-documentation` | 7379 | `b4926c305126b85bcf0259e15d7a721e0c5d36c2dbad18006bfd60c33c80f3e4` | — | none |
-| 32 | `docs/compatibility.md` | `product-documentation` | 6751 | `f50d33f8bd65425b858875f09dd832b0d5ff9122036d8239972abb1e94f11269` | — | none |
-| 33 | `docs/installation.md` | `product-documentation` | 3561 | `9e94c80c113603f293073c6ebdadc26d37d115e171147c7aa56f3eecfcd886de` | — | none |
-| 34 | `docs/known-limitations.md` | `product-documentation` | 5530 | `f311e1e26b548370c64e82b74981b40094436a30aafc0f1498708666509053cb` | — | none |
-| 35 | `docs/lite-v3-rfc.md` | `product-documentation` | 18643 | `b11f9616ff2845e146363fea7dad7b01b1d14c6b7f334fb06a83bb6b2754cda3` | — | none |
-| 36 | `docs/lite-v3-release-notes.md` | `product-documentation` | 13261 | `a2aef8e1da08fafb4b55fbcb1d4a4371991a10883591da125dc773c665033afd` | — | none |
-| 37 | `docs/release-checklist.md` | `repository-maintenance` | 7882 | `86a032693d17be1f7aed63aa53dc599b3842306fefb64688758878c6e381b113` | — | none |
-| 38 | `docs/system-dependencies.md` | `repository-maintenance` | 1335 | `e81aaba6bd6eca2774007342fd1011c75385a11be4b02e56122b879eacaeea71` | — | none |
-| 39 | `README.md` | `product-documentation` | 4909 | `44054ceae87310e51460a9ad090c9d6b489aa5ec590b4c22c6975b6e743acd48` | — | none |
+| 31 | `skills/kymcm-lite/README.md` | `product-documentation` | 7379 | `b155b4f9bbad0ab1d09cb530837b5a5e5944ec78c7764b87c81ffeb6cf8f24e9` | — | none |
+| 32 | `docs/compatibility.md` | `product-documentation` | 6743 | `4e3d23c1855fbb38d711d50b65f1e7493bc9cf8384c89d208b7b8987634446e8` | — | none |
+| 33 | `docs/installation.md` | `product-documentation` | 3599 | `6b6fc1b28775b8cf38960d6dacea4190a9ac34346099277b8fa5f197735d26ff` | — | none |
+| 34 | `docs/known-limitations.md` | `product-documentation` | 5530 | `152be9b407c90be31abedbaa7db7fa1259c3a19080e71ac4aa1072c223fc2d7c` | — | none |
+| 35 | `docs/lite-v3-rfc.md` | `product-documentation` | 18693 | `9afd7267c60544cb6d27c9d53f58dab3211e2a20c5f81289aea63ef7b8f3ddeb` | — | none |
+| 36 | `docs/lite-v3-release-notes.md` | `product-documentation` | 14871 | `9976198ddb9e4321fdb40915a99c45e994f9997f149a61600307418f0133b5f2` | — | none |
+| 37 | `docs/release-checklist.md` | `repository-maintenance` | 7882 | `07252840fcf7a1e09b1ef0d82ccb507376b5a76953b9b288f51dd0be86217090` | — | none |
+| 38 | `docs/system-dependencies.md` | `repository-maintenance` | 1335 | `fe8fa51ed1e084204b72c1b6d924e35a254101a86f442e30d7474cf1a0a0507b` | — | none |
+| 39 | `README.md` | `product-documentation` | 4937 | `1aae7e1618c8dae165d9082009187e517801543fcd1f6e085b8d13af36174d5d` | — | none |
 
 ## 2. Core skill
 
@@ -77,7 +77,7 @@ Role: `identity`
 Authority: runtime identity
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
-0.9.6
+0.9.7
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
 
 
@@ -179,7 +179,7 @@ Authority: Lite protocol
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.9.6 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures with frozen core, Matplotlib style/color, and external typography references, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.9.7 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures with frozen core, Matplotlib style/color, and external typography references, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## External complete specification export
 
@@ -414,7 +414,7 @@ The fixed current tool/model rows are ChatGPT/GPT-5.6 Thinking and Codex CLI/GPT
 
 The Lite v3 marker, eight public commands, all START/RESULT/PRE/HANDOFF/APPENDIX headings, base START/RESULT single/split identities, partial split legality, dependency token grammar, evidence scope, figure workspace, and appendix whitelist grammar remain unchanged. Existing 0.8.1 workspaces need not create Supplement files. Supplement names do not participate in base discovery. Existing user-created same-name files receive no automatic migration. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes. Historical plotting code and legacy content are not moved.
 
-Lite 0.9.6 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, actual external font usage, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure-font checker, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Final-figure font discovery, rendering, and audit remain the external `nature-figure` responsibility under `references/final_figure_typography.md`; XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
+Lite 0.9.7 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, actual external font usage, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure-font checker, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Final-figure font discovery, rendering, and audit remain the external `nature-figure` responsibility under `references/final_figure_typography.md`; XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 
 
@@ -425,7 +425,7 @@ Role: `machine-contract`
 Authority: runtime behavior
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/machine_contract.md -->
-# KyMCM Lite 0.9.6 machine-enforced contract
+# KyMCM Lite 0.9.7 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -443,12 +443,12 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.6` is a product release identifier. It is independent of the
-workspace protocol marker, which remains Lite v3. Existing valid 0.9.5 and
-earlier workspaces need no migration. The release adds a fixed final-submission
-AI-tool disclosure template and preserves the computation-only Appendix surface
-and read-only static side-effect diagnostic; it does not rewrite existing
-workspace files or add runtime state.
+Lite version `0.9.7` is a product release identifier. It is independent of the
+workspace protocol marker, which remains Lite v3. Existing valid 0.9.6 and
+earlier workspaces need no migration. The release adds frozen final-figure core,
+style, and color references while preserving the fixed AI-tool disclosure
+package, computation-only Appendix surface, and read-only static side-effect
+diagnostic; it does not rewrite existing workspace files or add runtime state.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -1073,7 +1073,7 @@ Authority: specialized reference
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/ai_tool_usage_details.md -->
 # AI 工具使用详情
 
-KyMCM Lite 0.9.6 提供本参考文档和固定 LaTeX 模板，用于落实《人工智能工具使用规定（2026 年试行）》对参赛作品支撑材料的要求。该要求适用于 2026 年竞赛试行阶段：凡在竞赛过程中使用 AI 工具，支撑材料应包含一个 PDF，文件名必须精确为 `AI 工具使用详情.pdf`；论文参考文献之前还应放置固定的“AI 工具使用声明”。
+KyMCM Lite 0.9.7 提供本参考文档和固定 LaTeX 模板，用于落实《人工智能工具使用规定（2026 年试行）》对参赛作品支撑材料的要求。该要求适用于 2026 年竞赛试行阶段：凡在竞赛过程中使用 AI 工具，支撑材料应包含一个 PDF，文件名必须精确为 `AI 工具使用详情.pdf`；论文参考文献之前还应放置固定的“AI 工具使用声明”。
 
 ## 固定内容
 
@@ -3254,7 +3254,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/README.md -->
 # KyMCM Lite
 
-KyMCM Lite 0.9.6 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with frozen core, Matplotlib style/color, and external typography contracts, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template, without workflow state or content JSON.
+KyMCM Lite 0.9.7 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with frozen core, Matplotlib style/color, and external typography contracts, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -3328,11 +3328,11 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.9.6 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure boundaries, and eight public commands. Existing 0.9.5 and earlier workspaces remain valid and need no migration or automatic appendix rewrite. New or reorganized appendix code follows the computation-core-only rule, independent result assets, and static `LITE-APPENDIX-CODE-SIDE-EFFECT-001` check; old packages are not silently changed and may require manual curation before a new result check. New final-figure requests use the external typography contract in `skills/kymcm-lite/references/final_figure_typography.md`; historical figures are not retroactively changed, and an old figure may be called 0.9.4-compliant only after an explicit regeneration request and successful external font audit. The new fixed AI-use template and declaration are static final-submission materials outside runtime, Appendix, evidence, modeling dependencies, and final-figure behavior; each competition replaces only two real screenshots and compiles `AI 工具使用详情.pdf`.
+KyMCM Lite 0.9.7 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure boundaries, and eight public commands. Existing 0.9.6 and earlier workspaces remain valid and need no migration or automatic appendix rewrite. New or reorganized appendix code follows the computation-core-only rule, independent result assets, and static `LITE-APPENDIX-CODE-SIDE-EFFECT-001` check; old packages are not silently changed and may require manual curation before a new result check. New final-figure instructions and reviews use `final_figure_core_rules.md`; Codex/Matplotlib data-driven work also uses `final_figure_style.md`, `final_figure_color.md`, and the independent `final_figure_typography.md` authority. Historical figures are not retroactively changed. The fixed AI-use template and declaration remain static final-submission materials outside runtime, Appendix, evidence, modeling dependencies, and final-figure behavior; each competition replaces only two real screenshots and compiles `AI 工具使用详情.pdf`.
 
 Historical 0.9.2 Supplement compatibility: after a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
 
-The 0.9.6 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`, including the final-figure typography and AI-use references/templates. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, artifact overwrite permission, actual external font usage, or AI-use screenshot/declaration truth; those remain semantic review responsibilities.
+The 0.9.7 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`, including all four final-figure references and the AI-use references/templates. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, artifact overwrite permission, actual external figure compliance, or AI-use screenshot/declaration truth; those remain semantic review responsibilities.
 
 `figure/` is an optional known root for explicitly requested final-figure work. Existing workspaces need not create it; init does not create it; an existing user-created root no longer appears as unknown. Lite does not inspect its contents, and it remains outside formal evidence and appendix source scope. Historical plotting code is not moved automatically.
 
@@ -3357,7 +3357,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/installation.md -->
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.6 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.7 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -3367,7 +3367,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.6 so its references, computation-core appendix policy, static side-effect diagnostic, final-figure typography contract, fixed AI-use template/declaration, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.9.5 and earlier contest workspaces require no migration and need not create Supplement or AI-use files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.7 so its references, computation-core appendix policy, static side-effect diagnostic, frozen final-figure core/style/color/typography contracts, fixed AI-use template/declaration, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.9.6 and earlier contest workspaces require no migration and need not create new figure, Supplement, or AI-use files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -3386,7 +3386,7 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.9.6, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency; the separate `nature-figure` Skill still requires `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally for final figures, with missing requirements stopping formal rendering rather than silently falling back. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. Do not copy or download proprietary font files into this repository.
+LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.9.7, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency; the separate `nature-figure` Skill still requires `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally for final figures, with missing requirements stopping formal rendering rather than silently falling back. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. Do not copy or download proprietary font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
 <!-- END KYMCM-LITE SOURCE: docs/installation.md -->
@@ -3403,10 +3403,10 @@ Authority: product documentation
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.6.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.7.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.6 limitations:
+KyMCM Lite 0.9.7 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -3440,9 +3440,9 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-rfc.md -->
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.6 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.7 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.6 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite passes the exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contract to external `nature-figure`, which stops on missing fonts and audits the output. New or reorganized Appendix code is computation-core-only, formal result assets remain independent, and high-confidence Python/C/C++ writers are blocked statically. After accepted modeling and appendix work, a separate final compliance stage may copy the fixed AI-tool disclosure template, replace two real screenshots, and compile `AI 工具使用详情.pdf`; this stage adds no runtime surface and does not rewrite the historical design below.
+Current 0.9.7 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite loads the frozen core and, for Codex/Matplotlib data-driven work, style/color plus exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contracts before using external `nature-figure`. New or reorganized Appendix code is computation-core-only, formal result assets remain independent, and high-confidence Python/C/C++ writers are blocked statically. After accepted modeling and appendix work, a separate final compliance stage may copy the fixed AI-tool disclosure template, replace two real screenshots, and compile `AI 工具使用详情.pdf`; these documentation integrations add no runtime surface and do not rewrite the historical design below.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
@@ -3797,7 +3797,15 @@ Role: `product-documentation`
 Authority: product documentation
 
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-release-notes.md -->
-# KyMCM Lite 0.9.6
+# KyMCM Lite 0.9.7
+
+KyMCM Lite 0.9.7 integrates the frozen Pt1 core figure rules, Pt2 `kymcm-figure-style-v1`, and Pt3 `kymcm-figure-color-v1` as canonical Lite references with byte-identical `docs/lite-v3/` mirrors. Final-figure instructions and reviews now load the core rules; Codex/Matplotlib data-driven figures and general figure specifications/reviews also load the style, color, and independent typography authorities before invoking external `nature-figure`.
+
+The frozen documentation defines PDF/PNG-only formal output, no internal figure title or explanatory prose, final physical-size templates, ≥8 pt text, geometry and layout rules, semantic/qualitative colors, batlow and vik continuous maps, redundant accessibility encoding, and the existing exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` routing. The earlier typography reference's SVG audit language is replaced by the accepted PDF/PNG contract. The complete ChatGPT Project Source, mirror classification, release tree, and protected hashes are refreshed accordingly.
+
+This is a documentation and integration release. It adds no plotting runtime, chart-template library, color/style Python module, `cmcrameri` dependency, visual checker, CLI, contract, manifest, state, content JSON, or tool-routing workflow. The basic/enhanced chart hierarchy, special-chart/tool routing, and final-figure workflow remain paused. Existing 0.9.6 workspaces require no migration; the Lite v3 marker, eight commands, RESULT/HANDOFF/PRE/Supplement/Appendix semantics, fixed AI-use package, standard-library runtime, and KyMCM Full remain unchanged.
+
+## KyMCM Lite 0.9.6
 
 KyMCM Lite 0.9.6 adds a fixed final-submission AI-tool disclosure package for the 2026 trial regulation. The canonical `AI_TOOL_USAGE_DETAILS.template.tex` has exactly five sections, a two-column table fixed to ChatGPT/GPT-5.6 Thinking and Codex CLI/GPT-5.6 Codex, two fixed real-screenshot paths/captions, conservative adoption/review and overall declaration prose, and fail-closed missing-image checks. The only competition-time content replacements are the two real screenshots; XeLaTeX writes the exact `AI 工具使用详情.pdf` output. `AI_TOOL_USAGE_DECLARATION.template.tex` is a fixed non-numbered snippet for placement before paper references.
 
@@ -3922,7 +3930,7 @@ Authority: repository maintenance
 
 ## KyMCM Lite checks
 
-- Lite 0.9.6 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.9.7 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - The complete ChatGPT Project Source is generated by `scripts/export_kymcm_lite_full_spec.py`; normal generation followed by `--check` passes, and the generated artifact is not initialized into a workspace or appendix.
 - Export manifest bytes/SHA-256 values, reference/template coverage, mirror parity, and `docs/lite-v3/*.md` included/excluded classification pass without timestamps, absolute paths, host data, or recursive self-inclusion.
 - Supplement Start/Result templates and `supplement_work.md` have byte-identical mirrors; every official question uses at most one pair in single and split modes after complete checked base results.
@@ -3967,7 +3975,7 @@ Required for Lite runtime: Python 3.11–3.13. Git is optional for Lite and prod
 
 The repository exporter `scripts/export_kymcm_lite_full_spec.py` uses only the Python standard library and needs no network, Git command, credentials, or third-party package. It writes the deterministic ChatGPT Project Source only when explicitly invoked.
 
-Optional: a XeLaTeX-capable TeX Live distribution for final PDF compilation. KyMCM Lite 0.9.6 uses it only to build the fixed final-submission `AI 工具使用详情.pdf`; it is not a Lite runtime dependency, and no Python third-party package or font file is required or bundled. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. Lite final figures use the separate `nature-figure` Skill and require locally installed `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; Lite does not download, bundle, or check those fonts in CI, and missing fonts stop formal rendering. Appendix side-effect checks use only the Python standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper. CI and the checkpoint/figure test suites need neither network access nor credentials.
+Optional: a XeLaTeX-capable TeX Live distribution for final PDF compilation. KyMCM Lite 0.9.7 uses it only to build the fixed final-submission `AI 工具使用详情.pdf`; it is not a Lite runtime dependency, and no Python third-party package or font file is required or bundled. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. Lite final figures use the separate `nature-figure` Skill and require locally installed `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; Lite does not download, bundle, or check those fonts in CI, and missing fonts stop formal rendering. Appendix side-effect checks use only the Python standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper. CI and the checkpoint/figure test suites need neither network access nor credentials.
 <!-- END KYMCM-LITE SOURCE: docs/system-dependencies.md -->
 
 
@@ -3981,7 +3989,7 @@ Authority: product documentation
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.6** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure` with the mandatory `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contract. Its submission appendix curates auditable computation-core code and independent result assets, with static high-confidence side-effect blocking and a deterministic complete ChatGPT Project Source export. It also provides a fixed final-submission AI-tool disclosure template whose two real screenshots are compiled to `AI 工具使用详情.pdf`.
+- **KyMCM Lite 0.9.7** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure` with frozen core, Matplotlib style/color, and `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contracts. Its submission appendix curates auditable computation-core code and independent result assets, with static high-confidence side-effect blocking and a deterministic complete ChatGPT Project Source export. It also provides a fixed final-submission AI-tool disclosure template whose two real screenshots are compiled to `AI 工具使用详情.pdf`.
 
 ## Install
 
@@ -4049,14 +4057,14 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/machine_contract.md`
   mirror: `docs/lite-v3/machine_contract.md`
-  bytes: `26932`
-  SHA-256: `3f41996428bbfdfd706270de39ddc385d3dfa0bc8ad9eaca5bc0bd0e10c4a5e8`
+  bytes: `26971`
+  SHA-256: `06a7763ee6bd5ddde5f8de850ff9056367c35521acc077c00825621ce49b10c2`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/ai_tool_usage_details.md`
   mirror: `docs/lite-v3/ai_tool_usage_details.md`
   bytes: `5254`
-  SHA-256: `faf0198caee71980a9ddeee4edf5f75678bda22ea8063bc3e812195ef0b5e567`
+  SHA-256: `891652326b66c909b096b8eec179218cc5f06da0f41ffa11590820cf64460e6e`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/appendix_organization.md`
