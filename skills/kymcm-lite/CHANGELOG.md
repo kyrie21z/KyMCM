@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.8 - 2026-08-10
+
+- Add the authoritative `references/final_figure_selection.md` and byte-identical repository mirror under `kymcm-figure-selection-v1`.
+- Freeze L0 prose/table, L1 base chart, L2 evidence-triggered enhancement, L3 coherent Figure Group, eight enhancement triggers, and nine core selection branches.
+- Keep unsupported branches pending and route data-driven figure choice before the unchanged core, style, color, and typography contracts.
+- Add no plotting runtime, template module, dependency, checker, CLI, state, manifest, content JSON, special-chart tool route, final-figure workflow, or KyMCM Full change.
+
 ## 0.9.7 - 2026-08-09
 
 - Add the frozen `final_figure_core_rules.md`, `final_figure_style.md`, and `final_figure_color.md` references with byte-identical repository mirrors.

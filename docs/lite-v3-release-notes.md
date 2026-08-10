@@ -1,4 +1,12 @@
-# KyMCM Lite 0.9.7
+# KyMCM Lite 0.9.8
+
+KyMCM Lite 0.9.8 adds the evidence-derived `kymcm-figure-selection-v1` canonical reference and byte-identical `docs/lite-v3/` mirror. It freezes L0 prose/table, L1 lowest-complexity base chart, L2 evidence-triggered enhancement, and L3 coherent Figure Group organization. Enhancement is permitted only for `comparison`, `model_relation`, `distribution`, `uncertainty`, `density_or_spatial_structure`, `extra_continuous_dimension`, `diagnostic`, or `crowding`; visual complexity alone is never an upgrade criterion.
+
+The hierarchy covers nine core branches: trend, category comparison, bivariate relation, distribution, matrix, spatial data, sensitivity, forecasting, and diagnostics. Violin, raincloud, ECDF, forest, Pareto, PR, calibration, full classification-evaluation, and ridgeline branches remain explicitly pending rather than being inferred from general visualization knowledge. Data-driven final-figure work now chooses WHAT/WHEN through selection before applying the unchanged Pt1 core, Pt2 style, Pt3 color, and typography authorities.
+
+This release adds no plotting runtime, chart-template library, shared style/color module, runtime dependency, checker, CLI, contract, manifest, state, content JSON, special-chart tool route, or final-figure workflow. The Lite v3 marker, exact eight commands, optional non-managed `figure/`, RESULT/HANDOFF/PRE/Supplement/Appendix gates, 0.9.7 core/style/color/typography contracts, fixed AI-use package, standard-library runtime, and KyMCM Full remain unchanged. Existing 0.9.7 workspaces require no migration.
+
+## KyMCM Lite 0.9.7
 
 KyMCM Lite 0.9.7 integrates the frozen Pt1 core figure rules, Pt2 `kymcm-figure-style-v1`, and Pt3 `kymcm-figure-color-v1` as canonical Lite references with byte-identical `docs/lite-v3/` mirrors. Final-figure instructions and reviews now load the core rules; Codex/Matplotlib data-driven figures and general figure specifications/reviews also load the style, color, and independent typography authorities before invoking external `nature-figure`.
 

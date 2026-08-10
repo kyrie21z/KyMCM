@@ -4,7 +4,7 @@
 
 This reference is the authoritative Lite-only core contract for final figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_core_rules.md`. It applies only to explicitly requested final-figure work after the relevant RESULT and Supplement Result entries have been accepted, any requested HANDOFF task has completed, and structured data and machine evidence are stable.
 
-For a Codex/Matplotlib data-driven figure, read this reference together with `final_figure_style.md`, `final_figure_color.md`, and the independent font-family authority `final_figure_typography.md`. The typography contract remains authoritative for font families. The style and color references do not replace its stop-on-missing-font rule.
+For a Codex/Matplotlib data-driven figure, first use `final_figure_selection.md` to choose WHAT/WHEN, then apply this reference together with `final_figure_style.md`, `final_figure_color.md`, and the independent font-family authority `final_figure_typography.md`. The typography contract remains authoritative for font families. The style and color references do not replace its stop-on-missing-font rule.
 
 These rules do not create a plotting runtime, chart-template library, checker, figure contract, manifest, workflow state, CLI command, or tool-routing design. The existing optional, non-managed workspace-level `figure/` semantics remain unchanged.
 
@@ -23,7 +23,7 @@ Allowed in-figure text is limited to axis labels, ticks, legends, panel markers,
 
 Use the fixed **4 columns × 3 rows** macro modeling flowchart template. ChatGPT supplies only the text, nodes, and connection plan; it does not directly draw this macro flowchart under this contract. The template does not define or extend external-tool routing.
 
-The selection hierarchy between basic and enhanced charts, special-chart and tool routing, and the final-figure workflow are separate paused design topics. Do not infer or design them from this reference.
+The data-chart selection hierarchy is defined only by `final_figure_selection.md`. Special-chart and tool routing and the final-figure workflow remain separate paused design topics. Do not infer or design them from this reference.
 
 ## Algorithm flowchart
 
@@ -43,4 +43,4 @@ Do not introduce additional flowchart symbol families.
 
 ## Review gate
 
-Before calling a data-driven figure final, confirm that it has no internal figure title or explanatory prose, uses only PDF and PNG formal outputs, follows the panel-label rule, and has been reviewed against the style, color, and typography references. Macro and algorithm flowcharts follow only their frozen rules above; the Matplotlib style/color contracts do not silently govern flowcharts, maps, or manually edited structural illustrations.
+Before calling a data-driven figure final, confirm that its chart choice has a selection-v1 information rationale, it has no internal figure title or explanatory prose, it uses only PDF and PNG formal outputs, it follows the panel-label rule, and it has been reviewed against the style, color, and typography references. Macro and algorithm flowcharts follow only their frozen rules above; the Matplotlib selection/style/color contracts do not silently govern flowcharts, maps, or manually edited structural illustrations.

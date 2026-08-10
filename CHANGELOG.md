@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.8 - 2026-08-10
+
+- Add the evidence-derived `kymcm-figure-selection-v1` canonical reference and byte-identical mirror.
+- Freeze L0/L1/L2/L3, eight information-based enhancement triggers, nine supported selection branches, Figure Group selection, and explicit pending branches.
+- Route data-driven final figures through selection before the unchanged core/style/color/typography authorities.
+- Preserve the Lite v3 marker, eight commands, standard-library runtime, existing 0.9.7 workspaces, paused tool-routing/final-figure workflow topics, and KyMCM Full unchanged.
+
 ## KyMCM Lite 0.9.7 - 2026-08-09
 
 - Add frozen Pt1 core, Pt2 `kymcm-figure-style-v1`, and Pt3 `kymcm-figure-color-v1` references with byte-identical repository mirrors.
