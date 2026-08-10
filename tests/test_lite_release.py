@@ -404,6 +404,7 @@ class LiteReleaseTests(unittest.TestCase):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
         agent = (SKILL / "agents/openai.yaml").read_text(encoding="utf-8")
+        checklist = (ROOT / "docs/release-checklist.md").read_text(encoding="utf-8")
 
         for name in (
             "final_figure_core_rules.md", "final_figure_selection.md", "final_figure_style.md",
@@ -455,6 +456,9 @@ class LiteReleaseTests(unittest.TestCase):
             "multi_line | small_multiples | conditional_response_or_feasible_region",
             "prediction_line | interval_band | small_multiples_or_facets",
             "residual_diagnostic | conditional_QQ | conditional_residual_vs_fitted",
+            "### Spatial data", "L1 map + points", "L2 categorized spatial scatter",
+            "L2 heat/density map", "L3 same-basemap small multiples",
+            "conditional L2 2D density or 3D density surface",
             "violin plot", "raincloud plot", "ECDF", "forest plot", "Pareto front",
             "PR curve", "calibration curve", "classification-evaluation hierarchy", "ridgeline",
             "visual complexity != information value", "WHAT / WHEN", "HOW",
@@ -462,10 +466,53 @@ class LiteReleaseTests(unittest.TestCase):
             self.assertIn(required, selection, required)
 
         self.assertIn("first read `references/final_figure_selection.md`", skill)
-        self.assertIn("then read `references/final_figure_style.md`", protocol)
+        self.assertIn("Then read `references/final_figure_style.md`", protocol)
         self.assertIn("first read final_figure_selection.md", agent)
         self.assertIn("Special-chart and tool routing", core)
         self.assertIn("final-figure workflow remain", core)
+        for required in (
+            "For spatial data, selection-v1 governs WHAT/WHEN expression-level choice",
+            "map + points", "categorized spatial views", "density views",
+            "same-basemap small multiples", "conditional density surfaces",
+            "does not choose a mapping library", "external tool", "execution route",
+            "special-chart and tool routing remains paused",
+            "Ordinary Cartesian Pt2 geometry does not silently govern map geometry",
+            "flowcharts follow only the frozen Pt1 flowchart rules",
+            "Manually edited structural illustrations remain outside automatic data-chart selection",
+        ):
+            self.assertIn(required, core, required)
+        self.assertNotIn(
+            "selection/style/color contracts do not silently govern flowcharts, maps",
+            core,
+        )
+
+        for surface in (protocol, agent, checklist):
+            normalized = surface.lower()
+            for required in (
+                "lowest adequate level from the actual information need",
+                "l0 and l1 require no enhancement trigger",
+                "an l2 upgrade requires an applicable named selection-v1 trigger",
+                "l3 requires a coherent shared conclusion and complementary evidence",
+                "enhanced panel retains its applicable trigger rationale",
+            ):
+                self.assertIn(required, normalized, required)
+            for stale in (
+                "choose what/when at l0/l1/l2/l3 from a named enhancement trigger",
+                "choose l0/l1/l2/l3 from a real enhancement trigger",
+                "choose l0/l1/l2/l3 from one of eight evidence triggers",
+            ):
+                self.assertNotIn(stale, normalized, stale)
+
+        notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
+        current_notes = notes.split("## KyMCM Lite 0.9.7", 1)[0]
+        self.assertIn("Pt1 core receives only the required selection cross-reference", current_notes)
+        self.assertIn("review/spatial-boundary update", current_notes)
+        self.assertIn(
+            "Pt2 style, Pt3 color, and typography remain byte-unchanged from 0.9.7",
+            current_notes,
+        )
+        self.assertNotIn("unchanged Pt1 core", current_notes)
+        self.assertNotIn("0.9.7 core/style/color/typography contracts", current_notes)
 
     def test_check_result_does_not_require_handoff(self):
         workspace = ROOT / "tests/fixtures/lite_synthetic_handoff"
