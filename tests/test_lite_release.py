@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.7\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.8\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.9.7", text, relative)
-            self.assertNotIn("0.9.7-dev", text, relative)
+            self.assertIn("0.9.8", text, relative)
+            self.assertNotIn("0.9.8-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -78,6 +78,7 @@ class LiteReleaseTests(unittest.TestCase):
             ("docs/lite-v3/APPENDIX_START.template.md", "skills/kymcm-lite/templates/APPENDIX_START.template.md"),
             ("docs/lite-v3/APPENDIX_RESULT.template.md", "skills/kymcm-lite/templates/APPENDIX_RESULT.template.md"),
             ("docs/lite-v3/final_figure_core_rules.md", "skills/kymcm-lite/references/final_figure_core_rules.md"),
+            ("docs/lite-v3/final_figure_selection.md", "skills/kymcm-lite/references/final_figure_selection.md"),
             ("docs/lite-v3/final_figure_style.md", "skills/kymcm-lite/references/final_figure_style.md"),
             ("docs/lite-v3/final_figure_color.md", "skills/kymcm-lite/references/final_figure_color.md"),
         )
@@ -397,14 +398,16 @@ class LiteReleaseTests(unittest.TestCase):
 
     def test_frozen_final_figure_rules_are_documented_without_runtime_surface(self):
         core = (SKILL / "references/final_figure_core_rules.md").read_text(encoding="utf-8")
+        selection = (SKILL / "references/final_figure_selection.md").read_text(encoding="utf-8")
         style = (SKILL / "references/final_figure_style.md").read_text(encoding="utf-8")
         color = (SKILL / "references/final_figure_color.md").read_text(encoding="utf-8")
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
         agent = (SKILL / "agents/openai.yaml").read_text(encoding="utf-8")
+        checklist = (ROOT / "docs/release-checklist.md").read_text(encoding="utf-8")
 
         for name in (
-            "final_figure_core_rules.md", "final_figure_style.md",
+            "final_figure_core_rules.md", "final_figure_selection.md", "final_figure_style.md",
             "final_figure_color.md", "final_figure_typography.md",
         ):
             self.assertIn(name, skill)
@@ -432,6 +435,84 @@ class LiteReleaseTests(unittest.TestCase):
         runtime = "\n".join(path.read_text(encoding="utf-8") for path in SCRIPTS.rglob("*.py"))
         for forbidden in ("matplotlib", "cmcrameri", "FIGURE_STYLE_V1", "KY_MCM_FIGURE_COLOR_V1"):
             self.assertNotIn(forbidden, runtime, forbidden)
+        self.assertNotIn("FIGURE_SELECTION_V1", runtime)
+        self.assertNotIn("kymcm-figure-selection-v1", runtime)
+
+        for required in (
+            "kymcm-figure-selection-v1", "FIGURE_SELECTION_V1",
+            "levels = [L0, L1, L2, L3]", "L0 — prose or table",
+            "L1 — base chart", "L2 — enhanced chart", "L3 — Figure Group",
+            "comparison", "model_relation", "distribution", "uncertainty",
+            "density_or_spatial_structure", "extra_continuous_dimension",
+            "diagnostic", "crowding",
+            "branches = [trend, category_comparison, bivariate_relation, distribution",
+            "matrix, spatial, sensitivity, forecasting, diagnostics]",
+            "multi_line | small_multiples | conditional_surface_or_contour",
+            "sorted_horizontal_bar | grouped_bar | boxplot",
+            "relation_overlay | redundant_category_encoding | facets | density_representation",
+            "histogram_plus_KDE | KDE_or_faceted_density | boxplot",
+            "heatmap | annotated_heatmap | shared_scale_heatmap_group",
+            "categorized_scatter | density_map | same_basemap_small_multiples",
+            "multi_line | small_multiples | conditional_response_or_feasible_region",
+            "prediction_line | interval_band | small_multiples_or_facets",
+            "residual_diagnostic | conditional_QQ | conditional_residual_vs_fitted",
+            "### Spatial data", "L1 map + points", "L2 categorized spatial scatter",
+            "L2 heat/density map", "L3 same-basemap small multiples",
+            "conditional L2 2D density or 3D density surface",
+            "violin plot", "raincloud plot", "ECDF", "forest plot", "Pareto front",
+            "PR curve", "calibration curve", "classification-evaluation hierarchy", "ridgeline",
+            "visual complexity != information value", "WHAT / WHEN", "HOW",
+        ):
+            self.assertIn(required, selection, required)
+
+        self.assertIn("first read `references/final_figure_selection.md`", skill)
+        self.assertIn("Then read `references/final_figure_style.md`", protocol)
+        self.assertIn("first read final_figure_selection.md", agent)
+        self.assertIn("Special-chart and tool routing", core)
+        self.assertIn("final-figure workflow remain", core)
+        for required in (
+            "For spatial data, selection-v1 governs WHAT/WHEN expression-level choice",
+            "map + points", "categorized spatial views", "density views",
+            "same-basemap small multiples", "conditional density surfaces",
+            "does not choose a mapping library", "external tool", "execution route",
+            "special-chart and tool routing remains paused",
+            "Ordinary Cartesian Pt2 geometry does not silently govern map geometry",
+            "flowcharts follow only the frozen Pt1 flowchart rules",
+            "Manually edited structural illustrations remain outside automatic data-chart selection",
+        ):
+            self.assertIn(required, core, required)
+        self.assertNotIn(
+            "selection/style/color contracts do not silently govern flowcharts, maps",
+            core,
+        )
+
+        for surface in (protocol, agent, checklist):
+            normalized = surface.lower()
+            for required in (
+                "lowest adequate level from the actual information need",
+                "l0 and l1 require no enhancement trigger",
+                "an l2 upgrade requires an applicable named selection-v1 trigger",
+                "l3 requires a coherent shared conclusion and complementary evidence",
+                "enhanced panel retains its applicable trigger rationale",
+            ):
+                self.assertIn(required, normalized, required)
+            for stale in (
+                "choose what/when at l0/l1/l2/l3 from a named enhancement trigger",
+                "choose l0/l1/l2/l3 from a real enhancement trigger",
+                "choose l0/l1/l2/l3 from one of eight evidence triggers",
+            ):
+                self.assertNotIn(stale, normalized, stale)
+
+        notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
+        current_notes = notes.split("## KyMCM Lite 0.9.7", 1)[0]
+        self.assertIn("Pt1 core receives only the required selection cross-reference", current_notes)
+        self.assertIn("review/spatial-boundary update", current_notes)
+        self.assertIn(
+            "Pt2 style, Pt3 color, and typography remain byte-unchanged from 0.9.7",
+            current_notes,
+        )
+        self.assertNotIn("unchanged Pt1 core", current_notes)
+        self.assertNotIn("0.9.7 core/style/color/typography contracts", current_notes)
 
     def test_check_result_does_not_require_handoff(self):
         workspace = ROOT / "tests/fixtures/lite_synthetic_handoff"
@@ -475,7 +556,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
             '{"workflow":"kymcm_lite","version":3}',
@@ -487,13 +568,14 @@ class LiteReleaseTests(unittest.TestCase):
             "SUPPLEMENT_START_QN.md", "SUPPLEMENT_RESULT_QN.md",
             "KyMCM_Lite_FULL_SPEC.md", "export_kymcm_lite_full_spec.py", "--check",
             "latest unadopted", "adopted", "invalidates", "HANDOFF", "explicit", "accepted", "read-only",
-            "kymcm-figure-style-v1", "kymcm-figure-color-v1", "PDF/PNG-only",
+            "kymcm-figure-selection-v1", "kymcm-figure-style-v1", "kymcm-figure-color-v1", "PDF/PNG-only",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.9.8 - 2026-08-10", text, relative)
             self.assertIn("0.9.7 - 2026-08-09", text, relative)
             self.assertIn("0.9.5 - 2026-08-04", text, relative)
             self.assertIn("0.9.4 - 2026-08-04", text, relative)

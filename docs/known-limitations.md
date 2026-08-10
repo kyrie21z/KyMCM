@@ -4,16 +4,17 @@
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.7.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.8.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.7 limitations:
+KyMCM Lite 0.9.8 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
 - Git diagnostics are advisory rather than revision bindings.
 - Lite does not generate, plan, read, modify, or check contest manuscripts; infer which final graphics are needed; provide solvers; or migrate Full workspaces.
 - Final figures require an explicit user request and the separately installed `nature-figure` Skill. Lite does not check `figure/` structure or asset quality, and figure work may not silently retrain or change formal results.
+- `kymcm-figure-selection-v1` guides semantic WHAT/WHEN decisions but has no runtime scorer or checker; its explicitly pending chart branches require user direction or a future evidence-backed revision.
 - Lite final figures additionally require `Noto Serif CJK SC` for Chinese/CJK punctuation, `Tinos` for English/Arabic numerals, and STIX mathtext (`mathtext.fontset = stix`) for formulas and symbols. The external `nature-figure` Skill discovers and audits actual fonts; Lite cannot enforce those fonts from its standard-library runtime, and missing requirements must stop formal rendering rather than silently falling back.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.
 - Lite does not discover models or build/delete appendix trees automatically.
