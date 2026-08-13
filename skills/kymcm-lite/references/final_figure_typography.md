@@ -4,7 +4,7 @@
 
 This reference is the authoritative Lite-only typography contract for final display figures. The byte-identical repository mirror is `docs/lite-v3/final_figure_typography.md`. It applies only after the relevant RESULT and Supplement Result entries have been accepted, any requested HANDOFF task has completed, and the user explicitly requests a final figure.
 
-KyMCM Lite does not render figures. It reads this contract, passes it to the external `nature-figure` Skill, and reviews the returned font audit. Lite does not import, vendor, copy, download, or otherwise depend on `nature-figure`; it adds no figure command, checker, contract, manifest, state, JSON, or font ledger.
+The KyMCM Lite core CLI/runtime does not render figures. The optional `figure_exec.py` performs strict font-availability preflight, fixed Matplotlib rc configuration, hard title/text-size checks, and formal PDF/PNG saving for Codex/Matplotlib figures. Lite does not import, vendor, copy, download, or otherwise depend on the external `nature-figure` Skill; the helper adds no figure command, manifest, workflow state, JSON, or font ledger.
 
 The required final-figure sequence is:
 
@@ -12,8 +12,9 @@ The required final-figure sequence is:
 accepted RESULT / accepted Supplement Result
 → current HANDOFF completed in a separate explicit task
 → explicit user request for the final figure
-→ Lite reads this reference and passes the exact typography contract
-→ nature-figure discovers fonts, renders, and audits the output
+→ Lite reads this reference and configures the exact base contract with figure_exec.py
+→ figure_exec.py preflights fonts, audits machine-safe rules, and saves PDF + PNG
+→ nature-figure audits complex mixed-text routing and actual output glyphs/fonts
 → only an audited output may be called final
 ```
 
@@ -47,7 +48,7 @@ Do not set one global font for an entire figure and assume that fallback produce
 - Mathematical Greek letters, operators, subscripts, superscripts, and formula symbols must not depend on accidental Unicode coverage in Tinos or Noto.
 - Mixed titles, axis labels, legends, annotations, table cells, and text boxes preserve this split. ASCII letters and numbers embedded in Chinese text still use Tinos; an English/numeric text element does not become wholly Noto merely because the figure also contains Chinese.
 
-The following is a non-runtime semantic example, not Lite configuration or a dependency:
+The optional execution helper configures this exact base stack:
 
 ```python
 {
@@ -58,7 +59,7 @@ The following is a non-runtime semantic example, not Lite configuration or a dep
 }
 ```
 
-This example only communicates a basic font stack and mathtext setting. For Chinese punctuation and complex mixed text, fallback alone may be insufficient; `nature-figure` must use explicit font properties, text segmentation, or its existing routing mechanism so the actual rendered fonts satisfy this contract. Lite does not execute, import, or maintain this example. If `axes.unicode_minus` conflicts with the external implementation, it must not weaken the typography contract: mathematical minus signs remain in mathtext and are rendered by STIX mathtext, with the deviation documented in the external audit.
+This base stack does not prove correct mixed-text routing. For Chinese punctuation and complex mixed text, fallback alone may be insufficient; `nature-figure` must inspect or apply explicit font properties, text segmentation, or its existing routing mechanism so the actual rendered fonts satisfy this contract. If `axes.unicode_minus` conflicts with the external implementation, it must not weaken the typography contract: mathematical minus signs remain in mathtext and are rendered by STIX mathtext, with the deviation documented in the external audit.
 
 ## Missing-font stop rule
 
@@ -77,7 +78,7 @@ There is no silent fallback to a system default, an approximate family, or a mis
 
 ## External audit minimum
 
-`nature-figure` is responsible for font discovery, actual rendering, output, and the final font audit. At minimum, the audit must verify:
+`figure_exec.py` is responsible for strict required-font lookup, the fixed base rc stack, minimum text size, title checks, and formal save. `nature-figure` remains responsible for complex mixed-text routing and the final actual-glyph/font audit. At minimum, the combined audit must verify:
 
 1. Chinese axis/legend/annotation/panel-label text actually uses `Noto Serif CJK SC`.
 2. English, numerals, percentages, scientific notation, and units actually use `Tinos`.
@@ -102,8 +103,8 @@ If any audit item fails, typography acceptance fails. Keep existing accepted out
 
 ## Installation and product boundary
 
-Users install the three required fonts locally and carry their own licensing responsibility. KyMCM does not contain, distribute, share, download, or commit font files. CI does not need these fonts because Lite has no renderer; font availability is checked by the external `nature-figure` final-figure task.
+Users install the required fonts locally and carry their own licensing responsibility. KyMCM does not contain, distribute, share, download, or commit font files. Repository tests use the narrow injected resolver seam to test fail-closed behavior without bundling fonts; real formal rendering performs strict local lookup and stops when either named family is unavailable.
 
-This contract does not change the Lite v3 marker, the eight commands, `figure/` boundaries, RESULT acceptance, HANDOFF timing, Supplement/PRE behavior, or the standard-library-only Lite runtime. Historical figures are not redrawn or retroactively declared compliant. Existing 0.9.3 workspaces need no migration; new 0.9.4 final-figure requests use this contract by default.
+This contract does not change the Lite v3 marker, the eight commands, `figure/` boundaries, RESULT acceptance, HANDOFF timing, Supplement/PRE behavior, or the standard-library-only Lite core runtime. Historical figures are not redrawn or retroactively declared compliant. Existing 0.9.8 workspaces need no migration; new 0.9.9 formal Codex/Matplotlib final-figure requests use the optional execution helper by default.
 
 KyMCM Full remains separate. Its built-in renderer and existing Microsoft YaHei/CJK sans-serif behavior are unchanged, and this Lite reference must not be used to reinterpret Full files or tests.

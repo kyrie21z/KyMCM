@@ -7,11 +7,11 @@
 
 ## 0. 使用说明、版本与权威优先级
 
-- Product: `KyMCM Lite`; `VERSION`: `0.9.8`.
+- Product: `KyMCM Lite`; `VERSION`: `0.9.9`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `40`; canonical total bytes: `299441`.
-- Mirror files validated: `25`.
+- Canonical source files: `41`; canonical total bytes: `307564`.
+- Mirror files validated: `26`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
 
@@ -30,46 +30,47 @@ The complete source text is intentionally long. It is not a summary: each canoni
 
 | No. | canonical path | role | bytes | SHA-256 | mirror path(s) | mirror status |
 |---:|---|---|---:|---|---|---|
-| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `ff35aa972931add85900ecabdc1eb4659e398118d3c25601d762079b1ff97dcd` | — | none |
-| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 18963 | `843320df15740a8115f08ab536c4a91acadf99279019e0868499ee9b434f2a42` | — | none |
-| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 26779 | `154055bde25b6bc2de40c27f4d985a8e8a6f9ae974de640416e13a0d10666361` | — | none |
+| 1 | `skills/kymcm-lite/VERSION` | `identity` | 6 | `050990d5e9bd0494fa852a4a9ab0d60b91c583a63307920c7887a39e692f9998` | — | none |
+| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 19828 | `8b5056ff29f01402c9e659e0cb6a3f4f36ffb719ff45c3ff1df10f6bf047be36` | — | none |
+| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 27456 | `fa4d0718fe93d8d3519375d456311302ad1aaeeea571d6b840e12dc21ee13e0a` | — | none |
 | 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 26971 | `06a7763ee6bd5ddde5f8de850ff9056367c35521acc077c00825621ce49b10c2` | `docs/lite-v3/machine_contract.md` | byte-identical |
 | 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 12151 | `64f88dcff72e3c7f0cfe690adb3b493d4bddfc03fb77e131136330fddf416fcd` | — | none |
 | 6 | `skills/kymcm-lite/references/ai_tool_usage_details.md` | `reference` | 5254 | `891652326b66c909b096b8eec179218cc5f06da0f41ffa11590820cf64460e6e` | `docs/lite-v3/ai_tool_usage_details.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 9747 | `f7666723db4596ac0be0ecea2c93b169b86f4c760fb4c926b496a0b2381f6741` | `docs/lite-v3/appendix_organization.md` | byte-identical |
 | 8 | `skills/kymcm-lite/references/dependency_review.md` | `reference` | 5783 | `4aeac7bd61bd1c70ee2298b6154235743319ca99b76b2988a81e97c7d6d97ffc` | `docs/lite-v3/dependency_review.md` | byte-identical |
-| 9 | `skills/kymcm-lite/references/final_figure_color.md` | `reference` | 9048 | `2f18162e930ac899f1f7c49685d2a2df66c0a5f3ecedfa3c188098247efdf31d` | `docs/lite-v3/final_figure_color.md` | byte-identical |
-| 10 | `skills/kymcm-lite/references/final_figure_core_rules.md` | `reference` | 4045 | `7409d3d89805c002c614e9e3eed804e707883538141fda25f5fea7d3bb89ae70` | `docs/lite-v3/final_figure_core_rules.md` | byte-identical |
-| 11 | `skills/kymcm-lite/references/final_figure_selection.md` | `reference` | 17016 | `ec288a7c7256f03cf0681df21712c2094fbb22cbc6819af75e06392c72067fc3` | `docs/lite-v3/final_figure_selection.md` | byte-identical |
-| 12 | `skills/kymcm-lite/references/final_figure_style.md` | `reference` | 11842 | `df50a4a3c4efc9fc1a94f592f4ff1ea076176eabb35b69b184bc15fc7c97382a` | `docs/lite-v3/final_figure_style.md` | byte-identical |
-| 13 | `skills/kymcm-lite/references/final_figure_typography.md` | `reference` | 7399 | `e6ed88bc2ee3f27588a0f4bc1451f0083b1d5365807da4e0d98c15cb97cc6c79` | `docs/lite-v3/final_figure_typography.md` | byte-identical |
-| 14 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
-| 15 | `skills/kymcm-lite/references/modeling_plan_design.md` | `reference` | 17746 | `b90c4689fc87e75c7a853441e39b620c3cbc4676ad185bd38a6ac06cee4ae2ed` | `docs/lite-v3/modeling_plan_design.md` | byte-identical |
-| 16 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5995 | `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
-| 17 | `skills/kymcm-lite/references/supplement_work.md` | `reference` | 11176 | `ad120b1bc2ba0702e3b267806c56817fcf5633ab5f99a29de2a08d511008187f` | `docs/lite-v3/supplement_work.md` | byte-identical |
-| 18 | `skills/kymcm-lite/references/technical_handoff.md` | `reference` | 6756 | `2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419` | `docs/lite-v3/technical_handoff.md` | byte-identical |
-| 19 | `skills/kymcm-lite/templates/AI_TOOL_USAGE_DECLARATION.template.tex` | `template` | 230 | `60d95bda3a37bc9f1c9054ceb23a79af786c3f93845f35634a09bd1afcbdc695` | `docs/lite-v3/AI_TOOL_USAGE_DECLARATION.template.tex` | byte-identical |
-| 20 | `skills/kymcm-lite/templates/AI_TOOL_USAGE_DETAILS.template.tex` | `template` | 3527 | `db8c2633840b7690510c1715c8e8a1cbb95b11e402f1872cc677757aeda6d180` | `docs/lite-v3/AI_TOOL_USAGE_DETAILS.template.tex` | byte-identical |
-| 21 | `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md` | `template` | 2173 | `50842bba8b38c52a1889d1c5adf7fad9b51bb3d99946fc347db0a85fe2ad6665` | `docs/lite-v3/APPENDIX_RESULT.template.md` | byte-identical |
-| 22 | `skills/kymcm-lite/templates/APPENDIX_START.template.md` | `template` | 4353 | `bcf0f410f6d3974073c5651e27c86de270e1fee8430d7a16255c325ae7e0bbbf` | `docs/lite-v3/APPENDIX_START.template.md` | byte-identical |
-| 23 | `skills/kymcm-lite/templates/HANDOFF_PRE.template.md` | `template` | 2008 | `b486f30425c74dce973b8d55891b284871161e86a54dbec0836d3801d5c387fb` | `docs/lite-v3/HANDOFF_PRE.template.md` | byte-identical |
-| 24 | `skills/kymcm-lite/templates/HANDOFF_QN.template.md` | `template` | 2842 | `2495e222fc350934367956d67c0f74f069cab8c2097f3c06cee4f74c04b11014` | `docs/lite-v3/HANDOFF_QN.template.md` | byte-identical |
-| 25 | `skills/kymcm-lite/templates/RESULT_PRE.template.md` | `template` | 1085 | `189595bdb36b5ee33a21363e3dfb3fb4faa65309e6a5bed7b0555931f8f8e4c5` | `docs/lite-v3/RESULT_PRE.template.md` | byte-identical |
-| 26 | `skills/kymcm-lite/templates/RESULT_QN.template.md` | `template` | 1195 | `3794e2b24dedbcb816f09d90e01f400078b5fede85296b1d418dc1a1baa96d45` | `docs/lite-v3/RESULT_QN.template.md` | byte-identical |
-| 27 | `skills/kymcm-lite/templates/START_PRE.template.md` | `template` | 1999 | `f8c30249682de75c5b82af525df8c74fe5bde2338bcdd0c0a198c071ae249d3b` | `docs/lite-v3/START_PRE.template.md` | byte-identical |
-| 28 | `skills/kymcm-lite/templates/START_QN.template.md` | `template` | 3503 | `4db5837709686701d1d19fbc797567e34b387751c7998beb5a6717784373fc8e` | `docs/lite-v3/START_QN.template.md` | byte-identical |
-| 29 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
-| 30 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
-| 31 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 1347 | `67730206b4a963c0a853648cf221bebb20933df33cb0f1de3d8700f77fc4dfad` | — | none |
-| 32 | `skills/kymcm-lite/README.md` | `product-documentation` | 7599 | `2f1f55c3ec1a42843dfa9b4fef39700fce6067c6c6039550d1f27d5cb5f14b7e` | — | none |
-| 33 | `docs/compatibility.md` | `product-documentation` | 6772 | `f3938acf612fbd28b417a84adf663cf1ab32657dbbb9c874a9d9e48919adda8b` | — | none |
-| 34 | `docs/installation.md` | `product-documentation` | 3609 | `8714b65126c186745fa40f07fc98a2af15f70bbdb1d68b603e2ebf491b2b59e5` | — | none |
-| 35 | `docs/known-limitations.md` | `product-documentation` | 5733 | `99be258551ea4ee10e1323605c79238f1a53f43b6b79428076720bc827141746` | — | none |
-| 36 | `docs/lite-v3-rfc.md` | `product-documentation` | 18760 | `c056e104b2d3780b14f6b0c06de6359088f46e18c2c04d8434f26120e71245cb` | — | none |
-| 37 | `docs/lite-v3-release-notes.md` | `product-documentation` | 16649 | `3acfbf056dfcf948c1f930886450f15aaba99128684b6d9a6beb2c0404d85bb3` | — | none |
-| 38 | `docs/release-checklist.md` | `repository-maintenance` | 8270 | `060bcecb1994cc5b62f12c8015532b4517ff9a7395f7356f98989c52adbbe61f` | — | none |
-| 39 | `docs/system-dependencies.md` | `repository-maintenance` | 1335 | `3f34d95d1e13214ba39dfd0817bbcbe31d4764f421c5e864d04fc3d17f11ef45` | — | none |
-| 40 | `README.md` | `product-documentation` | 5100 | `46511e66ee0f9ab76674196cb4359d3035e1787abfa7fc51bce1f3ab5045fcb0` | — | none |
+| 9 | `skills/kymcm-lite/references/final_figure_color.md` | `reference` | 9086 | `4ab3e1ec1d24b8c10e4dbe342b9a39690ab4c5c858a8577ecf4cfdea5c61c740` | `docs/lite-v3/final_figure_color.md` | byte-identical |
+| 10 | `skills/kymcm-lite/references/final_figure_core_rules.md` | `reference` | 4300 | `1bab32deec80abdbbb941944bd36c1a6830f671a806dfe165f02c06c2f9abb83` | `docs/lite-v3/final_figure_core_rules.md` | byte-identical |
+| 11 | `skills/kymcm-lite/references/final_figure_execution.md` | `reference` | 4951 | `f5f26e1a4f54acb08f0e8375f3752a01a7527e39a43e646355221fad8b1d3154` | `docs/lite-v3/final_figure_execution.md` | byte-identical |
+| 12 | `skills/kymcm-lite/references/final_figure_selection.md` | `reference` | 17048 | `f8d842d0f0dd75d23ad6e81c4b222183a95e09cd5e2a5237f9ff2a09dce1b0a0` | `docs/lite-v3/final_figure_selection.md` | byte-identical |
+| 13 | `skills/kymcm-lite/references/final_figure_style.md` | `reference` | 12255 | `381d1cb068954baa6417408ba492cf07bae9cae7262bd78f1aedcab343080c4d` | `docs/lite-v3/final_figure_style.md` | byte-identical |
+| 14 | `skills/kymcm-lite/references/final_figure_typography.md` | `reference` | 7821 | `7052c4a32062ec2534e29166ff29e02e783fb7db4c2c07fb1fb2b55816e3a6ce` | `docs/lite-v3/final_figure_typography.md` | byte-identical |
+| 15 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
+| 16 | `skills/kymcm-lite/references/modeling_plan_design.md` | `reference` | 17746 | `b90c4689fc87e75c7a853441e39b620c3cbc4676ad185bd38a6ac06cee4ae2ed` | `docs/lite-v3/modeling_plan_design.md` | byte-identical |
+| 17 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5995 | `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
+| 18 | `skills/kymcm-lite/references/supplement_work.md` | `reference` | 11176 | `ad120b1bc2ba0702e3b267806c56817fcf5633ab5f99a29de2a08d511008187f` | `docs/lite-v3/supplement_work.md` | byte-identical |
+| 19 | `skills/kymcm-lite/references/technical_handoff.md` | `reference` | 6756 | `2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419` | `docs/lite-v3/technical_handoff.md` | byte-identical |
+| 20 | `skills/kymcm-lite/templates/AI_TOOL_USAGE_DECLARATION.template.tex` | `template` | 230 | `60d95bda3a37bc9f1c9054ceb23a79af786c3f93845f35634a09bd1afcbdc695` | `docs/lite-v3/AI_TOOL_USAGE_DECLARATION.template.tex` | byte-identical |
+| 21 | `skills/kymcm-lite/templates/AI_TOOL_USAGE_DETAILS.template.tex` | `template` | 3527 | `db8c2633840b7690510c1715c8e8a1cbb95b11e402f1872cc677757aeda6d180` | `docs/lite-v3/AI_TOOL_USAGE_DETAILS.template.tex` | byte-identical |
+| 22 | `skills/kymcm-lite/templates/APPENDIX_RESULT.template.md` | `template` | 2173 | `50842bba8b38c52a1889d1c5adf7fad9b51bb3d99946fc347db0a85fe2ad6665` | `docs/lite-v3/APPENDIX_RESULT.template.md` | byte-identical |
+| 23 | `skills/kymcm-lite/templates/APPENDIX_START.template.md` | `template` | 4353 | `bcf0f410f6d3974073c5651e27c86de270e1fee8430d7a16255c325ae7e0bbbf` | `docs/lite-v3/APPENDIX_START.template.md` | byte-identical |
+| 24 | `skills/kymcm-lite/templates/HANDOFF_PRE.template.md` | `template` | 2008 | `b486f30425c74dce973b8d55891b284871161e86a54dbec0836d3801d5c387fb` | `docs/lite-v3/HANDOFF_PRE.template.md` | byte-identical |
+| 25 | `skills/kymcm-lite/templates/HANDOFF_QN.template.md` | `template` | 2842 | `2495e222fc350934367956d67c0f74f069cab8c2097f3c06cee4f74c04b11014` | `docs/lite-v3/HANDOFF_QN.template.md` | byte-identical |
+| 26 | `skills/kymcm-lite/templates/RESULT_PRE.template.md` | `template` | 1085 | `189595bdb36b5ee33a21363e3dfb3fb4faa65309e6a5bed7b0555931f8f8e4c5` | `docs/lite-v3/RESULT_PRE.template.md` | byte-identical |
+| 27 | `skills/kymcm-lite/templates/RESULT_QN.template.md` | `template` | 1195 | `3794e2b24dedbcb816f09d90e01f400078b5fede85296b1d418dc1a1baa96d45` | `docs/lite-v3/RESULT_QN.template.md` | byte-identical |
+| 28 | `skills/kymcm-lite/templates/START_PRE.template.md` | `template` | 1999 | `f8c30249682de75c5b82af525df8c74fe5bde2338bcdd0c0a198c071ae249d3b` | `docs/lite-v3/START_PRE.template.md` | byte-identical |
+| 29 | `skills/kymcm-lite/templates/START_QN.template.md` | `template` | 3503 | `4db5837709686701d1d19fbc797567e34b387751c7998beb5a6717784373fc8e` | `docs/lite-v3/START_QN.template.md` | byte-identical |
+| 30 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
+| 31 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
+| 32 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 1160 | `6fd0c7fe8d08baa3563c1c04d4b9ed7d3dd3d7178b7649e5e5fcedfc071b77c2` | — | none |
+| 33 | `skills/kymcm-lite/README.md` | `product-documentation` | 7457 | `41d690ec52da2c5ac8ff1d2e3c680418c1b61072987c6ed70ba971612952d84f` | — | none |
+| 34 | `docs/compatibility.md` | `product-documentation` | 6296 | `246aec2d5aac74fd68215a5ecd720f8a49960f5a139dde1ab21001f805eb7d39` | — | none |
+| 35 | `docs/installation.md` | `product-documentation` | 3576 | `29ef9dda007a8e15f687c2923664c255116a6639cfa6855a02f38772c286b84e` | — | none |
+| 36 | `docs/known-limitations.md` | `product-documentation` | 5753 | `c0cac7320a4de804235f0bb3b33fad369bcbb2be085de288026f6883d9b7805d` | — | none |
+| 37 | `docs/lite-v3-rfc.md` | `product-documentation` | 18493 | `d9d462e4c831006732f4f6d01893c62c957cf3751df62eb6d4dd1d13d41c7aa7` | — | none |
+| 38 | `docs/lite-v3-release-notes.md` | `product-documentation` | 18348 | `9ae405852580079969a73108468daba9946c6f260a90c2bba765d40f0dcab85a` | — | none |
+| 39 | `docs/release-checklist.md` | `repository-maintenance` | 8399 | `a8e1f0ac26892d525460ca0dff18ef631be2a16b40f8495996529a0663a9e17c` | — | none |
+| 40 | `docs/system-dependencies.md` | `repository-maintenance` | 1390 | `60fd91e725e0d40f760fae3483eda7c3df1981791c9aa754d3ca174d8c34b323` | — | none |
+| 41 | `README.md` | `product-documentation` | 4772 | `bf8cd721943bc7b3e722cc35322b1729941839233ddece24ea73dd38459fe1a2` | — | none |
 
 ## 2. Core skill
 
@@ -78,7 +79,7 @@ Role: `identity`
 Authority: runtime identity
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
-0.9.8
+0.9.9
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
 
 
@@ -149,9 +150,11 @@ HANDOFF tasks are read-only technical transfer work: read the accepted RESULT se
 
 ## Optional final figure workspace
 
-Enter final-figure work only when the user explicitly requests it after the relevant RESULT set has been accepted, any requested HANDOFF task has completed, and structured data and machine evidence are stable. Before giving final-figure instructions or reviewing a figure, read `references/final_figure_core_rules.md`. For a Codex/Matplotlib data-driven figure or a general data-figure specification/review, first read `references/final_figure_selection.md` completely and choose WHAT/WHEN at L0/L1/L2/L3 from a named information need. Only after selection, read `references/final_figure_style.md`, `references/final_figure_color.md`, and the independent font authority `references/final_figure_typography.md` completely before calling the external `nature-figure` Skill. Pass the frozen selection, physical-size, geometry, text, PDF/PNG, palette, semantic-color, continuous-map, accessibility, and typography requirements without local redesign. Chinese/CJK punctuation uses `Noto Serif CJK SC`, English/Arabic numerals use `Tinos`, and formulas/symbols use `STIX mathtext` with `mathtext.fontset = stix`; missing any required font stops formal rendering. `nature-figure` discovers fonts, renders, and audits actual output; Lite transfers the contracts and reviews the audit. For a macro or algorithm flowchart, apply only the frozen layout and symbol rules in `final_figure_core_rules.md` without using selection or extending them into tool routing or a new workflow. Keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. If required data are missing, return to PRE/QN for additional evidence first.
+Enter final-figure work only when the user explicitly requests it after the relevant RESULT set has been accepted, any requested HANDOFF task has completed, and structured data and machine evidence are stable. Before giving final-figure instructions or reviewing a figure, read `references/final_figure_core_rules.md`. For a Codex/Matplotlib data-driven figure or a general data-figure specification/review, first read `references/final_figure_selection.md` completely and choose WHAT/WHEN at L0/L1/L2/L3 from a named information need. Only after selection, read `references/final_figure_style.md`, `references/final_figure_color.md`, the independent font authority `references/final_figure_typography.md`, and `references/final_figure_execution.md` completely before calling the external `nature-figure` Skill. Pass the frozen selection, physical-size, geometry, text, PDF/PNG, palette, semantic-color, continuous-map, accessibility, and typography requirements without local redesign. Chinese/CJK punctuation uses `Noto Serif CJK SC`, English/Arabic numerals use `Tinos`, and formulas/symbols use `STIX mathtext` with `mathtext.fontset = stix`; missing any required dependency or font stops formal rendering.
 
-`figure/` is optional, unconstrained internally, and created only for an explicit request. It is not a managed root, formal evidence scope, modeling dependency, RESULT/HANDOFF contract, or appendix source. Add no figure command, checker, plotting/color module, contract, manifest, state, approval, hash ledger, content JSON, or new tool-routing design, and do not bundle or import `nature-figure`.
+For formal Codex/Matplotlib rendering, load `figure_exec.py` from the active Skill installation, call `configure_matplotlib()`, construct the selected figure with its helpers, pass every applicable axis through `apply_axis_style()`, and call `save_formal_figure()` for final PDF/PNG delivery. Obtain locked palette, size, font, line, tick, grid, marker, bar, box, error-bar, and save settings from the helper; do not redeclare or silently override them in local plotting code. If the active Skill directory is not importable, load that exact helper by absolute path rather than copying it into the contest workspace. Treat a missing helper, Matplotlib, `cmcrameri`, or required font as a hard stop with no substitute. After the in-process hard audit passes, use `nature-figure` for semantic, complex mixed-text, actual-glyph/font, and broad visual audit. For a macro or algorithm flowchart, apply only the frozen layout and symbol rules in `final_figure_core_rules.md` without using selection or the Matplotlib helper. Keep figure-generation code, prepared plotting data, and generated assets under the workspace-level `figure/` root. If required data are missing, return to PRE/QN for additional evidence first.
+
+`figure/` is optional, unconstrained internally, and created only for an explicit request. It is not a managed root, formal evidence scope, modeling dependency, RESULT/HANDOFF contract, or appendix source. Keep the optional executor outside the stdlib-only core scripts and add no figure command, checker command, chart-template API, automatic chart selection, managed contract, manifest, state, approval, hash ledger, content JSON, or new tool-routing design; do not bundle or import `nature-figure`.
 
 ## Optional submission appendix organization
 
@@ -180,7 +183,7 @@ Authority: Lite protocol
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.9.8 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures with evidence-triggered selection plus frozen core, Matplotlib style/color, and external typography references, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.9.9 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested final figures with evidence-triggered selection plus a minimal fail-closed Matplotlib hard-contract executor, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## External complete specification export
 
@@ -349,9 +352,11 @@ The exact eight public commands are `init`, `doctor`, `check-preprocess-start`, 
 
 ## Optional final figure workspace
 
-Final-figure work begins only after an explicit user request, accepted relevant RESULT/Supplement Result entries, any requested HANDOFF task, structured data, and machine evidence are stable. Read `references/final_figure_core_rules.md` before giving final-figure instructions or review. For a Codex/Matplotlib data-driven figure or general data-figure specification/review, first read `references/final_figure_selection.md` and choose the lowest adequate level from the actual information need. L0 and L1 require no enhancement trigger. An L2 upgrade requires an applicable named selection-v1 trigger. L3 requires a coherent shared conclusion and complementary evidence; any enhanced panel retains its applicable trigger rationale. Then read `references/final_figure_style.md`, `references/final_figure_color.md`, and the independent `references/final_figure_typography.md` authority before invoking external `nature-figure`. Transfer the frozen selection, 160/128 mm physical templates, ≥8 pt text, geometry and layout rules, PDF/PNG-only outputs, qualitative/semantic palette, batlow/vik continuous maps, redundant accessibility encodings, and exact font routing. Chinese/CJK punctuation = `Noto Serif CJK SC`, English/Arabic numerals = `Tinos`, and formulas/symbols = `STIX mathtext` with `mathtext.fontset = stix`; unavailable requirements stop formal rendering. Macro and algorithm flowcharts use only the fixed layouts and symbols in the core reference; selection does not govern them or create new tool routing. `nature-figure` owns rendering and actual audit; Lite owns stage gating, exact contract transfer, and review. Keep all figure-generation code, prepared plotting data, and generated assets under workspace-level `figure/`.
+Final-figure work begins only after an explicit user request, accepted relevant RESULT/Supplement Result entries, any requested HANDOFF task, structured data, and machine evidence are stable. Read `references/final_figure_core_rules.md` before giving final-figure instructions or review. For a Codex/Matplotlib data-driven figure or general data-figure specification/review, first read `references/final_figure_selection.md` and choose the lowest adequate level from the actual information need. L0 and L1 require no enhancement trigger. An L2 upgrade requires an applicable named selection-v1 trigger. L3 requires a coherent shared conclusion and complementary evidence; any enhanced panel retains its applicable trigger rationale. Then read `references/final_figure_style.md`, `references/final_figure_color.md`, the independent `references/final_figure_typography.md` authority, and `references/final_figure_execution.md`. Transfer the frozen selection, 160/128 mm physical templates, ≥8 pt text, geometry and layout rules, PDF/PNG-only outputs, qualitative/semantic palette, batlow/vik continuous maps, redundant accessibility encodings, and exact font routing. Chinese/CJK punctuation = `Noto Serif CJK SC`, English/Arabic numerals = `Tinos`, and formulas/symbols = `STIX mathtext` with `mathtext.fontset = stix`; unavailable requirements stop formal rendering.
 
-The root has no required internal structure, contract, checker, CLI, plotting/color module, manifest, state, approval, hash ledger, or JSON. Figure work cannot become formal evidence, a modeling dependency, create a new Supplement conclusion, change formal state, or define a new tool-routing design. If required fields, granularity, scenarios, or intermediate results are absent, return to PRE/QN to produce evidence rather than silently retraining or resolving.
+For formal Codex/Matplotlib rendering, load the exact `figure_exec.py` from the active Skill directory, call `configure_matplotlib()`, use its parameter helpers, apply `apply_axis_style()` to every applicable axis, and deliver through `save_formal_figure()` rather than direct `fig.savefig()` or `plt.savefig()`. Local code does not redeclare or override locked palette, size, font, geometry, or output constants. Missing helper, Matplotlib, `cmcrameri`, or fonts stops rendering without fallback. The in-process audit enforces the machine-safe subset; `nature-figure` and ChatGPT/user review retain semantic role, complex mixed-text routing, actual-glyph/font, and broad visual judgments. Macro and algorithm flowcharts use only the fixed layouts and symbols in the core reference and do not use the Matplotlib helper. Keep all figure-generation code, prepared plotting data, and generated assets under workspace-level `figure/`.
+
+The root has no required internal structure, managed contract, checker command, CLI, chart-template API, manifest, state, approval, hash ledger, or JSON. The optional executor remains outside the stdlib-only core runtime. Figure work cannot become formal evidence, a modeling dependency, create a new Supplement conclusion, change formal state, or define a new tool-routing design. If required fields, granularity, scenarios, or intermediate results are absent, return to PRE/QN to produce evidence rather than silently retraining or resolving.
 
 ## Optional submission appendix organization
 
@@ -415,7 +420,7 @@ The fixed current tool/model rows are ChatGPT/GPT-5.6 Thinking and Codex CLI/GPT
 
 The Lite v3 marker, eight public commands, all START/RESULT/PRE/HANDOFF/APPENDIX headings, base START/RESULT single/split identities, partial split legality, dependency token grammar, evidence scope, figure workspace, and appendix whitelist grammar remain unchanged. Existing 0.8.1 workspaces need not create Supplement files. Supplement names do not participate in base discovery. Existing user-created same-name files receive no automatic migration. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes. Historical plotting code and legacy content are not moved.
 
-Lite 0.9.8 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, actual external font usage, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning, solvers, compilers, or user code; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics without applying the documented selection hierarchy; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure-font checker, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Figure selection remains semantic agent/human review under `references/final_figure_selection.md`; font discovery, rendering, and audit remain the external `nature-figure` responsibility under `references/final_figure_typography.md`; XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
+Lite 0.9.9 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, complex mixed-text actual glyph routing, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning or solvers as a runtime service; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics without applying the documented selection hierarchy; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure checker command, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Figure selection remains semantic agent/human review under `references/final_figure_selection.md`; `figure_exec.py` enforces only documented machine-safe rules, while `nature-figure` retains complex typography and visual audit under `references/final_figure_typography.md`; XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 
 
@@ -1290,7 +1295,7 @@ This is the frozen Lite color contract for Codex/Matplotlib data-driven final fi
 
 Use one stable palette across competitions. Priority is semantic correctness, cross-figure consistency, readability and reproducibility, visual attractiveness, then local customization. Color has fixed semantics. Keep qualitative, sequential, diverging, and semantic systems separate. Important comparisons always have redundant encoding through line style, marker, hatch, position, or facets.
 
-This is documentation-first integration. The `KY_MCM_FIGURE_COLOR_V1` summary and suggested helper interfaces are normative design inputs for a future implementation; this reference does not add a plotting or color module, runtime dependency, checker, command, manifest, or workflow state.
+Pt3 remains the normative color authority. The optional `figure_exec.py` exposes the frozen palette and semantic-color helpers for formal Codex/Matplotlib figures; local plotting code does not redeclare an ad-hoc palette. This parameterized executor adds no chart template, chart selection, command, manifest, or workflow state.
 
 ## Qualitative sequence
 
@@ -1333,7 +1338,7 @@ The neutral skeleton is text `#303030`, spine `#303030`, reference `#7A7A7A`, an
 
 Use **batlow** for a monotonic continuous quantity such as intensity, density, probability, frequency, loss, or magnitude. Show a colorbar. Comparable panels for the same variable share `vmin`, `vmax`, and direction. Mask missing values to `#D9D9D9`. Use the original direction by default; use `batlow_r` only for an explicit semantic or domain reason and then consistently for that variable.
 
-Obtain batlow from the official Crameri Scientific Colour Maps lookup table or a controlled, pinned package. Never silently fall back to viridis, jet, or another map. A future implementation must pin `cmcrameri` or vendor the official lookup table; this documentation integration adds neither now.
+Obtain batlow through the bounded `cmcrameri` dependency used by `figure_exec.py`. Missing `cmcrameri` or a missing named map stops formal rendering; never silently fall back to viridis, jet, or another map.
 
 Use **vik** only when a real center exists, such as zero, a baseline, a target, or a mean/median. Do not use a diverging map for one-way cost, probability, intensity, category codes, or an arbitrary aesthetic center. Center and symmetrize by default:
 
@@ -1363,7 +1368,7 @@ The same object keeps the same color across panels, figure groups, and chapters.
 
 For every formal figure with at least three colors, inspect normal, grayscale, and approximate protan, deutan, and tritan views. Important objects must remain distinguishable through redundant encoding: primary and comparison do not collapse, risk does not collapse into an ordinary category, key curves remain visible on white, and missing does not resemble a low numeric value. CIEDE2000 and contrast measures are diagnostics rather than context-free pass thresholds. Okabe–Ito is an accessibility reference baseline, not KyMCM visual identity, and is not mixed into the final palette.
 
-## Normative parameter summary and future helpers
+## Normative parameter summary and execution helpers
 
 `KY_MCM_FIGURE_COLOR_V1` records:
 
@@ -1392,7 +1397,7 @@ priority_core_colors=4
 infeasible_hatch="///"
 ```
 
-A future module may expose small interfaces such as `get_qualitative_colors(n)` and `get_semantic_color(role)`. They are documentation examples only in this version.
+`figure_exec.py` exposes the corresponding small interfaces, including `qualitative_colors(n)`, `semantic_color(role)`, `continuous_cmap(kind)`, and `diverging_norm(...)`. They mirror this authority and do not choose a chart family or color semantics.
 
 ## Acceptance checklist
 
@@ -1426,9 +1431,9 @@ Authority: specialized reference
 
 This reference is the authoritative Lite-only core contract for final figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_core_rules.md`. It applies only to explicitly requested final-figure work after the relevant RESULT and Supplement Result entries have been accepted, any requested HANDOFF task has completed, and structured data and machine evidence are stable.
 
-For a Codex/Matplotlib data-driven figure, first use `final_figure_selection.md` to choose WHAT/WHEN, then apply this reference together with `final_figure_style.md`, `final_figure_color.md`, and the independent font-family authority `final_figure_typography.md`. The typography contract remains authoritative for font families. The style and color references do not replace its stop-on-missing-font rule.
+For a Codex/Matplotlib data-driven figure, first use `final_figure_selection.md` to choose WHAT/WHEN, then apply this reference together with `final_figure_style.md`, `final_figure_color.md`, the independent font-family authority `final_figure_typography.md`, and the execution authority `final_figure_execution.md`. The typography contract remains authoritative for font families. The style, color, and execution references do not replace its stop-on-missing-font rule.
 
-These rules do not create a plotting runtime, chart-template library, checker, figure contract, manifest, workflow state, CLI command, or tool-routing design. The existing optional, non-managed workspace-level `figure/` semantics remain unchanged.
+These rules use the optional `figure_exec.py` only as a minimal parameterized executor for formal Codex/Matplotlib figures. They do not create a chart-template library, automatic chart selection, managed figure contract, manifest, workflow state, CLI command, or tool-routing design. The existing optional, non-managed workspace-level `figure/` semantics remain unchanged.
 
 ## Codex data-driven figures
 
@@ -1465,10 +1470,85 @@ Do not introduce additional flowchart symbol families.
 
 ## Review gate
 
-Before calling a data-driven figure final, confirm that its chart choice has a selection-v1 information rationale, it has no internal figure title or explanatory prose, it uses only PDF and PNG formal outputs, it follows the panel-label rule, and it has been reviewed against the style, color, and typography references.
+Before calling a data-driven figure final, confirm that its chart choice has a selection-v1 information rationale, it has no internal figure title or explanatory prose, it uses only PDF and PNG formal outputs, it follows the panel-label rule, its machine-safe rules passed `save_formal_figure()`, and it has been reviewed against the style, color, typography, and execution references.
 
 For spatial data, selection-v1 governs WHAT/WHEN expression-level choice, including map + points, categorized spatial views, density views, same-basemap small multiples, and conditional density surfaces. It does not choose a mapping library, vector editor, external tool, or execution route; special-chart and tool routing remains paused. Ordinary Cartesian Pt2 geometry does not silently govern map geometry where Pt2 excludes it. Macro and algorithm flowcharts follow only the frozen Pt1 flowchart rules above. Manually edited structural illustrations remain outside automatic data-chart selection and style governance unless a later explicit specification says otherwise.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/final_figure_core_rules.md -->
+
+
+### Source: `skills/kymcm-lite/references/final_figure_execution.md`
+Role: `reference`
+Authority: specialized reference
+
+<!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/final_figure_execution.md -->
+# KyMCM Lite `kymcm-figure-exec-v1`
+
+## Authority and boundary
+
+This reference is the execution authority for formal Codex/Matplotlib data-driven figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_execution.md`. The executable authority is `skills/kymcm-lite/figure_exec.py` in the active KyMCM Lite Skill installation.
+
+The execution helper applies and audits the machine-safe hard subset of the accepted Pt1 core, Pt2 style, Pt3 color, and typography contracts. It does not choose a chart family, alter data, recompute a model, decide a statistic, invent a semantic layout, route a special tool, or create workflow state. It is a small parameterized executor, not a chart-template library.
+
+Lite core commands under `scripts/` remain standard-library-only. Formal Matplotlib execution is optional and requires the packages in `requirements-figure.txt` plus locally installed `Tinos` and `Noto Serif CJK SC`. Importing `figure_exec.py` does not eagerly import Matplotlib or `cmcrameri`.
+
+## Machine-enforced rules
+
+`figure_exec.py` fails closed on the machine-safe rules it owns:
+
+- the four physical canvas templates and their exact final size;
+- strict availability of `Tinos` and `Noto Serif CJK SC`, the base font stack, STIX mathtext, and PDF font type 42;
+- the 8 pt absolute minimum for rendered text;
+- absence of figure titles and subplot/axes titles;
+- fixed tick, spine, grid, line, marker, bar, box, error-bar, gap, and uncertainty constants;
+- the frozen qualitative, semantic, neutral, missing, and infeasible color helpers;
+- common visible Matplotlib artist colors and the 2.0 pt ordinary line maximum;
+- controlled `cmcrameri` lookup for `batlow` and `vik`, without a substitute color map;
+- use of `apply_axis_style()` by every applicable ordinary axis;
+- formal output as same-layout PDF and PNG only, PNG at 600 dpi;
+- a white nontransparent background and `bbox_inches=None`;
+- a PDF MediaBox and PNG dimensions consistent with the selected physical template.
+
+Missing dependencies, missing fonts, unknown qualitative colors, more than seven qualitative categories, an uncontrolled continuous map, an unstyled applicable axis, or another failed hard check stops formal rendering. The helper does not download, copy, vendor, or substitute fonts.
+
+## Semantic and visual review
+
+The following remain explicit semantic or visual judgments and are not presented as machine-decidable:
+
+- whether English is genuinely necessary instead of Chinese;
+- whether an annotation is necessary numeric or threshold text rather than prohibited explanatory prose;
+- whether a semantic color role is conceptually correct;
+- whether a confidence or uncertainty band has valid statistical meaning;
+- whether the selected chart family and information level answer the named information need;
+- whether legends overlap data or the complete composition is broadly readable;
+- whether complex mixed Chinese/Latin strings route actual glyphs to the required fonts;
+- whether a spatial exception or non-Matplotlib tool route is justified.
+
+The external `nature-figure` Skill and the final ChatGPT/user review retain responsibility for these judgments, including actual-glyph/font inspection. Passing the hard audit is necessary but is not semantic acceptance.
+
+## Required formal sequence
+
+For a formal Codex/Matplotlib data-driven figure, execute this sequence:
+
+```text
+selection-v1 chooses WHAT/WHEN
+→ read Pt1 core, Pt2 style, Pt3 color, typography, and execution-v1
+→ load figure_exec.py from the active Skill installation
+→ configure_matplotlib()
+→ construct the selected figure using helpers without redeclaring locked constants
+→ apply_axis_style() to every applicable axis
+→ save_formal_figure() performs the hard audit and writes PDF + PNG
+→ nature-figure / ChatGPT performs semantic, typography, and visual review
+→ only then call the output final
+```
+
+This is an execution sequence, not stored workflow state. If the active Skill directory is not importable, load that exact `figure_exec.py` by absolute path. Do not copy it or rewrite its constants in the contest workspace. Local plotting code may choose only the adaptive options already documented by Pt2/Pt3 and may not override locked values.
+
+Formal delivery code must call `save_formal_figure()` instead of calling `fig.savefig()` or `plt.savefig()` directly. Existing accepted output remains authoritative when a new attempt fails. Flowcharts and non-Matplotlib manually edited illustrations do not use this helper.
+
+## Public product boundary
+
+`kymcm-figure-exec-v1` adds no public CLI command, managed figure root, checker command, state, manifest, content JSON, approval record, hash ledger, chart-template API, automatic chart selection, data/model recomputation, special-chart routing, or KyMCM Full behavior. The public Lite CLI remains exactly eight commands, and the workspace-level `figure/` directory remains optional and unmanaged.
+<!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/final_figure_execution.md -->
 
 
 ### Source: `skills/kymcm-lite/references/final_figure_selection.md`
@@ -1817,7 +1897,7 @@ diagnostics:
   stop_condition = smallest set resolves the named assumption or error risk
 ```
 
-This reference adds no plotting runtime, chart-template Python library, shared plotting/style/color module, automatic visual checker, Figure contract, manifest, workflow state, content JSON, CLI, runtime dependency, `cmcrameri` runtime dependency, special-chart tool route, or final-figure workflow.
+Selection-v1 itself adds no plotting runtime, chart-template API, automatic visual checker, Figure contract, manifest, workflow state, content JSON, CLI, special-chart tool route, or final-figure workflow. The separate optional execution-v1 layer implements only accepted HOW constants and does not change this WHAT/WHEN authority.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/final_figure_selection.md -->
 
 
@@ -1832,7 +1912,7 @@ Authority: specialized reference
 
 This is the frozen Lite style contract for Codex/Matplotlib data-driven final figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_style.md`. It does not govern macro or algorithm flowcharts, maps, structural illustrations, or manually edited vector illustrations. Read `final_figure_core_rules.md` and `final_figure_color.md` with it. Font families and missing-font behavior remain governed by `final_figure_typography.md`; this document repeats the frozen names only to keep rendering instructions readable.
 
-This is documentation, not a plotting implementation. The `FIGURE_STYLE_V1` summary below is normative data for a future implementation and does not add a dependency, shared plotting module, checker, command, manifest, or workflow state.
+Pt2 remains the normative style authority. The optional `figure_exec.py` is its minimal parameterized executor for the machine-safe hard subset of `FIGURE_STYLE_V1`; it adds neither chart templates nor chart selection. The Lite core runtime remains independent of this figure-only dependency and gains no command, manifest, or workflow state.
 
 ## Physical canvas and typography
 
@@ -2022,6 +2102,8 @@ Before accepting a formal data-driven figure, verify all eleven conditions:
 9. The image has no figure title or explanatory prose.
 10. Formal outputs are only PDF and PNG.
 11. No local parameter silently overrides the contract.
+
+For formal Codex/Matplotlib delivery, obtain these locked values from `figure_exec.py`, pass every applicable axis through `apply_axis_style()`, and use `save_formal_figure()` instead of a direct Matplotlib save call. The final semantic and visual review remains required under `final_figure_execution.md`.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/final_figure_style.md -->
 
 
@@ -2036,7 +2118,7 @@ Authority: specialized reference
 
 This reference is the authoritative Lite-only typography contract for final display figures. The byte-identical repository mirror is `docs/lite-v3/final_figure_typography.md`. It applies only after the relevant RESULT and Supplement Result entries have been accepted, any requested HANDOFF task has completed, and the user explicitly requests a final figure.
 
-KyMCM Lite does not render figures. It reads this contract, passes it to the external `nature-figure` Skill, and reviews the returned font audit. Lite does not import, vendor, copy, download, or otherwise depend on `nature-figure`; it adds no figure command, checker, contract, manifest, state, JSON, or font ledger.
+The KyMCM Lite core CLI/runtime does not render figures. The optional `figure_exec.py` performs strict font-availability preflight, fixed Matplotlib rc configuration, hard title/text-size checks, and formal PDF/PNG saving for Codex/Matplotlib figures. Lite does not import, vendor, copy, download, or otherwise depend on the external `nature-figure` Skill; the helper adds no figure command, manifest, workflow state, JSON, or font ledger.
 
 The required final-figure sequence is:
 
@@ -2044,8 +2126,9 @@ The required final-figure sequence is:
 accepted RESULT / accepted Supplement Result
 → current HANDOFF completed in a separate explicit task
 → explicit user request for the final figure
-→ Lite reads this reference and passes the exact typography contract
-→ nature-figure discovers fonts, renders, and audits the output
+→ Lite reads this reference and configures the exact base contract with figure_exec.py
+→ figure_exec.py preflights fonts, audits machine-safe rules, and saves PDF + PNG
+→ nature-figure audits complex mixed-text routing and actual output glyphs/fonts
 → only an audited output may be called final
 ```
 
@@ -2079,7 +2162,7 @@ Do not set one global font for an entire figure and assume that fallback produce
 - Mathematical Greek letters, operators, subscripts, superscripts, and formula symbols must not depend on accidental Unicode coverage in Tinos or Noto.
 - Mixed titles, axis labels, legends, annotations, table cells, and text boxes preserve this split. ASCII letters and numbers embedded in Chinese text still use Tinos; an English/numeric text element does not become wholly Noto merely because the figure also contains Chinese.
 
-The following is a non-runtime semantic example, not Lite configuration or a dependency:
+The optional execution helper configures this exact base stack:
 
 ```python
 {
@@ -2090,7 +2173,7 @@ The following is a non-runtime semantic example, not Lite configuration or a dep
 }
 ```
 
-This example only communicates a basic font stack and mathtext setting. For Chinese punctuation and complex mixed text, fallback alone may be insufficient; `nature-figure` must use explicit font properties, text segmentation, or its existing routing mechanism so the actual rendered fonts satisfy this contract. Lite does not execute, import, or maintain this example. If `axes.unicode_minus` conflicts with the external implementation, it must not weaken the typography contract: mathematical minus signs remain in mathtext and are rendered by STIX mathtext, with the deviation documented in the external audit.
+This base stack does not prove correct mixed-text routing. For Chinese punctuation and complex mixed text, fallback alone may be insufficient; `nature-figure` must inspect or apply explicit font properties, text segmentation, or its existing routing mechanism so the actual rendered fonts satisfy this contract. If `axes.unicode_minus` conflicts with the external implementation, it must not weaken the typography contract: mathematical minus signs remain in mathtext and are rendered by STIX mathtext, with the deviation documented in the external audit.
 
 ## Missing-font stop rule
 
@@ -2109,7 +2192,7 @@ There is no silent fallback to a system default, an approximate family, or a mis
 
 ## External audit minimum
 
-`nature-figure` is responsible for font discovery, actual rendering, output, and the final font audit. At minimum, the audit must verify:
+`figure_exec.py` is responsible for strict required-font lookup, the fixed base rc stack, minimum text size, title checks, and formal save. `nature-figure` remains responsible for complex mixed-text routing and the final actual-glyph/font audit. At minimum, the combined audit must verify:
 
 1. Chinese axis/legend/annotation/panel-label text actually uses `Noto Serif CJK SC`.
 2. English, numerals, percentages, scientific notation, and units actually use `Tinos`.
@@ -2134,9 +2217,9 @@ If any audit item fails, typography acceptance fails. Keep existing accepted out
 
 ## Installation and product boundary
 
-Users install the three required fonts locally and carry their own licensing responsibility. KyMCM does not contain, distribute, share, download, or commit font files. CI does not need these fonts because Lite has no renderer; font availability is checked by the external `nature-figure` final-figure task.
+Users install the required fonts locally and carry their own licensing responsibility. KyMCM does not contain, distribute, share, download, or commit font files. Repository tests use the narrow injected resolver seam to test fail-closed behavior without bundling fonts; real formal rendering performs strict local lookup and stops when either named family is unavailable.
 
-This contract does not change the Lite v3 marker, the eight commands, `figure/` boundaries, RESULT acceptance, HANDOFF timing, Supplement/PRE behavior, or the standard-library-only Lite runtime. Historical figures are not redrawn or retroactively declared compliant. Existing 0.9.3 workspaces need no migration; new 0.9.4 final-figure requests use this contract by default.
+This contract does not change the Lite v3 marker, the eight commands, `figure/` boundaries, RESULT acceptance, HANDOFF timing, Supplement/PRE behavior, or the standard-library-only Lite core runtime. Historical figures are not redrawn or retroactively declared compliant. Existing 0.9.8 workspaces need no migration; new 0.9.9 formal Codex/Matplotlib final-figure requests use the optional execution helper by default.
 
 KyMCM Full remains separate. Its built-in renderer and existing Microsoft YaHei/CJK sans-serif behavior are unchanged, and this Lite reference must not be used to reinterpret Full files or tests.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/final_figure_typography.md -->
@@ -3594,7 +3677,7 @@ Authority: agent metadata
 interface:
   display_name: "KyMCM Lite"
   short_description: "Non-visual modeling with incremental supplements"
-  default_prompt: "Use $kymcm-lite for non-visual modeling; execute each base or Supplement unit through RESULT plus its machine check, stop and wait for explicit user/ChatGPT semantic acceptance, and create or refresh the one question-level HANDOFF only in a new independent read-only HANDOFF task after acceptance. Apply the same gate to PRE/RESULT_PRE. For explicitly requested final-figure instructions or review after accepted RESULT and current HANDOFF, read final_figure_core_rules.md. For Codex/Matplotlib data-driven figures or general data-figure specifications, first read final_figure_selection.md and choose the lowest adequate level from the actual information need. L0 and L1 require no enhancement trigger. An L2 upgrade requires an applicable named selection-v1 trigger. L3 requires a coherent shared conclusion and complementary evidence; any enhanced panel retains its applicable trigger rationale. Then read final_figure_style.md, final_figure_color.md, and final_figure_typography.md before calling external nature-figure. Transfer the frozen physical-size, PDF/PNG, geometry, palette, batlow/vik, accessibility, and exact Noto Serif CJK SC / Tinos / STIX mathtext contracts; missing fonts stop formal rendering."
+  default_prompt: "Use $kymcm-lite for non-visual modeling through checked RESULT and explicit user/ChatGPT semantic acceptance before a separate HANDOFF task. For an explicitly requested formal Codex/Matplotlib figure after accepted results, read final_figure_selection.md and choose the lowest adequate level from the actual information need. L0 and L1 require no enhancement trigger. An L2 upgrade requires an applicable named selection-v1 trigger. L3 requires a coherent shared conclusion and complementary evidence; any enhanced panel retains its applicable trigger rationale. Then read final_figure_core_rules.md, final_figure_style.md, final_figure_color.md, final_figure_typography.md, and final_figure_execution.md. Load figure_exec.py from the active Skill, use its locked helpers and apply_axis_style(), and deliver only through save_formal_figure(); missing dependencies or exact Noto Serif CJK SC / Tinos / STIX mathtext requirements stop rendering. Use external nature-figure for semantic, mixed-text, actual-font, and visual audit."
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/agents/openai.yaml -->
 
 
@@ -3607,7 +3690,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/README.md -->
 # KyMCM Lite
 
-KyMCM Lite 0.9.8 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested final figures with evidence-triggered selection plus frozen core, Matplotlib style/color, and external typography contracts, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template, without workflow state or content JSON.
+KyMCM Lite 0.9.9 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, and explicitly requested final figures with selection-v1 plus a minimal fail-closed Matplotlib execution layer, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -3615,7 +3698,7 @@ Using KyMCM Lite itself is AI tool usage. After accepted results, HANDOFF, and s
 
 ## Installation
 
-Copy the complete `kymcm-lite` directory into the Codex Skills directory. The copied directory is self-contained and requires only the Python 3.11–3.13 standard library.
+Copy the complete `kymcm-lite` directory into the Codex Skills directory. The Lite core runtime is self-contained and requires only the Python 3.11–3.13 standard library. Formal Matplotlib figure execution optionally installs `requirements-figure.txt` and requires the two named local font families.
 
 ## Complete ChatGPT Project Source
 
@@ -3649,7 +3732,7 @@ The formal modeling surfaces are START, matching RESULT, and RESULT-declared evi
 
 Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and risk-triggered L0/L1/L2 validation. Final display assets and document composition are out of scope.
 
-When the user explicitly requests final figures after accepted results and a current HANDOFF, read `references/final_figure_core_rules.md`. Before choosing any Codex/Matplotlib data-driven chart or reviewing a general data-figure specification, read `references/final_figure_selection.md` and select L0/L1/L2/L3 from a real information need; then apply `references/final_figure_style.md`, `references/final_figure_color.md`, and the independent `references/final_figure_typography.md` authority before using external `nature-figure`. The frozen contracts fix WHAT/WHEN separately from physical canvases, geometry, minimum text, formal PDF/PNG outputs, palette semantics, batlow/vik continuous maps, and exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` routing. Flowcharts use only the core reference. `nature-figure` owns rendering and audit; missing fonts stop formal rendering. Keep all work under workspace-level `figure/`. The root remains optional, non-managed, and outside formal evidence, modeling dependencies, and appendix sources; Lite adds no plotting runtime, command, checker, manifest, state, or tool-routing design.
+When the user explicitly requests final figures after accepted results and a current HANDOFF, read `references/final_figure_core_rules.md`. Before choosing any Codex/Matplotlib data-driven chart or reviewing a general data-figure specification, read `references/final_figure_selection.md` and select L0/L1/L2/L3 from a real information need; then apply `references/final_figure_style.md`, `references/final_figure_color.md`, the independent `references/final_figure_typography.md`, and `references/final_figure_execution.md`. Formal Codex/Matplotlib scripts load `figure_exec.py` from the active Skill, use its locked helpers and `apply_axis_style()`, and deliver through `save_formal_figure()` rather than direct `savefig`. Missing helper dependencies or fonts stop formal rendering. `nature-figure` retains semantic, complex mixed-text, actual-font, and visual audit. Flowcharts do not use the helper. Keep work under the optional unmanaged workspace-level `figure/`; the executor adds no CLI, state, manifest, automatic chart selection, or tool-routing design.
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, stop for explicit user/ChatGPT acceptance, and prepare HANDOFF_PRE only in a new independent read-only HANDOFF_PRE task after acceptance. RESULT_PRE remains the downstream data authority; `check-preprocess-result` alone is not acceptance.
 
@@ -3681,11 +3764,11 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.9.8 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, partial split behavior, dependency token grammar, evidence scope, figure boundaries, and eight public commands. Existing 0.9.7 and earlier workspaces remain valid and need no migration or automatic appendix rewrite. New or reorganized appendix code follows the computation-core-only rule, independent result assets, and static `LITE-APPENDIX-CODE-SIDE-EFFECT-001` check; old packages are not silently changed and may require manual curation before a new result check. New data-driven final figures use `final_figure_selection.md` for WHAT/WHEN before applying `final_figure_core_rules.md`, `final_figure_style.md`, `final_figure_color.md`, and the independent `final_figure_typography.md` authority. Historical figures are not retroactively changed. The fixed AI-use template and declaration remain static final-submission materials outside runtime, Appendix, evidence, modeling dependencies, and final-figure behavior; each competition replaces only two real screenshots and compiles `AI 工具使用详情.pdf`.
+KyMCM Lite 0.9.9 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, dependency grammar, evidence scope, figure boundaries, and eight public commands. Existing 0.9.8 and earlier workspaces remain valid and need no migration. New formal Codex/Matplotlib figures retain `final_figure_selection.md` for WHAT/WHEN, then apply core/style/color/typography plus `final_figure_execution.md` and the active Skill's `figure_exec.py` for machine-safe HOW enforcement. Historical figures and plotting scripts are not retroactively changed. The appendix and fixed AI-use package retain their existing boundaries.
 
 Historical 0.9.2 Supplement compatibility: after a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
 
-The 0.9.8 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`, including all five final-figure references and the AI-use references/templates. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, artifact overwrite permission, semantic figure selection, actual external figure compliance, or AI-use screenshot/declaration truth; those remain semantic review responsibilities.
+The 0.9.9 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`, including all six final-figure references and the AI-use references/templates. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or core-runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, artifact overwrite permission, semantic figure selection, complex mixed-text glyph correctness, or AI-use screenshot/declaration truth; those remain semantic review responsibilities.
 
 `figure/` is an optional known root for explicitly requested final-figure work. Existing workspaces need not create it; init does not create it; an existing user-created root no longer appears as unknown. Lite does not inspect its contents, and it remains outside formal evidence and appendix source scope. Historical plotting code is not moved automatically.
 
@@ -3710,7 +3793,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/installation.md -->
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.8 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.9 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -3720,7 +3803,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.8 so its references, computation-core appendix policy, static side-effect diagnostic, frozen final-figure selection/core/style/color/typography contracts, fixed AI-use template/declaration, RESULT-acceptance/HANDOFF rules, runtime contract, and release metadata stay synchronized. Existing 0.9.7 and earlier contest workspaces require no migration and need not create new figure, Supplement, or AI-use files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.9 so `figure_exec.py`, `requirements-figure.txt`, all six final-figure references, and release metadata stay synchronized. Existing 0.9.8 and earlier contest workspaces require no migration and need not create new figure, Supplement, or AI-use files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -3731,7 +3814,7 @@ python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_F
 
 Upload the generated file to ChatGPT Project Sources; do not hand-edit it or copy it into a contest workspace, evidence tree, or appendix.
 
-The Lite checker remains standalone and does not import or bundle `nature-figure`. Install that separate Skill only in environments where users will explicitly request final figures; its output belongs under the contest workspace's optional `figure/` root.
+The Lite core checker remains standalone and does not import or bundle `nature-figure`. For formal Codex/Matplotlib figures, install `skills/kymcm-lite/requirements-figure.txt`; local figure scripts load the exact helper from the active Skill and keep output under the contest workspace's optional `figure/` root. Install the separate `nature-figure` Skill for semantic and visual audit.
 
 Existing PRE-free 0.5.1 workspaces require no structural or contract rewrite. To adopt PRE, create it in a new workspace with `init --preprocess` or add the exact documented tree and templates manually; historical QN contracts are not rewritten automatically.
 
@@ -3739,7 +3822,7 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.9.8, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency; the separate `nature-figure` Skill still requires `Noto Serif CJK SC`, `Tinos`, and STIX mathtext locally for final figures, with missing requirements stopping formal rendering rather than silently falling back. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. Do not copy or download proprietary font files into this repository.
+LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.9.9, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency. Formal Matplotlib execution optionally requires `matplotlib`, `cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; the helper and external audit stop on missing requirements rather than silently falling back. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. Do not copy or download font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
 <!-- END KYMCM-LITE SOURCE: docs/installation.md -->
@@ -3756,10 +3839,10 @@ Authority: product documentation
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.8.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.9.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.8 limitations:
+KyMCM Lite 0.9.9 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -3767,7 +3850,7 @@ KyMCM Lite 0.9.8 limitations:
 - Lite does not generate, plan, read, modify, or check contest manuscripts; infer which final graphics are needed; provide solvers; or migrate Full workspaces.
 - Final figures require an explicit user request and the separately installed `nature-figure` Skill. Lite does not check `figure/` structure or asset quality, and figure work may not silently retrain or change formal results.
 - `kymcm-figure-selection-v1` guides semantic WHAT/WHEN decisions but has no runtime scorer or checker; its explicitly pending chart branches require user direction or a future evidence-backed revision.
-- Lite final figures additionally require `Noto Serif CJK SC` for Chinese/CJK punctuation, `Tinos` for English/Arabic numerals, and STIX mathtext (`mathtext.fontset = stix`) for formulas and symbols. The external `nature-figure` Skill discovers and audits actual fonts; Lite cannot enforce those fonts from its standard-library runtime, and missing requirements must stop formal rendering rather than silently falling back.
+- Formal Codex/Matplotlib figures additionally require optional Matplotlib/`cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext. `figure_exec.py` strictly checks named-family availability and machine-safe constraints but cannot prove semantic language/prose/color-role correctness or complex mixed-text actual glyph routing; `nature-figure` and human review retain those judgments. Missing requirements stop rendering without fallback.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.
 - Lite does not discover models or build/delete appendix trees automatically.
 - Contract granularity is author-selected; Lite does not infer it from prose or printed subquestions, create split contracts, or compare sibling units automatically.
@@ -3794,9 +3877,9 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-rfc.md -->
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.8 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.9 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.8 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite loads the frozen core and, for Codex/Matplotlib data-driven work, selects WHAT/WHEN through `kymcm-figure-selection-v1` before applying style/color plus exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` contracts and using external `nature-figure`. New or reorganized Appendix code is computation-core-only, formal result assets remain independent, and high-confidence Python/C/C++ writers are blocked statically. After accepted modeling and appendix work, a separate final compliance stage may copy the fixed AI-tool disclosure template, replace two real screenshots, and compile `AI 工具使用详情.pdf`; these documentation integrations add no runtime surface and do not rewrite the historical design below.
+Current 0.9.9 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite selects WHAT/WHEN through `kymcm-figure-selection-v1`; formal Codex/Matplotlib work then loads `kymcm-figure-exec-v1` from the active Skill for fail-closed machine-safe constants and saving before external semantic/mixed-text/visual audit. The helper adds no core command, state, manifest, chart selection, or tool routing. Appendix and final AI-use compliance behavior retain their accepted boundaries; the historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
@@ -4151,7 +4234,15 @@ Role: `product-documentation`
 Authority: product documentation
 
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-release-notes.md -->
-# KyMCM Lite 0.9.8
+# KyMCM Lite 0.9.9
+
+KyMCM Lite 0.9.9 retains `kymcm-figure-selection-v1` unchanged in purpose for WHAT/WHEN reasoning and adds `kymcm-figure-exec-v1` for exact HOW constants. The optional `skills/kymcm-lite/figure_exec.py` centralizes accepted canvas, typography, line/tick/grid, marker, bar, box, error-bar, palette, continuous-map, and output parameters so formal Codex/Matplotlib figures no longer depend on manually retyping them.
+
+The helper fails closed on its machine-safe subset: strict local `Noto Serif CJK SC` and `Tinos` availability, STIX mathtext base configuration, titles, text below 8 pt, unstyled applicable axes, ordinary lines above 2 pt, unknown common artist colors, uncontrolled continuous maps, exact physical geometry, and same-layout PDF plus 600 dpi PNG saving. `batlow` and `vik` come only from bounded `cmcrameri`; there is no color-map or font fallback. Accepted Pt2/Pt3 numeric and color values remain unchanged, and the typography contract remains exactly Noto Serif CJK SC / Tinos / STIX.
+
+The hard audit does not decide whether English or prose is necessary, whether a semantic role or confidence band is conceptually correct, whether a chart family is appropriate, or whether complex mixed Chinese/Latin glyph routing and the whole composition are visually sound. Those remain `nature-figure` plus ChatGPT/user review responsibilities. The Lite core CLI remains exactly eight commands and standard-library-only; optional figure execution adds no managed state, manifest, content JSON, CLI, automatic chart selection, or tool-routing workflow. Existing 0.9.8 workspaces require no migration, and the historical 0.9.8 entry below remains the merged-main baseline.
+
+## KyMCM Lite 0.9.8
 
 KyMCM Lite 0.9.8 adds the evidence-derived `kymcm-figure-selection-v1` canonical reference and byte-identical `docs/lite-v3/` mirror. It freezes L0 prose/table, L1 lowest-complexity base chart, L2 evidence-triggered enhancement, and L3 coherent Figure Group organization. Enhancement is permitted only for `comparison`, `model_relation`, `distribution`, `uncertainty`, `density_or_spatial_structure`, `extra_continuous_dimension`, `diagnostic`, or `crowding`; visual complexity alone is never an upgrade criterion.
 
@@ -4292,7 +4383,7 @@ Authority: repository maintenance
 
 ## KyMCM Lite checks
 
-- Lite 0.9.8 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.9.9 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - The complete ChatGPT Project Source is generated by `scripts/export_kymcm_lite_full_spec.py`; normal generation followed by `--check` passes, and the generated artifact is not initialized into a workspace or appendix.
 - Export manifest bytes/SHA-256 values, reference/template coverage, mirror parity, and `docs/lite-v3/*.md` included/excluded classification pass without timestamps, absolute paths, host data, or recursive self-inclusion.
 - Supplement Start/Result templates and `supplement_work.md` have byte-identical mirrors; every official question uses at most one pair in single and split modes after complete checked base results.
@@ -4310,12 +4401,12 @@ Authority: repository maintenance
 - Init and doctor do not require `paper/`; legacy directories are ignored without reads or deletion, and appendix sources are limited to `problems/` and `input/`.
 - Formal PRE/QN work is non-visual by default, structured evidence is preferred, and any diagnostic is the smallest one needed for a named risk that non-visual evidence cannot resolve; final figures never count as L0/L1/L2 or formal validation budget.
 - `figure/` is exactly one optional known root: init does not create it, doctor ignores arbitrary contents without status or unknown-root output, and it is absent from managed roots, evidence scope, dependencies, contracts, appendix sources, and every checker.
-- Explicitly requested final figures use the separate `nature-figure` skill only after accepted RESULT/Supplement work and any requested HANDOFF task complete; Lite neither bundles/imports it nor adds figure structure, state, JSON, manifests, commands, or silent model reruns.
-- Lite final-figure instructions and review read `references/final_figure_core_rules.md`; Codex/Matplotlib data-driven work first reads `final_figure_selection.md` and chooses the lowest adequate level from the actual information need. L0 and L1 require no enhancement trigger, an L2 upgrade requires an applicable named selection-v1 trigger, and L3 requires a coherent shared conclusion and complementary evidence while every enhanced panel retains its applicable trigger rationale. It then applies `final_figure_style.md`, `final_figure_color.md`, and the independent `final_figure_typography.md` authority. The frozen contracts require final physical templates, ≥8 pt text, PDF/PNG-only formal output, semantic palette plus batlow/vik maps, redundant accessibility encoding, and exact `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` routing. Missing fonts stop formal rendering, no fallback is accepted, and no font binary, plotting runtime, color module, tool-routing design, or final-figure workflow enters the release tree. Full remains separate and unchanged.
+- Explicitly requested final figures use the separate `nature-figure` skill only after accepted RESULT/Supplement work and any requested HANDOFF task complete; Lite neither bundles/imports it nor adds figure workspace structure, state, JSON, manifests, commands, or silent model reruns.
+- Lite final-figure work reads all six authorities. Codex/Matplotlib first chooses the lowest adequate level from the actual information need. L0 and L1 require no enhancement trigger; an L2 upgrade requires an applicable named selection-v1 trigger; L3 requires a coherent shared conclusion and complementary evidence, and every enhanced panel retains its applicable trigger rationale. It then loads `figure_exec.py` from the active Skill for locked core/style/color/typography HOW constants, `apply_axis_style()`, hard audit, and `save_formal_figure()`. Missing helper dependencies or exact fonts stop rendering; batlow/vik never fall back; titles, <8 pt text, unstyled axes, unknown common colors, >2 pt lines, wrong canvases, and uncontrolled formal saves fail. Semantic language/prose/color-role correctness, chart choice, complex mixed-text actual-glyph routing, and broad visual quality remain `nature-figure` plus human review. The helper stays outside the stdlib-only core scripts and adds no chart templates, CLI, state, manifest, content JSON, automatic selection, or tool-routing design. Full remains separate and unchanged.
 - The fixed AI-use package has byte-identical canonical/mirror reference and templates, exactly five PDF sections with no basic-information section, a two-column current tool/model table, exactly two real screenshot targets and fixed captions, explicit missing-image failure, the fixed declaration snippet, and exact output `AI 工具使用详情.pdf`; XeLaTeX/TeX Live is optional final-material build tooling and adds no runtime dependency, CLI, checker, state, JSON, manifest, or approval.
 - AI-use material is outside RESULT/Supplement/HANDOFF, evidence, Appendix, modeling dependencies, and final figures; using Lite itself is disclosed, and human review confirms actual-use consistency and privacy.
 - Copying, obfuscation, junk/dead code, and similarity-driven rewrites are explicitly forbidden; no external similarity service or automatic originality/plotting checker is added.
-- Lite runtime uses only the standard library and remains independent of Full.
+- Lite core runtime under `scripts/` uses only the standard library and remains independent of optional `figure_exec.py` and Full.
 - Unit, modeling CLI, appendix CLI, portability, Phase 1, release, and release-tree suites pass.
 - Repository and standalone templates have byte parity.
 - Doctor and all six checkers preserve workspace fingerprints; all seven read-only commands ignore a legacy invalid-UTF-8 `FROZEN_CONTEXT.md`.
@@ -4333,11 +4424,13 @@ Authority: repository maintenance
 <!-- BEGIN KYMCM-LITE SOURCE: docs/system-dependencies.md -->
 # System dependencies
 
-Required for Lite runtime: Python 3.11–3.13. Git is optional for Lite and produces advisory diagnostics only. Python packages used by Full are listed in `requirements.txt`.
+Required for the Lite core runtime: Python 3.11–3.13 standard library only. Git is optional for Lite and produces advisory diagnostics only. Repository/test dependencies are listed in `requirements.txt`.
 
 The repository exporter `scripts/export_kymcm_lite_full_spec.py` uses only the Python standard library and needs no network, Git command, credentials, or third-party package. It writes the deterministic ChatGPT Project Source only when explicitly invoked.
 
-Optional: a XeLaTeX-capable TeX Live distribution for final PDF compilation. KyMCM Lite 0.9.8 uses it only to build the fixed final-submission `AI 工具使用详情.pdf`; it is not a Lite runtime dependency, and no Python third-party package or font file is required or bundled. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. Lite final figures use the separate `nature-figure` Skill and require locally installed `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; Lite does not download, bundle, or check those fonts in CI, and missing fonts stop formal rendering. Appendix side-effect checks use only the Python standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper. CI and the checkpoint/figure test suites need neither network access nor credentials.
+Optional formal Matplotlib figure execution uses only `matplotlib>=3.7,<4` and `cmcrameri>=1.9,<2` from `skills/kymcm-lite/requirements-figure.txt`, plus locally installed `Noto Serif CJK SC` and `Tinos`; STIX mathtext is configured through Matplotlib. No font is downloaded, copied, or bundled. The narrow test resolver seam validates fail-closed behavior in CI without font binaries, while real execution requires strict local lookup. Missing dependencies or fonts stop rendering.
+
+Optional XeLaTeX-capable TeX Live builds the fixed final-submission `AI 工具使用详情.pdf` and is not a Lite runtime dependency. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. Appendix side-effect checks and the exporter use only the standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper.
 <!-- END KYMCM-LITE SOURCE: docs/system-dependencies.md -->
 
 
@@ -4351,7 +4444,7 @@ Authority: product documentation
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.8** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level post-result Supplement contracts, editable latest-unadopted Supplements with adopted-history freezing, one neutral problem-level HANDOFF per official question, and a request-driven `figure/` workspace using external `nature-figure`. Its `kymcm-figure-selection-v1` hierarchy chooses L0 prose/table, L1 base charts, L2 evidence-triggered enhancements, or L3 coherent Figure Groups before applying the frozen core, Matplotlib style/color, and `Noto Serif CJK SC` / `Tinos` / `STIX mathtext` typography contracts. Its submission appendix curates auditable computation-core code and independent result assets, with static high-confidence side-effect blocking and a deterministic complete ChatGPT Project Source export. It also provides a fixed final-submission AI-tool disclosure template whose two real screenshots are compiled to `AI 工具使用详情.pdf`.
+- **KyMCM Lite 0.9.9** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level Supplements, and a request-driven unmanaged `figure/` workspace. `kymcm-figure-selection-v1` chooses WHAT/WHEN; the optional `kymcm-figure-exec-v1` helper then applies and audits machine-safe frozen Matplotlib constants before external `nature-figure` semantic, mixed-text, and visual review. Its eight-command core runtime remains standard-library-only. The submission appendix, deterministic complete ChatGPT Project Source, and fixed AI-tool disclosure package remain available.
 
 ## Install
 
@@ -4409,7 +4502,7 @@ python -m unittest discover -s tests/full -v
 python -m unittest tests.test_full_cli tests.test_full_portability tests.test_figure_system tests.test_markdown_format -v
 ```
 
-No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the test suite. The optional XeLaTeX/TeX Live build for the fixed AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite final figures still require the user to install `Noto Serif CJK SC`, `Tinos`, and STIX mathtext support locally for the separate `nature-figure` task. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).
+No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the test suite. The optional XeLaTeX/TeX Live build for the fixed AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite formal Matplotlib figures use `skills/kymcm-lite/requirements-figure.txt` and require locally installed `Noto Serif CJK SC`, `Tinos`, and STIX mathtext support; missing requirements stop rendering. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).
 <!-- END KYMCM-LITE SOURCE: README.md -->
 
 
@@ -4443,32 +4536,38 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/final_figure_color.md`
   mirror: `docs/lite-v3/final_figure_color.md`
-  bytes: `9048`
-  SHA-256: `2f18162e930ac899f1f7c49685d2a2df66c0a5f3ecedfa3c188098247efdf31d`
+  bytes: `9086`
+  SHA-256: `4ab3e1ec1d24b8c10e4dbe342b9a39690ab4c5c858a8577ecf4cfdea5c61c740`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/final_figure_core_rules.md`
   mirror: `docs/lite-v3/final_figure_core_rules.md`
-  bytes: `4045`
-  SHA-256: `7409d3d89805c002c614e9e3eed804e707883538141fda25f5fea7d3bb89ae70`
+  bytes: `4300`
+  SHA-256: `1bab32deec80abdbbb941944bd36c1a6830f671a806dfe165f02c06c2f9abb83`
+  status: `byte-identical`
+
+- canonical: `skills/kymcm-lite/references/final_figure_execution.md`
+  mirror: `docs/lite-v3/final_figure_execution.md`
+  bytes: `4951`
+  SHA-256: `f5f26e1a4f54acb08f0e8375f3752a01a7527e39a43e646355221fad8b1d3154`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/final_figure_selection.md`
   mirror: `docs/lite-v3/final_figure_selection.md`
-  bytes: `17016`
-  SHA-256: `ec288a7c7256f03cf0681df21712c2094fbb22cbc6819af75e06392c72067fc3`
+  bytes: `17048`
+  SHA-256: `f8d842d0f0dd75d23ad6e81c4b222183a95e09cd5e2a5237f9ff2a09dce1b0a0`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/final_figure_style.md`
   mirror: `docs/lite-v3/final_figure_style.md`
-  bytes: `11842`
-  SHA-256: `df50a4a3c4efc9fc1a94f592f4ff1ea076176eabb35b69b184bc15fc7c97382a`
+  bytes: `12255`
+  SHA-256: `381d1cb068954baa6417408ba492cf07bae9cae7262bd78f1aedcab343080c4d`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/final_figure_typography.md`
   mirror: `docs/lite-v3/final_figure_typography.md`
-  bytes: `7399`
-  SHA-256: `e6ed88bc2ee3f27588a0f4bc1451f0083b1d5365807da4e0d98c15cb97cc6c79`
+  bytes: `7821`
+  SHA-256: `7052c4a32062ec2534e29166ff29e02e783fb7db4c2c07fb1fb2b55816e3a6ce`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/modeling_plan_design.md`

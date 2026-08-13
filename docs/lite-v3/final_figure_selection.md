@@ -339,4 +339,4 @@ diagnostics:
   stop_condition = smallest set resolves the named assumption or error risk
 ```
 
-This reference adds no plotting runtime, chart-template Python library, shared plotting/style/color module, automatic visual checker, Figure contract, manifest, workflow state, content JSON, CLI, runtime dependency, `cmcrameri` runtime dependency, special-chart tool route, or final-figure workflow.
+Selection-v1 itself adds no plotting runtime, chart-template API, automatic visual checker, Figure contract, manifest, workflow state, content JSON, CLI, special-chart tool route, or final-figure workflow. The separate optional execution-v1 layer implements only accepted HOW constants and does not change this WHAT/WHEN authority.

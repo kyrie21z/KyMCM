@@ -4,10 +4,10 @@
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.8.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.9.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.8 limitations:
+KyMCM Lite 0.9.9 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -15,7 +15,7 @@ KyMCM Lite 0.9.8 limitations:
 - Lite does not generate, plan, read, modify, or check contest manuscripts; infer which final graphics are needed; provide solvers; or migrate Full workspaces.
 - Final figures require an explicit user request and the separately installed `nature-figure` Skill. Lite does not check `figure/` structure or asset quality, and figure work may not silently retrain or change formal results.
 - `kymcm-figure-selection-v1` guides semantic WHAT/WHEN decisions but has no runtime scorer or checker; its explicitly pending chart branches require user direction or a future evidence-backed revision.
-- Lite final figures additionally require `Noto Serif CJK SC` for Chinese/CJK punctuation, `Tinos` for English/Arabic numerals, and STIX mathtext (`mathtext.fontset = stix`) for formulas and symbols. The external `nature-figure` Skill discovers and audits actual fonts; Lite cannot enforce those fonts from its standard-library runtime, and missing requirements must stop formal rendering rather than silently falling back.
+- Formal Codex/Matplotlib figures additionally require optional Matplotlib/`cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext. `figure_exec.py` strictly checks named-family availability and machine-safe constraints but cannot prove semantic language/prose/color-role correctness or complex mixed-text actual glyph routing; `nature-figure` and human review retain those judgments. Missing requirements stop rendering without fallback.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.
 - Lite does not discover models or build/delete appendix trees automatically.
 - Contract granularity is author-selected; Lite does not infer it from prose or printed subquestions, create split contracts, or compare sibling units automatically.

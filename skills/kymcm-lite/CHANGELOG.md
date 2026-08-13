@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.9 - 2026-08-12
+
+- Retain `kymcm-figure-selection-v1` and add `figure_exec.py` under `kymcm-figure-exec-v1` as a small parameterized executor, not a chart-template library.
+- Mirror frozen Pt2/Pt3/Typography constants, require controlled `cmcrameri` batlow/vik lookup and exact local fonts, audit the machine-safe hard contract in process, and save exact-size PDF plus 600 dpi PNG only.
+- Keep semantic language/prose/role correctness, chart choice, complex mixed-text glyph routing, and final visual acceptance outside the hard audit.
+- Preserve the marker, eight stdlib-only core commands, optional unmanaged `figure/`, merged 0.9.8 workspaces, paused tool routing, and KyMCM Full unchanged; add no CLI, state, manifest, content JSON, or automatic chart selection.
+
 ## 0.9.8 - 2026-08-10
 
 - Add the authoritative `references/final_figure_selection.md` and byte-identical repository mirror under `kymcm-figure-selection-v1`.
