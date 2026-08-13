@@ -113,6 +113,14 @@ class LiteFigureExecParameterTests(unittest.TestCase):
             figure_exec.boxplot_kwargs(color="#123456")
         self.assertEqual(figure_exec.errorbar_kwargs(), {"elinewidth": 0.9, "capsize": 2.5, "capthick": 0.9})
         self.assertEqual(figure_exec.font_kwargs("panel_marker")["fontweight"], "semibold")
+        self.assertEqual(figure_exec.font_kwargs("tick", script="latin")["fontfamily"], ["Tinos"])
+        self.assertEqual(figure_exec.font_kwargs("tick", script="cjk")["fontfamily"], ["Noto Serif CJK SC"])
+        self.assertEqual(
+            figure_exec.font_kwargs("tick", script="mixed")["fontfamily"],
+            ["Tinos", "Noto Serif CJK SC"],
+        )
+        with self.assertRaises(figure_exec.FigureContractError):
+            figure_exec.font_kwargs("tick", script="unknown")
 
     def test_font_and_dependency_preflight_fail_closed(self):
         calls = []
@@ -221,6 +229,36 @@ class LiteFigureExecArtifactTests(unittest.TestCase):
             lambda _fig, ax: ax.text(0.5, 0.5, "fallback", fontfamily=["DejaVu Sans", "Tinos"], color="#303030"),
             "font family",
         )
+
+    def test_declared_text_family_matches_visible_script(self):
+        for value, family in (("中文：结果", "Tinos"), ("Accuracy 87.5%", "Noto Serif CJK SC")):
+            self.assert_audit_fails(
+                lambda _fig, ax, value=value, family=family: ax.text(
+                    0.5, 0.5, value, fontfamily=family, color="#303030"
+                ),
+                "script routing",
+            )
+        for value, family in (
+            ("模型 Accuracy = 87.5%", "Tinos"),
+            ("模型 Accuracy = 87.5%", "Noto Serif CJK SC"),
+        ):
+            self.assert_audit_fails(
+                lambda _fig, ax, value=value, family=family: ax.text(
+                    0.5, 0.5, value, fontfamily=family, color="#303030"
+                ),
+                "script routing",
+            )
+
+        for value, script in (
+            ("中文：结果", "cjk"),
+            ("Accuracy 87.5%", "latin"),
+            ("模型 Accuracy = 87.5%", "mixed"),
+            (r"$f(x)=\alpha x^2+\beta$", "cjk"),
+        ):
+            fig, ax = self.compliant_figure()
+            ax.text(0.5, 0.5, value, color="#303030", **figure_exec.font_kwargs("numeric_annotation", script=script))
+            figure_exec.audit_hard_contract(fig, template="F-WIDE")
+        self.assertEqual(self.plt.rcParams["mathtext.fontset"], "stix")
 
     def test_patch_width_and_nonwhite_background_fail(self):
         self.assert_audit_fails(

@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.9 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.10 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.9 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite selects WHAT/WHEN through `kymcm-figure-selection-v1`; formal Codex/Matplotlib work then loads `kymcm-figure-exec-v1` from the active Skill for fail-closed machine-safe constants and saving before external semantic/mixed-text/visual audit. The helper adds no core command, state, manifest, chart selection, or tool routing. Appendix and final AI-use compliance behavior retain their accepted boundaries; the historical design below remains preserved.
+Current 0.9.10 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, Lite selects WHAT/WHEN through `kymcm-figure-selection-v1`; formal Codex/Matplotlib work loads `kymcm-figure-exec-v1` from the active Skill for fail-closed machine-safe constants, declared text-family routing, and saving before ChatGPT/user semantic and visual acceptance. `nature-figure` is optional read-only specialist advice only on explicit request. The helper adds no core command, state, manifest, chart selection, or tool routing. Appendix and final AI-use compliance behavior retain their accepted boundaries; the historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
