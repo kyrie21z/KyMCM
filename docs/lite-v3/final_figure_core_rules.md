@@ -4,9 +4,9 @@
 
 This reference is the authoritative Lite-only core contract for final figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_core_rules.md`. It applies only to explicitly requested final-figure work after the relevant RESULT and Supplement Result entries have been accepted, any requested HANDOFF task has completed, and structured data and machine evidence are stable.
 
-For a Codex/Matplotlib data-driven figure, first use `final_figure_selection.md` to choose WHAT/WHEN, then apply this reference together with `final_figure_style.md`, `final_figure_color.md`, and the independent font-family authority `final_figure_typography.md`. The typography contract remains authoritative for font families. The style and color references do not replace its stop-on-missing-font rule.
+For a Codex/Matplotlib data-driven figure, first use `final_figure_selection.md` to choose WHAT/WHEN, then apply this reference together with `final_figure_style.md`, `final_figure_color.md`, the independent font-family authority `final_figure_typography.md`, and the execution authority `final_figure_execution.md`. The typography contract remains authoritative for font families. The style, color, and execution references do not replace its stop-on-missing-font rule.
 
-These rules do not create a plotting runtime, chart-template library, checker, figure contract, manifest, workflow state, CLI command, or tool-routing design. The existing optional, non-managed workspace-level `figure/` semantics remain unchanged.
+These rules use the optional `figure_exec.py` only as a minimal parameterized executor for formal Codex/Matplotlib figures. They do not create a chart-template library, automatic chart selection, managed figure contract, manifest, workflow state, CLI command, or tool-routing design. The existing optional, non-managed workspace-level `figure/` semantics remain unchanged.
 
 ## Codex data-driven figures
 
@@ -43,6 +43,6 @@ Do not introduce additional flowchart symbol families.
 
 ## Review gate
 
-Before calling a data-driven figure final, confirm that its chart choice has a selection-v1 information rationale, it has no internal figure title or explanatory prose, it uses only PDF and PNG formal outputs, it follows the panel-label rule, and it has been reviewed against the style, color, and typography references.
+Before calling a data-driven figure final, confirm that its chart choice has a selection-v1 information rationale, it has no internal figure title or explanatory prose, it uses only PDF and PNG formal outputs, it follows the panel-label rule, its machine-safe rules passed `save_formal_figure()`, and it has been reviewed against the style, color, typography, and execution references.
 
 For spatial data, selection-v1 governs WHAT/WHEN expression-level choice, including map + points, categorized spatial views, density views, same-basemap small multiples, and conditional density surfaces. It does not choose a mapping library, vector editor, external tool, or execution route; special-chart and tool routing remains paused. Ordinary Cartesian Pt2 geometry does not silently govern map geometry where Pt2 excludes it. Macro and algorithm flowcharts follow only the frozen Pt1 flowchart rules above. Manually edited structural illustrations remain outside automatic data-chart selection and style governance unless a later explicit specification says otherwise.

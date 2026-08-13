@@ -1,4 +1,12 @@
-# KyMCM Lite 0.9.8
+# KyMCM Lite 0.9.9
+
+KyMCM Lite 0.9.9 retains `kymcm-figure-selection-v1` unchanged in purpose for WHAT/WHEN reasoning and adds `kymcm-figure-exec-v1` for exact HOW constants. The optional `skills/kymcm-lite/figure_exec.py` centralizes accepted canvas, typography, line/tick/grid, marker, bar, box, error-bar, palette, continuous-map, and output parameters so formal Codex/Matplotlib figures no longer depend on manually retyping them.
+
+The helper fails closed on its machine-safe subset: strict local `Noto Serif CJK SC` and `Tinos` availability, STIX mathtext base configuration, titles, text below 8 pt, unstyled applicable axes, ordinary lines above 2 pt, unknown common artist colors, uncontrolled continuous maps, exact physical geometry, and same-layout PDF plus 600 dpi PNG saving. `batlow` and `vik` come only from bounded `cmcrameri`; there is no color-map or font fallback. Accepted Pt2/Pt3 numeric and color values remain unchanged, and the typography contract remains exactly Noto Serif CJK SC / Tinos / STIX.
+
+The hard audit does not decide whether English or prose is necessary, whether a semantic role or confidence band is conceptually correct, whether a chart family is appropriate, or whether complex mixed Chinese/Latin glyph routing and the whole composition are visually sound. Those remain `nature-figure` plus ChatGPT/user review responsibilities. The Lite core CLI remains exactly eight commands and standard-library-only; optional figure execution adds no managed state, manifest, content JSON, CLI, automatic chart selection, or tool-routing workflow. Existing 0.9.8 workspaces require no migration, and the historical 0.9.8 entry below remains the merged-main baseline.
+
+## KyMCM Lite 0.9.8
 
 KyMCM Lite 0.9.8 adds the evidence-derived `kymcm-figure-selection-v1` canonical reference and byte-identical `docs/lite-v3/` mirror. It freezes L0 prose/table, L1 lowest-complexity base chart, L2 evidence-triggered enhancement, and L3 coherent Figure Group organization. Enhancement is permitted only for `comparison`, `model_relation`, `distribution`, `uncertainty`, `density_or_spatial_structure`, `extra_continuous_dimension`, `diagnostic`, or `crowding`; visual complexity alone is never an upgrade criterion.
 

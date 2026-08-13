@@ -4,7 +4,7 @@
 
 This is the frozen Lite style contract for Codex/Matplotlib data-driven final figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_style.md`. It does not govern macro or algorithm flowcharts, maps, structural illustrations, or manually edited vector illustrations. Read `final_figure_core_rules.md` and `final_figure_color.md` with it. Font families and missing-font behavior remain governed by `final_figure_typography.md`; this document repeats the frozen names only to keep rendering instructions readable.
 
-This is documentation, not a plotting implementation. The `FIGURE_STYLE_V1` summary below is normative data for a future implementation and does not add a dependency, shared plotting module, checker, command, manifest, or workflow state.
+Pt2 remains the normative style authority. The optional `figure_exec.py` is its minimal parameterized executor for the machine-safe hard subset of `FIGURE_STYLE_V1`; it adds neither chart templates nor chart selection. The Lite core runtime remains independent of this figure-only dependency and gains no command, manifest, or workflow state.
 
 ## Physical canvas and typography
 
@@ -194,3 +194,5 @@ Before accepting a formal data-driven figure, verify all eleven conditions:
 9. The image has no figure title or explanatory prose.
 10. Formal outputs are only PDF and PNG.
 11. No local parameter silently overrides the contract.
+
+For formal Codex/Matplotlib delivery, obtain these locked values from `figure_exec.py`, pass every applicable axis through `apply_axis_style()`, and use `save_formal_figure()` instead of a direct Matplotlib save call. The final semantic and visual review remains required under `final_figure_execution.md`.

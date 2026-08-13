@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.9 - 2026-08-12
+
+- Preserve `kymcm-figure-selection-v1` and add the minimal `kymcm-figure-exec-v1` parameterized executor for the machine-safe hard subset of accepted Pt1/Pt2/Pt3/Typography rules.
+- Centralize physical canvases, typography sizes, geometry, palette, batlow/vik lookup, and formal PDF/PNG saving; fail closed on missing dependencies/fonts, titles, text below 8 pt, unstyled axes, unknown common colors, wide lines, uncontrolled maps, and wrong output geometry.
+- Keep semantic language/prose/role correctness, chart choice, complex mixed-text routing, and broad visual review with `nature-figure` and ChatGPT/user review.
+- Preserve the Lite v3 marker, eight-command standard-library core runtime, unmanaged `figure/`, merged 0.9.8 workspace compatibility, paused tool routing, and KyMCM Full unchanged.
+
 ## KyMCM Lite 0.9.8 - 2026-08-10
 
 - Add the evidence-derived `kymcm-figure-selection-v1` canonical reference and byte-identical mirror.

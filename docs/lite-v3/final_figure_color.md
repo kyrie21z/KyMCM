@@ -6,7 +6,7 @@ This is the frozen Lite color contract for Codex/Matplotlib data-driven final fi
 
 Use one stable palette across competitions. Priority is semantic correctness, cross-figure consistency, readability and reproducibility, visual attractiveness, then local customization. Color has fixed semantics. Keep qualitative, sequential, diverging, and semantic systems separate. Important comparisons always have redundant encoding through line style, marker, hatch, position, or facets.
 
-This is documentation-first integration. The `KY_MCM_FIGURE_COLOR_V1` summary and suggested helper interfaces are normative design inputs for a future implementation; this reference does not add a plotting or color module, runtime dependency, checker, command, manifest, or workflow state.
+Pt3 remains the normative color authority. The optional `figure_exec.py` exposes the frozen palette and semantic-color helpers for formal Codex/Matplotlib figures; local plotting code does not redeclare an ad-hoc palette. This parameterized executor adds no chart template, chart selection, command, manifest, or workflow state.
 
 ## Qualitative sequence
 
@@ -49,7 +49,7 @@ The neutral skeleton is text `#303030`, spine `#303030`, reference `#7A7A7A`, an
 
 Use **batlow** for a monotonic continuous quantity such as intensity, density, probability, frequency, loss, or magnitude. Show a colorbar. Comparable panels for the same variable share `vmin`, `vmax`, and direction. Mask missing values to `#D9D9D9`. Use the original direction by default; use `batlow_r` only for an explicit semantic or domain reason and then consistently for that variable.
 
-Obtain batlow from the official Crameri Scientific Colour Maps lookup table or a controlled, pinned package. Never silently fall back to viridis, jet, or another map. A future implementation must pin `cmcrameri` or vendor the official lookup table; this documentation integration adds neither now.
+Obtain batlow through the bounded `cmcrameri` dependency used by `figure_exec.py`. Missing `cmcrameri` or a missing named map stops formal rendering; never silently fall back to viridis, jet, or another map.
 
 Use **vik** only when a real center exists, such as zero, a baseline, a target, or a mean/median. Do not use a diverging map for one-way cost, probability, intensity, category codes, or an arbitrary aesthetic center. Center and symmetrize by default:
 
@@ -79,7 +79,7 @@ The same object keeps the same color across panels, figure groups, and chapters.
 
 For every formal figure with at least three colors, inspect normal, grayscale, and approximate protan, deutan, and tritan views. Important objects must remain distinguishable through redundant encoding: primary and comparison do not collapse, risk does not collapse into an ordinary category, key curves remain visible on white, and missing does not resemble a low numeric value. CIEDE2000 and contrast measures are diagnostics rather than context-free pass thresholds. Okabe–Ito is an accessibility reference baseline, not KyMCM visual identity, and is not mixed into the final palette.
 
-## Normative parameter summary and future helpers
+## Normative parameter summary and execution helpers
 
 `KY_MCM_FIGURE_COLOR_V1` records:
 
@@ -108,7 +108,7 @@ priority_core_colors=4
 infeasible_hatch="///"
 ```
 
-A future module may expose small interfaces such as `get_qualitative_colors(n)` and `get_semantic_color(role)`. They are documentation examples only in this version.
+`figure_exec.py` exposes the corresponding small interfaces, including `qualitative_colors(n)`, `semantic_color(role)`, `continuous_cmap(kind)`, and `diverging_norm(...)`. They mirror this authority and do not choose a chart family or color semantics.
 
 ## Acceptance checklist
 
