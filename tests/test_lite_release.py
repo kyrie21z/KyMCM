@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.9\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.10\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.9.9", text, relative)
-            self.assertNotIn("0.9.9-dev", text, relative)
+            self.assertIn("0.9.10", text, relative)
+            self.assertNotIn("0.9.10-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -355,6 +355,34 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertNotIn("nature-figure", runtime)
         self.assertNotIn("nature_figure", runtime)
 
+    def test_normal_figure_authority_and_optional_specialist_boundary(self):
+        active_paths = (
+            SKILL / "SKILL.md", SKILL / "README.md", SKILL / "docs/protocol.md",
+            SKILL / "agents/openai.yaml", SKILL / "references/final_figure_execution.md",
+            SKILL / "references/final_figure_typography.md", ROOT / "README.md",
+            ROOT / "docs/installation.md", ROOT / "docs/known-limitations.md",
+            ROOT / "docs/release-checklist.md", ROOT / "docs/system-dependencies.md",
+        )
+        active = "\n".join(path.read_text(encoding="utf-8") for path in active_paths)
+        for required in (
+            "figure_exec.py", "ChatGPT/user", "semantic and visual", "optional",
+            "explicit", "read-only", "advisory", "rerender", "restyle", "export",
+            "overwrite", "recommendations return to Codex", "hard audit again",
+        ):
+            self.assertIn(required.lower(), active.lower(), required)
+        for forbidden in (
+            "before calling the external `nature-figure` Skill",
+            "use `nature-figure` for semantic",
+            "final figures require an explicit user request and the separately installed `nature-figure` Skill",
+            "install the separate `nature-figure` Skill for semantic and visual audit",
+            "`nature-figure` remains responsible for complex mixed-text routing",
+        ):
+            self.assertNotIn(forbidden, active, forbidden)
+        executor = (SKILL / "figure_exec.py").read_text(encoding="utf-8")
+        self.assertNotIn("nature-figure", executor)
+        self.assertNotIn("nature_figure", executor)
+        self.assertFalse((SKILL / "skills/nature-figure").exists())
+
     def test_final_figure_typography_contract_is_exact_and_fail_closed(self):
         reference = (SKILL / "references/final_figure_typography.md").read_text(encoding="utf-8")
         mirror = ROOT / "docs/lite-v3/final_figure_typography.md"
@@ -367,11 +395,13 @@ class LiteReleaseTests(unittest.TestCase):
             self.assertIn(exact, skill + protocol + agent)
         for required in (
             "Chinese full-width punctuation", "Latin letters", "Arabic numerals",
-            "ASCII punctuation", "Math formulas", "Mixed titles", "font properties",
+            "ASCII punctuation", "Math formulas", "Mixed titles", "script-aware helper",
             "stop the formal final-figure task", "silent fallback", "download a font",
             "copy it from another directory", "font binary", "preview/non-final",
             "nature-figure", "core CLI/runtime does not render figures", "injected resolver seam",
             "minimum routing probe", "PDF and PNG", "user-requested different font",
+            "font_kwargs(role, script=\"mixed\")", "declared-family audit",
+            "does not prove the exact physical font file", "read-only specialist",
         ):
             self.assertIn(required, reference, required)
         self.assertIn("references/final_figure_typography.md", skill)
@@ -438,6 +468,11 @@ class LiteReleaseTests(unittest.TestCase):
             "kymcm-figure-exec-v1", "configure_matplotlib()", "apply_axis_style()",
             "save_formal_figure()", "Machine-enforced rules", "Semantic and visual review",
             "eight commands", "standard-library-only",
+        ):
+            self.assertIn(required, execution, required)
+        for required in (
+            "ChatGPT/user performs semantic and visual review", "nature-figure` is not required",
+            "read-only", "advisory only", "Recommendations return to Codex",
         ):
             self.assertIn(required, execution, required)
 
@@ -565,7 +600,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
         for required in (
-            "KyMCM Lite 0.9.9", "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
+            "KyMCM Lite 0.9.10", "KyMCM Lite 0.9.9", "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
             "check-appendix-result", "check-preprocess-start", "check-preprocess-result",
             '{"workflow":"kymcm_lite","version":3}',
@@ -584,6 +619,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.9.10 - 2026-08-12", text, relative)
             self.assertIn("0.9.9 - 2026-08-12", text, relative)
             self.assertIn("0.9.8 - 2026-08-10", text, relative)
             self.assertIn("0.9.7 - 2026-08-09", text, relative)

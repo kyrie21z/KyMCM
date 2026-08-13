@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.9** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level Supplements, and a request-driven unmanaged `figure/` workspace. `kymcm-figure-selection-v1` chooses WHAT/WHEN; the optional `kymcm-figure-exec-v1` helper then applies and audits machine-safe frozen Matplotlib constants before external `nature-figure` semantic, mixed-text, and visual review. Its eight-command core runtime remains standard-library-only. The submission appendix, deterministic complete ChatGPT Project Source, and fixed AI-tool disclosure package remain available.
+- **KyMCM Lite 0.9.10** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level Supplements, and a request-driven unmanaged `figure/` workspace. `kymcm-figure-selection-v1` chooses WHAT/WHEN; `kymcm-figure-exec-v1` is the sole formal Matplotlib execution/hard-audit authority; ChatGPT/user owns normal semantic and visual acceptance. `nature-figure` is optional only for an explicitly requested read-only specialist second opinion. The eight-command core runtime remains standard-library-only, with the submission appendix, deterministic complete ChatGPT Project Source, and fixed AI-tool disclosure package available.
 
 ## Install
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.10 - 2026-08-12
+
+- Keep `kymcm-figure-selection-v1` as WHAT/WHEN authority and `kymcm-figure-exec-v1` as the sole normal formal Matplotlib rendering/hard-audit executor; ChatGPT/user owns the semantic and visual acceptance gate.
+- Downgrade `nature-figure` to an explicitly requested, read-only advisory specialist with no chart-selection, rerendering, restyling, export, overwrite, or KyMCM-default override authority.
+- Add compatible latin/cjk/mixed `font_kwargs()` routing and declared Matplotlib `Text`-family auditing while documenting that exact physical per-glyph font-file use is not machine-proven.
+- Preserve accepted Pt1/Pt2/Pt3 parameters, the exact Noto Serif CJK SC / Tinos / STIX contract, the eight-command standard-library core, 0.9.9 workspace compatibility, paused tool routing, and KyMCM Full unchanged.
+
 ## KyMCM Lite 0.9.9 - 2026-08-12
 
 - Preserve `kymcm-figure-selection-v1` and add the minimal `kymcm-figure-exec-v1` parameterized executor for the machine-safe hard subset of accepted Pt1/Pt2/Pt3/Typography rules.

@@ -11,7 +11,7 @@ EXECUTION_ID = "kymcm-figure-exec-v1"
 
 
 class FigureContractError(RuntimeError):
-    """Raised when a formal figure violates a machine-safe Lite rule."""
+    pass
 
 
 def _require(condition: bool, message: str) -> None:
@@ -231,12 +231,12 @@ def errorbar_kwargs() -> dict[str, object]:
     return {"elinewidth": 0.9, "capsize": 2.5, "capthick": 0.9}
 
 
-def font_kwargs(role: str) -> dict[str, object]:
+def font_kwargs(role: str, *, script: str = "mixed") -> dict[str, object]:
     _require(role in TYPOGRAPHY_PT and role != "minimum", f"unknown typography role: {role}")
-    result = {"fontsize": TYPOGRAPHY_PT[role], "fontfamily": [FONT_LATIN, FONT_CJK]}
-    if role == "panel_marker":
-        result["fontweight"] = "semibold"
-    return result
+    families = {"latin": [FONT_LATIN], "cjk": [FONT_CJK], "mixed": [FONT_LATIN, FONT_CJK]}.get(script)
+    _require(families is not None, f"unknown text script: {script}")
+    return {"fontsize": TYPOGRAPHY_PT[role], "fontfamily": families} | \
+           ({"fontweight": "semibold"} if role == "panel_marker" else {})
 
 
 def continuous_cmap(kind: str):
@@ -317,6 +317,12 @@ def _audit_colormaps(fig) -> None:
     _require(bad is None, f"unapproved continuous color map: {bad}")
 
 
+def _required_text_families(value: str) -> set[str]:
+    return ({FONT_CJK} if re.search(r"[\u3000-\u303f\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff01-\uff60\uffe0-\uffe6]",
+                                    ordinary := re.sub(r"\$[^$]*\$", "", value)) else set()) | \
+           ({FONT_LATIN} if re.search(r"[A-Za-z0-9\x21-\x7e]", ordinary) else set())
+
+
 def audit_hard_contract(fig, *, template: str) -> tuple[str, ...]:
     _require(_CONFIGURED, "configure_matplotlib() must run before hard audit")
     _verify_fonts(_CONFIGURED_FONT_RESOLVER)
@@ -395,6 +401,8 @@ def audit_hard_contract(fig, *, template: str) -> tuple[str, ...]:
             _require(bool(text.get_fontfamily()) and
                      all(family in {FONT_LATIN, FONT_CJK} for family in text.get_fontfamily()),
                      "text uses an unapproved font family")
+            _require(_required_text_families(text.get_text()) <= set(text.get_fontfamily()),
+                     "text family does not match declared script routing")
     from matplotlib.collections import Collection
     from matplotlib.lines import Line2D
     from matplotlib.patches import Patch

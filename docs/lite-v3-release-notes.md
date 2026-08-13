@@ -1,3 +1,13 @@
+# KyMCM Lite 0.9.10
+
+KyMCM Lite 0.9.10 removes the dual-authority ambiguity from the normal formal Matplotlib pipeline. `kymcm-figure-selection-v1` remains the WHAT/WHEN authority; Pt1/Pt2/Pt3/Typography remain the normative visual contract; `kymcm-figure-exec-v1` remains the sole normal formal rendering and hard-audit executor; Codex implements the selected figure; ChatGPT/user owns semantic and visual acceptance. Passing `figure_exec.py` remains necessary but is not final acceptance.
+
+Ordinary formal figures no longer depend on or automatically invoke `nature-figure`. The separately installed specialist may participate only when the user explicitly requests a read-only advisory second opinion on an already-rendered PDF/PNG. It cannot choose or reclassify the chart, apply its own contract/theme/rcParams/palette/font/canvas/export defaults, rerender, restyle, export, overwrite, replace the KyMCM artifact, or become the final authority. Suggestions return to Codex, are implemented through KyMCM code and `figure_exec.py`, pass the hard audit again, and return to ChatGPT/user review.
+
+The compatible `font_kwargs(role, script=...)` interface now declares `latin` as Tinos, `cjk` as Noto Serif CJK SC, and `mixed` as both. The hard audit strips `$...$` fragments for ordinary-text classification and checks declared Matplotlib `Text` families against visible script classes while preserving STIX mathtext. This closes the normal typography ownership gap without claiming exact physical per-glyph font-file forensics. Required fonts and controlled `cmcrameri` remain fail-closed; accepted Pt2/Pt3 values are unchanged.
+
+The Lite core CLI remains exactly eight commands and standard-library-only. This release adds no state, manifest, content JSON, CLI, chart-template library, automatic chart selection, or special-tool routing system. Existing 0.9.9 workspaces require no migration, and KyMCM Full remains unchanged.
+
 # KyMCM Lite 0.9.9
 
 KyMCM Lite 0.9.9 retains `kymcm-figure-selection-v1` unchanged in purpose for WHAT/WHEN reasoning and adds `kymcm-figure-exec-v1` for exact HOW constants. The optional `skills/kymcm-lite/figure_exec.py` centralizes accepted canvas, typography, line/tick/grid, marker, bar, box, error-bar, palette, continuous-map, and output parameters so formal Codex/Matplotlib figures no longer depend on manually retyping them.

@@ -13,7 +13,7 @@ Lite core commands under `scripts/` remain standard-library-only. Formal Matplot
 `figure_exec.py` fails closed on the machine-safe rules it owns:
 
 - the four physical canvas templates and their exact final size;
-- strict availability of `Tinos` and `Noto Serif CJK SC`, the base font stack, STIX mathtext, and PDF font type 42;
+- strict availability of `Tinos` and `Noto Serif CJK SC`, script-aware declared `Text`-family routing, the base font stack, STIX mathtext, and PDF font type 42;
 - the 8 pt absolute minimum for rendered text;
 - absence of figure titles and subplot/axes titles;
 - fixed tick, spine, grid, line, marker, bar, box, error-bar, gap, and uncertainty constants;
@@ -37,10 +37,10 @@ The following remain explicit semantic or visual judgments and are not presented
 - whether a confidence or uncertainty band has valid statistical meaning;
 - whether the selected chart family and information level answer the named information need;
 - whether legends overlap data or the complete composition is broadly readable;
-- whether complex mixed Chinese/Latin strings route actual glyphs to the required fonts;
+- whether the final rendered mixed Chinese/Latin text is visually correct beyond declared-family routing;
 - whether a spatial exception or non-Matplotlib tool route is justified.
 
-The external `nature-figure` Skill and the final ChatGPT/user review retain responsibility for these judgments, including actual-glyph/font inspection. Passing the hard audit is necessary but is not semantic acceptance.
+ChatGPT and the user retain responsibility for these judgments in the normal path. Passing the hard audit is necessary but is not semantic or visual acceptance.
 
 ## Required formal sequence
 
@@ -54,11 +54,13 @@ selection-v1 chooses WHAT/WHEN
 → construct the selected figure using helpers without redeclaring locked constants
 → apply_axis_style() to every applicable axis
 → save_formal_figure() performs the hard audit and writes PDF + PNG
-→ nature-figure / ChatGPT performs semantic, typography, and visual review
+→ ChatGPT/user performs semantic and visual review of the rendered artifact
 → only then call the output final
 ```
 
-This is an execution sequence, not stored workflow state. If the active Skill directory is not importable, load that exact `figure_exec.py` by absolute path. Do not copy it or rewrite its constants in the contest workspace. Local plotting code may choose only the adaptive options already documented by Pt2/Pt3 and may not override locked values.
+This is an execution sequence, not stored workflow state. `nature-figure` is not required for it. If the active Skill directory is not importable, load that exact `figure_exec.py` by absolute path. Do not copy it or rewrite its constants in the contest workspace. Local plotting code may choose only the adaptive options already documented by Pt2/Pt3 and may not override locked values.
+
+If the user explicitly requests an independent specialist review, the separately installed `nature-figure` Skill may inspect the already-rendered PDF/PNG read-only. It is advisory only: it cannot choose or reclassify the chart family, apply its own contract/theme/rcParams/palette/typography/canvas/export defaults, rerender, restyle, export, overwrite, or replace the KyMCM artifact or its acceptance authority. Recommendations return to Codex, are implemented through the KyMCM plotting code and `figure_exec.py`, pass the hard audit again, and then return to ChatGPT/user review.
 
 Formal delivery code must call `save_formal_figure()` instead of calling `fig.savefig()` or `plt.savefig()` directly. Existing accepted output remains authoritative when a new attempt fails. Flowcharts and non-Matplotlib manually edited illustrations do not use this helper.
 
