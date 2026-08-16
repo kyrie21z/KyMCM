@@ -1,3 +1,13 @@
+# KyMCM Lite 0.9.11
+
+KyMCM Lite 0.9.11 adds two evidence-derived flowchart authorities. `kymcm-flowchart-selection-v1` uses the fixed corpus of 73 strict CUMCM main-evidence flowcharts (Macro 40, Algorithm 33) to qualify flowchart use, split Macro from Algorithm, and select one minimum-sufficient-complexity type from M1–M6 or A1–A6. `kymcm-flowchart-content-v1` uses 747 ordinary nodes, including 726 reliably measurable text nodes, to review node roles, node counts, text density, line count, and overload restructuring.
+
+The authority split is deliberate: selection-v1 decides WHAT/WHEN; content-v1 decides HOW MUCH INFORMATION. Typical Range means Q1–Q3 rather than a hard allowed interval, and the content specification has no universal Hard Max. Strong Overload requires node-count pressure plus supported process or decision text-density pressure, and it triggers semantic restructuring review rather than automatic failure. Sparse A5/A6 evidence remains descriptive only.
+
+The old fixed 4×3 macro template and default two-row serpentine algorithm layout are retired. The corpus does not support algorithm serpentine as a default. Both specifications stop before orientation, coordinates, geometry, routing, styling, or renderer parameters: final layout judgment and manual drawing are explicitly owned by the user/human author. This release adds no flowchart layout/style/execution specification, renderer, Graphviz/Mermaid/TikZ route, diagram runtime, dependency, CLI, checker, state, or manifest.
+
+The data-driven figure system remains separate and unchanged: `kymcm-figure-selection-v1`, Pt1/Pt2/Pt3/Typography, and `kymcm-figure-exec-v1` continue to govern formal Matplotlib work, and `nature-figure` retains its 0.9.10 optional read-only advisory boundary. The Lite v3 marker and eight commands are unchanged, 0.9.10 and earlier contest workspaces need no migration, and KyMCM Full remains unchanged.
+
 # KyMCM Lite 0.9.10
 
 KyMCM Lite 0.9.10 removes the dual-authority ambiguity from the normal formal Matplotlib pipeline. `kymcm-figure-selection-v1` remains the WHAT/WHEN authority; Pt1/Pt2/Pt3/Typography remain the normative visual contract; `kymcm-figure-exec-v1` remains the sole normal formal rendering and hard-audit executor; Codex implements the selected figure; ChatGPT/user owns semantic and visual acceptance. Passing `figure_exec.py` remains necessary but is not final acceptance.

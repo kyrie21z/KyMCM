@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.11 - 2026-08-16
+
+- Add evidence-derived `kymcm-flowchart-selection-v1` from the fixed 73-flowchart CUMCM corpus, with Macro M1–M6 / Algorithm A1–A6 and minimum-sufficient-complexity selection.
+- Add `kymcm-flowchart-content-v1` from 747 ordinary nodes / 726 measurable text nodes, with type-specific node/text profiles, Q1–Q3 review semantics, and overload restructuring rules.
+- Retire the old fixed 4×3 macro and default serpentine algorithm layout assumptions; final flowchart layout/drawing is explicitly human-owned.
+- Preserve the data-driven Matplotlib selection/style/color/typography/execution pipeline, Lite v3 marker, eight commands, existing workspaces, nature-figure boundary, and KyMCM Full unchanged.
+
 ## KyMCM Lite 0.9.10 - 2026-08-12
 
 - Keep `kymcm-figure-selection-v1` as WHAT/WHEN authority and `kymcm-figure-exec-v1` as the sole normal formal Matplotlib rendering/hard-audit executor; ChatGPT/user owns the semantic and visual acceptance gate.
