@@ -4,7 +4,7 @@
 
 This reference is the single authoritative Lite source for choosing **what** data-driven final figure to use and **when** to increase its information structure. Its identifier is KyMCM Lite `kymcm-figure-selection-v1`, and its byte-identical repository mirror is `docs/lite-v3/final_figure_selection.md`.
 
-Apply it only to explicitly requested data-driven final-figure work after the existing final-figure entry gate has been satisfied. It does not select macro or algorithm flowcharts; those continue to use only `final_figure_core_rules.md`.
+Apply it only to explicitly requested data-driven final-figure work after the existing final-figure entry gate has been satisfied. It does not select macro or algorithm flowcharts. Flowcharts use `kymcm-flowchart-selection-v1.md` followed by `kymcm-flowchart-content-v1.md`, and final layout and drawing remain human-owned.
 
 This hierarchy is evidence-derived, not a chart-complexity ranking:
 
@@ -263,7 +263,7 @@ The classification-evaluation entry includes the full ROC/PR/confusion/calibrati
 Apply final-figure authorities in this order for a data-driven figure:
 
 1. `final_figure_selection.md` decides **WHAT / WHEN**: L0–L3, chart family, enhancement trigger, and grouping need.
-2. `final_figure_core_rules.md` applies core in-figure and flowchart boundaries.
+2. `final_figure_core_rules.md` applies core in-figure boundaries and routes separate flowchart requests.
 3. `final_figure_style.md` decides **HOW**: physical size, geometry, axes, line, legend, and layout.
 4. `final_figure_color.md` decides qualitative, semantic, continuous-map, missing-value, and accessibility color behavior.
 5. `final_figure_typography.md` decides font families and missing-font behavior.

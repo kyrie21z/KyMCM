@@ -19,30 +19,19 @@ These rules use the optional `figure_exec.py` only as a minimal parameterized ex
 
 Allowed in-figure text is limited to axis labels, ticks, legends, panel markers, necessary very-short panel labels, necessary numeric annotations, short threshold/reference symbols, and statistical significance symbols.
 
-## Macro modeling flowchart
+## Macro and algorithm flowchart boundary
 
-Use the fixed **4 columns × 3 rows** macro modeling flowchart template. ChatGPT supplies only the text, nodes, and connection plan; it does not directly draw this macro flowchart under this contract. The template does not define or extend external-tool routing.
+A requested macro or algorithm flowchart is not selected by `final_figure_selection.md` and is not rendered or audited by `figure_exec.py`.
 
-The data-chart selection hierarchy is defined only by `final_figure_selection.md`. Special-chart and tool routing and the final-figure workflow remain separate paused design topics. Do not infer or design them from this reference.
+1. Read `kymcm-flowchart-selection-v1.md` first to decide whether a flowchart is appropriate and choose one primary M1–M6 or A1–A6 type.
+2. Then read `kymcm-flowchart-content-v1.md` to plan node roles, node count, text density, and evidence-aware overload restructuring.
+3. ChatGPT or Codex may produce the semantic plan: selected type, nodes, roles, labels, directed connections and branch meanings, stage or subprocess semantics, and content-budget review.
+4. Stop before final spatial layout. The user/human author owns final layout judgment and manual drawing.
 
-## Algorithm flowchart
-
-Use a two-row serpentine layout by default:
-
-1. The first row proceeds from left to right.
-2. Its last node connects downward.
-3. The second row proceeds from right to left.
-
-Only three node shapes are permitted:
-
-- rounded rectangle: start or end;
-- rectangle: ordinary step;
-- diamond: condition or judgment.
-
-Do not introduce additional flowchart symbol families.
+KyMCM Lite 0.9.11 provides no fixed macro grid, default algorithm serpentine, automatic layout engine, renderer/tool route, or active flowchart symbol-family hard rule. Data-driven Pt2 style, Pt3 color, typography, and `figure_exec.py` rules do not silently apply to manually drawn flowcharts.
 
 ## Review gate
 
 Before calling a data-driven figure final, confirm that its chart choice has a selection-v1 information rationale, it has no internal figure title or explanatory prose, it uses only PDF and PNG formal outputs, it follows the panel-label rule, its machine-safe rules passed `save_formal_figure()`, and it has been reviewed against the style, color, typography, and execution references.
 
-For spatial data, selection-v1 governs WHAT/WHEN expression-level choice, including map + points, categorized spatial views, density views, same-basemap small multiples, and conditional density surfaces. It does not choose a mapping library, vector editor, external tool, or execution route; special-chart and tool routing remains paused. Ordinary Cartesian Pt2 geometry does not silently govern map geometry where Pt2 excludes it. Macro and algorithm flowcharts follow only the frozen Pt1 flowchart rules above. Manually edited structural illustrations remain outside automatic data-chart selection and style governance unless a later explicit specification says otherwise.
+For spatial data, selection-v1 governs WHAT/WHEN expression-level choice, including map + points, categorized spatial views, density views, same-basemap small multiples, and conditional density surfaces. It does not choose a mapping library, vector editor, external tool, or execution route; special-chart and tool routing remains paused. Ordinary Cartesian Pt2 geometry does not silently govern map geometry where Pt2 excludes it. Macro and algorithm flowcharts use `kymcm-flowchart-selection-v1.md` followed by `kymcm-flowchart-content-v1.md`, then stop at the human-owned final-layout boundary. Manually edited structural illustrations remain outside automatic data-chart selection and style governance unless a later explicit specification says otherwise.
