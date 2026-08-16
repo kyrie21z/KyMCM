@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.11 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested data figures through the existing selection and fail-closed Matplotlib path, and explicit flowcharts through evidence-derived type/content specifications with human-owned layout, without workflow state or content JSON.
+KyMCM Lite 0.9.12 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested data figures through the existing selection and fail-closed Matplotlib path, and explicit flowcharts through evidence-derived type/content specifications with human-owned layout, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 

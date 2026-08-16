@@ -1,5 +1,12 @@
 # Changelog
 
+## KyMCM Lite 0.9.12 - 2026-08-16
+
+- Restore the full long-form `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1` specifications instead of the compressed 0.9.11 summaries, preserving the evidence-derived M1–M6 / A1–A6 and content-budget architecture.
+- Correct the 726-node line-count evidence to 68.0% one-line / 19.6% two-line / 12.4% three-or-more-line nodes; median 1, Q3 2, P90 3.
+- Freeze regression tests for specification completeness and the corrected census values while keeping final flowchart layout/drawing human-owned.
+- Preserve the 0.9.11 routing architecture, data-driven Matplotlib pipeline, Lite v3 marker, eight commands, existing workspaces, nature-figure boundary, and KyMCM Full unchanged.
+
 ## KyMCM Lite 0.9.11 - 2026-08-16
 
 - Add evidence-derived `kymcm-flowchart-selection-v1` from the fixed 73-flowchart CUMCM corpus, with Macro M1–M6 / Algorithm A1–A6 and minimum-sufficient-complexity selection.

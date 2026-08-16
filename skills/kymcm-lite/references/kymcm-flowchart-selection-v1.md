@@ -1,85 +1,1075 @@
-# KyMCM Lite flowchart selection specification
+# `kymcm-flowchart-selection-v1`
 
-Identifier: `kymcm-flowchart-selection-v1`
+> **KyMCM Lite 流程图类型选择规范 v1**
+> 状态：Evidence-derived selection specification
+> 范围：数学建模竞赛论文中的宏观建模流程图与算法流程图
+> 本规范只回答 **WHAT / WHEN：是否应画流程图、应选择哪一类流程图**。
+> 本规范**不**规定具体布局坐标、节点尺寸、字体、颜色、间距、箭头绕线、渲染工具或导出实现。
+> 规范源：`skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md`；其仓库镜像 `docs/lite-v3/kymcm-flowchart-selection-v1.md` 必须保持字节一致。
+> 下游 `kymcm-flowchart-content-v1` 只决定信息容量；最终空间布局、几何、走线与绘制由用户/人类作者负责（**human-owned**）。
 
-## Authority and scope
+---
 
-This is KyMCM Lite's evidence-derived authority for **WHAT / WHEN** flowchart decisions. Its byte-identical repository mirror is `docs/lite-v3/kymcm-flowchart-selection-v1.md`. It decides whether a flowchart is appropriate, selects Macro or Algorithm, and then selects one primary M1–M6 or A1–A6 semantic type. It does not decide content capacity or final spatial layout.
+## 0. 规范依据与证据边界
 
-The fixed evidence base contains 73 strict CUMCM main-evidence flowcharts: Macro 40 and Algorithm 33.
+### 0.1 固定证据全集
 
-| Track | Type | Chinese name | Samples |
-|---|---|---|---:|
-| Macro | M1 | 线性/阶段链 | 7 |
-| Macro | M2 | 多源/多支路汇聚 | 11 |
-| Macro | M3 | 分层分支-汇合 | 6 |
-| Macro | M4 | 阶段分组模块化 | 8 |
-| Macro | M5 | 双通道/对称 | 4 |
-| Macro | M6 | 反馈/循环系统 | 4 |
-| Algorithm | A1 | 线性顺序 | 6 |
-| Algorithm | A2 | 单循环迭代 | 10 |
-| Algorithm | A3 | 嵌套循环/多判定迭代 | 9 |
-| Algorithm | A4 | 分支/搜索 | 4 |
-| Algorithm | A5 | 并行子算法 | 1 |
-| Algorithm | A6 | 密集判定/调度网络 | 3 |
+本规范只基于已经完成人工/视觉复核并冻结的 **73 幅 strict CUMCM 主证据流程图**，不在本版本继续扩大语料。
 
-A5 and A6 are low-evidence conditional types. Use them only when their real semantics are present; their sparse observations are not preferred targets.
+结构编码全集：
 
-## Flowchart qualification gate
+- Macro / 宏观、高层过程：**40 幅**
+- Algorithm / 算法、可执行过程：**33 幅**
+- 合计：**73 幅**
 
-Use this flowchart system only when arrows or links primarily express a directed process, execution, state progression, branching or iteration, or a clear input–process–output flow. Keep static indicator hierarchies, conceptual taxonomies, causal diagrams, component structures, and generic relationship networks outside this taxonomy.
+这 73 幅样本已经完成逐图结构编码，包括：
 
-If a flowchart is appropriate, make the first split:
+- `track`
+- `archetype`
+- `topology_primary`
+- `reading_direction`
+- `main_spine`
+- `decision_level`
+- `loop_level`
+- `parallelism`
+- `merge_present`
+- `grouping`
+- `node_count_bin`
+- `structural_complexity`
+- `shape_grammar`
+- `structure_confidence`
 
-- **Macro** answers how stages, modules, information, or processes are organized at a high level.
-- **Algorithm** answers how an executable algorithm proceeds through steps, decisions, updates, iterations, searches, and termination.
+### 0.2 关键经验统计
 
-## Macro types
+Macro 40 幅中：
 
-- **M1 — 线性/阶段链:** one main path; stage order is the primary information.
-- **M2 — 多源/多支路汇聚:** same-level parallel sources or branches converge. Prefer M2 for one-layer fan-in.
-- **M3 — 分层分支-汇合:** branches contain meaningful multiple levels or subflows before convergence.
-- **M4 — 阶段分组模块化:** true stage boundaries themselves carry explanatory value.
-- **M5 — 双通道/对称:** two same-level corresponding or symmetric paths, not merely two arbitrary branches.
-- **M6 — 反馈/循环系统:** system- or module-level feedback is a core semantic relation. Do not confuse it with algorithm iteration.
+- 存在并行结构：**30/40 = 75.0%**
+- 存在汇聚：**33/40 = 82.5%**
+- 存在显式判定：**10/40 = 25.0%**
+- 存在反馈/循环：**5/40 = 12.5%**
 
-## Algorithm types
+Algorithm 33 幅中：
 
-- **A1 — 线性顺序:** no core decision or loop; one execution path.
-- **A2 — 单循环迭代:** one main loop with one main continue/termination logic.
-- **A3 — 嵌套循环/多判定迭代:** nested loops, multi-level termination or iteration controls, or multiple irreducible iteration states.
-- **A4 — 分支/搜索:** path selection, search, or classification is primary rather than loop control.
-- **A5 — 并行子算法:** true execution-level parallel subalgorithms; low-evidence conditional type.
-- **A6 — 密集判定/调度网络:** dense rules, jumps, or interacting paths that A2/A3/A4 cannot faithfully express; last-resort low-evidence type.
+- 主阅读方向为 TB（Top-to-Bottom）：**25/33 = 75.8%**
+- 存在判定：**27/33 = 81.8%**
+- 存在循环/回边：**24/33 = 72.7%**
 
-## Minimum sufficient complexity principle
+在 73 幅 strict 样本中，仅有 **2 幅明显 serpentine**，且两者均属于 Macro / M1，而不是算法流程图。因此：
 
-> Choose the lowest-complexity flowchart type that faithfully expresses the real process logic.
+> **two-row serpentine 不得作为算法流程图的默认类型或默认布局假设。**
 
-Real parallelism, convergence, hierarchy, stage grouping, symmetry, feedback, decision, loop, nested loop, or search/routing can justify an upgrade. Visual sophistication, page filling, or making a diagram look advanced cannot.
+### 0.3 证据强度说明
 
-Select exactly one primary type; do not invent mixed type IDs. Resolve conflicts by the information goal and the structure that most changes reader understanding, not by mechanically counting diamonds or arrows. Upgrade or downgrade only when real structural semantics require it.
+本规范中的 M1–M6、A1–A6 是对 73 幅真实样本的归纳类型，不是从一般流程图教材中先验搬入的类型体系。
 
-## Layout decoupling
+证据量较弱的类型：
 
-Type selection does not bind left-to-right or top-to-bottom orientation, fixed coordinates, grids, or final geometry. A2, A3, and the other Algorithm types do not bind a serpentine layout. The 73-sample evidence contains only two obvious serpentine samples, both Macro/M1 rather than Algorithm, so it does not support default algorithm serpentine.
+- A5 并行子算法：**1 幅**
+- A6 密集判定/调度网络：**3 幅**
 
-This specification does not select Graphviz, Mermaid, TikZ, SVG, PowerPoint, or any renderer. Final layout, geometry, routing, and visual drawing are outside this authority and are manually judged and drawn by the user/human author.
+二者可以进入 v1 选择体系，但只能作为**条件型、低频类型**，不得作为默认升级方向，也不得据此冻结自动阈值或默认布局。
 
-## Semantic planning output
+---
 
-An agent may return a Markdown planning record such as:
+# 1. 规范目标
+
+`kymcm-flowchart-selection-v1` 的唯一职责是完成以下选择：
 
 ```text
-flowchart_needed
-track
-type
-information_goal
-primary_structure
-selection_reason
-upgrade_triggers
-rejected_alternatives
-layout_status: human-owned / pending-human
+是否需要流程图？
+        ↓
+若需要：Macro 还是 Algorithm？
+        ↓
+选择一个最低充分复杂度的主类型
+        ↓
+输出类型 + 选择理由 + 触发结构需求
 ```
 
-This is a semantic handoff, not runtime state or a JSON contract. After type selection, read `kymcm-flowchart-content-v1.md` to determine how much information the flowchart should contain.
+本规范不负责：
+
+```text
+节点坐标
+节点宽高
+边的具体走线
+LR / TB 的最终物理排版
+字体字号
+颜色
+线宽
+圆角
+箭头样式
+Graphviz / Mermaid / TikZ / SVG / PPT 等工具路由
+```
+
+---
+
+# 2. 核心原则：最低充分结构复杂度
+
+流程图类型选择遵循：
+
+\[
+\boxed{\text{选择能完整表达真实过程逻辑的最低复杂度类型}}
+\]
+
+只有出现**新增真实结构需求**时才允许升级。
+
+合法的升级触发因素包括：
+
+- `parallelism`：并行来源、并行模块、并行子算法；
+- `merge`：多个路径重新汇聚；
+- `hierarchy`：存在多层分支或多层子流程；
+- `stage_grouping`：阶段边界本身具有解释意义；
+- `symmetry`：两条同级且结构对应的通道；
+- `feedback`：系统模块之间存在真实反馈；
+- `decision`：执行逻辑受条件判断控制；
+- `loop`：存在迭代回路；
+- `nested_loop`：存在内外层循环或多级迭代；
+- `search_or_routing`：主要结构由搜索、分类、调度或规则跳转决定。
+
+以下不是升级理由：
+
+- “看起来更高级”；
+- “一等奖论文里出现过”；
+- “为了让图更复杂”；
+- “为了填满版面”；
+- “想多用一些菱形、颜色或箭头”；
+- 单纯因为步骤数量增加，但真实结构仍是单一路径。
+
+---
+
+# 3. 流程图资格门槛：先判断是否应该画流程图
+
+只有当需要表达以下至少一种信息时，才进入流程图选择：
+
+1. 有方向的过程顺序；
+2. 计算或算法执行顺序；
+3. 明确的输入 → 处理 → 输出过程；
+4. 条件分支及其后续处理；
+5. 迭代、反馈或状态更新过程；
+6. 多条过程路径的并行、汇聚或阶段关系。
+
+以下内容默认**不属于本规范的流程图对象**：
+
+- 指标体系；
+- 静态模型关系；
+- 单纯概念层级；
+- 因果关系图；
+- 对象组成结构；
+- 没有过程方向的模块关系图；
+- 只表达“谁包含谁”的树；
+- 只表达“谁与谁有关”的网络。
+
+判断规则：
+
+```text
+若箭头主要表达“先后执行 / 状态推进 / 处理方向”
+→ 可进入流程图体系
+
+若箭头主要表达“静态关系 / 归属 / 相关 / 因果”
+→ 不由本规范选择
+```
+
+---
+
+# 4. 第一层选择：Macro vs Algorithm
+
+## 4.1 Macro / 宏观高层流程
+
+选择 Macro，当流程图主要回答：
+
+> **整个问题、系统、模型、阶段或信息处理过程是如何组织的？**
+
+典型对象：
+
+- 全文总体建模框架；
+- 某一问的高层求解路线；
+- 多模型组合关系；
+- 多数据源到综合结果的过程；
+- 阶段化建模过程；
+- 系统模块间过程反馈。
+
+Macro 强调：
+
+```text
+阶段
+模块
+信息流
+并行
+汇聚
+高层过程
+```
+
+而不是逐步执行细节。
+
+证据特征：
+
+- 40 幅 Macro 中 **30/40** 存在并行；
+- **33/40** 存在汇聚；
+- 仅 **10/40** 存在判定；
+- 仅 **5/40** 存在循环。
+
+因此 Macro 的主导结构是：
+
+\[
+\boxed{\text{模块展开 / 并行处理 / 汇聚 / 阶段组织}}
+\]
+
+---
+
+## 4.2 Algorithm / 算法可执行流程
+
+选择 Algorithm，当流程图主要回答：
+
+> **算法实际按照什么步骤执行，并在什么条件下分支、迭代、终止？**
+
+典型对象：
+
+- 优化算法；
+- 数值算法；
+- 搜索算法；
+- 参数迭代；
+- 仿真迭代；
+- 调度或规则执行；
+- 带终止判断的计算程序。
+
+Algorithm 强调：
+
+```text
+初始化
+执行步骤
+条件判断
+循环
+更新
+搜索
+终止
+```
+
+证据特征：
+
+- **27/33** 存在判定；
+- **24/33** 存在循环；
+- **25/33** 以 TB 为主阅读方向。
+
+因此 Algorithm 的主导结构是：
+
+\[
+\boxed{\text{执行主轴 + 判定 + 迭代 / 分支}}
+\]
+
+---
+
+# 5. Macro 类型体系 M1–M6
+
+## M1 — 线性 / 阶段链
+
+**证据：7/40**
+
+### 定义
+
+只有一个主要过程主轴，各阶段基本按单一路径依次推进。
+
+```text
+A → B → C → D
+```
+
+### 必要条件
+
+满足大部分以下条件：
+
+- 一个主路径；
+- 无重要并行分支；
+- 无重要多层汇聚；
+- 无核心反馈回路；
+- 阶段先后关系是主要信息。
+
+### 适用场景
+
+- 简单总体建模路线；
+- 单一路径的数据处理；
+- 明确的阶段序列；
+- 输入 → 处理 → 输出。
+
+### 不应升级的情况
+
+若只是步骤较多，但仍然只有一个主轴，不应因为节点多而升级为 M3/M4。
+
+### 升级触发
+
+- 多来源/多模块汇聚 → M2；
+- 多层分支后汇聚 → M3；
+- 阶段边界本身需要被显式分组 → M4；
+- 两条同级对称通道 → M5；
+- 系统反馈为核心 → M6。
+
+---
+
+## M2 — 多源 / 多支路汇聚
+
+**证据：11/40；Macro 中最高频类型**
+
+### 定义
+
+多个输入、来源、模块或处理支路独立或半独立推进，随后汇聚到共同结果、模型或综合阶段。
+
+```text
+A ─┐
+B ─┼→ D → E
+C ─┘
+```
+
+或：
+
+```text
+输入
+├→ 模块 A ─┐
+├→ 模块 B ─┼→ 综合
+└→ 模块 C ─┘
+```
+
+### 核心触发
+
+\[
+\boxed{\text{真实并行 + 真实汇聚}}
+\]
+
+### 适用场景
+
+- 多指标输入；
+- 多数据源融合；
+- 多模型并行计算后综合；
+- 多方案产生共同评价；
+- 多特征处理后进入统一模型。
+
+### 与 M3 的边界
+
+若只有一层并行后汇聚，优先 M2。
+
+只有当并行结构内部继续发生**分层展开、二级分支或层级子流程**时，才升级 M3。
+
+---
+
+## M3 — 分层分支—汇合
+
+**证据：6/40**
+
+### 定义
+
+流程中存在多层结构：一个阶段向下分解成若干子过程，子过程可能继续展开，最后重新汇聚。
+
+```text
+        B1 → C1 ┐
+A → B ─┤        ├→ D
+        B2 → C2 ┘
+```
+
+### 核心触发
+
+- `hierarchy = true`
+- 分支不是单层；
+- 层级关系本身具有解释意义；
+- 后续存在重新汇聚。
+
+### 适用场景
+
+- 模型体系内部还有子模型；
+- 分阶段且阶段内又分支；
+- 多层数据处理；
+- 决策树式高层过程最后汇入统一输出。
+
+### 禁止误用
+
+不得因为“想画成树”就使用 M3。
+
+如果结构本质只是多个同级模块 → 汇聚，应保持 M2。
+
+---
+
+## M4 — 阶段分组模块化
+
+**证据：8/40**
+
+### 定义
+
+长流程被组织为若干具有独立语义的阶段或模块组；阶段边界本身是论文论证的一部分。
+
+```text
+[阶段 1]
+A → B
+
+[阶段 2]
+C → D → E
+
+[阶段 3]
+F → G
+```
+
+### 核心触发
+
+\[
+\boxed{\text{阶段边界具有真实语义价值}}
+\]
+
+### 适用场景
+
+- “数据准备 / 建模 / 求解 / 验证”分阶段；
+- 多任务分阶段执行；
+- 一个较大方法包含若干明确子模块；
+- 希望突出不同阶段承担不同功能。
+
+### 与 M1 的边界
+
+如果只是长线性链，但阶段分组不会增加理解信息，仍是 M1。
+
+只有显式分组能帮助理解“哪几步属于同一阶段”时才使用 M4。
+
+---
+
+## M5 — 双通道 / 对称
+
+**证据：4/40**
+
+### 定义
+
+两条同级、结构对应或功能对称的过程通道并行展开，可能在后部汇聚。
+
+```text
+        ┌→ 路径 A ─┐
+输入 ───┤           ├→ 输出
+        └→ 路径 B ─┘
+```
+
+### 核心触发
+
+- 正好存在两条主要同级通道；
+- 两通道之间的对应/比较本身具有意义；
+- 二者不是简单的“多个支路之一”。
+
+### 适用场景
+
+- 两种方案；
+- 两类对象；
+- 两个场景；
+- 两条对照分析路径。
+
+### 与 M2 的边界
+
+若只是“恰好有两个支路”，但没有对称或对应语义，优先 M2。
+
+---
+
+## M6 — 反馈 / 循环系统
+
+**证据：4/40；低频条件型**
+
+### 定义
+
+高层模块之间存在真实反馈、状态更新或周期性过程，反馈关系是系统逻辑的重要组成部分。
+
+```text
+A → B → C
+    ↑   │
+    └───┘
+```
+
+### 核心触发
+
+\[
+\boxed{\text{系统级 feedback 是核心信息}}
+\]
+
+### 适用场景
+
+- 动态系统反馈；
+- 状态更新；
+- 决策—反馈—修正；
+- 多模块周期性相互作用。
+
+### 与 Algorithm loop 的边界
+
+M6 表达的是**系统/模块级反馈关系**。
+
+A2/A3 表达的是**具体算法执行中的迭代控制**。
+
+若读者需要知道“程序怎样执行一次迭代”，应转入 Algorithm。
+
+---
+
+# 6. Algorithm 类型体系 A1–A6
+
+## A1 — 线性顺序
+
+**证据：6/33**
+
+### 定义
+
+算法沿单一路径顺序执行，不依赖重要判定，也不存在循环。
+
+```text
+开始
+↓
+输入
+↓
+计算
+↓
+输出
+↓
+结束
+```
+
+### 必要特征
+
+- `decision = none`
+- `loop = none`
+- 主执行路径基本唯一。
+
+### 适用场景
+
+- 简单一次性计算；
+- 无循环的数据处理算法；
+- 固定顺序的确定性步骤。
+
+### 升级触发
+
+- 一个主要迭代回路 → A2；
+- 多判定/嵌套循环 → A3；
+- 分支/搜索主导 → A4；
+- 并行子算法 → A5；
+- 密集规则调度 → A6。
+
+---
+
+## A2 — 单循环迭代
+
+**证据：10/33；Algorithm 中最高频类型**
+
+### 定义
+
+算法存在一个主要迭代回路，通过一个或少量判定决定继续更新还是终止。
+
+```text
+开始
+↓
+初始化
+↓
+计算
+↓
+◇ 是否满足终止条件？
+├─ 是 → 输出 → 结束
+└─ 否 → 更新
+         ↓
+       回到计算
+```
+
+### 核心触发
+
+\[
+\boxed{\text{一个主要循环 + 一个核心终止逻辑}}
+\]
+
+### 适用场景
+
+- 优化算法；
+- 参数迭代；
+- 单层数值迭代；
+- 单层仿真更新。
+
+### 与 A3 的边界
+
+如果一个主要循环足以完整表达真实算法，不得升级 A3。
+
+只有出现：
+
+- 内外层循环；
+- 多级终止条件；
+- 一个循环内还存在独立循环；
+- 多个彼此不可约的迭代状态；
+
+才升级 A3。
+
+---
+
+## A3 — 嵌套循环 / 多判定迭代
+
+**证据：9/33**
+
+### 定义
+
+算法具有多判定和多级迭代控制，通常包含嵌套循环、外层/内层更新或多个终止逻辑。
+
+```text
+初始化
+↓
+◇ 外层条件？
+↓
+计算
+↓
+◇ 内层条件？
+├→ 内层更新 ↺
+└→ 外层更新 ↺
+```
+
+### 核心触发
+
+- `nested_loop = true`；或
+- 多个判定共同控制迭代；或
+- 单循环表示会丢失执行语义。
+
+### 适用场景
+
+- 双层优化；
+- 内外循环算法；
+- 多阶段迭代；
+- 多终止条件联合控制。
+
+### 禁止误用
+
+不得因为算法“很复杂”就选择 A3。
+
+复杂度必须来自真实控制流，而不是节点数量。
+
+---
+
+## A4 — 分支 / 搜索
+
+**证据：4/33**
+
+### 定义
+
+算法的主要逻辑由条件分支、搜索、分类或路径选择构成，而不是由反复迭代构成。
+
+```text
+      ◇ 条件？
+     /       \
+   路径 A   路径 B
+     \       /
+       汇合
+```
+
+### 核心触发
+
+\[
+\boxed{\text{decision / search 主导，loop 非主导}}
+\]
+
+### 适用场景
+
+- 分类处理；
+- 条件分支；
+- 搜索树；
+- 不同条件选择不同求解路径；
+- 规则匹配后进入不同模块。
+
+### 与 A2/A3 的边界
+
+**有判定节点不等于有迭代。**
+
+如果判定主要用于选择路径，而不是控制“继续循环还是停止”，应选择 A4。
+
+---
+
+## A5 — 并行子算法
+
+**证据：1/33；低频条件型**
+
+### 定义
+
+多个子算法在同一级别并行执行，其并行关系是实际执行语义的一部分，结果随后可能汇聚。
+
+```text
+         ┌→ 子算法 A ─┐
+输入 ────┼→ 子算法 B ─┼→ 综合
+         └→ 子算法 C ─┘
+```
+
+### 触发条件
+
+- 并行不是论文表达上的并列，而是算法执行结构；
+- 多个子算法各自具有可执行逻辑；
+- 并行关系无法被简化成单一路径。
+
+### 证据限制
+
+当前仅 1 幅主证据。
+
+因此 A5：
+
+- 可以被选择；
+- 不得作为默认复杂化方向；
+- 暂不据此冻结具体 Layout。
+
+---
+
+## A6 — 密集判定 / 调度网络
+
+**证据：3/33；低频条件型**
+
+### 定义
+
+算法由大量判定、跳转、调度或多路径控制组成，无法被单一线性主轴、单循环或简单分支完整表达。
+
+典型特征：
+
+```text
+多个 condition
++ 多条跳转
++ 多回边
++ 多路径汇聚
++ routing / scheduling
+```
+
+### 核心触发
+
+- 判定密集；
+- 多个回路；
+- 多个执行路径相互连接；
+- A2/A3/A4 会明显丢失真实控制结构。
+
+### 证据限制
+
+当前仅 3 幅主证据。
+
+因此 A6 是**最后选择项**，只有在更简单类型明显失真时才使用。
+
+---
+
+# 7. 规范化选择决策树
+
+```text
+Q0. 是否需要表达有方向的过程 / 执行 / 状态推进？
+│
+├─ 否
+│   └─ 不使用本流程图类型体系
+│
+└─ 是
+    │
+    ├─ Q1. 核心是在表达“整体阶段 / 模块 / 信息处理关系”吗？
+    │   │
+    │   └─ 是 → MACRO
+    │       │
+    │       ├─ 单一路径，无关键并行/反馈              → M1
+    │       ├─ 多个同级来源/支路后汇聚                → M2
+    │       ├─ 分支存在多层展开，再重新汇聚            → M3
+    │       ├─ 真实阶段边界需要显式分组                → M4
+    │       ├─ 两条同级且具有对称/对应语义的通道       → M5
+    │       └─ 系统级反馈/循环关系是核心               → M6
+    │
+    └─ Q2. 核心是在表达“算法如何实际执行”吗？
+        │
+        └─ 是 → ALGORITHM
+            │
+            ├─ 无判定、无循环                         → A1
+            ├─ 一个主要循环                           → A2
+            ├─ 多判定控制迭代 / 嵌套循环              → A3
+            ├─ 搜索 / 分类 / 条件路径选择主导         → A4
+            ├─ 多个可执行子算法真实并行               → A5
+            └─ 密集判定 / 多跳转 / 调度网络           → A6
+```
+
+---
+
+# 8. 类型冲突时的优先级规则
+
+一张流程可能同时包含多种特征。v1 不新增“混合类型”，而要求选择**一个主类型**。
+
+## 8.1 Macro 冲突
+
+优先识别最能改变读者理解方式的结构：
+
+```text
+系统级反馈为核心
+→ M6
+
+否则，真实阶段分组是核心
+→ M4
+
+否则，双通道对称本身是论证重点
+→ M5
+
+否则，存在多层分支/层级
+→ M3
+
+否则，存在同级多支路汇聚
+→ M2
+
+否则
+→ M1
+```
+
+注意：这不是“复杂度排行榜”，而是**主结构识别顺序**。
+
+## 8.2 Algorithm 冲突
+
+```text
+密集调度/规则网络无法被简单类型表达
+→ A6
+
+否则，多个子算法真实并行且并行本身是执行语义
+→ A5
+
+否则，存在嵌套循环或多级迭代控制
+→ A3
+
+否则，一个核心循环
+→ A2
+
+否则，分支/搜索主导
+→ A4
+
+否则
+→ A1
+```
+
+特殊情况：
+
+- 某算法既有一个小循环又有一个主要搜索树：若搜索路径是论文要解释的核心，选 A4；
+- 某算法在每个搜索分支内部都有复杂嵌套迭代：若迭代控制才是理解算法的主要困难，选 A3；
+- 类型必须服从“论文真正需要解释什么”，而不是机械统计菱形或箭头数量。
+
+---
+
+# 9. 类型升级 / 降级规则
+
+## 9.1 升级
+
+只有出现新的真实结构需求时升级。
+
+Macro：
+
+```text
+M1 + 多源汇聚
+→ M2
+
+M2 + 多层子流程
+→ M3
+
+M1/M2 + 阶段边界需要显式表达
+→ M4
+
+M2 + 两条路径具有严格对应关系
+→ M5
+
+任意 Macro + 系统反馈成为核心
+→ M6
+```
+
+Algorithm：
+
+```text
+A1 + 一个主要循环
+→ A2
+
+A2 + 内外层循环 / 多级迭代控制
+→ A3
+
+A1 + 条件路径选择成为核心
+→ A4
+
+普通单流算法 + 多个真实并行子算法
+→ A5
+
+A2/A3/A4/A5 + 密集规则跳转已经无法清晰归约
+→ A6
+```
+
+## 9.2 降级
+
+若删除某种复杂结构后仍能不失真地表达全过程，则应降级。
+
+例如：
+
+- 删除阶段分组仍完全清楚 → M4 降为 M1/M2/M3；
+- 两条“对称通道”其实只是两个普通支路 → M5 降为 M2；
+- A3 只有一个真正循环 → 降为 A2；
+- A6 可以拆成一个主循环 + 少量判断 → 优先降为 A2/A3；
+- A5 并行关系只是论文排版，不是算法执行 → 转为 Macro 或其他 Algorithm 类型。
+
+---
+
+# 10. 类型与 Layout 必须解耦
+
+`kymcm-flowchart-selection-v1` 只决定**结构类型**，不得静默绑定物理布局。
+
+例如：
+
+```text
+A2 = 单循环迭代
+```
+
+并不意味着：
+
+```text
+A2 = two-row serpentine
+```
+
+同样：
+
+```text
+M2 = 多源/多支路汇聚
+```
+
+也不意味着固定 LR 或 TB。
+
+证据显示：
+
+- Macro LR 与 TB 都常见；
+- Algorithm **25/33** 为 TB；
+- 73 幅中只有 **2 幅**明显 serpentine，且均为 Macro M1；
+- Algorithm 样本中没有证据支持将 serpentine 设为默认。
+
+因此本规范明确冻结：
+
+> **任何类型均不得在 selection 层绑定唯一 Layout。**
+
+`selection-v1` 决定语义类型，`content-v1` 决定信息容量；此后不进入自动 KyMCM 布局阶段。最终空间布局、几何、走线和绘制由用户/人类作者判断并手工完成。
+
+---
+
+# 11. 当前不冻结的内容与 human-owned 边界
+
+## 11.1 最终 Layout / Geometry / Routing / Drawing
+
+KyMCM Lite 0.9.12 不冻结、也不自动选择：
+
+- LR / TB 最终方向；
+- 节点网格、坐标与每行/每列节点数；
+- 节点尺寸、节点间距与 stage container 尺寸；
+- 回边、分支、汇聚边的具体走线；
+- 决策节点在主轴的具体位置；
+- 分支对称度与 edge crossing 优化；
+- 最终绘制与导出实现。
+
+这些事项不是等待未来自动规范处理的 `pending` 状态，而是明确交给用户/人类作者的 **human-owned / pending-human** 工作。
+
+## 11.2 Style
+
+本规范不规定：
+
+- 节点颜色与填充；
+- 字体与字号；
+- 边框、箭头、圆角、菱形长宽比；
+- 阴影、图标与组框视觉设计。
+
+## 11.3 Tool / Renderer
+
+本规范不选择，也不建立任何自动工具路线：
+
+- Graphviz；
+- Mermaid；
+- TikZ；
+- SVG 自动布局；
+- PPT / draw.io 自动布局；
+- 其他 Agent-native diagram engine。
+
+KyMCM Lite 0.9.12 不计划、也不需要新增 flowchart `layout-v1`、`style-v1` 或 `exec-v1` 规范。ChatGPT/Codex 在产出语义节点、边、分支和内容计划后停止；用户/人类作者负责最终布局判断与手工绘制。类型选择始终独立于绘制工具。
+
+---
+
+# 12. Agent 选择输出格式
+
+Agent 在使用本规范后，应至少返回以下语义字段：
+
+```text
+flowchart_needed:
+track:
+type:
+information_goal:
+primary_structure:
+selection_reason:
+upgrade_triggers:
+rejected_alternatives:
+layout_status: human-owned / pending-human
+style_status: human-owned / pending-human
+tool_route_status: none / human-choice
+```
+
+示例：
+
+```text
+flowchart_needed: yes
+track: algorithm
+type: A2 单循环迭代
+information_goal: 解释参数优化过程如何重复更新并在收敛后终止
+primary_structure: single_loop
+selection_reason: 只有一个主要迭代回路和一个核心终止判断
+upgrade_triggers: loop
+rejected_alternatives:
+  - A1：无法表达迭代
+  - A3：不存在嵌套循环或多级迭代控制
+layout_status: human-owned / pending-human
+style_status: human-owned / pending-human
+tool_route_status: none / human-choice
+```
+
+该输出是**语义选择结果**，不是存储状态、manifest 或新的 KyMCM workflow contract。
+
+---
+
+# 13. 验收清单
+
+在接受一个流程图类型选择前，必须确认：
+
+1. 这张图确实需要表达有方向的过程，而不是静态关系；
+2. 已明确区分 Macro 与 Algorithm；
+3. 已选择 M1–M6 或 A1–A6 中的一个主类型；
+4. 所选类型是能够完整表达真实逻辑的最低复杂度类型；
+5. 每一次复杂度升级都有明确真实结构触发；
+6. 没有因为“视觉更高级”而升级；
+7. Macro 与 Algorithm 没有因为“都存在箭头”而混淆；
+8. decision 与 loop 没有混为一谈；
+9. system feedback 与 algorithm iteration 没有混为一谈；
+10. A5/A6 的低证据量已被意识到，不作为默认类型；
+11. 类型选择没有绑定具体 LR/TB/serpentine Layout；
+12. 没有在本阶段决定颜色、字体、节点尺寸或工具；
+13. 若类型边界存在歧义，已记录主信息目标与 rejected alternatives；
+14. 最终选择能用一句话说明“为什么这个类型比更简单类型必要”。
+
+---
+
+# 14. Evidence Summary
+
+## 14.1 Macro
+
+| 类型 | 样本数 | 占 Macro | 证据定位 |
+|---|---:|---:|---|
+| M1 线性/阶段链 | 7 | 17.5% | 基础类型 |
+| M2 多源/多支路汇聚 | 11 | 27.5% | 高频核心类型 |
+| M3 分层分支-汇合 | 6 | 15.0% | 有稳定证据 |
+| M4 阶段分组模块化 | 8 | 20.0% | 高频核心类型 |
+| M5 双通道/对称 | 4 | 10.0% | 条件型 |
+| M6 反馈/循环系统 | 4 | 10.0% | 条件型、低频 |
+
+## 14.2 Algorithm
+
+| 类型 | 样本数 | 占 Algorithm | 证据定位 |
+|---|---:|---:|---|
+| A1 线性顺序 | 6 | 18.2% | 基础类型 |
+| A2 单循环迭代 | 10 | 30.3% | 高频核心类型 |
+| A3 嵌套循环/多判定迭代 | 9 | 27.3% | 高频核心类型 |
+| A4 分支/搜索 | 4 | 12.1% | 条件型 |
+| A5 并行子算法 | 1 | 3.0% | 低证据条件型 |
+| A6 密集判定/调度网络 | 3 | 9.1% | 低频条件型 |
+
+---
+
+# 15. v1 冻结结论
+
+`kymcm-flowchart-selection-v1` 冻结以下结论：
+
+1. 流程图选择首先通过“是否表达有方向过程”资格门槛；
+2. 真正的流程图分为 Macro 与 Algorithm 两条主轨；
+3. Macro 使用 M1–M6 六种主类型；
+4. Algorithm 使用 A1–A6 六种主类型；
+5. 所有类型遵循最低充分结构复杂度原则；
+6. 升级只允许由真实结构需求触发；
+7. A5/A6 保留，但因证据量低不得成为默认升级方向；
+8. 类型选择与 Layout、Style、Tool Route 完全解耦；
+9. 算法流程图不再绑定 two-row serpentine 默认假设；
+10. 若用户/人类作者进行最终布局判断，应继续尊重同一固定 73 幅证据；本规范不因此建立自动 Layout 层或扩大样本；
+11. 后续任何新类型若要进入正式体系，必须有新增证据或现有样本显示当前 12 类无法充分表达，而不能仅由一般流程图知识扩展。
+
+---
+
+## 一句话原则
+
+\[
+\boxed{\text{先确定真实过程结构，再选择最低充分类型；类型负责 WHAT，最终布局与绘制由人负责。}}
+\]

@@ -237,8 +237,8 @@ class LiteFullSpecExportTests(unittest.TestCase):
         document = SPEC.read_text(encoding="utf-8")
         expected = {
             "final_figure_core_rules.md": ("kymcm-flowchart-selection-v1.md", "human author owns final layout", "PDF and PNG"),
-            "kymcm-flowchart-selection-v1.md": ("kymcm-flowchart-selection-v1", "Macro 40", "Algorithm 33"),
-            "kymcm-flowchart-content-v1.md": ("kymcm-flowchart-content-v1", "747 ordinary flow nodes", "no universal Hard Max"),
+            "kymcm-flowchart-selection-v1.md": ("kymcm-flowchart-selection-v1", "Macro / 宏观、高层过程：**40 幅**", "Algorithm / 算法、可执行过程：**33 幅**"),
+            "kymcm-flowchart-content-v1.md": ("kymcm-flowchart-content-v1", "普通节点：747", "# 15. 不设置统一 Hard Max"),
             "final_figure_execution.md": ("kymcm-figure-exec-v1", "save_formal_figure()", "Semantic and visual review"),
             "final_figure_selection.md": ("kymcm-figure-selection-v1", "FIGURE_SELECTION_V1", "visual complexity != information value"),
             "final_figure_style.md": ("F-STANDARD", "FIGURE_STYLE_V1", "600 dpi"),
@@ -254,7 +254,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
                 self.assertIn(phrase, text, f"{name}: {phrase}")
 
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.11\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.12\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True

@@ -7,10 +7,10 @@
 
 ## 0. 使用说明、版本与权威优先级
 
-- Product: `KyMCM Lite`; `VERSION`: `0.9.11`.
+- Product: `KyMCM Lite`; `VERSION`: `0.9.12`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `43`; canonical total bytes: `330622`.
+- Canonical source files: `43`; canonical total bytes: `371538`.
 - Mirror files validated: `28`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
@@ -30,22 +30,22 @@ The complete source text is intentionally long. It is not a summary: each canoni
 
 | No. | canonical path | role | bytes | SHA-256 | mirror path(s) | mirror status |
 |---:|---|---|---:|---|---|---|
-| 1 | `skills/kymcm-lite/VERSION` | `identity` | 7 | `afb95cbb6514aced3e091a5d8e7e017db52ed7b7faa4dbcdce9685a8f4365c09` | — | none |
+| 1 | `skills/kymcm-lite/VERSION` | `identity` | 7 | `71e12a378ec002955b38b9bdfdbc8fda0fd6c2b34a505d24d6288f1e727f5911` | — | none |
 | 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 21189 | `1458ce0fd0eb47825995bd5a2369cb1d4405c9c497d33686fcda7b4767fa0ec0` | — | none |
-| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 28869 | `dda03f063f3009149bcb1820738f6940471ee1226197f56ab01911efe56ced7a` | — | none |
+| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 28869 | `b6d36e5c018b8ea9f42f48ef8fddf174cb34930d0b568959dab599b40c8cb736` | — | none |
 | 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 26971 | `06a7763ee6bd5ddde5f8de850ff9056367c35521acc077c00825621ce49b10c2` | `docs/lite-v3/machine_contract.md` | byte-identical |
 | 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 12151 | `64f88dcff72e3c7f0cfe690adb3b493d4bddfc03fb77e131136330fddf416fcd` | — | none |
 | 6 | `skills/kymcm-lite/references/ai_tool_usage_details.md` | `reference` | 5254 | `891652326b66c909b096b8eec179218cc5f06da0f41ffa11590820cf64460e6e` | `docs/lite-v3/ai_tool_usage_details.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 9747 | `f7666723db4596ac0be0ecea2c93b169b86f4c760fb4c926b496a0b2381f6741` | `docs/lite-v3/appendix_organization.md` | byte-identical |
 | 8 | `skills/kymcm-lite/references/dependency_review.md` | `reference` | 5783 | `4aeac7bd61bd1c70ee2298b6154235743319ca99b76b2988a81e97c7d6d97ffc` | `docs/lite-v3/dependency_review.md` | byte-identical |
 | 9 | `skills/kymcm-lite/references/final_figure_color.md` | `reference` | 9086 | `4ab3e1ec1d24b8c10e4dbe342b9a39690ab4c5c858a8577ecf4cfdea5c61c740` | `docs/lite-v3/final_figure_color.md` | byte-identical |
-| 10 | `skills/kymcm-lite/references/final_figure_core_rules.md` | `reference` | 4517 | `a46db444708cd4f54d9d553b90592afb4e5c3d11b386ceacb9cec0b7183113c6` | `docs/lite-v3/final_figure_core_rules.md` | byte-identical |
+| 10 | `skills/kymcm-lite/references/final_figure_core_rules.md` | `reference` | 4510 | `b9bc74f0fb08ca9f62c975952ea8b39e415f9ff4ef5748200e01bb7103ead571` | `docs/lite-v3/final_figure_core_rules.md` | byte-identical |
 | 11 | `skills/kymcm-lite/references/final_figure_execution.md` | `reference` | 5579 | `2754053656e6ea37cf0949fac9f383720bb8d9cb256be02a866d66e0088d5aa5` | `docs/lite-v3/final_figure_execution.md` | byte-identical |
 | 12 | `skills/kymcm-lite/references/final_figure_selection.md` | `reference` | 17159 | `af352fa284221a140afe417f0adcd4ba9b30197e3fc7dcbbb7d477aad846de51` | `docs/lite-v3/final_figure_selection.md` | byte-identical |
 | 13 | `skills/kymcm-lite/references/final_figure_style.md` | `reference` | 12255 | `381d1cb068954baa6417408ba492cf07bae9cae7262bd78f1aedcab343080c4d` | `docs/lite-v3/final_figure_style.md` | byte-identical |
 | 14 | `skills/kymcm-lite/references/final_figure_typography.md` | `reference` | 9081 | `7399a5545ded173ad12543b6d155ceb9ee233ce42c0c76e7c3bec03c5e48ee21` | `docs/lite-v3/final_figure_typography.md` | byte-identical |
-| 15 | `skills/kymcm-lite/references/kymcm-flowchart-content-v1.md` | `reference` | 6492 | `0c89a73a4f8d47994232382f23f3cfe71a4d053e91fb7cb35512ab1d89f4bf84` | `docs/lite-v3/kymcm-flowchart-content-v1.md` | byte-identical |
-| 16 | `skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md` | `reference` | 5064 | `22aa390fd9a88f745f56e66b6c74063baf24ab88f7eddec61f6aab8b9a11e834` | `docs/lite-v3/kymcm-flowchart-selection-v1.md` | byte-identical |
+| 15 | `skills/kymcm-lite/references/kymcm-flowchart-content-v1.md` | `reference` | 25657 | `76ab7bf49300320ca72f8b0d168a89b9600bb95fb2dc275f91b7182d5b4a91f9` | `docs/lite-v3/kymcm-flowchart-content-v1.md` | byte-identical |
+| 16 | `skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md` | `reference` | 25128 | `b04aec1f1bee4245c96e173159adc15f5300513a1a0e1cdba6c743237568c610` | `docs/lite-v3/kymcm-flowchart-selection-v1.md` | byte-identical |
 | 17 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
 | 18 | `skills/kymcm-lite/references/modeling_plan_design.md` | `reference` | 17746 | `b90c4689fc87e75c7a853441e39b620c3cbc4676ad185bd38a6ac06cee4ae2ed` | `docs/lite-v3/modeling_plan_design.md` | byte-identical |
 | 19 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5995 | `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
@@ -64,15 +64,15 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 32 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
 | 33 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
 | 34 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 1790 | `b0a90bef8f69ee4914aff703734be59f18c49605ed28300834e628a59d5934c2` | — | none |
-| 35 | `skills/kymcm-lite/README.md` | `product-documentation` | 7667 | `0722c558f6c049f21fbd7868863af9b970b02b0ccc9dc472ddf07024a9200240` | — | none |
-| 36 | `docs/compatibility.md` | `product-documentation` | 6603 | `db062873dfc366718e0fd272583479146056a8d55558d0c04b317ef08ef52f08` | — | none |
-| 37 | `docs/installation.md` | `product-documentation` | 3821 | `2df070a3be5739eab7e46fba03c6a93b81255091764331c81550b43246072426` | — | none |
-| 38 | `docs/known-limitations.md` | `product-documentation` | 6235 | `c8099d2099abfd205b3eb359048c3e303c1c9a73733139c2458a7261c9e6245c` | — | none |
-| 39 | `docs/lite-v3-rfc.md` | `product-documentation` | 18588 | `09caf521745efffedd44aedc01265aa409c3872a6f914d2880d8688ff902052f` | — | none |
-| 40 | `docs/lite-v3-release-notes.md` | `product-documentation` | 22202 | `08ce412da120ec28f1a8ea0f588b425a1288b8e81ebe020a1227d05b6ae03a58` | — | none |
-| 41 | `docs/release-checklist.md` | `repository-maintenance` | 8667 | `fc14eb109037628a18722aacc3df36db3418a27f9a2ad40bd3ca79d65c694d65` | — | none |
+| 35 | `skills/kymcm-lite/README.md` | `product-documentation` | 7667 | `58401305f501273859b40f32bdcebeb990bf82077c874c4bdf76a7c003c16897` | — | none |
+| 36 | `docs/compatibility.md` | `product-documentation` | 6603 | `77c38f4c97e827a707a20295a97f4829022b83b5ce9d19c5c78c3117d75756e0` | — | none |
+| 37 | `docs/installation.md` | `product-documentation` | 3838 | `61974ff416c505b173ae0bb54a675e6507f7233a12a6e80d8bca6f90f51a9384` | — | none |
+| 38 | `docs/known-limitations.md` | `product-documentation` | 6235 | `72ac27c93a9e0cda6c34b48ee78e6fd1dc62f242579e3069ef6891c60ac0ce0b` | — | none |
+| 39 | `docs/lite-v3-rfc.md` | `product-documentation` | 18588 | `b790e28faa04cdb6ac54fad5863a34384c7472639c58a2ce329995f5c90d9d9f` | — | none |
+| 40 | `docs/lite-v3-release-notes.md` | `product-documentation` | 23879 | `36e6d92c5628f94da14aea7c54a3243c8968c2b8c4c369fdde3227f7e9e200fd` | — | none |
+| 41 | `docs/release-checklist.md` | `repository-maintenance` | 8667 | `a76c7a71c0f1c1fde2ca2d43293d480a5bf9fb7f0c6fa280baccd816374c8f7e` | — | none |
 | 42 | `docs/system-dependencies.md` | `repository-maintenance` | 1672 | `dfdc24f78c5e0f31de5fae7b8f48922d40ccdb22df868440c9d58f4100e4bb71` | — | none |
-| 43 | `README.md` | `product-documentation` | 4910 | `86b2ef303fda22d4cb594dddae10e0a4e8e10e41518fb2101b502944b1e4964a` | — | none |
+| 43 | `README.md` | `product-documentation` | 4910 | `a18adf58c630bdeabfdf0149598f81b58a13d3533a237a1d834df549792438bb` | — | none |
 
 ## 2. Core skill
 
@@ -81,7 +81,7 @@ Role: `identity`
 Authority: runtime identity
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
-0.9.11
+0.9.12
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
 
 
@@ -191,7 +191,7 @@ Authority: Lite protocol
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.9.11 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested data-driven figures through the existing evidence-triggered selection and fail-closed Matplotlib executor, explicitly requested flowcharts through evidence-derived type/content specifications with human-owned final layout, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.9.12 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested data-driven figures through the existing evidence-triggered selection and fail-closed Matplotlib executor, explicitly requested flowcharts through evidence-derived type/content specifications with human-owned final layout, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## External complete specification export
 
@@ -432,7 +432,7 @@ The fixed current tool/model rows are ChatGPT/GPT-5.6 Thinking and Codex CLI/GPT
 
 The Lite v3 marker, eight public commands, all START/RESULT/PRE/HANDOFF/APPENDIX headings, base START/RESULT single/split identities, partial split legality, dependency token grammar, evidence scope, figure workspace, and appendix whitelist grammar remain unchanged. Existing 0.8.1 workspaces need not create Supplement files. Supplement names do not participate in base discovery. Existing user-created same-name files receive no automatic migration. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes. Historical plotting code and legacy content are not moved.
 
-Lite 0.9.11 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, exact physical per-glyph font-file routing, final flowchart layout quality, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning or solvers as a runtime service; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics without applying the documented selection hierarchy; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure checker command, flowchart executor/layout engine, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Data-figure selection remains semantic agent/human review under `references/final_figure_selection.md`; `figure_exec.py` enforces its unchanged documented machine-safe rules, while ChatGPT/user retains semantic and visual acceptance. Flowcharts use the two flowchart references and stop before human-owned final layout. XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
+Lite 0.9.12 does not validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, exact physical per-glyph font-file routing, final flowchart layout quality, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning or solvers as a runtime service; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics without applying the documented selection hierarchy; silently retrain for graphics; add a Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure checker command, flowchart executor/layout engine, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Data-figure selection remains semantic agent/human review under `references/final_figure_selection.md`; `figure_exec.py` enforces its unchanged documented machine-safe rules, while ChatGPT/user retains semantic and visual acceptance. Flowcharts use the two flowchart references and stop before human-owned final layout. XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 
 
@@ -1467,7 +1467,7 @@ A requested macro or algorithm flowchart is not selected by `final_figure_select
 3. ChatGPT or Codex may produce the semantic plan: selected type, nodes, roles, labels, directed connections and branch meanings, stage or subprocess semantics, and content-budget review.
 4. Stop before final spatial layout. The user/human author owns final layout judgment and manual drawing.
 
-KyMCM Lite 0.9.11 provides no fixed macro grid, default algorithm serpentine, automatic layout engine, renderer/tool route, or active flowchart symbol-family hard rule. Data-driven Pt2 style, Pt3 color, typography, and `figure_exec.py` rules do not silently apply to manually drawn flowcharts.
+KyMCM Lite provides no fixed macro grid, default algorithm serpentine, automatic layout engine, renderer/tool route, or active flowchart symbol-family hard rule. Data-driven Pt2 style, Pt3 color, typography, and `figure_exec.py` rules do not silently apply to manually drawn flowcharts.
 
 ## Review gate
 
@@ -2238,111 +2238,657 @@ Role: `reference`
 Authority: specialized reference
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/kymcm-flowchart-content-v1.md -->
-# KyMCM Lite flowchart content specification
+# `kymcm-flowchart-content-v1`
 
-Identifier: `kymcm-flowchart-content-v1`
+> **KyMCM Lite 流程图内容容量与节点文本规范 v1**
+> 上游：`kymcm-flowchart-selection-v1`
+> 证据基线：固定 73 幅 strict CUMCM 流程图 / 747 个普通流程节点 / 726 个可测文本节点。
+> 职责：回答 **HOW MUCH INFORMATION**——类型选定后，一张流程图应承载多少节点、节点写多少文字、何时应压缩、拆阶段、抽 subprocess 或返回 selection 复核。
+> 规范源：`skills/kymcm-lite/references/kymcm-flowchart-content-v1.md`；其仓库镜像 `docs/lite-v3/kymcm-flowchart-content-v1.md` 必须保持字节一致。
+> 本规范通过后不进入自动 KyMCM 布局阶段；最终空间布局、几何、走线与绘制由用户/人类作者负责（**human-owned**）。
 
-## Authority and evidence
+---
 
-This is KyMCM Lite's evidence-derived **HOW MUCH INFORMATION** authority downstream of `kymcm-flowchart-selection-v1`. Its byte-identical repository mirror is `docs/lite-v3/kymcm-flowchart-content-v1.md`. It governs semantic node roles, node count, node-text density, line count, and overload restructuring. Its authority ends before final geometry and drawing.
+# 0. 职责边界
 
-The fixed census contains 73 strict flowcharts, 747 ordinary flow nodes, and 18 container titles counted separately. Text was reliably measurable for 726 ordinary nodes; 21 unlabeled or unreliably legible ordinary nodes are excluded from text-length distributions. Figure-level confidence is high 58 / medium 13 / low 2.
+职责链保持单一边界：
+
+```text
+selection-v1 → WHAT / WHEN
+content-v1   → HOW MUCH INFORMATION
+human/user   → final layout / geometry / routing / drawing
+```
+
+因此 `content-v1`：
+
+- 不重新选择 M1–M6 / A1–A6；
+- 可以要求“返回 selection 复核”，但不得静默改类型；
+- 不规定 TB/LR、坐标、lane、edge routing；
+- 不规定字体、颜色、边框、箭头；
+- 不允许以缩小字号或压缩几何间距来掩盖内容过载；
+- 不创建或调用 flowchart `layout-v1`、`style-v1`、`exec-v1`、渲染器或自动布局工具路线。
+
+---
+
+# 1. Evidence Base
+
+- 固定样本：73 幅，不扩大语料；
+- Macro：40 幅；Algorithm：33 幅；
+- 普通节点：747；
+- Container title：18，独立统计，不计入普通节点数；
+- 可测文本节点：726；
+- 21 个节点因无标签或无法可靠辨认，不进入字数分布；
+- Figure-level 置信度：high 58 / medium 13 / low 2。
+
+节点恒等式：
 
 ```text
 node_count_total
 = process + decision + terminal + io + subprocess + other_node
 ```
 
-Container titles are separate from `node_count_total`.
+---
 
-## Evidence interpretation
+# 2. 规范语言
 
-- **Typical Range = Q1–Q3**, not a hard allowed interval.
-- `N > type_Q3` is a node-count review trigger, not failure.
-- Role text longer than Q3 triggers long-node/content review.
-- Role text longer than P90 is a long-tail node when the evidence is sufficient.
-- Strong Overload requires both structural-capacity pressure and text-density pressure.
-- There is **no universal Hard Max** in v1.
+## 2.1 Typical Range
 
-A5 and A6 have low evidence. Their sparse or high-density observations are descriptive only and must not become automatic recommended targets or hard limits.
+定义为固定样本的 **Q1–Q3**，即中间 50% 经验区间。Typical 是默认参考，不是硬允许区间。
 
-## Content principles
+## 2.2 Review Trigger
 
-1. Use minimum sufficient information: a node contains only what is needed to understand process semantics.
-2. One ordinary node expresses one principal action, state, or condition.
-3. Explanatory prose belongs in the paper body when removing it does not alter process semantics.
-4. Exchange complexity budgets: more nodes generally requires shorter node text; fewer nodes can tolerate somewhat longer text.
-5. Compress text and content before layout. Never solve content overload by shrinking fonts, padding, or spacing.
-6. Ordinary nodes prefer 1–2 text lines. Repeated ordinary nodes with at least 3 lines trigger density review; they are not automatically invalid.
+当 `node_count > type_Q3` 或节点文本超过相应 role 的 Q3 时触发 review。超过 Q3 的含义是“高于该类型常见区间上界”，不是“错误”。
 
-Measured ordinary-node lines are approximately 1 line 63.5%, 2 lines 24.7%, and at least 3 lines 11.8%; median = 1 line and Q3 = 2 lines.
+## 2.3 Long-tail Node
 
-## Cross-type role fallbacks
+当 role 证据足够且单节点文字 `L > type_role_P90` 时，标记 `long-tail-node`，优先检查：压缩短语、移正文、拆真实步骤、抽 subprocess。
 
-- Macro process text is generally short, but a supported M-type profile takes priority over the pooled fallback.
-- Core Algorithm A2–A4 process text is approximately 5–12 visible characters with a center around 8.
-- Core Algorithm A2–A4 decision text is approximately 6–10 visible characters, with P90 about 13. A decision is a short condition, not a paragraph.
-- Terminals are very short, typically “开始” or “结束”. A terminal carrying extensive output semantics should be reconsidered.
-- Container-title guidance derives from the 18 observed titles; it is not an intuition-based fixed tiny range.
+## 2.4 Strong Overload Candidate
 
-## Type-specific evidence profiles
-
-Exact quartiles remain visible; rounded bands are only explanatory approximations.
-
-| Type | Figures | Node Q1 / median / Q3 / P90 / max | Process n; Q1 / median / Q3 / P90 | Decision n; Q1 / median / Q3 / P90 | >=3 lines |
-|---|---:|---|---|---|---:|
-| M1 | 7 | 5 / 6 / 7.5 / 10.4 / 14 | 37; 4 / 6 / 8 / 16.4 | — | 2.1% |
-| M2 | 11 | 6 / 7 / 8 / 10 / 10 | 62; 5 / 8 / 11.75 / 19 | — | 23.5% |
-| M3 | 6 | 10.25 / 11.5 / 14.25 / 16.5 / 18 | 55; 3 / 4 / 6 / 8 | — | 0% |
-| M4 | 8 | 12 / 14 / 19 / 22.3 / 30 | 100; 2 / 3 / 6 / 15 | 4; 14 / 16.5 / 22.25 / 28.1 (insufficient for a stable type-specific decision rule) | 4.8% |
-| M5 | 4 | 9.5 / 10.5 / 11 / 11 / 11 | 29; 4 / 6 / 11 / 14.2 | — | 0% |
-| M6 | 4 | 5.25 / 7.5 / 10 / 11.8 / 13 | 29; 4 / 6 / 16 / 24.4 | — | 6.5% |
-| A1 | 6 | 5 / 5.5 / 6.75 / 8 / 9 | 28; 10.75 / 12.5 / 18.25 / 21.9 | — | 2.7% |
-| A2 | 10 | 7 / 7.5 / 9 / 10 / 10 | 52; 5 / 7 / 12 / 18.9 | 15; 7 / 7 / 10.5 / 12.2 | 10.1% |
-| A3 | 9 | 11 / 12 / 13 / 15 / 15 | 56; 3 / 8.5 / 13.5 / 24.5 | 26; 7 / 8 / 10 / 14 | 5.5% |
-| A4 | 4 | 8.5 / 9.5 / 11.75 / 14.9 / 17 | 23; 7.5 / 9 / 11 / 12.8 | 9; 4 / 6 / 8 / 12.8 | 2.3% |
-| A5 | 1 — LOW EVIDENCE, descriptive only | 19 / 19 / 19 / 19 / 19 | 11; 7 / 8 / 11.5 / 31 | 6; 6.25 / 7.5 / 11 / 17.5 | 0% |
-| A6 | 3 — LOW EVIDENCE, descriptive only | 18.5 / 20 / 22 / 23.2 / 24 | 37; 17 / 24 / 31 / 40.8 | 21; 11 / 11 / 20 / 20 | 75.4% |
-
-## Evidence-aware overload policy
+仅当**结构容量与文本容量同时偏高**时进入 strong overload：
 
 ```text
-node-count-review:
-  N > type_Q3
-
-process-density-review:
-  median_process_text > type_process_Q3   (when supported)
-
-decision-density-review:
-  median_decision_text > applicable_decision_Q3  (when supported)
-
-multiline-density-review:
-  repeated ordinary nodes with >=3 lines
-
-strong-overload:
-  node-count-review
-  AND
-  (process-density-review OR decision-density-review)
+node_count > type_Q3
+AND
+(
+  median_process_text > type_process_Q3
+  OR
+  median_decision_text > applicable_decision_Q3
+)
 ```
 
-Strong Overload triggers semantic restructuring review, not automatic failure.
+反复出现 ≥3 行普通节点是附加增强信号，但本 v1 不把其设为硬失败条件。
 
-## Restructuring order
+---
 
-1. Remove explanatory prose or return it to body text.
-2. Compress labels to short noun, verb–object, or condition phrases.
-3. When one node contains multiple real sequential actions, split it into real nodes.
-4. When several nodes form a meaningful named local process, extract a `subprocess` and optionally a local subflow.
-5. When true stage boundaries exist, return to selection review for M4. Never invent stage groups merely to fit the page.
-6. When overload exposes omitted structural semantics, return to selection-v1; for example M2→M3, A2→A3, or A3/A4→A6 only when genuinely required.
-7. If the type remains correct and all semantics are necessary, use an overview plus a local subflow.
-8. Only after the content audit passes does the human handle final layout and drawing.
+# 3. Evidence Strength
 
-A stage requires a real functional or semantic boundary. A subprocess requires a real encapsulatable process, not a hiding mechanism. Splitting into two diagrams requires Strong Overload or an independently meaningful local subflow, not arbitrary page cutting.
+本规范内部使用：
 
-## Human-owned layout boundary
+```text
+High   : 同类型 >= 6 幅图
+Medium : 同类型 4–5 幅图
+Low    : 同类型 <= 3 幅图
+```
 
-This specification may output the node list, roles, labels, directed connections and branch meanings, semantic groupings, stage or subprocess semantics, content-budget status, and overload actions. It must stop before orientation, coordinates, node dimensions, lane positions, edge bends, font size, visual style, or renderer parameters. Final spatial layout and manual drawing are owned by the user/human author.
+角色级文字规范还要求可测节点来自多个样本。因此：
+
+- A2/A3 Decision 可形成类型特异 recommendation；
+- A4 Decision 作为 Medium preference；
+- Macro Decision 证据总体不足，不冻结统一 Macro decision 阈值；
+- A5/A6 类型数值仅作描述，不进入稳定自动阈值。
+
+---
+
+# 4. 核心原则
+
+## 4.1 最低充分信息
+
+流程图只保留理解过程结构所必需的信息。若一句解释删除后不改变流程顺序、分支、迭代、阶段、输入输出语义，则优先留在正文。
+
+## 4.2 复杂度预算交换
+
+固定样本支持：
+
+**节点越多，单节点文字通常越短；节点越少，单节点可以稍长。**
+
+典型对照：
+
+- M3 分层分支-汇合：节点数 Q1–Q3 = 10.2–14.2；Process Q1–Q3 = 3–6 字。
+- M4 阶段分组模块化：节点数 Q1–Q3 = 12–19；Process Q1–Q3 = 2–6 字。
+- A1 线性顺序：节点数 Q1–Q3 = 5–6.8；Process Q1–Q3 = 10.8–18.2 字。
+
+因此禁止：节点很多 → 继续写完整句 → 再缩小字号硬塞。
+
+正确顺序：
+
+```text
+删冗余解释
+→ 改为短语
+→ 移正文
+→ 抽 subprocess / Stage
+→ 必要时拆图或返回 selection 复核
+→ 最后才交给用户/人类作者做最终布局
+```
+
+## 4.3 一个节点一个主要语义单元
+
+推荐：`计算适应度`、`更新粒子位置`、`是否满足收敛条件？`。
+
+不推荐把多个具有真实先后关系的动作压进一个长句节点。
+
+---
+
+# 5. 字数与行数口径
+
+## 5.1 `char_count_raw`
+
+本规范主指标：汉字、英文字母、数字、可见标点、数学符号各按 1；空格与换行不计。本文所称“字数”均指该指标。
+
+## 5.2 `char_count_cjk_equiv`
+
+仅作为用户/人类作者进行最终布局时的近似宽度信号，不用于本规范主要语义阈值。
+
+## 5.3 行数
+
+726 个可测普通节点中：1 行 68.0%，2 行 19.6%，≥3 行 12.4%；median = 1 行，Q3 = 2 行，P90 = 3 行。
+
+因此冻结：**普通节点优先 1–2 行。** ≥3 行不是自动错误，但反复出现时进入 `multiline-density-review`。
+
+---
+
+# 6. 跨类型节点角色规范
+
+## 6.1 Process
+
+Macro pooled process（n=312）：Q1/median/Q3/P90 = 3/5/9/16 字。
+
+常规 Algorithm A2–A4 process（n=131）：Q1/median/Q3/P90 = 5/8/12/23 字。
+
+因此 A2–A4 的跨类型 fallback 是 **约 5–12 字，中心约 8 字**。若类型自身有 High/Medium 证据，优先类型特异 profile。
+
+## 6.2 Decision
+
+A2–A4 decision（n=50）：Q1/median/Q3/P90 = 6/8/10/13 字。
+
+因此常规算法 Decision fallback：**约 6–10 字；超过 P90≈13 字进入强压缩复核。**
+
+Decision 应写短条件，不写完整推理说明。Macro decision 证据不足，不直接套用为 Macro 的统计结论。
+
+## 6.3 Terminal
+
+Terminal（n=39）：Q1/median/Q3 = 2/2/2 字，主要来自“开始/结束”。
+
+因此 Terminal 应保持极短；若终点承担大量输出说明，应检查它是否其实属于 `io` 或 `process`。
+
+## 6.4 Container Title
+
+Container title（n=18）：Q1/median/Q3/P90/max = 6/6.5/8/8/12 字。
+
+Evidence-derived typical band：**约 6–8 字**。
+
+---
+
+# 7. 类型统计总表
+
+| 类型 | n图 | 证据 | 节点数 Q1–Q3 | Process Q1–Q3 | Decision Q1–Q3 | ≥3行 |
+|---|---:|---|---|---|---|---:|
+| M1 线性/阶段链 | 7 | High | 5–7.5 | 4–8 (n=37) | 6–6 (n=1) | 2.1% |
+| M2 多源/多支路汇聚 | 11 | High | 6–8 | 5–11.8 (n=62) | —–— (n=0) | 23.5% |
+| M3 分层分支-汇合 | 6 | High | 10.2–14.2 | 3–6 (n=55) | 6–6 (n=1) | 0.0% |
+| M4 阶段分组模块化 | 8 | High | 12–19 | 2–6 (n=100) | 14–22.2 (n=4) | 4.8% |
+| M5 双通道/对称 | 4 | Medium | 9.5–11 | 4–11 (n=29) | —–— (n=0) | 0.0% |
+| M6 反馈/循环系统 | 4 | Medium | 5.2–10 | 4–16 (n=29) | —–— (n=0) | 6.5% |
+| A1 线性顺序 | 6 | High | 5–6.8 | 10.8–18.2 (n=28) | —–— (n=0) | 2.7% |
+| A2 单循环迭代 | 10 | High | 7–9 | 5–12 (n=52) | 7–10.5 (n=15) | 10.1% |
+| A3 嵌套循环/多判定迭代 | 9 | High | 11–13 | 3–13.5 (n=56) | 7–10 (n=26) | 5.5% |
+| A4 分支/搜索 | 4 | Medium | 8.5–11.8 | 7.5–11 (n=23) | 4–8 (n=9) | 2.3% |
+| A5 并行子算法 | 1 | Low | 19–19 | 7–11.5 (n=11) | 6.2–11 (n=6) | 0.0% |
+| A6 密集判定/调度网络 | 3 | Low | 18.5–22 | 17–31 (n=37) | 11–20 (n=21) | 75.4% |
+
+说明：A5/A6 的分位数只描述固定样本，不自动转为规范阈值。
+
+---
+
+# 8. Type-Specific Profiles
+
+## M1 线性/阶段链
+
+**图级证据：7 幅；Evidence=High。**
+
+- Node count：Q1=5，median=6，Q3=7.5，P90=10.4，observed max=14。
+- 可读 typical band：**约 5–8 个普通节点**。
+- Node-count review trigger：**N > 8**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=37，覆盖 6 幅；Q1/median/Q3/P90 = 4/6/8/16.4 字。
+- Process typical：**约 4–8 字**；>Q3≈8 记 `long-node`；>P90≈16.4 记 `long-tail-node`。
+- Decision：可测 n=1，覆盖 1 幅；证据不足以建立稳定类型特异阈值。
+- 行数分布：1 行 66.7% / 2 行 31.2% / ≥3 行 2.1%。
+
+**重构规则：**
+- 若节点数超过 typical 上界但流程仍完全线性，先压缩文本或交给用户/人类作者处理长链布局；不要为了少节点伪造阶段。
+- 若增长来自真实阶段边界，返回 selection 复核 M4；来自并行汇聚，复核 M2/M3。
+
+## M2 多源/多支路汇聚
+
+**图级证据：11 幅；Evidence=High。**
+
+- Node count：Q1=6，median=7，Q3=8，P90=10，observed max=10。
+- 可读 typical band：**约 6–8 个普通节点**。
+- Node-count review trigger：**N > 8**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=62，覆盖 11 幅；Q1/median/Q3/P90 = 5/8/11.8/19 字。
+- Process typical：**约 5–12 字**；>Q3≈11.8 记 `long-node`；>P90≈19 记 `long-tail-node`。
+- Decision：无足够类型特异证据。
+- 行数分布：1 行 56.8% / 2 行 19.8% / ≥3 行 23.5%。
+
+**重构规则：**
+- 节点偏高但文字短时，优先由 fan-in / merge 结构承载。
+- 若每个支路内部继续多层展开，返回 selection 复核 M3；若节点与文字同时偏高，拆支路内部说明。
+
+## M3 分层分支-汇合
+
+**图级证据：6 幅；Evidence=High。**
+
+- Node count：Q1=10.2，median=11.5，Q3=14.2，P90=16.5，observed max=18。
+- 可读 typical band：**约 10–14 个普通节点**。
+- Node-count review trigger：**N > 15**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=55，覆盖 6 幅；Q1/median/Q3/P90 = 3/4/6/8 字。
+- Process typical：**约 3–6 字**；>Q3≈6 记 `long-node`；>P90≈8 记 `long-tail-node`。
+- Decision：可测 n=1，覆盖 1 幅；证据不足以建立稳定类型特异阈值。
+- 行数分布：1 行 73.6% / 2 行 26.4% / ≥3 行 0.0%。
+
+**重构规则：**
+- 该类型的稳定组合是“较多节点 + 极短 process”；复杂性主要由层级承载。
+- 若节点与文字同时超过 typical 上界，优先拆子层级、移正文或抽 subprocess。
+
+## M4 阶段分组模块化
+
+**图级证据：8 幅；Evidence=High。**
+
+- Node count：Q1=12，median=14，Q3=19，P90=22.3，observed max=30。
+- 可读 typical band：**约 12–19 个普通节点**。
+- Node-count review trigger：**N > 19**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=100，覆盖 8 幅；Q1/median/Q3/P90 = 2/3/6/15 字。
+- Process typical：**约 2–6 字**；>Q3≈6 记 `long-node`；>P90≈15 记 `long-tail-node`。
+- Decision：可测 n=4，覆盖 4 幅；证据不足以建立稳定类型特异阈值。
+- 行数分布：1 行 89.7% / 2 行 5.6% / ≥3 行 4.8%。
+- Container title pooled typical：**约 6–8 字**。
+
+**重构规则：**
+- M4 是高节点容量类型，节点多本身不是错误，前提是真实 Stage 吸收复杂度。
+- 若某 Stage 内部持续出现长节点，应拆该 Stage 的局部过程，而不是继续增加外层 Stage。
+- 不存在真实阶段边界时，不得为排版虚构 Stage。
+
+## M5 双通道/对称
+
+**图级证据：4 幅；Evidence=Medium。**
+
+- Node count：Q1=9.5，median=10.5，Q3=11，P90=11，observed max=11。
+- 可读 typical band：**约 10–11 个普通节点**。
+- Node-count review trigger：**N > 11**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=29，覆盖 4 幅；Q1/median/Q3/P90 = 4/6/11/14.2 字。
+- Process typical：**约 4–11 字**；>Q3≈11 记 `long-node`；>P90≈14.2 记 `long-tail-node`。
+- Decision：无足够类型特异证据。
+- 行数分布：1 行 75.0% / 2 行 25.0% / ≥3 行 0.0%。
+
+**重构规则：**
+- 两条 lane 应保持相近语义粒度；若只是普通多支路而无对应语义，返回 selection 复核 M2。
+- 若单个 lane 自身变成复杂算法，优先拆为独立子图。
+
+## M6 反馈/循环系统
+
+**图级证据：4 幅；Evidence=Medium。**
+
+- Node count：Q1=5.2，median=7.5，Q3=10，P90=11.8，observed max=13。
+- 可读 typical band：**约 5–10 个普通节点**。
+- Node-count review trigger：**N > 10**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=29，覆盖 4 幅；Q1/median/Q3/P90 = 4/6/16/24.4 字。
+- Process typical：**约 4–16 字**；>Q3≈16 记 `long-node`；>P90≈24.4 记 `long-tail-node`。
+- Decision：无足够类型特异证据。
+- 行数分布：1 行 90.3% / 2 行 3.2% / ≥3 行 6.5%。
+
+**重构规则：**
+- 图级证据仅 4 幅且 process 分布很宽，不把较长 process 当推荐常态。
+- 若反馈环包围大量正文式节点，优先抽局部 subprocess；若核心其实是迭代控制，返回 selection 复核 A2/A3。
+
+## A1 线性顺序
+
+**图级证据：6 幅；Evidence=High。**
+
+- Node count：Q1=5，median=5.5，Q3=6.8，P90=8，observed max=9。
+- 可读 typical band：**约 5–7 个普通节点**。
+- Node-count review trigger：**N > 7**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=28，覆盖 6 幅；Q1/median/Q3/P90 = 10.8/12.5/18.2/21.9 字。
+- Process typical：**约 11–18 字**；>Q3≈18.2 记 `long-node`；>P90≈21.9 记 `long-tail-node`。
+- Decision：无足够类型特异证据。
+- 行数分布：1 行 62.2% / 2 行 27.0% / ≥3 行 2.7%。
+
+**重构规则：**
+- A1 允许“少节点、稍长 process”，但仍不应写成正文段落。
+- 若出现真实循环，复核 A2；出现分支主导，复核 A4；不要用无限延长 A1 表达控制流。
+
+## A2 单循环迭代
+
+**图级证据：10 幅；Evidence=High。**
+
+- Node count：Q1=7，median=7.5，Q3=9，P90=10，observed max=10。
+- 可读 typical band：**约 7–9 个普通节点**。
+- Node-count review trigger：**N > 9**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=52，覆盖 10 幅；Q1/median/Q3/P90 = 5/7/12/18.9 字。
+- Process typical：**约 5–12 字**；>Q3≈12 记 `long-node`；>P90≈18.9 记 `long-tail-node`。
+- Decision：n=15，覆盖 10 幅；typical **约 7–10 字**；P90≈12.2。
+- 行数分布：1 行 70.9% / 2 行 19.0% / ≥3 行 10.1%。
+- A2 Decision recommendation：约 7–10 字；>P90≈12 字进入强压缩复核。
+
+**重构规则：**
+- A2 典型节点预算稳定；明显超过 typical 上界时检查是否隐藏了第二层循环或把步骤切得过细。
+- 真实内外层循环/多级终止控制 → 返回 selection 复核 A3；仅文字过长 → 保持 A2 并压缩文案。
+
+## A3 嵌套循环/多判定迭代
+
+**图级证据：9 幅；Evidence=High。**
+
+- Node count：Q1=11，median=12，Q3=13，P90=15，observed max=15。
+- 可读 typical band：**约 11–13 个普通节点**。
+- Node-count review trigger：**N > 13**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=56，覆盖 9 幅；Q1/median/Q3/P90 = 3/8.5/13.5/24.5 字。
+- Process typical：**约 3–14 字**；>Q3≈13.5 记 `long-node`；>P90≈24.5 记 `long-tail-node`。
+- Decision：n=26，覆盖 9 幅；typical **约 7–10 字**；P90≈14。
+- 行数分布：1 行 81.8% / 2 行 12.7% / ≥3 行 5.5%。
+- A3 Decision recommendation：约 7–10 字；>P90≈14 字进入强压缩复核。
+
+**重构规则：**
+- A3 可承载更多节点，但 decision 仍应短；复杂控制流不能通过长判断句表达。
+- 若嵌套循环可消去而不丢语义，复核 A2；若已变成密集调度网络，最后才复核 A6。
+
+## A4 分支/搜索
+
+**图级证据：4 幅；Evidence=Medium。**
+
+- Node count：Q1=8.5，median=9.5，Q3=11.8，P90=14.9，observed max=17。
+- 可读 typical band：**约 8–12 个普通节点**。
+- Node-count review trigger：**N > 12**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=23，覆盖 4 幅；Q1/median/Q3/P90 = 7.5/9/11/12.8 字。
+- Process typical：**约 8–11 字**；>Q3≈11 记 `long-node`；>P90≈12.8 记 `long-tail-node`。
+- Decision：n=9，覆盖 3 幅；typical **约 4–8 字**；P90≈12.8。
+- 行数分布：1 行 46.5% / 2 行 51.2% / ≥3 行 2.3%。
+- A4 Decision preference：约 4–8 字；Evidence=Medium。
+
+**重构规则：**
+- Decision 应比 process 更短，搜索/分支语义优先由拓扑表达。
+- 若分支内部发展成长期迭代，复核 A2/A3；若成为高密调度网络，再复核 A6。
+
+## A5 并行子算法
+
+**图级证据：1 幅；Evidence=Low。**
+
+- Node count：Q1=19，median=19，Q3=19，P90=19，observed max=19。
+- 可读 typical band：**约 19–19 个普通节点**。
+- Node-count review trigger：**N > 19**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=11，覆盖 1 幅；Q1/median/Q3/P90 = 7/8/11.5/31 字。
+- Process 数值仅作描述，不冻结类型特异阈值。
+- Decision：可测 n=6，覆盖 1 幅；证据不足以建立稳定类型特异阈值。
+- 行数分布：1 行 100.0% / 2 行 0.0% / ≥3 行 0.0%。
+
+**重构规则：**
+- 只有 1 幅主证据；当前数值仅描述，不形成类型特异自动阈值。
+- 若某个 lane 内部本身复杂，应拆成独立子图；不得从 n=1 的分位数制造硬规范。
+
+## A6 密集判定/调度网络
+
+**图级证据：3 幅；Evidence=Low。**
+
+- Node count：Q1=18.5，median=20，Q3=22，P90=23.2，observed max=24。
+- 可读 typical band：**约 18–22 个普通节点**。
+- Node-count review trigger：**N > 22**；A5/A6 仅描述，不用于稳定自动阈值。
+- Process：n=37，覆盖 3 幅；Q1/median/Q3/P90 = 17/24/31/40.8 字。
+- Process 数值仅作描述，不冻结类型特异阈值。
+- Decision：可测 n=21，覆盖 3 幅；证据不足以建立稳定类型特异阈值。
+- 行数分布：1 行 0.0% / 2 行 24.6% / ≥3 行 75.4%。
+
+**重构规则：**
+- 仅 3 幅主证据，且节点数、文字长度、多行率都高；这是高密度现实，不是推荐 target。
+- A6 是最后选择项；若可拆成 A2/A3/A4 + subprocess，应优先拆解。
+
+---
+
+# 9. Overload Detection
+
+## 9.1 Node-count
+
+对 High/Medium 类型：
+
+```text
+N < Q1          → compact / below-typical
+Q1 <= N <= Q3  → typical
+N > Q3          → node-count-review
+```
+
+A5/A6 只报告观察值，不执行稳定 type-specific 自动阈值。
+
+## 9.2 Per-node text
+
+证据充分时：
+
+```text
+L <= Q3         → typical-or-compact
+Q3 < L <= P90  → long-node
+L > P90         → long-tail-node
+```
+
+Q1 以下不算问题；本规范防止信息过载，不要求节点达到最低字数。
+
+## 9.3 Figure text density
+
+```text
+median_process_text > type_process_Q3
+→ process-density-review
+
+median_decision_text > applicable_decision_Q3
+→ decision-density-review
+
+多个普通节点 >=3 行
+→ multiline-density-review
+```
+
+## 9.4 Strong overload
+
+```text
+node-count-review
+AND
+(process-density-review OR decision-density-review)
+```
+
+Strong overload 进入重构决策，不自动失败。
+
+---
+
+# 10. 过载重构决策树
+
+```text
+发现 content overload
+│
+├─ 节点是否包含正文式解释？
+│   ├─ 是 → 删除 / 移正文 / 压缩短语
+│   └─ 否
+│
+├─ 一个节点是否包含多个真实先后动作？
+│   ├─ 是 → 拆为真实步骤
+│   └─ 否
+│
+├─ 连续节点是否构成可命名子过程？
+│   ├─ 是 → 抽 subprocess，必要时另画局部图
+│   └─ 否
+│
+├─ 是否存在真实阶段边界？
+│   ├─ 是 → 返回 selection 复核 M4
+│   └─ 否
+│
+├─ 是否暴露出原类型遗漏的真实结构？
+│   ├─ M2 多层展开 → 复核 M3
+│   ├─ A2 多层循环 → 复核 A3
+│   ├─ A4/A3 密集调度 → 最后才复核 A6
+│   └─ 其他 → 返回 selection-v1
+│
+└─ 类型仍正确且信息都不可删？
+    ├─ 是 → overview + local subflow
+    └─ 否 → 保持当前内容并交给用户/人类作者做最终布局
+```
+
+---
+
+# 11. Stage / Subprocess / 拆图准入
+
+## 11.1 Stage
+
+只有真实功能边界存在时才允许 Stage。禁止“节点太多 → 每 4 个框一组”的伪分阶段。
+
+## 11.2 Subprocess
+
+只有多个步骤能够被一个稳定、可命名的局部过程替代时才抽 subprocess。Subprocess 不是删除细节的借口；必要时应提供局部子图。
+
+## 11.3 拆成两张图
+
+满足以下任一条件可考虑：
+
+- 类型正确但 Strong Overload 持续存在；
+- 存在内部逻辑完整的 subprocess；
+- Overview 与局部过程都具有独立解释价值；
+- 保持单图会迫使大量普通节点进入 ≥3 行；
+- 拆图不会破坏主流程连续理解。
+
+推荐：Overview + Local Subflow，而不是机械把一条简单长链切成上下两张。
+
+---
+
+# 12. Agent Content Contract
+
+```yaml
+flowchart_type: A2
+content_budget:
+  evidence_level: high
+  node_count:
+    planned: 8
+    typical_q1_q3: [7, 9]
+    status: typical
+  process_text:
+    planned_median_chars: 8
+    typical_q1_q3: [5, 12]
+    status: typical
+  decision_text:
+    planned_median_chars: 8
+    typical_q1_q3: [7, 10.5]
+    status: typical
+  multiline:
+    nodes_ge_3_lines: 0
+    status: preferred
+overload:
+  node_count_review: false
+  process_density_review: false
+  decision_density_review: false
+  multiline_density_review: false
+  strong_overload: false
+actions: []
+layout_status: human-owned / pending-human
+style_status: human-owned / pending-human
+tool_route_status: none / human-choice
+```
+
+Content 层不得输出坐标、字体、颜色、Graphviz/Mermaid/TikZ 参数。
+
+---
+
+# 13. 验收清单
+
+1. 类型已由 selection-v1 决定；
+2. 普通节点总数已计算，Container 未混入；
+3. 每个普通节点只有一个主要语义单元；
+4. Process 未承担正文解释；
+5. Decision 是短条件，不是完整推理段落；
+6. Terminal 保持简短；
+7. 普通节点优先 1–2 行；
+8. 超过 type Q3 的节点数已触发 review；
+9. 超过 role Q3/P90 的长节点已被标记；
+10. 节点数与文字密度同时偏高时已进入 Strong Overload review；
+11. Stage 仅来自真实阶段；
+12. Subprocess 仅来自真实可封装子过程；
+13. 结构事实变化时返回 selection-v1，而非静默改类型；
+14. 未通过缩字号/缩 padding 解决 content overload；
+15. A5/A6 没有使用低证据统计作为稳定硬阈值；
+16. 通过 content audit 后才交给用户/人类作者进行最终布局与绘制。
+
+---
+
+# 14. Machine-Safe Policy Object
+
+```python
+FLOWCHART_CONTENT_V1 = {
+    "authority": "HOW_MUCH_INFORMATION",
+    "primary_length_metric": "char_count_raw",
+    "typical_definition": "Q1_to_Q3",
+    "node_count_review": "N > type_Q3",
+    "long_node": "L > type_role_Q3",
+    "long_tail_node": "L > type_role_P90_when_supported",
+    "preferred_lines": [1, 2],
+    "strong_overload": "node_count_review AND (process_density_review OR decision_density_review)",
+    "hard_max_node_count": None,
+    "hard_max_chars": None,
+    "forbid_font_shrink_as_content_fix": True,
+    "low_evidence_types": ["A5", "A6"],
+    "selection_mutation": "forbidden; return_for_review",
+}
+```
+
+---
+
+# 15. 不设置统一 Hard Max
+
+本 v1 不冻结“所有图最多 X 节点 / 所有 process 最多 Y 字 / 所有 decision 最多 Z 字”。
+
+理由：不同类型容量显著不同；73 图足以刻画 typical 与异常，但不足以证明样本极值之外一定错误；A5/A6 证据量低。
+
+本 v1 的强要求是：**过载必须被检查和解释，而不是超过某个数字直接失败。**
+
+---
+
+# 16. 与 human-owned 最终布局 / 绘制的接口
+
+Content 输出：type、semantic nodes、roles、node labels、edge/branch meanings、semantic grouping、node-count/text status 与 overload flags。
+
+通过 content audit 后，用户/人类作者才开始最终布局与绘制。人类作者决定 TB/LR、single spine、fan-in、stage zone、lane、outer loop、nested shell、network 等空间表达，并判断坐标、节点尺寸、lane 位置、edge bends、字体字号、视觉样式和导出工具。
+
+Content 不得预设方向、坐标、节点几何、lane 位置、边的弯折、字体字号、视觉样式或 renderer 参数。ChatGPT/Codex 只交付语义节点、边、分支、分组和内容计划，并以 `layout_status: human-owned / pending-human` 停止。
+
+若一个已经通过 content audit 的图无法在正常字号下排下，应由人类作者重新判断布局或拆图；不得自动删语义或缩字体。若 content audit 已判定过载，也不得以更紧密排版掩盖问题。
+
+KyMCM Lite 0.9.12 不新增 flowchart layout/style/exec 规范，不选择 Graphviz、Mermaid、TikZ、SVG、PPT 或其他自动 renderer/tool route。
+
+---
+
+# 17. v1 冻结结论
+
+1. Selection 与 Content 分离；
+2. `content-v1` 只控制 HOW MUCH INFORMATION；
+3. Typical 使用固定 census 的 Q1–Q3；
+4. `N > type_Q3` 是 review trigger，不是禁止线；
+5. Process/Decision 的类型特异 Q3/P90 仅在证据足够时使用；
+6. 常规 Algorithm Decision fallback 为约 6–10 字，P90≈13 字；
+7. 普通节点优先 1–2 行；
+8. 复杂度由节点数量与节点文字密度联合判断；
+9. 节点数偏高但文字短，优先由语义层级承载，并交给人类作者判断最终布局；
+10. 节点数正常但文字长，优先压缩文案；
+11. 节点数与文字同时偏高，进入 Strong Overload review；
+12. Stage/Subprocess 必须有真实语义；
+13. A5/A6 只保留描述性数字，不设置稳定自动阈值；
+14. 不设置统一 Hard Max；
+15. 不允许通过缩字号修复 content overload；
+16. 若过载揭示原类型不忠实，返回 selection-v1 复核；
+17. 通过 content audit 后才交给用户/人类作者完成最终布局、走线与绘制。
+
+---
+
+## 一句话原则
+
+**先控制信息容量，再解决几何排布；复杂性应由真实结构承载，而不是由长文本和小字号承载。**
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/kymcm-flowchart-content-v1.md -->
 
 
@@ -2351,91 +2897,1081 @@ Role: `reference`
 Authority: specialized reference
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md -->
-# KyMCM Lite flowchart selection specification
+# `kymcm-flowchart-selection-v1`
 
-Identifier: `kymcm-flowchart-selection-v1`
+> **KyMCM Lite 流程图类型选择规范 v1**
+> 状态：Evidence-derived selection specification
+> 范围：数学建模竞赛论文中的宏观建模流程图与算法流程图
+> 本规范只回答 **WHAT / WHEN：是否应画流程图、应选择哪一类流程图**。
+> 本规范**不**规定具体布局坐标、节点尺寸、字体、颜色、间距、箭头绕线、渲染工具或导出实现。
+> 规范源：`skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md`；其仓库镜像 `docs/lite-v3/kymcm-flowchart-selection-v1.md` 必须保持字节一致。
+> 下游 `kymcm-flowchart-content-v1` 只决定信息容量；最终空间布局、几何、走线与绘制由用户/人类作者负责（**human-owned**）。
 
-## Authority and scope
+---
 
-This is KyMCM Lite's evidence-derived authority for **WHAT / WHEN** flowchart decisions. Its byte-identical repository mirror is `docs/lite-v3/kymcm-flowchart-selection-v1.md`. It decides whether a flowchart is appropriate, selects Macro or Algorithm, and then selects one primary M1–M6 or A1–A6 semantic type. It does not decide content capacity or final spatial layout.
+## 0. 规范依据与证据边界
 
-The fixed evidence base contains 73 strict CUMCM main-evidence flowcharts: Macro 40 and Algorithm 33.
+### 0.1 固定证据全集
 
-| Track | Type | Chinese name | Samples |
-|---|---|---|---:|
-| Macro | M1 | 线性/阶段链 | 7 |
-| Macro | M2 | 多源/多支路汇聚 | 11 |
-| Macro | M3 | 分层分支-汇合 | 6 |
-| Macro | M4 | 阶段分组模块化 | 8 |
-| Macro | M5 | 双通道/对称 | 4 |
-| Macro | M6 | 反馈/循环系统 | 4 |
-| Algorithm | A1 | 线性顺序 | 6 |
-| Algorithm | A2 | 单循环迭代 | 10 |
-| Algorithm | A3 | 嵌套循环/多判定迭代 | 9 |
-| Algorithm | A4 | 分支/搜索 | 4 |
-| Algorithm | A5 | 并行子算法 | 1 |
-| Algorithm | A6 | 密集判定/调度网络 | 3 |
+本规范只基于已经完成人工/视觉复核并冻结的 **73 幅 strict CUMCM 主证据流程图**，不在本版本继续扩大语料。
 
-A5 and A6 are low-evidence conditional types. Use them only when their real semantics are present; their sparse observations are not preferred targets.
+结构编码全集：
 
-## Flowchart qualification gate
+- Macro / 宏观、高层过程：**40 幅**
+- Algorithm / 算法、可执行过程：**33 幅**
+- 合计：**73 幅**
 
-Use this flowchart system only when arrows or links primarily express a directed process, execution, state progression, branching or iteration, or a clear input–process–output flow. Keep static indicator hierarchies, conceptual taxonomies, causal diagrams, component structures, and generic relationship networks outside this taxonomy.
+这 73 幅样本已经完成逐图结构编码，包括：
 
-If a flowchart is appropriate, make the first split:
+- `track`
+- `archetype`
+- `topology_primary`
+- `reading_direction`
+- `main_spine`
+- `decision_level`
+- `loop_level`
+- `parallelism`
+- `merge_present`
+- `grouping`
+- `node_count_bin`
+- `structural_complexity`
+- `shape_grammar`
+- `structure_confidence`
 
-- **Macro** answers how stages, modules, information, or processes are organized at a high level.
-- **Algorithm** answers how an executable algorithm proceeds through steps, decisions, updates, iterations, searches, and termination.
+### 0.2 关键经验统计
 
-## Macro types
+Macro 40 幅中：
 
-- **M1 — 线性/阶段链:** one main path; stage order is the primary information.
-- **M2 — 多源/多支路汇聚:** same-level parallel sources or branches converge. Prefer M2 for one-layer fan-in.
-- **M3 — 分层分支-汇合:** branches contain meaningful multiple levels or subflows before convergence.
-- **M4 — 阶段分组模块化:** true stage boundaries themselves carry explanatory value.
-- **M5 — 双通道/对称:** two same-level corresponding or symmetric paths, not merely two arbitrary branches.
-- **M6 — 反馈/循环系统:** system- or module-level feedback is a core semantic relation. Do not confuse it with algorithm iteration.
+- 存在并行结构：**30/40 = 75.0%**
+- 存在汇聚：**33/40 = 82.5%**
+- 存在显式判定：**10/40 = 25.0%**
+- 存在反馈/循环：**5/40 = 12.5%**
 
-## Algorithm types
+Algorithm 33 幅中：
 
-- **A1 — 线性顺序:** no core decision or loop; one execution path.
-- **A2 — 单循环迭代:** one main loop with one main continue/termination logic.
-- **A3 — 嵌套循环/多判定迭代:** nested loops, multi-level termination or iteration controls, or multiple irreducible iteration states.
-- **A4 — 分支/搜索:** path selection, search, or classification is primary rather than loop control.
-- **A5 — 并行子算法:** true execution-level parallel subalgorithms; low-evidence conditional type.
-- **A6 — 密集判定/调度网络:** dense rules, jumps, or interacting paths that A2/A3/A4 cannot faithfully express; last-resort low-evidence type.
+- 主阅读方向为 TB（Top-to-Bottom）：**25/33 = 75.8%**
+- 存在判定：**27/33 = 81.8%**
+- 存在循环/回边：**24/33 = 72.7%**
 
-## Minimum sufficient complexity principle
+在 73 幅 strict 样本中，仅有 **2 幅明显 serpentine**，且两者均属于 Macro / M1，而不是算法流程图。因此：
 
-> Choose the lowest-complexity flowchart type that faithfully expresses the real process logic.
+> **two-row serpentine 不得作为算法流程图的默认类型或默认布局假设。**
 
-Real parallelism, convergence, hierarchy, stage grouping, symmetry, feedback, decision, loop, nested loop, or search/routing can justify an upgrade. Visual sophistication, page filling, or making a diagram look advanced cannot.
+### 0.3 证据强度说明
 
-Select exactly one primary type; do not invent mixed type IDs. Resolve conflicts by the information goal and the structure that most changes reader understanding, not by mechanically counting diamonds or arrows. Upgrade or downgrade only when real structural semantics require it.
+本规范中的 M1–M6、A1–A6 是对 73 幅真实样本的归纳类型，不是从一般流程图教材中先验搬入的类型体系。
 
-## Layout decoupling
+证据量较弱的类型：
 
-Type selection does not bind left-to-right or top-to-bottom orientation, fixed coordinates, grids, or final geometry. A2, A3, and the other Algorithm types do not bind a serpentine layout. The 73-sample evidence contains only two obvious serpentine samples, both Macro/M1 rather than Algorithm, so it does not support default algorithm serpentine.
+- A5 并行子算法：**1 幅**
+- A6 密集判定/调度网络：**3 幅**
 
-This specification does not select Graphviz, Mermaid, TikZ, SVG, PowerPoint, or any renderer. Final layout, geometry, routing, and visual drawing are outside this authority and are manually judged and drawn by the user/human author.
+二者可以进入 v1 选择体系，但只能作为**条件型、低频类型**，不得作为默认升级方向，也不得据此冻结自动阈值或默认布局。
 
-## Semantic planning output
+---
 
-An agent may return a Markdown planning record such as:
+# 1. 规范目标
+
+`kymcm-flowchart-selection-v1` 的唯一职责是完成以下选择：
 
 ```text
-flowchart_needed
-track
-type
-information_goal
-primary_structure
-selection_reason
-upgrade_triggers
-rejected_alternatives
-layout_status: human-owned / pending-human
+是否需要流程图？
+        ↓
+若需要：Macro 还是 Algorithm？
+        ↓
+选择一个最低充分复杂度的主类型
+        ↓
+输出类型 + 选择理由 + 触发结构需求
 ```
 
-This is a semantic handoff, not runtime state or a JSON contract. After type selection, read `kymcm-flowchart-content-v1.md` to determine how much information the flowchart should contain.
+本规范不负责：
+
+```text
+节点坐标
+节点宽高
+边的具体走线
+LR / TB 的最终物理排版
+字体字号
+颜色
+线宽
+圆角
+箭头样式
+Graphviz / Mermaid / TikZ / SVG / PPT 等工具路由
+```
+
+---
+
+# 2. 核心原则：最低充分结构复杂度
+
+流程图类型选择遵循：
+
+\[
+\boxed{\text{选择能完整表达真实过程逻辑的最低复杂度类型}}
+\]
+
+只有出现**新增真实结构需求**时才允许升级。
+
+合法的升级触发因素包括：
+
+- `parallelism`：并行来源、并行模块、并行子算法；
+- `merge`：多个路径重新汇聚；
+- `hierarchy`：存在多层分支或多层子流程；
+- `stage_grouping`：阶段边界本身具有解释意义；
+- `symmetry`：两条同级且结构对应的通道；
+- `feedback`：系统模块之间存在真实反馈；
+- `decision`：执行逻辑受条件判断控制；
+- `loop`：存在迭代回路；
+- `nested_loop`：存在内外层循环或多级迭代；
+- `search_or_routing`：主要结构由搜索、分类、调度或规则跳转决定。
+
+以下不是升级理由：
+
+- “看起来更高级”；
+- “一等奖论文里出现过”；
+- “为了让图更复杂”；
+- “为了填满版面”；
+- “想多用一些菱形、颜色或箭头”；
+- 单纯因为步骤数量增加，但真实结构仍是单一路径。
+
+---
+
+# 3. 流程图资格门槛：先判断是否应该画流程图
+
+只有当需要表达以下至少一种信息时，才进入流程图选择：
+
+1. 有方向的过程顺序；
+2. 计算或算法执行顺序；
+3. 明确的输入 → 处理 → 输出过程；
+4. 条件分支及其后续处理；
+5. 迭代、反馈或状态更新过程；
+6. 多条过程路径的并行、汇聚或阶段关系。
+
+以下内容默认**不属于本规范的流程图对象**：
+
+- 指标体系；
+- 静态模型关系；
+- 单纯概念层级；
+- 因果关系图；
+- 对象组成结构；
+- 没有过程方向的模块关系图；
+- 只表达“谁包含谁”的树；
+- 只表达“谁与谁有关”的网络。
+
+判断规则：
+
+```text
+若箭头主要表达“先后执行 / 状态推进 / 处理方向”
+→ 可进入流程图体系
+
+若箭头主要表达“静态关系 / 归属 / 相关 / 因果”
+→ 不由本规范选择
+```
+
+---
+
+# 4. 第一层选择：Macro vs Algorithm
+
+## 4.1 Macro / 宏观高层流程
+
+选择 Macro，当流程图主要回答：
+
+> **整个问题、系统、模型、阶段或信息处理过程是如何组织的？**
+
+典型对象：
+
+- 全文总体建模框架；
+- 某一问的高层求解路线；
+- 多模型组合关系；
+- 多数据源到综合结果的过程；
+- 阶段化建模过程；
+- 系统模块间过程反馈。
+
+Macro 强调：
+
+```text
+阶段
+模块
+信息流
+并行
+汇聚
+高层过程
+```
+
+而不是逐步执行细节。
+
+证据特征：
+
+- 40 幅 Macro 中 **30/40** 存在并行；
+- **33/40** 存在汇聚；
+- 仅 **10/40** 存在判定；
+- 仅 **5/40** 存在循环。
+
+因此 Macro 的主导结构是：
+
+\[
+\boxed{\text{模块展开 / 并行处理 / 汇聚 / 阶段组织}}
+\]
+
+---
+
+## 4.2 Algorithm / 算法可执行流程
+
+选择 Algorithm，当流程图主要回答：
+
+> **算法实际按照什么步骤执行，并在什么条件下分支、迭代、终止？**
+
+典型对象：
+
+- 优化算法；
+- 数值算法；
+- 搜索算法；
+- 参数迭代；
+- 仿真迭代；
+- 调度或规则执行；
+- 带终止判断的计算程序。
+
+Algorithm 强调：
+
+```text
+初始化
+执行步骤
+条件判断
+循环
+更新
+搜索
+终止
+```
+
+证据特征：
+
+- **27/33** 存在判定；
+- **24/33** 存在循环；
+- **25/33** 以 TB 为主阅读方向。
+
+因此 Algorithm 的主导结构是：
+
+\[
+\boxed{\text{执行主轴 + 判定 + 迭代 / 分支}}
+\]
+
+---
+
+# 5. Macro 类型体系 M1–M6
+
+## M1 — 线性 / 阶段链
+
+**证据：7/40**
+
+### 定义
+
+只有一个主要过程主轴，各阶段基本按单一路径依次推进。
+
+```text
+A → B → C → D
+```
+
+### 必要条件
+
+满足大部分以下条件：
+
+- 一个主路径；
+- 无重要并行分支；
+- 无重要多层汇聚；
+- 无核心反馈回路；
+- 阶段先后关系是主要信息。
+
+### 适用场景
+
+- 简单总体建模路线；
+- 单一路径的数据处理；
+- 明确的阶段序列；
+- 输入 → 处理 → 输出。
+
+### 不应升级的情况
+
+若只是步骤较多，但仍然只有一个主轴，不应因为节点多而升级为 M3/M4。
+
+### 升级触发
+
+- 多来源/多模块汇聚 → M2；
+- 多层分支后汇聚 → M3；
+- 阶段边界本身需要被显式分组 → M4；
+- 两条同级对称通道 → M5；
+- 系统反馈为核心 → M6。
+
+---
+
+## M2 — 多源 / 多支路汇聚
+
+**证据：11/40；Macro 中最高频类型**
+
+### 定义
+
+多个输入、来源、模块或处理支路独立或半独立推进，随后汇聚到共同结果、模型或综合阶段。
+
+```text
+A ─┐
+B ─┼→ D → E
+C ─┘
+```
+
+或：
+
+```text
+输入
+├→ 模块 A ─┐
+├→ 模块 B ─┼→ 综合
+└→ 模块 C ─┘
+```
+
+### 核心触发
+
+\[
+\boxed{\text{真实并行 + 真实汇聚}}
+\]
+
+### 适用场景
+
+- 多指标输入；
+- 多数据源融合；
+- 多模型并行计算后综合；
+- 多方案产生共同评价；
+- 多特征处理后进入统一模型。
+
+### 与 M3 的边界
+
+若只有一层并行后汇聚，优先 M2。
+
+只有当并行结构内部继续发生**分层展开、二级分支或层级子流程**时，才升级 M3。
+
+---
+
+## M3 — 分层分支—汇合
+
+**证据：6/40**
+
+### 定义
+
+流程中存在多层结构：一个阶段向下分解成若干子过程，子过程可能继续展开，最后重新汇聚。
+
+```text
+        B1 → C1 ┐
+A → B ─┤        ├→ D
+        B2 → C2 ┘
+```
+
+### 核心触发
+
+- `hierarchy = true`
+- 分支不是单层；
+- 层级关系本身具有解释意义；
+- 后续存在重新汇聚。
+
+### 适用场景
+
+- 模型体系内部还有子模型；
+- 分阶段且阶段内又分支；
+- 多层数据处理；
+- 决策树式高层过程最后汇入统一输出。
+
+### 禁止误用
+
+不得因为“想画成树”就使用 M3。
+
+如果结构本质只是多个同级模块 → 汇聚，应保持 M2。
+
+---
+
+## M4 — 阶段分组模块化
+
+**证据：8/40**
+
+### 定义
+
+长流程被组织为若干具有独立语义的阶段或模块组；阶段边界本身是论文论证的一部分。
+
+```text
+[阶段 1]
+A → B
+
+[阶段 2]
+C → D → E
+
+[阶段 3]
+F → G
+```
+
+### 核心触发
+
+\[
+\boxed{\text{阶段边界具有真实语义价值}}
+\]
+
+### 适用场景
+
+- “数据准备 / 建模 / 求解 / 验证”分阶段；
+- 多任务分阶段执行；
+- 一个较大方法包含若干明确子模块；
+- 希望突出不同阶段承担不同功能。
+
+### 与 M1 的边界
+
+如果只是长线性链，但阶段分组不会增加理解信息，仍是 M1。
+
+只有显式分组能帮助理解“哪几步属于同一阶段”时才使用 M4。
+
+---
+
+## M5 — 双通道 / 对称
+
+**证据：4/40**
+
+### 定义
+
+两条同级、结构对应或功能对称的过程通道并行展开，可能在后部汇聚。
+
+```text
+        ┌→ 路径 A ─┐
+输入 ───┤           ├→ 输出
+        └→ 路径 B ─┘
+```
+
+### 核心触发
+
+- 正好存在两条主要同级通道；
+- 两通道之间的对应/比较本身具有意义；
+- 二者不是简单的“多个支路之一”。
+
+### 适用场景
+
+- 两种方案；
+- 两类对象；
+- 两个场景；
+- 两条对照分析路径。
+
+### 与 M2 的边界
+
+若只是“恰好有两个支路”，但没有对称或对应语义，优先 M2。
+
+---
+
+## M6 — 反馈 / 循环系统
+
+**证据：4/40；低频条件型**
+
+### 定义
+
+高层模块之间存在真实反馈、状态更新或周期性过程，反馈关系是系统逻辑的重要组成部分。
+
+```text
+A → B → C
+    ↑   │
+    └───┘
+```
+
+### 核心触发
+
+\[
+\boxed{\text{系统级 feedback 是核心信息}}
+\]
+
+### 适用场景
+
+- 动态系统反馈；
+- 状态更新；
+- 决策—反馈—修正；
+- 多模块周期性相互作用。
+
+### 与 Algorithm loop 的边界
+
+M6 表达的是**系统/模块级反馈关系**。
+
+A2/A3 表达的是**具体算法执行中的迭代控制**。
+
+若读者需要知道“程序怎样执行一次迭代”，应转入 Algorithm。
+
+---
+
+# 6. Algorithm 类型体系 A1–A6
+
+## A1 — 线性顺序
+
+**证据：6/33**
+
+### 定义
+
+算法沿单一路径顺序执行，不依赖重要判定，也不存在循环。
+
+```text
+开始
+↓
+输入
+↓
+计算
+↓
+输出
+↓
+结束
+```
+
+### 必要特征
+
+- `decision = none`
+- `loop = none`
+- 主执行路径基本唯一。
+
+### 适用场景
+
+- 简单一次性计算；
+- 无循环的数据处理算法；
+- 固定顺序的确定性步骤。
+
+### 升级触发
+
+- 一个主要迭代回路 → A2；
+- 多判定/嵌套循环 → A3；
+- 分支/搜索主导 → A4；
+- 并行子算法 → A5；
+- 密集规则调度 → A6。
+
+---
+
+## A2 — 单循环迭代
+
+**证据：10/33；Algorithm 中最高频类型**
+
+### 定义
+
+算法存在一个主要迭代回路，通过一个或少量判定决定继续更新还是终止。
+
+```text
+开始
+↓
+初始化
+↓
+计算
+↓
+◇ 是否满足终止条件？
+├─ 是 → 输出 → 结束
+└─ 否 → 更新
+         ↓
+       回到计算
+```
+
+### 核心触发
+
+\[
+\boxed{\text{一个主要循环 + 一个核心终止逻辑}}
+\]
+
+### 适用场景
+
+- 优化算法；
+- 参数迭代；
+- 单层数值迭代；
+- 单层仿真更新。
+
+### 与 A3 的边界
+
+如果一个主要循环足以完整表达真实算法，不得升级 A3。
+
+只有出现：
+
+- 内外层循环；
+- 多级终止条件；
+- 一个循环内还存在独立循环；
+- 多个彼此不可约的迭代状态；
+
+才升级 A3。
+
+---
+
+## A3 — 嵌套循环 / 多判定迭代
+
+**证据：9/33**
+
+### 定义
+
+算法具有多判定和多级迭代控制，通常包含嵌套循环、外层/内层更新或多个终止逻辑。
+
+```text
+初始化
+↓
+◇ 外层条件？
+↓
+计算
+↓
+◇ 内层条件？
+├→ 内层更新 ↺
+└→ 外层更新 ↺
+```
+
+### 核心触发
+
+- `nested_loop = true`；或
+- 多个判定共同控制迭代；或
+- 单循环表示会丢失执行语义。
+
+### 适用场景
+
+- 双层优化；
+- 内外循环算法；
+- 多阶段迭代；
+- 多终止条件联合控制。
+
+### 禁止误用
+
+不得因为算法“很复杂”就选择 A3。
+
+复杂度必须来自真实控制流，而不是节点数量。
+
+---
+
+## A4 — 分支 / 搜索
+
+**证据：4/33**
+
+### 定义
+
+算法的主要逻辑由条件分支、搜索、分类或路径选择构成，而不是由反复迭代构成。
+
+```text
+      ◇ 条件？
+     /       \
+   路径 A   路径 B
+     \       /
+       汇合
+```
+
+### 核心触发
+
+\[
+\boxed{\text{decision / search 主导，loop 非主导}}
+\]
+
+### 适用场景
+
+- 分类处理；
+- 条件分支；
+- 搜索树；
+- 不同条件选择不同求解路径；
+- 规则匹配后进入不同模块。
+
+### 与 A2/A3 的边界
+
+**有判定节点不等于有迭代。**
+
+如果判定主要用于选择路径，而不是控制“继续循环还是停止”，应选择 A4。
+
+---
+
+## A5 — 并行子算法
+
+**证据：1/33；低频条件型**
+
+### 定义
+
+多个子算法在同一级别并行执行，其并行关系是实际执行语义的一部分，结果随后可能汇聚。
+
+```text
+         ┌→ 子算法 A ─┐
+输入 ────┼→ 子算法 B ─┼→ 综合
+         └→ 子算法 C ─┘
+```
+
+### 触发条件
+
+- 并行不是论文表达上的并列，而是算法执行结构；
+- 多个子算法各自具有可执行逻辑；
+- 并行关系无法被简化成单一路径。
+
+### 证据限制
+
+当前仅 1 幅主证据。
+
+因此 A5：
+
+- 可以被选择；
+- 不得作为默认复杂化方向；
+- 暂不据此冻结具体 Layout。
+
+---
+
+## A6 — 密集判定 / 调度网络
+
+**证据：3/33；低频条件型**
+
+### 定义
+
+算法由大量判定、跳转、调度或多路径控制组成，无法被单一线性主轴、单循环或简单分支完整表达。
+
+典型特征：
+
+```text
+多个 condition
++ 多条跳转
++ 多回边
++ 多路径汇聚
++ routing / scheduling
+```
+
+### 核心触发
+
+- 判定密集；
+- 多个回路；
+- 多个执行路径相互连接；
+- A2/A3/A4 会明显丢失真实控制结构。
+
+### 证据限制
+
+当前仅 3 幅主证据。
+
+因此 A6 是**最后选择项**，只有在更简单类型明显失真时才使用。
+
+---
+
+# 7. 规范化选择决策树
+
+```text
+Q0. 是否需要表达有方向的过程 / 执行 / 状态推进？
+│
+├─ 否
+│   └─ 不使用本流程图类型体系
+│
+└─ 是
+    │
+    ├─ Q1. 核心是在表达“整体阶段 / 模块 / 信息处理关系”吗？
+    │   │
+    │   └─ 是 → MACRO
+    │       │
+    │       ├─ 单一路径，无关键并行/反馈              → M1
+    │       ├─ 多个同级来源/支路后汇聚                → M2
+    │       ├─ 分支存在多层展开，再重新汇聚            → M3
+    │       ├─ 真实阶段边界需要显式分组                → M4
+    │       ├─ 两条同级且具有对称/对应语义的通道       → M5
+    │       └─ 系统级反馈/循环关系是核心               → M6
+    │
+    └─ Q2. 核心是在表达“算法如何实际执行”吗？
+        │
+        └─ 是 → ALGORITHM
+            │
+            ├─ 无判定、无循环                         → A1
+            ├─ 一个主要循环                           → A2
+            ├─ 多判定控制迭代 / 嵌套循环              → A3
+            ├─ 搜索 / 分类 / 条件路径选择主导         → A4
+            ├─ 多个可执行子算法真实并行               → A5
+            └─ 密集判定 / 多跳转 / 调度网络           → A6
+```
+
+---
+
+# 8. 类型冲突时的优先级规则
+
+一张流程可能同时包含多种特征。v1 不新增“混合类型”，而要求选择**一个主类型**。
+
+## 8.1 Macro 冲突
+
+优先识别最能改变读者理解方式的结构：
+
+```text
+系统级反馈为核心
+→ M6
+
+否则，真实阶段分组是核心
+→ M4
+
+否则，双通道对称本身是论证重点
+→ M5
+
+否则，存在多层分支/层级
+→ M3
+
+否则，存在同级多支路汇聚
+→ M2
+
+否则
+→ M1
+```
+
+注意：这不是“复杂度排行榜”，而是**主结构识别顺序**。
+
+## 8.2 Algorithm 冲突
+
+```text
+密集调度/规则网络无法被简单类型表达
+→ A6
+
+否则，多个子算法真实并行且并行本身是执行语义
+→ A5
+
+否则，存在嵌套循环或多级迭代控制
+→ A3
+
+否则，一个核心循环
+→ A2
+
+否则，分支/搜索主导
+→ A4
+
+否则
+→ A1
+```
+
+特殊情况：
+
+- 某算法既有一个小循环又有一个主要搜索树：若搜索路径是论文要解释的核心，选 A4；
+- 某算法在每个搜索分支内部都有复杂嵌套迭代：若迭代控制才是理解算法的主要困难，选 A3；
+- 类型必须服从“论文真正需要解释什么”，而不是机械统计菱形或箭头数量。
+
+---
+
+# 9. 类型升级 / 降级规则
+
+## 9.1 升级
+
+只有出现新的真实结构需求时升级。
+
+Macro：
+
+```text
+M1 + 多源汇聚
+→ M2
+
+M2 + 多层子流程
+→ M3
+
+M1/M2 + 阶段边界需要显式表达
+→ M4
+
+M2 + 两条路径具有严格对应关系
+→ M5
+
+任意 Macro + 系统反馈成为核心
+→ M6
+```
+
+Algorithm：
+
+```text
+A1 + 一个主要循环
+→ A2
+
+A2 + 内外层循环 / 多级迭代控制
+→ A3
+
+A1 + 条件路径选择成为核心
+→ A4
+
+普通单流算法 + 多个真实并行子算法
+→ A5
+
+A2/A3/A4/A5 + 密集规则跳转已经无法清晰归约
+→ A6
+```
+
+## 9.2 降级
+
+若删除某种复杂结构后仍能不失真地表达全过程，则应降级。
+
+例如：
+
+- 删除阶段分组仍完全清楚 → M4 降为 M1/M2/M3；
+- 两条“对称通道”其实只是两个普通支路 → M5 降为 M2；
+- A3 只有一个真正循环 → 降为 A2；
+- A6 可以拆成一个主循环 + 少量判断 → 优先降为 A2/A3；
+- A5 并行关系只是论文排版，不是算法执行 → 转为 Macro 或其他 Algorithm 类型。
+
+---
+
+# 10. 类型与 Layout 必须解耦
+
+`kymcm-flowchart-selection-v1` 只决定**结构类型**，不得静默绑定物理布局。
+
+例如：
+
+```text
+A2 = 单循环迭代
+```
+
+并不意味着：
+
+```text
+A2 = two-row serpentine
+```
+
+同样：
+
+```text
+M2 = 多源/多支路汇聚
+```
+
+也不意味着固定 LR 或 TB。
+
+证据显示：
+
+- Macro LR 与 TB 都常见；
+- Algorithm **25/33** 为 TB；
+- 73 幅中只有 **2 幅**明显 serpentine，且均为 Macro M1；
+- Algorithm 样本中没有证据支持将 serpentine 设为默认。
+
+因此本规范明确冻结：
+
+> **任何类型均不得在 selection 层绑定唯一 Layout。**
+
+`selection-v1` 决定语义类型，`content-v1` 决定信息容量；此后不进入自动 KyMCM 布局阶段。最终空间布局、几何、走线和绘制由用户/人类作者判断并手工完成。
+
+---
+
+# 11. 当前不冻结的内容与 human-owned 边界
+
+## 11.1 最终 Layout / Geometry / Routing / Drawing
+
+KyMCM Lite 0.9.12 不冻结、也不自动选择：
+
+- LR / TB 最终方向；
+- 节点网格、坐标与每行/每列节点数；
+- 节点尺寸、节点间距与 stage container 尺寸；
+- 回边、分支、汇聚边的具体走线；
+- 决策节点在主轴的具体位置；
+- 分支对称度与 edge crossing 优化；
+- 最终绘制与导出实现。
+
+这些事项不是等待未来自动规范处理的 `pending` 状态，而是明确交给用户/人类作者的 **human-owned / pending-human** 工作。
+
+## 11.2 Style
+
+本规范不规定：
+
+- 节点颜色与填充；
+- 字体与字号；
+- 边框、箭头、圆角、菱形长宽比；
+- 阴影、图标与组框视觉设计。
+
+## 11.3 Tool / Renderer
+
+本规范不选择，也不建立任何自动工具路线：
+
+- Graphviz；
+- Mermaid；
+- TikZ；
+- SVG 自动布局；
+- PPT / draw.io 自动布局；
+- 其他 Agent-native diagram engine。
+
+KyMCM Lite 0.9.12 不计划、也不需要新增 flowchart `layout-v1`、`style-v1` 或 `exec-v1` 规范。ChatGPT/Codex 在产出语义节点、边、分支和内容计划后停止；用户/人类作者负责最终布局判断与手工绘制。类型选择始终独立于绘制工具。
+
+---
+
+# 12. Agent 选择输出格式
+
+Agent 在使用本规范后，应至少返回以下语义字段：
+
+```text
+flowchart_needed:
+track:
+type:
+information_goal:
+primary_structure:
+selection_reason:
+upgrade_triggers:
+rejected_alternatives:
+layout_status: human-owned / pending-human
+style_status: human-owned / pending-human
+tool_route_status: none / human-choice
+```
+
+示例：
+
+```text
+flowchart_needed: yes
+track: algorithm
+type: A2 单循环迭代
+information_goal: 解释参数优化过程如何重复更新并在收敛后终止
+primary_structure: single_loop
+selection_reason: 只有一个主要迭代回路和一个核心终止判断
+upgrade_triggers: loop
+rejected_alternatives:
+  - A1：无法表达迭代
+  - A3：不存在嵌套循环或多级迭代控制
+layout_status: human-owned / pending-human
+style_status: human-owned / pending-human
+tool_route_status: none / human-choice
+```
+
+该输出是**语义选择结果**，不是存储状态、manifest 或新的 KyMCM workflow contract。
+
+---
+
+# 13. 验收清单
+
+在接受一个流程图类型选择前，必须确认：
+
+1. 这张图确实需要表达有方向的过程，而不是静态关系；
+2. 已明确区分 Macro 与 Algorithm；
+3. 已选择 M1–M6 或 A1–A6 中的一个主类型；
+4. 所选类型是能够完整表达真实逻辑的最低复杂度类型；
+5. 每一次复杂度升级都有明确真实结构触发；
+6. 没有因为“视觉更高级”而升级；
+7. Macro 与 Algorithm 没有因为“都存在箭头”而混淆；
+8. decision 与 loop 没有混为一谈；
+9. system feedback 与 algorithm iteration 没有混为一谈；
+10. A5/A6 的低证据量已被意识到，不作为默认类型；
+11. 类型选择没有绑定具体 LR/TB/serpentine Layout；
+12. 没有在本阶段决定颜色、字体、节点尺寸或工具；
+13. 若类型边界存在歧义，已记录主信息目标与 rejected alternatives；
+14. 最终选择能用一句话说明“为什么这个类型比更简单类型必要”。
+
+---
+
+# 14. Evidence Summary
+
+## 14.1 Macro
+
+| 类型 | 样本数 | 占 Macro | 证据定位 |
+|---|---:|---:|---|
+| M1 线性/阶段链 | 7 | 17.5% | 基础类型 |
+| M2 多源/多支路汇聚 | 11 | 27.5% | 高频核心类型 |
+| M3 分层分支-汇合 | 6 | 15.0% | 有稳定证据 |
+| M4 阶段分组模块化 | 8 | 20.0% | 高频核心类型 |
+| M5 双通道/对称 | 4 | 10.0% | 条件型 |
+| M6 反馈/循环系统 | 4 | 10.0% | 条件型、低频 |
+
+## 14.2 Algorithm
+
+| 类型 | 样本数 | 占 Algorithm | 证据定位 |
+|---|---:|---:|---|
+| A1 线性顺序 | 6 | 18.2% | 基础类型 |
+| A2 单循环迭代 | 10 | 30.3% | 高频核心类型 |
+| A3 嵌套循环/多判定迭代 | 9 | 27.3% | 高频核心类型 |
+| A4 分支/搜索 | 4 | 12.1% | 条件型 |
+| A5 并行子算法 | 1 | 3.0% | 低证据条件型 |
+| A6 密集判定/调度网络 | 3 | 9.1% | 低频条件型 |
+
+---
+
+# 15. v1 冻结结论
+
+`kymcm-flowchart-selection-v1` 冻结以下结论：
+
+1. 流程图选择首先通过“是否表达有方向过程”资格门槛；
+2. 真正的流程图分为 Macro 与 Algorithm 两条主轨；
+3. Macro 使用 M1–M6 六种主类型；
+4. Algorithm 使用 A1–A6 六种主类型；
+5. 所有类型遵循最低充分结构复杂度原则；
+6. 升级只允许由真实结构需求触发；
+7. A5/A6 保留，但因证据量低不得成为默认升级方向；
+8. 类型选择与 Layout、Style、Tool Route 完全解耦；
+9. 算法流程图不再绑定 two-row serpentine 默认假设；
+10. 若用户/人类作者进行最终布局判断，应继续尊重同一固定 73 幅证据；本规范不因此建立自动 Layout 层或扩大样本；
+11. 后续任何新类型若要进入正式体系，必须有新增证据或现有样本显示当前 12 类无法充分表达，而不能仅由一般流程图知识扩展。
+
+---
+
+## 一句话原则
+
+\[
+\boxed{\text{先确定真实过程结构，再选择最低充分类型；类型负责 WHAT，最终布局与绘制由人负责。}}
+\]
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md -->
 
 
@@ -3904,7 +5440,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/README.md -->
 # KyMCM Lite
 
-KyMCM Lite 0.9.11 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested data figures through the existing selection and fail-closed Matplotlib path, and explicit flowcharts through evidence-derived type/content specifications with human-owned layout, without workflow state or content JSON.
+KyMCM Lite 0.9.12 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested data figures through the existing selection and fail-closed Matplotlib path, and explicit flowcharts through evidence-derived type/content specifications with human-owned layout, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -3978,11 +5514,11 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.9.11 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, dependency grammar, evidence scope, optional `figure/`, and exactly eight public commands. Existing 0.9.10 and earlier contest workspaces remain valid and need no migration. Formal Codex/Matplotlib data figures retain the unchanged `final_figure_selection.md` plus core/style/color/typography/execution and `figure_exec.py` behavior. Explicit flowcharts now use `kymcm-flowchart-selection-v1.md` followed by `kymcm-flowchart-content-v1.md`; their final layout and drawing are user-owned/manual. This documentation/specification routing change adds no runtime dependency. ChatGPT/user retains data-figure acceptance, `nature-figure` remains optional read-only advice only on explicit request, and historical figures or plotting scripts are not retroactively changed.
+KyMCM Lite 0.9.12 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, every base START/RESULT/PRE/HANDOFF/APPENDIX heading, START/RESULT single/split identities, dependency grammar, evidence scope, optional `figure/`, and exactly eight public commands. Existing 0.9.11 and earlier contest workspaces remain valid and need no migration. Formal Codex/Matplotlib data figures retain the unchanged `final_figure_selection.md` plus core/style/color/typography/execution and `figure_exec.py` behavior. Explicit flowcharts now use `kymcm-flowchart-selection-v1.md` followed by `kymcm-flowchart-content-v1.md`; their final layout and drawing are user-owned/manual. This documentation/specification routing change adds no runtime dependency. ChatGPT/user retains data-figure acceptance, `nature-figure` remains optional read-only advice only on explicit request, and historical figures or plotting scripts are not retroactively changed.
 
 Historical 0.9.2 Supplement compatibility: after a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
 
-The 0.9.11 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`, including the data-figure authorities, both flowchart authorities, and AI-use references/templates. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or core-runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, artifact overwrite permission, semantic figure or flowchart selection, final flowchart layout, exact physical per-glyph font-file routing, or AI-use screenshot/declaration truth; those remain semantic/human review responsibilities.
+The 0.9.12 repository also contains a deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`, including the data-figure authorities, both flowchart authorities, and AI-use references/templates. It is an external ChatGPT Project Source mirror, checked by `scripts/export_kymcm_lite_full_spec.py --check`, and does not change workspace or core-runtime compatibility. Python does not decide acceptance, adoption, Result invalidation, artifact overwrite permission, semantic figure or flowchart selection, final flowchart layout, exact physical per-glyph font-file routing, or AI-use screenshot/declaration truth; those remain semantic/human review responsibilities.
 
 `figure/` is an optional known root for explicitly requested final-figure work. Existing workspaces need not create it; init does not create it; an existing user-created root no longer appears as unknown. Lite does not inspect its contents, and it remains outside formal evidence and appendix source scope. Historical plotting code is not moved automatically.
 
@@ -4007,7 +5543,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/installation.md -->
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.11 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.9.12 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -4017,7 +5553,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.11 so the two new flowchart references, routing metadata, unchanged `figure_exec.py`, and release metadata stay synchronized. Existing 0.9.10 and earlier contest workspaces require no migration and need not create new figure, Supplement, or AI-use files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.9.12 so the corrected full long-form flowchart references, routing metadata, unchanged `figure_exec.py`, and release metadata stay synchronized. Existing 0.9.11 and earlier contest workspaces require no migration and need not create new figure, Supplement, or AI-use files; old appendix packages are not rewritten automatically. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -4036,7 +5572,7 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.9.11, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency. Formal Matplotlib data-figure execution optionally requires `matplotlib`, `cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; the helper stops on missing requirements rather than silently falling back. Flowchart selection/content planning and human manual layout add no runtime dependency. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. Do not copy or download font files into this repository.
+LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.9.12, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency. Formal Matplotlib data-figure execution optionally requires `matplotlib`, `cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext; the helper stops on missing requirements rather than silently falling back. Flowchart selection/content planning and human manual layout add no runtime dependency. For KyMCM Full's built-in renderer, Microsoft YaHei remains an optional existing CJK sans-serif choice and its historical fallback behavior is unchanged. Do not copy or download font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
 <!-- END KYMCM-LITE SOURCE: docs/installation.md -->
@@ -4053,10 +5589,10 @@ Authority: product documentation
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.11.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.9.12.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.9.11 limitations:
+KyMCM Lite 0.9.12 limitations:
 
 - Structural and evidence checks cannot validate mathematical correctness or decide whether an experiment plan is proportionate, operationally robust, or over-designed.
 - PRE checks do not execute cleaning, infer whether a question should use PRE, validate EDA quality, or certify causal interpretation.
@@ -4064,7 +5600,7 @@ KyMCM Lite 0.9.11 limitations:
 - Lite does not generate, plan, read, modify, or check contest manuscripts; infer which final graphics are needed; provide solvers; or migrate Full workspaces.
 - Final figures require an explicit user request. Lite does not check `figure/` structure or silently retrain/change formal results; `figure_exec.py` hard-audits formal Matplotlib artifacts and ChatGPT/user owns semantic and visual acceptance.
 - `kymcm-figure-selection-v1` guides semantic WHAT/WHEN decisions but has no runtime scorer or checker; its explicitly pending chart branches require user direction or a future evidence-backed revision.
-- KyMCM Lite 0.9.11 does not automatically choose or guarantee publication-quality flowchart layout. It standardizes evidence-derived type selection and content capacity; final layout and drawing remain user/human judgment. This intentional boundary adds no renderer or diagram runtime.
+- KyMCM Lite 0.9.12 does not automatically choose or guarantee publication-quality flowchart layout. It standardizes evidence-derived type selection and content capacity; final layout and drawing remain user/human judgment. This intentional boundary adds no renderer or diagram runtime.
 - Formal Codex/Matplotlib figures additionally require optional Matplotlib/`cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext. `figure_exec.py` strictly checks named-family availability, declared script/family routing, and machine-safe constraints but cannot prove semantic language/prose/color-role correctness or the exact physical font file used for each glyph; ChatGPT/user retains those judgments. Missing requirements stop rendering without fallback. `nature-figure` is optional only for an explicitly requested read-only specialist second opinion and has no rerender/restyle/export/override authority.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.
 - Lite does not discover models or build/delete appendix trees automatically.
@@ -4092,9 +5628,9 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-rfc.md -->
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.11 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.12 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.11 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, data figures retain `kymcm-figure-selection-v1` and the fail-closed `kymcm-figure-exec-v1` path before ChatGPT/user acceptance. Flowcharts instead use `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, then stop before user-owned manual layout/drawing. `nature-figure` remains optional read-only specialist advice only on explicit request. No core command, state, manifest, renderer, or tool route is added. Appendix and final AI-use compliance behavior retain their accepted boundaries; the historical design below remains preserved.
+Current 0.9.12 execution boundary: Codex stops after writing and machine-checking RESULT/RESULT_PRE, waits for explicit user/ChatGPT semantic acceptance, and handles HANDOFF only in a new independent read-only task after acceptance. After an explicit final-figure request, data figures retain `kymcm-figure-selection-v1` and the fail-closed `kymcm-figure-exec-v1` path before ChatGPT/user acceptance. Flowcharts instead use `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, then stop before user-owned manual layout/drawing. `nature-figure` remains optional read-only specialist advice only on explicit request. No core command, state, manifest, renderer, or tool route is added. Appendix and final AI-use compliance behavior retain their accepted boundaries; the historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
@@ -4449,6 +5985,16 @@ Role: `product-documentation`
 Authority: product documentation
 
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-release-notes.md -->
+# KyMCM Lite 0.9.12
+
+KyMCM Lite 0.9.12 is a corrective specification release. The published 0.9.11 tag and Release remain immutable historical artifacts, but their two canonical flowchart references were compressed summaries rather than the intended complete normative specifications. This release publishes the full long-form `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, including the complete M1–M6/A1–A6 selection system, evidence boundaries, type profiles, content budgets, overload review, restructuring rules, Agent contracts, acceptance checklists, and frozen conclusions.
+
+The 726 measurable ordinary-node line-count census is corrected to 68.0% one-line, 19.6% two-line, and 12.4% three-or-more-line nodes, with median 1, Q3 2, and P90 3. The superseded 0.9.11 summary values were transcription errors; the fixed 73-flowchart evidence base and the underlying selection/content architecture are unchanged.
+
+This is not an architecture redesign. Selection still owns WHAT/WHEN, content still owns HOW MUCH INFORMATION, and final spatial layout, geometry, routing, and drawing remain human-owned and manually judged. No flowchart layout/style/execution specification, renderer, graph-layout heuristic, Graphviz/Mermaid/TikZ tool route, runtime dependency, CLI, checker, state, manifest, or content JSON is added.
+
+The Lite v3 marker, exactly eight public commands, standard-library core runtime, data-driven Matplotlib selection/style/color/typography/execution path, `nature-figure` read-only advisory boundary, and existing workspaces are unchanged. Existing 0.9.11 and earlier contest workspaces require no migration. KyMCM Full is unchanged.
+
 # KyMCM Lite 0.9.11
 
 KyMCM Lite 0.9.11 adds two evidence-derived flowchart authorities. `kymcm-flowchart-selection-v1` uses the fixed corpus of 73 strict CUMCM main-evidence flowcharts (Macro 40, Algorithm 33) to qualify flowchart use, split Macro from Algorithm, and select one minimum-sufficient-complexity type from M1–M6 or A1–A6. `kymcm-flowchart-content-v1` uses 747 ordinary nodes, including 726 reliably measurable text nodes, to review node roles, node counts, text density, line count, and overload restructuring.
@@ -4618,7 +6164,7 @@ Authority: repository maintenance
 
 ## KyMCM Lite checks
 
-- Lite 0.9.11 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.9.12 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - The complete ChatGPT Project Source is generated by `scripts/export_kymcm_lite_full_spec.py`; normal generation followed by `--check` passes, and the generated artifact is not initialized into a workspace or appendix.
 - Export manifest bytes/SHA-256 values, reference/template coverage, mirror parity, and `docs/lite-v3/*.md` included/excluded classification pass without timestamps, absolute paths, host data, or recursive self-inclusion.
 - Supplement Start/Result templates and `supplement_work.md` have byte-identical mirrors; every official question uses at most one pair in single and split modes after complete checked base results.
@@ -4682,7 +6228,7 @@ Authority: product documentation
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.11** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level Supplements, and a request-driven unmanaged `figure/` workspace. Data figures retain `kymcm-figure-selection-v1` plus the unchanged `kymcm-figure-exec-v1` Matplotlib execution/hard-audit path. Explicit flowcharts use evidence-derived `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, then stop before human-owned manual layout and drawing. `nature-figure` remains optional read-only advice for rendered data figures. The eight-command core runtime remains standard-library-only, with the submission appendix, deterministic complete ChatGPT Project Source, and fixed AI-tool disclosure package available.
+- **KyMCM Lite 0.9.12** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level Supplements, and a request-driven unmanaged `figure/` workspace. Data figures retain `kymcm-figure-selection-v1` plus the unchanged `kymcm-figure-exec-v1` Matplotlib execution/hard-audit path. Explicit flowcharts use evidence-derived `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, then stop before human-owned manual layout and drawing. `nature-figure` remains optional read-only advice for rendered data figures. The eight-command core runtime remains standard-library-only, with the submission appendix, deterministic complete ChatGPT Project Source, and fixed AI-tool disclosure package available.
 
 ## Install
 
@@ -4780,8 +6326,8 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/final_figure_core_rules.md`
   mirror: `docs/lite-v3/final_figure_core_rules.md`
-  bytes: `4517`
-  SHA-256: `a46db444708cd4f54d9d553b90592afb4e5c3d11b386ceacb9cec0b7183113c6`
+  bytes: `4510`
+  SHA-256: `b9bc74f0fb08ca9f62c975952ea8b39e415f9ff4ef5748200e01bb7103ead571`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/final_figure_execution.md`
@@ -4810,14 +6356,14 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/kymcm-flowchart-content-v1.md`
   mirror: `docs/lite-v3/kymcm-flowchart-content-v1.md`
-  bytes: `6492`
-  SHA-256: `0c89a73a4f8d47994232382f23f3cfe71a4d053e91fb7cb35512ab1d89f4bf84`
+  bytes: `25657`
+  SHA-256: `76ab7bf49300320ca72f8b0d168a89b9600bb95fb2dc275f91b7182d5b4a91f9`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md`
   mirror: `docs/lite-v3/kymcm-flowchart-selection-v1.md`
-  bytes: `5064`
-  SHA-256: `22aa390fd9a88f745f56e66b6c74063baf24ab88f7eddec61f6aab8b9a11e834`
+  bytes: `25128`
+  SHA-256: `b04aec1f1bee4245c96e173159adc15f5300513a1a0e1cdba6c743237568c610`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/modeling_plan_design.md`
