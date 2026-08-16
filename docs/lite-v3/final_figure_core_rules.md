@@ -28,7 +28,7 @@ A requested macro or algorithm flowchart is not selected by `final_figure_select
 3. ChatGPT or Codex may produce the semantic plan: selected type, nodes, roles, labels, directed connections and branch meanings, stage or subprocess semantics, and content-budget review.
 4. Stop before final spatial layout. The user/human author owns final layout judgment and manual drawing.
 
-KyMCM Lite 0.9.11 provides no fixed macro grid, default algorithm serpentine, automatic layout engine, renderer/tool route, or active flowchart symbol-family hard rule. Data-driven Pt2 style, Pt3 color, typography, and `figure_exec.py` rules do not silently apply to manually drawn flowcharts.
+KyMCM Lite provides no fixed macro grid, default algorithm serpentine, automatic layout engine, renderer/tool route, or active flowchart symbol-family hard rule. Data-driven Pt2 style, Pt3 color, typography, and `figure_exec.py` rules do not silently apply to manually drawn flowcharts.
 
 ## Review gate
 

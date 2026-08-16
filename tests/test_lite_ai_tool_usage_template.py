@@ -142,7 +142,7 @@ class LiteAIToolUsageTemplateTests(unittest.TestCase):
             self.assertFalse(any(path.name == relative for path in ROOT.rglob(relative)))
 
     def test_version_and_protected_lite_surfaces(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.11\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.12\n")
         for relative, expected in PROTECTED_HASHES.items():
             actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
             self.assertEqual(actual, expected, relative)

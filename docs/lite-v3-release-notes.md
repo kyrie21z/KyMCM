@@ -1,3 +1,13 @@
+# KyMCM Lite 0.9.12
+
+KyMCM Lite 0.9.12 is a corrective specification release. The published 0.9.11 tag and Release remain immutable historical artifacts, but their two canonical flowchart references were compressed summaries rather than the intended complete normative specifications. This release publishes the full long-form `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, including the complete M1–M6/A1–A6 selection system, evidence boundaries, type profiles, content budgets, overload review, restructuring rules, Agent contracts, acceptance checklists, and frozen conclusions.
+
+The 726 measurable ordinary-node line-count census is corrected to 68.0% one-line, 19.6% two-line, and 12.4% three-or-more-line nodes, with median 1, Q3 2, and P90 3. The superseded 0.9.11 summary values were transcription errors; the fixed 73-flowchart evidence base and the underlying selection/content architecture are unchanged.
+
+This is not an architecture redesign. Selection still owns WHAT/WHEN, content still owns HOW MUCH INFORMATION, and final spatial layout, geometry, routing, and drawing remain human-owned and manually judged. No flowchart layout/style/execution specification, renderer, graph-layout heuristic, Graphviz/Mermaid/TikZ tool route, runtime dependency, CLI, checker, state, manifest, or content JSON is added.
+
+The Lite v3 marker, exactly eight public commands, standard-library core runtime, data-driven Matplotlib selection/style/color/typography/execution path, `nature-figure` read-only advisory boundary, and existing workspaces are unchanged. Existing 0.9.11 and earlier contest workspaces require no migration. KyMCM Full is unchanged.
+
 # KyMCM Lite 0.9.11
 
 KyMCM Lite 0.9.11 adds two evidence-derived flowchart authorities. `kymcm-flowchart-selection-v1` uses the fixed corpus of 73 strict CUMCM main-evidence flowcharts (Macro 40, Algorithm 33) to qualify flowchart use, split Macro from Algorithm, and select one minimum-sufficient-complexity type from M1–M6 or A1–A6. `kymcm-flowchart-content-v1` uses 747 ordinary nodes, including 726 reliably measurable text nodes, to review node roles, node counts, text density, line count, and overload restructuring.
