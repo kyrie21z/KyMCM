@@ -57,6 +57,24 @@ crowding
 
 Do not infer additional automatic triggers in v1.
 
+## Intrinsic-3D execution gate
+
+3D is an execution/expression route after semantic chart selection, not a ninth enhancement trigger. The PyVista route is allowed only when at least one condition is true:
+
+- the data or scientific geometry itself lives in `x,y,z` space;
+- a third continuous response dimension `z=f(x,y)` is substantively part of the conclusion;
+- three-dimensional geometry, topology, or occlusion is itself evidence;
+- a 3D feasible region or spatial surface cannot be represented without materially losing the required structure.
+
+Reject 3D bars, pseudo-depth on ordinary category or trend charts, surfaces created only to look advanced, 3D for one-factor sensitivity, and 3D when a contour, aligned slices, heatmap, or small multiples communicates the same claim more accurately and directly. Backend availability never drives semantic selection. After an eligible information structure is selected:
+
+```text
+2D expression adequate                  -> Matplotlib + figure_exec.py
+intrinsic 3D information genuinely required -> PyVista + figure_3d_exec.py
+```
+
+If PyVista/VTK is unavailable, fail closed; do not fall back to Matplotlib `mplot3d`.
+
 ## Core selection branches
 
 ### Trend and continuous change
@@ -72,7 +90,7 @@ two substantive continuous inputs z=f(x,y)  -> conditional L2 response surface o
                                                 [extra_continuous_dimension]
 ```
 
-A 3D surface is not a generally superior line chart. Use a response surface or contour only when two continuous inputs truly exist and the complete joint response is part of the argument. If a few fixed slices answer the question, retain two-dimensional curves. Resolve crowded lines with small multiples before adding more colors or thinner lines.
+A 3D surface is not a generally superior line chart. Use a response surface or contour only when two continuous inputs truly exist and the complete joint response is part of the argument. Prefer a 2D contour when height is not itself necessary; route a true intrinsic-3D response surface to PyVista only when height/depth materially carries the conclusion. If a few fixed slices answer the question, retain two-dimensional curves. Resolve crowded lines with small multiples before adding more colors or thinner lines.
 
 Stop at the first level that answers the question without hiding material differences.
 
@@ -156,7 +174,7 @@ continuous 2D density and meaningful height matter -> conditional L2 2D density 
                                                       [extra_continuous_dimension]
 ```
 
-This branch chooses the expression level only. It does not choose a mapping library, vector tool, or external tool route.
+This branch chooses the expression level only. Ordinary 2D spatial expressions remain on their suitable 2D route; spatial geometry or topology that passes the intrinsic-3D gate routes to PyVista. It does not choose a mapping library or vector editor.
 
 Stop at map + points when location is the only information required.
 
@@ -174,7 +192,7 @@ two continuous parameters jointly affect the target -> conditional L2 response s
                                                        [extra_continuous_dimension]
 ```
 
-Separate one-factor perturbations do not justify forcing a high-dimensional 3D chart.
+Separate one-factor perturbations do not justify forcing a high-dimensional 3D chart. For two continuous parameters, choose a contour, aligned slices, or heatmap unless height/depth is genuinely required; only then use a PyVista response surface.
 
 Stop when the view reveals the sensitivity or robustness claim at the tested parameter dimensionality.
 
@@ -264,9 +282,10 @@ Apply final-figure authorities in this order for a data-driven figure:
 
 1. `final_figure_selection.md` decides **WHAT / WHEN**: L0–L3, chart family, enhancement trigger, and grouping need.
 2. `final_figure_core_rules.md` applies core in-figure boundaries and routes separate flowchart requests.
-3. `final_figure_style.md` decides **HOW**: physical size, geometry, axes, line, legend, and layout.
-4. `final_figure_color.md` decides qualitative, semantic, continuous-map, missing-value, and accessibility color behavior.
-5. `final_figure_typography.md` decides font families and missing-font behavior.
+3. For ordinary 2D expression, `final_figure_style.md` and `final_figure_execution.md` decide Matplotlib HOW and execution.
+4. For intrinsic-3D expression, `final_figure_3d.md` and `figure_3d_exec.py` decide scene, camera, lighting, depth, and execution without inheriting 2D axes geometry.
+5. `final_figure_color.md` decides qualitative, semantic, continuous-map, missing-value, and accessibility color behavior where applicable.
+6. `final_figure_typography.md` decides Matplotlib font families and missing-font behavior; `final_figure_3d.md` states the honest VTK-native text limit.
 
 Selection cannot override a visual hard constraint in the other four authorities. Style, color, and typography cannot select a chart because it looks more sophisticated. Complete selection before applying rendering details.
 
@@ -283,6 +302,8 @@ upgrade_triggers = [comparison, model_relation, distribution, uncertainty,
                     diagnostic, crowding]
 branches = [trend, category_comparison, bivariate_relation, distribution,
             matrix, spatial, sensitivity, forecasting, diagnostics]
+execution_route = matplotlib_2d | pyvista_intrinsic_3d
+intrinsic_3d_is_not_an_upgrade_trigger = true
 
 trend:
   base_choice = table | single_line

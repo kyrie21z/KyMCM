@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.12 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, execution-first model implementation, recoverable computation, evidence-linked formal results, optional question-level incremental Supplements, neutral technical handoffs gated by explicit RESULT acceptance, explicitly requested data figures through the existing selection and fail-closed Matplotlib path, and explicit flowcharts through evidence-derived type/content specifications with human-owned layout, without workflow state or content JSON.
+KyMCM Lite 0.9.13 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, recoverable evidence-linked modeling, RESULT-gated handoffs, explicitly requested programmatic figures as same-stem PDF/PNG/PY/TXT bundles, ordinary 2D rendering through the existing Matplotlib path, intrinsic-3D rendering through an optional fail-closed PyVista/VTK path, and evidence-derived flowchart specifications with human-owned layout, without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -8,7 +8,7 @@ Using KyMCM Lite itself is AI tool usage. After accepted results, HANDOFF, and s
 
 ## Installation
 
-Copy the complete `kymcm-lite` directory into the Codex Skills directory. The Lite core runtime is self-contained and requires only the Python 3.11–3.13 standard library. Formal Matplotlib figure execution optionally installs `requirements-figure.txt` and requires the two named local font families.
+Copy the complete `kymcm-lite` directory into the Codex Skills directory. The Lite core runtime is self-contained and requires only the Python 3.11–3.13 standard library. Formal 2D Matplotlib execution optionally installs `requirements-figure.txt`; intrinsic-3D execution installs `requirements-figure-3d.txt` and requires headless-capable VTK/EGL/OpenGL.
 
 ## Complete ChatGPT Project Source
 
@@ -42,7 +42,7 @@ The formal modeling surfaces are START, matching RESULT, and RESULT-declared evi
 
 Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and risk-triggered L0/L1/L2 validation. Final display assets and document composition are out of scope.
 
-When the user explicitly requests final figures after accepted results and a current HANDOFF, read `references/final_figure_core_rules.md`. A Codex/Matplotlib data figure then reads `references/final_figure_selection.md`, chooses L0/L1/L2/L3 from a real information need, and applies `references/final_figure_style.md`, `references/final_figure_color.md`, `references/final_figure_typography.md`, and `references/final_figure_execution.md`. Its script loads the active Skill's unchanged `figure_exec.py`, uses locked helpers and `apply_axis_style()`, and delivers through `save_formal_figure()`; ChatGPT/user performs semantic and visual review after the hard audit. `nature-figure` remains optional read-only advice only on explicit request. An explicit flowchart instead reads `references/kymcm-flowchart-selection-v1.md` and `references/kymcm-flowchart-content-v1.md`, produces a semantic node/edge/content plan, and stops before human-owned manual layout and drawing. It does not call the helper or add automatic Graphviz/Mermaid/TikZ routing. Keep work under the optional unmanaged workspace-level `figure/`; neither path adds CLI, state, manifest, or managed workflow semantics.
+When the user explicitly requests final figures after accepted results and a current HANDOFF, read the core and selection references and choose L0/L1/L2/L3 from the real information need. Ordinary 2D expression uses Matplotlib `figure_exec.py`; only intrinsic-3D information uses `final_figure_3d.md` and PyVista `figure_3d_exec.py`, with no decorative 3D or `mplot3d` fallback. Both programmatic routes render PDF/PNG, keep the same-stem PY as the reproducible entrypoint, write the paper-facing title/caption to TXT, and pass `figure_bundle.py` before ChatGPT/user review. A 3D PDF is an exact-size formal container and may contain the rasterized VTK scene. Flowcharts remain semantic plans followed by human-owned layout and require no Python bundle. Keep work under the optional unmanaged `figure/`; no route adds CLI, state, manifest, or managed workflow semantics.
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, stop for explicit user/ChatGPT acceptance, and prepare HANDOFF_PRE only in a new independent read-only HANDOFF_PRE task after acceptance. RESULT_PRE remains the downstream data authority; `check-preprocess-result` alone is not acceptance.
 
