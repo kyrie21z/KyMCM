@@ -141,8 +141,38 @@ class LiteAIToolUsageTemplateTests(unittest.TestCase):
         ):
             self.assertFalse(any(path.name == relative for path in ROOT.rglob(relative)))
 
+    def test_ai_usage_precedes_appendix_and_only_frozen_pdf_is_copyable(self):
+        skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+        protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
+        machine = (SKILL / "references/machine_contract.md").read_text(encoding="utf-8")
+        appendix_start = (SKILL / "templates/APPENDIX_START.template.md").read_text(
+            encoding="utf-8"
+        )
+        for text in (skill_text, protocol):
+            self.assertLess(
+                text.index("## Final submission AI tool usage details"),
+                text.index("## Optional submission appendix organization"),
+            )
+            self.assertNotIn("Appendix organization is stable", text)
+            self.assertNotIn("Appendix 稳定之后", text)
+        for required in (
+            "reports/ai-usage/AI 工具使用详情.pdf",
+            "appendix/AI 工具使用详情.pdf",
+            "sole\nreports exception",
+            "COPY-only",
+            ".xlsx", ".csv", ".txt",
+            "legacy contract shape",
+        ):
+            self.assertIn(required, machine, required)
+        self.assertIn(
+            "AI 工具使用详情：`appendix/AI 工具使用详情.pdf`", appendix_start
+        )
+        self.assertIn("- A093 — COPY — `reports/ai-usage/AI 工具使用详情.pdf`", appendix_start)
+        self.assertNotIn("A093 — CURATE", appendix_start)
+        self.assertNotIn("A093 — GENERATE", appendix_start)
+
     def test_version_and_protected_lite_surfaces(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.13\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.14\n")
         for relative, expected in PROTECTED_HASHES.items():
             actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
             self.assertEqual(actual, expected, relative)

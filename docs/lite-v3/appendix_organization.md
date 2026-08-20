@@ -1,6 +1,6 @@
 # KyMCM Lite 附录整理规范
 
-附录整理是正式结果、提交要求和认证边界稳定后的可选独立阶段。`appendix/` 与根 `code/` 都只收录本队真实工程中的可审计计算核心；正式结果附件是独立交付面，不由附录代码重新生成。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
+附录整理是正式结果、提交要求、认证边界和 AI 工具使用详情 PDF 均冻结后的可选独立阶段。`appendix/` 根文件是独立最终提交附件，`appendix/problems/**` 是审计/复现支持；根 `code/` 只收录本队真实工程中的代表性可审计计算核心。根级提交附件和独立正式结果均不由附录代码重新生成。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
 
 The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference base START/RESULT, accepted Supplement Result, and the current HANDOFF only as internal context; none of those contracts may be copied.
 
@@ -9,7 +9,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 1. 先冻结结构和白名单，再从白名单正向构造，禁止先复制整个工程再反向删除。
 2. `appendix/problems/qN/code/` 与可选的 `appendix/problems/preprocess/code/` 是可审计的计算核心：输入、特征/参数、模型、优化、统计、预测、约束、验证和审计路径可以保留，但不承担正式结果表、接口/报告文本、导出或运行状态文件的生成。
 3. 根 `code/` 是提交文档中的真实代表性计算核心，可以选择一题或多题的核心实现；它不承担完整复现，也不能用来规避 appendix 的计算边界。
-4. `appendix/*/result/`、`appendix/Result.xlsx`（如适用）和其他独立正式结果资产独立 COPY/CURATE，必须与已接受 RESULT 和机器证据一致；checker 只核验，不运行附录代码、不重新生成结果。
+4. `appendix/AI 工具使用详情.pdf` 与比赛明确要求单独提交的根结果文件只做 COPY；普通审计/复现结果保留在 `appendix/problems/qN/result/` 或 `appendix/problems/preprocess/result/`。checker 只核验，不运行附录代码、不重新生成或编辑提交附件。
 5. `problems/`、`input/` 以及正式 START/RESULT、Supplement 和技术 HANDOFF 始终只读；修改只发生在 `appendix/`、根 `code/` 与 `reports/appendix/evidence/`。
 6. 不引入附录状态机、审批对象、事件日志、哈希对象、内容 JSON、持久化清单、自动迁移或外部相似度服务。
 
@@ -29,11 +29,30 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 ## `appendix/` 交付面
 
+`appendix root submission asset` 指比赛最终提交在嵌套审计/复现材料之外独立要求的文件。0.9.14 当前模板支持两类：固定的 `appendix/AI 工具使用详情.pdf`，以及 APPENDIX_START 明确声明的 `appendix/<official-required-filename>` 强制结果文件。前者只能由 `reports/ai-usage/AI 工具使用详情.pdf` COPY；后者只能由已接受的正式结果源 COPY，并允许在计划中映射为比赛要求的官方文件名。两类都必须保持源/目标字节相同、进入 `source_integrity.csv`，不得 CURATE、GENERATE 或由附录计算覆盖。
+
+比赛明确要求某结果文件作为独立提交附件时，才将它声明为根结果；只用于审计、复现或支持的结果继续嵌套。根结果后缀仅允许 `.xlsx`、`.csv`、`.txt`，名称必须是安全的非隐藏直接子文件；AI PDF 是独立保留目标，不属于通用后缀集合。每个官方结果只有一个权威根副本，不得以相同源或相同字节在 `appendix/problems/**/result/` 再放一个正式副本。未来需要其他后缀时先扩展产品合同，不接受任意压缩包或二进制。
+
+当前目标结构为：
+
+```text
+appendix/
+├── AI 工具使用详情.pdf
+├── <mandatory-result>.xlsx|.csv|.txt   # 仅在比赛明确要求时
+├── problems/
+│   ├── preprocess/{code,result}/       # 仅在实际需要时
+│   └── qN/{code,result}/
+├── environment/{README.md,requirements.txt,system_info.txt}
+└── input/                              # 仅在确有必要时
+```
+
+不创建空目录。当前 APPENDIX_START 只有在 `reports/ai-usage/AI 工具使用详情.pdf` 已生成并人工复核后开始；checker 只机器验证该普通非空源已存在。视觉、隐私、真实性、比赛是否确实要求某根结果及其数学正确性仍由计划证据和人工复核负责。
+
 `appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 可来自允许的 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE、Supplement 合同及基础 QN 合同禁止复制。
 
 代码白名单覆盖当前正式结果所依赖的输入解析、清洗、预处理、特征/参数/情景生成、模型构建、目标与约束、求解器调用、统计/预测、验证审计和本地传递模块。调度、批处理、并行、恢复和监控源码只有在仍属于计算核心或验证路径、且不写入缓存/checkpoint/日志/结果接口时才可进入；`scheduler.py` 这类名称本身不是排除理由。
 
-结果只保留已接受的最终策略、代表性或最坏轨迹、核心汇总表和必要证书，排除 RESULT Markdown、接口/报告文本、日志、manifest、checkpoint 数据、阶段账本、内部审计报告和可重建中间文件。每项结论只保留一个正式结果版本，强制 `Result.xlsx` 只能出现一次并接受 COPY 哈希和基本可打开性检查。
+嵌套结果只保留已接受的最终策略、代表性或最坏轨迹、核心汇总表和必要证书，排除 RESULT Markdown、接口/报告文本、日志、manifest、checkpoint 数据、阶段账本、内部审计报告和可重建中间文件。每项结论只保留一个正式结果版本；每个声明的根 XLSX 接受 ZIP/XML 基本结构检查，根 CSV/TXT 必须非空且可安全解码。`appendix/Result.xlsx` 仍是有效特例，但不再是唯一允许的官方文件名。
 
 `appendix/environment/` 只能包含 `README.md`、`requirements.txt` 与 `system_info.txt`。`appendix/input/` 仅在审稿人无法取得且验证确实必需的非标准外部资料存在时使用，绝不创建空目录。
 

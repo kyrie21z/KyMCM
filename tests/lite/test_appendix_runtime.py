@@ -59,6 +59,72 @@ class AppendixRuntimeTests(unittest.TestCase):
         with integrity.open("a", encoding="utf-8") as stream:
             stream.write(f"{relative},{digest},{digest},unchanged\n")
 
+    def declare_current_ai_usage(
+        self, workspace: Path, *, copy_target: bool = False
+    ) -> None:
+        source_relative = "reports/ai-usage/AI 工具使用详情.pdf"
+        source = workspace / source_relative
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(b"%PDF-1.4\nsynthetic test fixture\n%%EOF\n")
+        self.mutate_start(
+            workspace,
+            "外部资料：无",
+            "AI 工具使用详情：`appendix/AI 工具使用详情.pdf`\n\n外部资料：无",
+        )
+        self.mutate_start(
+            workspace,
+            "- A090 — GENERATE",
+            "- A093 — COPY — `reports/ai-usage/AI 工具使用详情.pdf` → "
+            "`appendix/AI 工具使用详情.pdf` — 已完成人工验收的 AI 使用详情\n"
+            "- A090 — GENERATE",
+        )
+        if copy_target:
+            (workspace / "appendix/AI 工具使用详情.pdf").write_bytes(source.read_bytes())
+            self.add_integrity_source(workspace, source_relative)
+            self.mutate_result(workspace, "A005、A090", "A005、A093、A090")
+
+    def declare_root_results(
+        self, workspace: Path, targets: tuple[str, ...], *, copy_targets: bool = True
+    ) -> None:
+        entries: list[str] = []
+        declared: list[str] = []
+        result_ids: list[str] = []
+        for index, target in enumerate(targets, 20):
+            suffix = Path(target).suffix.lower()
+            source_relative = f"problems/q1/outputs/root_{index}{suffix}"
+            source = workspace / source_relative
+            if suffix == ".xlsx":
+                with zipfile.ZipFile(source, "w") as archive:
+                    archive.writestr("[Content_Types].xml", "<Types/>")
+                    archive.writestr(
+                        "xl/workbook.xml",
+                        '<workbook xmlns="x"><sheets><sheet name="S" sheetId="1"/></sheets></workbook>',
+                    )
+            else:
+                source.write_text(f"value\n{index}\n", encoding="utf-8")
+            identifier = f"A{index:03d}"
+            entries.append(
+                f"- {identifier} — COPY — `{source_relative}` → `{target}` — 比赛强制提交结果"
+            )
+            declared.append(f"`{target}`")
+            result_ids.append(identifier)
+            self.add_integrity_source(workspace, source_relative)
+            if copy_targets:
+                destination = workspace / target
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, destination)
+        self.mutate_start(
+            workspace, "- A090 — GENERATE",
+            "\n".join(entries) + "\n- A090 — GENERATE",
+        )
+        self.mutate_start(
+            workspace, "强制结果文件：无",
+            "强制结果文件：" + ", ".join(declared),
+        )
+        self.mutate_result(
+            workspace, "、A090", "、" + "、".join(result_ids) + "、A090",
+        )
+
     def test_exact_headings_and_valid_fixture(self):
         self.assertEqual(len(APPENDIX_START_HEADINGS), 9)
         self.assertEqual(len(APPENDIX_RESULT_HEADINGS), 10)
@@ -499,6 +565,304 @@ class AppendixRuntimeTests(unittest.TestCase):
             finally:
                 temporary.cleanup()
 
+    def test_current_ai_usage_source_precedes_appendix_and_legacy_stays_valid(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.declare_current_ai_usage(workspace)
+            before = fingerprint(workspace)
+            diagnostics = check_appendix_start(workspace)
+            self.assertFalse([item for item in diagnostics if item.severity == "ERROR"], diagnostics)
+            self.assertEqual(before, fingerprint(workspace))
+        finally:
+            temporary.cleanup()
+
+        self.assertFalse(
+            [item for item in check_appendix_start(FIXTURE) if item.severity == "ERROR"]
+        )
+
+    def test_current_ai_usage_rejects_missing_wrong_or_non_pdf_sources(self):
+        cases = (
+            ("missing", "reports/ai-usage/AI 工具使用详情.pdf", None),
+            ("empty", "reports/ai-usage/AI 工具使用详情.pdf", b""),
+            ("wrong-report", "reports/anything_else.pdf", b"%PDF\n"),
+            ("tex", "reports/ai-usage/AI_TOOL_USAGE_DETAILS.tex", b"tex\n"),
+            ("screenshot", "reports/ai-usage/figures/chatgpt_example.png", b"png\n"),
+        )
+        for name, replacement, content in cases:
+            with self.subTest(name=name):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.declare_current_ai_usage(workspace)
+                    original = workspace / "reports/ai-usage/AI 工具使用详情.pdf"
+                    if name == "missing":
+                        original.unlink()
+                    elif name == "empty":
+                        original.write_bytes(b"")
+                    else:
+                        candidate = workspace / replacement
+                        candidate.parent.mkdir(parents=True, exist_ok=True)
+                        candidate.write_bytes(content or b"")
+                        self.mutate_start(
+                            workspace,
+                            "reports/ai-usage/AI 工具使用详情.pdf",
+                            replacement,
+                        )
+                    found = identifiers(check_appendix_start(workspace))
+                    expected = (
+                        "LITE-APPENDIX-SOURCE-MISSING-001"
+                        if name in {"missing", "empty"} else "LITE-APPENDIX-SOURCE-PATH-001"
+                    )
+                    self.assertIn(expected, found)
+                finally:
+                    temporary.cleanup()
+
+    def test_current_ai_usage_declaration_whitelist_and_copy_mode_are_exact(self):
+        mutations = (
+            (
+                "wrong-target",
+                lambda root: self.mutate_start(
+                    root, "appendix/AI 工具使用详情.pdf", "appendix/AI详情.pdf"
+                ),
+            ),
+            (
+                "curate",
+                lambda root: self.mutate_start(root, "A093 — COPY", "A093 — CURATE"),
+            ),
+            (
+                "generate",
+                lambda root: self.mutate_start(
+                    root,
+                    "- A093 — COPY — `reports/ai-usage/AI 工具使用详情.pdf` → "
+                    "`appendix/AI 工具使用详情.pdf` — 已完成人工验收的 AI 使用详情",
+                    "- A093 — GENERATE — `appendix/AI 工具使用详情.pdf` — invalid",
+                ),
+            ),
+            (
+                "duplicate",
+                lambda root: self.mutate_start(
+                    root, "- A090 — GENERATE",
+                    "- A094 — COPY — `reports/ai-usage/AI 工具使用详情.pdf` → "
+                    "`appendix/AI 工具使用详情.pdf` — duplicate\n- A090 — GENERATE",
+                ),
+            ),
+            (
+                "declaration-only",
+                lambda root: self.mutate_start(
+                    root,
+                    "- A093 — COPY — `reports/ai-usage/AI 工具使用详情.pdf` → "
+                    "`appendix/AI 工具使用详情.pdf` — 已完成人工验收的 AI 使用详情\n",
+                    "",
+                ),
+            ),
+            (
+                "whitelist-only",
+                lambda root: self.mutate_start(
+                    root,
+                    "AI 工具使用详情：`appendix/AI 工具使用详情.pdf`\n\n",
+                    "",
+                ),
+            ),
+        )
+        for name, mutate in mutations:
+            with self.subTest(name=name):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.declare_current_ai_usage(workspace)
+                    mutate(workspace)
+                    self.assertTrue(
+                        [item for item in check_appendix_start(workspace) if item.severity == "ERROR"]
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_malformed_ai_usage_label_does_not_fall_back_to_legacy(self):
+        malformed = (
+            "AI 工具使用详情:`appendix/AI 工具使用详情.pdf`",
+            "AI 工具使用详情 ：`appendix/AI 工具使用详情.pdf`",
+            "AI工具使用详情：`appendix/AI 工具使用详情.pdf`",
+        )
+        for declaration in malformed:
+            with self.subTest(declaration=declaration):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.mutate_start(
+                        workspace, "外部资料：无",
+                        f"{declaration}\n\n外部资料：无",
+                    )
+                    self.assertIn(
+                        "LITE-APPENDIX-DECLARATION-001",
+                        identifiers(check_appendix_start(workspace)),
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_current_ai_usage_result_requires_byte_identical_root_copy(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.declare_current_ai_usage(workspace, copy_target=True)
+            before = fingerprint(workspace)
+            diagnostics = check_appendix_result(workspace)
+            self.assertFalse([item for item in diagnostics if item.severity == "ERROR"], diagnostics)
+            self.assertEqual(before, fingerprint(workspace))
+            (workspace / "appendix/AI 工具使用详情.pdf").write_bytes(b"changed")
+            self.assertIn(
+                "LITE-APPENDIX-COPY-MISMATCH-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+        finally:
+            temporary.cleanup()
+
+    def test_mandatory_root_results_support_one_multiple_and_legacy_name(self):
+        for targets in (
+            ("appendix/Result.xlsx",),
+            ("appendix/Q2_result.xlsx",),
+            ("appendix/Result.xlsx", "appendix/Q2_result.csv", "appendix/notes.txt"),
+        ):
+            with self.subTest(targets=targets):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.declare_root_results(workspace, targets)
+                    diagnostics = check_appendix_result(workspace)
+                    self.assertFalse(
+                        [item for item in diagnostics if item.severity == "ERROR"], diagnostics
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_current_ai_multiple_root_results_and_nested_support_compose(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.declare_current_ai_usage(workspace, copy_target=True)
+            self.declare_root_results(
+                workspace,
+                ("appendix/Result.xlsx", "appendix/Q2_result.csv"),
+            )
+            before = fingerprint(workspace)
+            diagnostics = check_appendix_result(workspace)
+            self.assertFalse(
+                [item for item in diagnostics if item.severity == "ERROR"], diagnostics
+            )
+            self.assertEqual(before, fingerprint(workspace))
+            self.assertTrue(
+                (workspace / "appendix/problems/q1/result/formal.csv").is_file()
+            )
+        finally:
+            temporary.cleanup()
+
+    def test_mandatory_root_result_declaration_fails_closed(self):
+        invalid = (
+            "`appendix/Q.csv`, `appendix/Q.csv`",
+            "`appendix/results/Q.csv`",
+            "`appendix/Q.pdf`",
+            "`appendix/AI 工具使用详情.pdf`",
+            "`appendix/.hidden.csv`",
+            "`appendix/Q_backup.csv`",
+        )
+        for payload in invalid:
+            with self.subTest(payload=payload):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.mutate_start(
+                        workspace, "强制结果文件：无", f"强制结果文件：{payload}"
+                    )
+                    self.assertIn(
+                        "LITE-APPENDIX-DECLARATION-001",
+                        identifiers(check_appendix_start(workspace)),
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_root_result_declaration_and_whitelist_must_match_and_use_copy(self):
+        cases = ("undeclared", "missing-entry", "curate", "generate")
+        for case in cases:
+            with self.subTest(case=case):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.declare_root_results(workspace, ("appendix/Q2_result.csv",))
+                    if case == "undeclared":
+                        self.mutate_start(
+                            workspace,
+                            "强制结果文件：`appendix/Q2_result.csv`",
+                            "强制结果文件：无",
+                        )
+                    elif case == "missing-entry":
+                        self.mutate_start(
+                            workspace,
+                            "- A020 — COPY — `problems/q1/outputs/root_20.csv` → "
+                            "`appendix/Q2_result.csv` — 比赛强制提交结果\n",
+                            "",
+                        )
+                    elif case == "curate":
+                        self.mutate_start(workspace, "A020 — COPY", "A020 — CURATE")
+                    else:
+                        self.mutate_start(
+                            workspace,
+                            "- A020 — COPY — `problems/q1/outputs/root_20.csv` → "
+                            "`appendix/Q2_result.csv` — 比赛强制提交结果",
+                            "- A020 — GENERATE — `appendix/Q2_result.csv` — invalid",
+                        )
+                    self.assertTrue(
+                        [item for item in check_appendix_start(workspace) if item.severity == "ERROR"]
+                    )
+                finally:
+                    temporary.cleanup()
+
+    def test_root_result_hash_text_structure_and_authoritative_copy(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.declare_root_results(workspace, ("appendix/Q2_result.csv",))
+            (workspace / "appendix/Q2_result.csv").write_text("changed\n", encoding="utf-8")
+            self.assertIn(
+                "LITE-APPENDIX-COPY-MISMATCH-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+            (workspace / "appendix/Q2_result.csv").write_bytes(b"\xff")
+            self.assertIn(
+                "LITE-APPENDIX-FORBIDDEN-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+            (workspace / "appendix/Q2_result.csv").write_bytes(b"")
+            self.assertIn(
+                "LITE-APPENDIX-FORBIDDEN-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+        finally:
+            temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.declare_root_results(workspace, ("appendix/Q2_result.xlsx",))
+            source = workspace / "problems/q1/outputs/root_20.xlsx"
+            source.write_bytes(b"not a workbook")
+            shutil.copy2(source, workspace / "appendix/Q2_result.xlsx")
+            self.assertIn(
+                "LITE-APPENDIX-XLSX-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+        finally:
+            temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            source = "problems/q1/outputs/formal.csv"
+            self.mutate_start(
+                workspace, "- A090 — GENERATE",
+                "- A020 — COPY — `problems/q1/outputs/formal.csv` → "
+                "`appendix/Result.csv` — 官方根结果\n- A090 — GENERATE",
+            )
+            self.mutate_start(
+                workspace, "强制结果文件：无",
+                "强制结果文件：`appendix/Result.csv`",
+            )
+            self.mutate_result(workspace, "A005、A090", "A005、A020、A090")
+            shutil.copy2(workspace / source, workspace / "appendix/Result.csv")
+            self.assertIn(
+                "LITE-APPENDIX-DUPLICATE-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+        finally:
+            temporary.cleanup()
+
     def test_external_material_declaration_can_match_copy_whitelist(self):
         temporary, workspace = self.fixture_copy()
         try:
@@ -562,6 +926,21 @@ class AppendixRuntimeTests(unittest.TestCase):
             integrity = workspace / "reports/appendix/evidence/source_integrity.csv"
             integrity.write_text(integrity.read_text().replace(",unchanged", ",changed", 1))
             self.assertIn("LITE-APPENDIX-INTEGRITY-001", identifiers(check_appendix_result(workspace)))
+        finally:
+            temporary.cleanup()
+
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.declare_current_ai_usage(workspace, copy_target=True)
+            changed = b"%PDF-1.4\nchanged after integrity record\n%%EOF\n"
+            (workspace / "reports/ai-usage/AI 工具使用详情.pdf").write_bytes(changed)
+            (workspace / "appendix/AI 工具使用详情.pdf").write_bytes(changed)
+            before = fingerprint(workspace)
+            self.assertIn(
+                "LITE-APPENDIX-INTEGRITY-001",
+                identifiers(check_appendix_result(workspace)),
+            )
+            self.assertEqual(before, fingerprint(workspace))
         finally:
             temporary.cleanup()
 
