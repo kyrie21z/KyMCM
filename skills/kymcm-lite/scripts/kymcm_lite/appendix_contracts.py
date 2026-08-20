@@ -52,6 +52,9 @@ ENVIRONMENT_TARGETS = {
     "appendix/environment/requirements.txt",
     "appendix/environment/system_info.txt",
 }
+AI_USAGE_SOURCE = "reports/ai-usage/AI 工具使用详情.pdf"
+AI_USAGE_TARGET = "appendix/AI 工具使用详情.pdf"
+MANDATORY_RESULT_SUFFIXES = {".xlsx", ".csv", ".txt"}
 START_LOCATION = "reports/appendix/APPENDIX_START.md"
 RESULT_LOCATION = "reports/appendix/APPENDIX_RESULT.md"
 INTEGRITY_LOCATION = "reports/appendix/evidence/source_integrity.csv"
@@ -165,8 +168,14 @@ class AppendixPlan:
     parsed: Markdown | None
     entries: tuple[AppendixEntry, ...]
     external_materials: bool | None
-    mandatory_result: bool | None
+    ai_usage_target: str | None
+    mandatory_result_targets: tuple[str, ...]
     diagnostics: tuple[Diagnostic, ...]
+
+    @property
+    def mandatory_result(self) -> bool:
+        """Compatibility view for callers that only need the old boolean."""
+        return bool(self.mandatory_result_targets)
 
 
 def _contains_symlink(workspace: Path, raw: str) -> bool:
@@ -206,7 +215,90 @@ def _parse_declaration(section: str, label: str, choices: dict[str, bool]) -> tu
     return choices[lines[0]], []
 
 
-def _source_mapping_valid(source: str, target: str) -> bool:
+def _parse_ai_usage_declaration(
+    section: str,
+) -> tuple[str | None, list[Diagnostic]]:
+    visible = visible_content(section)
+    label = "AI 工具使用详情："
+    lines = [
+        line.strip() for line in visible.splitlines()
+        if re.match(r"^AI\s*工具\s*使用\s*详情", line.strip())
+    ]
+    if not lines:
+        return None, []
+    expected = f"{label}`{AI_USAGE_TARGET}`"
+    if lines != [expected]:
+        return None, [error(
+            "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
+            f"{label} must appear once as {expected}",
+        )]
+    return AI_USAGE_TARGET, []
+
+
+def _safe_mandatory_root_result_target(raw: str) -> bool:
+    path = Path(raw)
+    return (
+        safe_relative_path(raw)
+        and len(path.parts) == 2
+        and path.parts[0] == "appendix"
+        and bool(path.name)
+        and not path.name.startswith(".")
+        and raw != AI_USAGE_TARGET
+        and path.suffix.lower() in MANDATORY_RESULT_SUFFIXES
+        and not FORBIDDEN_NAME.search(path.name)
+    )
+
+
+def _parse_mandatory_result_declaration(
+    section: str,
+) -> tuple[tuple[str, ...], list[Diagnostic]]:
+    visible = visible_content(section)
+    label = "强制结果文件："
+    lines = [line.strip() for line in visible.splitlines() if line.strip().startswith(label)]
+    if len(lines) != 1:
+        return (), [error(
+            "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
+            f"{label} must appear exactly once",
+        )]
+    if lines[0] == f"{label}无":
+        return (), []
+    payload = lines[0][len(label):]
+    if not re.fullmatch(r"`[^`]+`(?:, `[^`]+`)*", payload):
+        return (), [error(
+            "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
+            "mandatory results must be comma-separated backticked appendix-root targets",
+        )]
+    targets = tuple(re.findall(r"`([^`]*)`", payload))
+    diagnostics: list[Diagnostic] = []
+    if len(set(targets)) != len(targets):
+        diagnostics.append(error(
+            "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
+            "mandatory-result declarations must be unique",
+        ))
+    for target in targets:
+        if not _safe_mandatory_root_result_target(target):
+            diagnostics.append(error(
+                "LITE-APPENDIX-DECLARATION-001", target,
+                "mandatory result must be a safe direct appendix/ .xlsx, .csv, or .txt file",
+            ))
+    return targets, diagnostics
+
+
+def is_ai_usage_target(path: str) -> bool:
+    return path == AI_USAGE_TARGET
+
+
+def is_mandatory_root_result_target(
+    path: str, declared_targets: tuple[str, ...]
+) -> bool:
+    return path in declared_targets
+
+
+def _source_mapping_valid(
+    source: str, target: str, mandatory_targets: tuple[str, ...]
+) -> bool:
+    if is_ai_usage_target(target):
+        return source == AI_USAGE_SOURCE
     match = re.match(r"appendix/problems/(q[1-9][0-9]*|preprocess)/(code|result)/", target)
     if match:
         question, kind = match.groups()
@@ -222,9 +314,11 @@ def _source_mapping_valid(source: str, target: str) -> bool:
         )
     if target.startswith("appendix/input/"):
         return source.startswith("input/")
-    if target == "appendix/Result.xlsx":
+    if is_mandatory_root_result_target(target, mandatory_targets):
         return source.startswith("input/") or bool(
             re.match(r"problems/q[1-9][0-9]*/outputs/", source)
+        ) or source.startswith(
+            ("problems/preprocess/outputs/", "problems/preprocess/data/derived/")
         )
     if target.startswith("code/"):
         return bool(re.match(r"problems/(?:q[1-9][0-9]*|preprocess)/code/", source))
@@ -239,7 +333,9 @@ def _target_valid(category: str, target: str, numbers: list[int]) -> bool:
             and path.parts[0] == "code"
             and bool(path.name)
         )
-    if target in ENVIRONMENT_TARGETS or target == "appendix/Result.xlsx":
+    if target in ENVIRONMENT_TARGETS or is_ai_usage_target(target):
+        return True
+    if _safe_mandatory_root_result_target(target):
         return True
     if target.startswith("appendix/input/"):
         return len(Path(target).parts) >= 3
@@ -256,7 +352,8 @@ def _mode_valid(entry: AppendixEntry) -> bool:
     if target in ENVIRONMENT_TARGETS:
         return entry.mode == "GENERATE"
     if (
-        target == "appendix/Result.xlsx"
+        is_ai_usage_target(target)
+        or _safe_mandatory_root_result_target(target)
         or target.startswith("appendix/input/")
         or re.match(r"appendix/problems/(?:q[1-9][0-9]*|preprocess)/result/", target)
     ):
@@ -267,7 +364,8 @@ def _mode_valid(entry: AppendixEntry) -> bool:
 
 
 def _parse_whitelist(
-    workspace: Path, section: str, category: str, numbers: list[int]
+    workspace: Path, section: str, category: str, numbers: list[int],
+    mandatory_targets: tuple[str, ...],
 ) -> tuple[list[AppendixEntry], list[Diagnostic]]:
     diagnostics: list[Diagnostic] = []
     entries: list[AppendixEntry] = []
@@ -343,12 +441,13 @@ def _parse_whitelist(
         for source in sources:
             if not safe_relative_path(source):
                 continue
-            if not source.startswith(SOURCE_ROOTS) or source.startswith(
+            allowed_reports_source = source == AI_USAGE_SOURCE
+            if (not source.startswith(SOURCE_ROOTS) and not allowed_reports_source) or source.startswith(
                 ("reports/", "appendix/", "code/", ".kymcm/", ".git/")
-            ):
+            ) and not allowed_reports_source:
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-PATH-001", source,
-                    "source is outside problems/ or input/",
+                    "source is outside problems/, input/, or the exact AI-usage PDF exception",
                 ))
             elif re.match(
                 r"(?:problems/q[1-9][0-9]*/(?:spec/(?:START_Q[1-9][0-9]*(?:_[1-9][0-9]*)?|"
@@ -364,12 +463,14 @@ def _parse_whitelist(
                     "START, RESULT, SUPPLEMENT, and HANDOFF internal documents "
                     "are contextual references and cannot be copied",
                 ))
-            elif not _ordinary_file(workspace, source):
+            elif not _ordinary_file(workspace, source) or (
+                source == AI_USAGE_SOURCE and (workspace / source).stat().st_size == 0
+            ):
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-MISSING-001", source,
-                    "source must already exist as an ordinary non-symlink file",
+                    "source must already exist as a non-empty ordinary non-symlink file",
                 ))
-            elif not _source_mapping_valid(source, target):
+            elif not _source_mapping_valid(source, target, mandatory_targets):
                 diagnostics.append(error(
                     "LITE-APPENDIX-SOURCE-PATH-001", source,
                     f"source is not allowed to map to {target}",
@@ -391,7 +492,8 @@ def _parse_appendix_start(
     )
     entries: list[AppendixEntry] = []
     external: bool | None = None
-    mandatory: bool | None = None
+    ai_usage_target: str | None = None
+    mandatory_targets: tuple[str, ...] = ()
     if parsed is not None:
         structure = heading_diagnostics(
             parsed, APPENDIX_START_HEADINGS,
@@ -419,15 +521,16 @@ def _parse_appendix_start(
                 {"外部资料：无": False, "外部资料：`appendix/input`": True},
             )
             diagnostics.extend(found)
-            mandatory, found = _parse_declaration(
-                section7, "强制结果文件：",
-                {"强制结果文件：无": False, "强制结果文件：`appendix/Result.xlsx`": True},
-            )
+            ai_usage_target, found = _parse_ai_usage_declaration(section7)
+            diagnostics.extend(found)
+            mandatory_targets, found = _parse_mandatory_result_declaration(section7)
             diagnostics.extend(found)
             if external:
                 other = "\n".join(
                     line for line in visible_content(section7).splitlines()
-                    if not line.strip().startswith(("外部资料：", "强制结果文件："))
+                    if not line.strip().startswith(
+                        ("AI 工具使用详情：", "外部资料：", "强制结果文件：")
+                    )
                 )
                 if not meaningful(other):
                     diagnostics.append(error(
@@ -448,13 +551,13 @@ def _parse_appendix_start(
                     ))
             appendix_entries, found = _parse_whitelist(
                 workspace, parsed.section(APPENDIX_START_HEADINGS[3], APPENDIX_START_HEADINGS),
-                "appendix", numbers,
+                "appendix", numbers, mandatory_targets,
             )
             entries.extend(appendix_entries)
             diagnostics.extend(found)
             code_entries, found = _parse_whitelist(
                 workspace, parsed.section(APPENDIX_START_HEADINGS[4], APPENDIX_START_HEADINGS),
-                "code", numbers,
+                "code", numbers, mandatory_targets,
             )
             entries.extend(code_entries)
             diagnostics.extend(found)
@@ -482,11 +585,20 @@ def _parse_appendix_start(
                     "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
                     "external-material declaration and appendix/input whitelist disagree",
                 ))
-            has_result = any(entry.target == "appendix/Result.xlsx" for entry in entries)
-            if mandatory is not None and has_result != mandatory:
+            ai_entries = [entry for entry in entries if is_ai_usage_target(entry.target)]
+            if (ai_usage_target is not None) != bool(ai_entries):
                 diagnostics.append(error(
                     "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
-                    "mandatory-result declaration and appendix/Result.xlsx whitelist disagree",
+                    "AI-usage declaration and exact root COPY whitelist entry disagree",
+                ))
+            root_results = {
+                entry.target for entry in entries
+                if _safe_mandatory_root_result_target(entry.target)
+            }
+            if root_results != set(mandatory_targets):
+                diagnostics.append(error(
+                    "LITE-APPENDIX-DECLARATION-001", START_LOCATION,
+                    "mandatory-result declarations and root-result whitelist targets disagree",
                 ))
     if warn_stale:
         for root in ("appendix", "code"):
@@ -496,7 +608,10 @@ def _parse_appendix_start(
                     "LITE-APPENDIX-STALE-WARN-001", root,
                     "pre-existing appendix output may be stale; do not overwrite silently",
                 ))
-    return AppendixPlan(parsed, tuple(entries), external, mandatory, tuple(diagnostics))
+    return AppendixPlan(
+        parsed, tuple(entries), external, ai_usage_target,
+        mandatory_targets, tuple(diagnostics),
+    )
 
 
 def _git_source_diagnostics(workspace: Path) -> list[Diagnostic]:
@@ -594,11 +709,17 @@ def _scan_exact_tree(
             "LITE-APPENDIX-STRUCTURE-001", "appendix/input",
             "appendix/input must be absent when external materials are none",
         ))
-    if plan.mandatory_result is False and (workspace / "appendix/Result.xlsx").exists():
-        diagnostics.append(error(
-            "LITE-APPENDIX-STRUCTURE-001", "appendix/Result.xlsx",
-            "Result.xlsx must be absent when no mandatory result is declared",
-        ))
+    for path in (workspace / "appendix").glob("*") if (workspace / "appendix").is_dir() else ():
+        relative = path.relative_to(workspace).as_posix()
+        if (
+            path.is_file()
+            and _safe_mandatory_root_result_target(relative)
+            and relative not in plan.mandatory_result_targets
+        ):
+            diagnostics.append(error(
+                "LITE-APPENDIX-STRUCTURE-001", relative,
+                "root result file is not declared as a mandatory submission asset",
+            ))
     for directory in found_dirs:
         parts = Path(directory).parts
         if parts[0] == "code" and len(parts) > 1:
@@ -673,7 +794,10 @@ def _integrity_diagnostics(
         if (
             len(row) != 4
             or not safe_relative_path(row[0])
-            or not row[0].startswith(SOURCE_ROOTS)
+            or (
+                not row[0].startswith(SOURCE_ROOTS)
+                and row[0] != AI_USAGE_SOURCE
+            )
             or not digest.fullmatch(row[1] if len(row) > 1 else "")
             or not digest.fullmatch(row[2] if len(row) > 2 else "")
             or row[1] != row[2]
@@ -685,6 +809,14 @@ def _integrity_diagnostics(
             ))
         elif len(row) == 4:
             recorded.add(row[0])
+            source = workspace / row[0]
+            if not _ordinary_file(workspace, row[0]) or (
+                hashlib.sha256(source.read_bytes()).hexdigest() != row[1]
+            ):
+                diagnostics.append(error(
+                    "LITE-APPENDIX-INTEGRITY-001", f"{INTEGRITY_LOCATION}:{index}",
+                    "recorded SHA-256 does not match the current ordinary source file",
+                ))
     expected = {source for entry in entries for source in entry.sources}
     missing = sorted(expected - recorded)
     if missing:
@@ -736,7 +868,10 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
                     "LITE-APPENDIX-FORBIDDEN-001", entry.target,
                     "root code/ contains a README or data file",
                 ))
-        if "/result/" in entry.target:
+        if (
+            "/result/" in entry.target
+            or _safe_mandatory_root_result_target(entry.target)
+        ):
             digest = hashlib.sha256(path.read_bytes()).digest()
             if digest in result_hashes:
                 diagnostics.append(error(
@@ -1266,32 +1401,44 @@ def _native_side_effect_diagnostics(
     return diagnostics
 
 
-def _xlsx_diagnostics(workspace: Path, plan: AppendixPlan) -> list[Diagnostic]:
-    if not plan.mandatory_result:
-        return []
-    path = workspace / "appendix/Result.xlsx"
-    if not path.is_file() or path.is_symlink():
-        return []
-    try:
-        with zipfile.ZipFile(path) as archive:
-            names = set(archive.namelist())
-            required = {"[Content_Types].xml", "xl/workbook.xml"}
-            if not required <= names:
-                raise ValueError("required XLSX members are missing")
-            ET.fromstring(archive.read("[Content_Types].xml"))
-            workbook = ET.fromstring(archive.read("xl/workbook.xml"))
-            sheets = [
-                element for element in workbook.iter()
-                if element.tag.rsplit("}", 1)[-1] == "sheet"
-            ]
-            if not sheets:
-                raise ValueError("workbook contains no sheet")
-    except (OSError, ValueError, zipfile.BadZipFile, ET.ParseError) as exc:
-        return [error(
-            "LITE-APPENDIX-XLSX-001", "appendix/Result.xlsx",
-            f"workbook is unreadable or structurally invalid: {type(exc).__name__}",
-        )]
-    return []
+def _root_result_diagnostics(workspace: Path, plan: AppendixPlan) -> list[Diagnostic]:
+    diagnostics: list[Diagnostic] = []
+    for target in plan.mandatory_result_targets:
+        path = workspace / target
+        if not path.is_file() or path.is_symlink():
+            continue
+        if path.suffix.lower() == ".xlsx":
+            try:
+                with zipfile.ZipFile(path) as archive:
+                    names = set(archive.namelist())
+                    required = {"[Content_Types].xml", "xl/workbook.xml"}
+                    if not required <= names:
+                        raise ValueError("required XLSX members are missing")
+                    ET.fromstring(archive.read("[Content_Types].xml"))
+                    workbook = ET.fromstring(archive.read("xl/workbook.xml"))
+                    sheets = [
+                        element for element in workbook.iter()
+                        if element.tag.rsplit("}", 1)[-1] == "sheet"
+                    ]
+                    if not sheets:
+                        raise ValueError("workbook contains no sheet")
+            except (OSError, ValueError, zipfile.BadZipFile, ET.ParseError) as exc:
+                diagnostics.append(error(
+                    "LITE-APPENDIX-XLSX-001", target,
+                    f"workbook is unreadable or structurally invalid: {type(exc).__name__}",
+                ))
+        else:
+            try:
+                raw = path.read_bytes()
+                text = raw.decode("utf-8")
+                if not raw or not text.strip() or "\x00" in text:
+                    raise ValueError("text result is empty or contains NUL")
+            except (OSError, UnicodeDecodeError, ValueError) as exc:
+                diagnostics.append(error(
+                    "LITE-APPENDIX-FORBIDDEN-001", target,
+                    f"root text result is unreadable or unsafe: {type(exc).__name__}",
+                ))
+    return diagnostics
 
 
 def _sensitive_diagnostics(
@@ -1345,11 +1492,16 @@ def _certification_diagnostics(
     diagnostics: list[Diagnostic] = []
     for entry in plan.entries:
         path = workspace / entry.target
-        if (
+        if not (
             path.is_file() and not path.is_symlink()
             and path.suffix.lower() in TEXT_SUFFIXES
-            and CERTIFICATION.search(path.read_text(encoding="utf-8"))
         ):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        if CERTIFICATION.search(text):
             diagnostics.append(warning(
                 "LITE-APPENDIX-CERTIFICATION-WARN-001", entry.target,
                 "unqualified global-certification language conflicts with visible limitations",
@@ -1477,7 +1629,7 @@ def check_appendix_result(workspace: Path) -> list[Diagnostic]:
     diagnostics.extend(_python_side_effect_diagnostics(workspace, plan.entries))
     diagnostics.extend(_native_dependency_diagnostics(workspace, plan.entries))
     diagnostics.extend(_native_side_effect_diagnostics(workspace, plan.entries))
-    diagnostics.extend(_xlsx_diagnostics(workspace, plan))
+    diagnostics.extend(_root_result_diagnostics(workspace, plan))
     diagnostics.extend(_sensitive_diagnostics(workspace, plan.entries))
     if parsed is not None:
         diagnostics.extend(_certification_diagnostics(workspace, plan, parsed))

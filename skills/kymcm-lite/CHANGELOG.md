@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.14 - 2026-08-19
+
+- Move AI tool usage details before Appendix organization and copy the accepted `AI 工具使用详情.pdf` into the Appendix root as a frozen COPY-only submission asset.
+- Generalize mandatory contest result files from one hard-coded `appendix/Result.xlsx` case to declared COPY-only root result files while keeping ordinary audit/support results nested by problem.
+- Preserve legacy Appendix contracts, the eight-command Lite v3 runtime, figure/flowchart systems, and KyMCM Full unchanged.
+
 ## 0.9.13 - 2026-08-19
 
 - Make every formal programmatic figure a same-stem PDF/PNG/PY/TXT bundle, with TXT storing the paper-facing figure title and caption and PY remaining the reproducible entrypoint.

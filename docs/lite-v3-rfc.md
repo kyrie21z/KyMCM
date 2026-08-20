@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.13 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.14 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.13 execution boundary: Codex stops after checked RESULT/RESULT_PRE and waits for explicit acceptance before a separate HANDOFF task. Explicitly requested programmatic figures become same-stem PDF/PNG/PY/TXT bundles; ordinary 2D remains on Matplotlib, while only intrinsic-3D information uses optional PyVista/VTK. Flowcharts still stop before user-owned manual layout/drawing. No core command, state, manifest, or managed figure root is added. The historical design below remains preserved.
+Current 0.9.14 boundary: accepted modeling and requested HANDOFF/figures precede AI-use PDF generation and human review; only then does Appendix copy that PDF and declared mandatory results to root submission targets. Ordinary support results remain nested. The marker, eight commands, figure/flowchart behavior, and absence of state/manifest remain unchanged. The historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite

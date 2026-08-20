@@ -69,8 +69,12 @@ xelatex -interaction=nonstopmode -halt-on-error \
 
 ## 边界、真实性和版本更新
 
-AI 工具使用详情是最终提交合规材料阶段，顺序上位于正式 RESULT/Supplement 已完成并接受、必要 HANDOFF 完成、Appendix 稳定之后。它不是数学建模执行、RESULT、HANDOFF、Appendix 计算核心、`figure/` final figure 工作区、evidence 或后续问题依赖；`reports/ai-usage/` 不进入 Appendix whitelist、RESULT evidence 或 root `code/`。
+AI 工具使用详情位于 Appendix 整理之前：正式 RESULT/Supplement 已完成并接受、必要 HANDOFF 完成、请求的 final figure 工作完成后，先生成 `reports/ai-usage/AI 工具使用详情.pdf`，再完成人工视觉、隐私和真实性复核。复核接受后，该 PDF 成为冻结只读的 pre-Appendix source，之后才编写当前模板的 APPENDIX_START 并开始 Appendix 整理。
 
-使用 KyMCM Lite 本身属于 AI 工具使用，因此应按实际情况准备声明和 PDF。但 Lite runtime 不读取截图或聊天记录，不自动生成 PDF，不判断声明真实性，不从 RESULT、HANDOFF 或历史对话推断内容，也不新增 CLI、checker、diagnostic、state、JSON、manifest 或 approval。模板正文由文档和 release tests 冻结，LaTeX 编译与视觉验收由执行者负责。
+Appendix 唯一可接收的 AI 使用材料是从 `reports/ai-usage/AI 工具使用详情.pdf` 原字节 COPY 到 `appendix/AI 工具使用详情.pdf`。`reports/**` 仍不是一般 Appendix 来源；唯一例外就是这一个 PDF 到这一个根目标的 COPY 映射。`.tex`、两张截图、`.aux`、`.log`、`.out`、`.toc` 以及 `reports/ai-usage/` 下其他文件继续禁止进入 Appendix。该 PDF 是独立根级提交附件，不是 Appendix 计算代码、RESULT 证据、建模依赖或 `figure/` asset，Appendix checker 不编译、生成或编辑它。
+
+若 PDF 冻结后又发生会实质改变建模、结果、图件、论文主张或真实 AI 使用披露的工作，停止 Appendix，更新并重新完成人工复核，再从更新后的源重新规划 Appendix。该顺序不引入 AI-usage checker、状态或审批对象。
+
+使用 KyMCM Lite 本身属于 AI 工具使用，因此应按实际情况准备声明和 PDF。但 Lite runtime 不读取截图或聊天记录，不自动生成 PDF，不判断声明真实性，不从 RESULT、HANDOFF 或历史对话推断内容，也不新增 CLI、checker、diagnostic、state、JSON、manifest 或 approval。模板正文由文档和 release tests 冻结，LaTeX 编译与视觉验收由执行者负责；Appendix checker 只验证冻结源已存在、COPY 映射与字节同一性。
 
 当前固定正文绑定 ChatGPT/GPT-5.6 Thinking 与 Codex CLI/GPT-5.6 Codex。工具或模型发生变化时，必须在新的 KyMCM Lite 版本中集中更新 canonical template 和 mirror；不得在比赛工作区临时改写固定正文。固定正文仍必须与实际使用过程一致；若真实过程偏离固定声明，应停止套用模板，由用户决定是否修改产品级模板，不能提交不实材料。真实性、截图代表性、隐私遮盖和最终合规性始终需要参赛队人工审查。

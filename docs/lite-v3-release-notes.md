@@ -1,4 +1,12 @@
-# KyMCM Lite 0.9.13
+# KyMCM Lite 0.9.14
+
+KyMCM Lite 0.9.14 moves final AI-tool usage details before Appendix organization. After accepted substantive work and any requested HANDOFF/final figures, the team generates and human-reviews `reports/ai-usage/AI 工具使用详情.pdf`; only then does a current APPENDIX_START copy that frozen file byte-for-byte to `appendix/AI 工具使用详情.pdf`. The `.tex`, screenshots, LaTeX build files, and all other `reports/**` paths remain outside Appendix.
+
+The Appendix root now has one explicit meaning: independent final submission attachments. Contest-required result files are declared as safe direct `.xlsx`, `.csv`, or `.txt` targets and are COPY-only; `appendix/Result.xlsx` remains supported, multiple official filenames are allowed, and one official result cannot be duplicated as a second nested formal copy. Ordinary audit/reproduction results remain under `appendix/problems/**/result/`. The checker verifies declarations, source existence, exact COPY bytes, source integrity, basic XLSX/text readability, and uniqueness without generating assets or judging their truth or mathematics.
+
+Legacy Appendix plans without the AI declaration remain readable and are never rewritten automatically. Re-author Appendix from the 0.9.14 template to opt into the new root-submission behavior. No CLI command, state, manifest, content JSON, runtime dependency, or migration is added. The Lite v3 marker, eight commands, modeling/Supplement/HANDOFF behavior, 2D/3D figure bundle, flowchart specifications, and KyMCM Full are unchanged.
+
+## KyMCM Lite 0.9.13
 
 KyMCM Lite 0.9.13 makes each formal programmatically rendered data figure one same-stem four-file bundle: PDF for paper placement, high-resolution PNG for raster delivery, PY as the canonical reproducible entrypoint, and plain UTF-8 TXT for the paper-facing figure title and caption. The exact TXT grammar begins with one `图题：` line followed by `图注：` and at least one caption line. The title remains outside PDF/PNG, and PDF/PNG alone no longer completes a formal programmatic figure.
 

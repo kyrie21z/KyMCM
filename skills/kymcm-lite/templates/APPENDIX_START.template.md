@@ -20,6 +20,7 @@
 - A003 — CURATE — `problems/q1/code/model.py` → `appendix/problems/q1/code/model.py` — 仅机械删除显示入口并保留计算语义
 PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problems/preprocess/code/clean.py`，或从允许的 `problems/preprocess/data/derived/clean.csv` 映射至 `appendix/problems/preprocess/result/clean.csv`；不得列入 START_PRE、RESULT_PRE 或 HANDOFF_PRE。
 -->
+- A093 — COPY — `reports/ai-usage/AI 工具使用详情.pdf` → `appendix/AI 工具使用详情.pdf` — 已完成并人工验收的 AI 工具使用详情提交附件
 - A090 — GENERATE — `appendix/environment/README.md` — 复现入口说明
 - A091 — GENERATE — `appendix/environment/requirements.txt` — 最小依赖清单
 - A092 — GENERATE — `appendix/environment/system_info.txt` — 非敏感版本信息
@@ -36,11 +37,13 @@ PRE 示例可从 `problems/preprocess/code/clean.py` 映射至 `appendix/problem
 
 ## 7. 环境、外部资料与强制结果文件
 
+AI 工具使用详情：`appendix/AI 工具使用详情.pdf`
+
 外部资料：无
 
 强制结果文件：无
 
-<!-- 如声明 appendix/input，请补充资料来源、用途及不可替代性。 -->
+<!-- 如声明 appendix/input，请补充资料来源、用途及不可替代性。强制结果文件可声明一个或多个以英文逗号加空格分隔的根目标，例如 `appendix/Result.xlsx`, `appendix/Q2_result.csv`；每项必须有唯一 COPY 白名单条目。 -->
 
 ## 8. 验收方法与停止规则
 

@@ -1,10 +1,10 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.13 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional shared-data preprocessing, recoverable evidence-linked modeling, RESULT-gated handoffs, explicitly requested programmatic figures as same-stem PDF/PNG/PY/TXT bundles, ordinary 2D rendering through the existing Matplotlib path, intrinsic-3D rendering through an optional fail-closed PyVista/VTK path, and evidence-derived flowchart specifications with human-owned layout, without workflow state or content JSON.
+KyMCM Lite 0.9.14 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional preprocessing, recoverable evidence-linked modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets without workflow state or content JSON. The 0.9.13 2D/3D bundle and human-owned flowchart boundaries remain unchanged.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
-Using KyMCM Lite itself is AI tool usage. After accepted results, HANDOFF, and stable Appendix work, use `references/ai_tool_usage_details.md` and copy `templates/AI_TOOL_USAGE_DETAILS.template.tex`; each competition replaces only the two real screenshots and compiles `AI 工具使用详情.pdf`. The fixed declaration snippet belongs before paper references when required. This material is outside RESULT/HANDOFF, Appendix, evidence, modeling dependencies, and final-figure work; Lite does not generate it from workspace files and adds no CLI, checker, state, JSON, manifest, or approval. XeLaTeX is an optional final-material build dependency, and factual/privacy/visual review remains human work.
+Using KyMCM Lite itself is AI tool usage. After accepted substantive work and requested HANDOFF/figures, compile and human-review `reports/ai-usage/AI 工具使用详情.pdf` before Appendix. Appendix copies only that frozen PDF to `appendix/AI 工具使用详情.pdf`; contest-required result files are also declared COPY-only root assets, while ordinary support results remain under `appendix/problems/**/result/`. Lite adds no AI command, state, JSON, manifest, approval, or generation step.
 
 ## Installation
 
@@ -50,7 +50,7 @@ After the complete base RESULT set passes, optional post-result validation, revi
 
 After RESULT and evidence stabilize, the user/ChatGPT must explicitly accept the RESULT; only a new independent, read-only HANDOFF task may then create or refresh one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass and the complete Result set to be accepted. A new Supplement Result never refreshes HANDOFF automatically. Exact base RESULT tokens remain modeling dependencies; HANDOFF has no checker or state and cannot enter appendix outputs.
 
-The optional appendix stage starts only after formal results and completed Supplement work are accepted, any requested HANDOFF is current, and explicit submission requirements and certification boundaries are stable. Supplement Markdown contracts are internal context and cannot be copied, while current effective Supplement code and result assets remain eligible under existing mappings. `APPENDIX_START.md` is the sole whitelist and `APPENDIX_RESULT.md` the execution report.
+The optional appendix stage starts only after formal results are accepted, requested HANDOFF/figures are complete, the AI PDF is frozen, and submission requirements are stable. Current templates declare the AI root target and any safe `.xlsx`/`.csv`/`.txt` mandatory root results. Legacy Appendix plans without the AI declaration remain readable; re-author from the 0.9.14 template to opt into current root-asset behavior.
 
 KyMCM Full is the separate review-gated end-to-end workflow. Users choose one Skill explicitly; neither guesses or converts the other workspace mode.
 

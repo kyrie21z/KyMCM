@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.13** is the programming-side Markdown-first protocol with non-visual-by-default PRE/QN execution, explicit RESULT acceptance before any HANDOFF, optional question-level Supplements, and a request-driven unmanaged `figure/` workspace. Every formal programmatic figure is now one same-stem PDF/PNG/PY/TXT bundle. Ordinary 2D figures retain the Matplotlib `figure_exec.py` route; intrinsic-3D information uses the optional PyVista/VTK `figure_3d_exec.py` route without decorative 3D or `mplot3d` fallback. Flowcharts still stop before human-owned layout and drawing. The eight-command core remains standard-library-only.
+- **KyMCM Lite 0.9.14** is the programming-side Markdown-first protocol with non-visual PRE/QN execution, RESULT-gated HANDOFF, optional final figures, then reviewed AI-use details before Appendix organization. Appendix root files are COPY-only submission attachments; ordinary support results remain nested. The eight-command core stays standard-library-only, and the 0.9.13 figure/flowchart behavior is unchanged.
 
 ## Install
 
