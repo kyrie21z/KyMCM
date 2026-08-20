@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.13 - 2026-08-19
+
+- Make every formal programmatic figure a same-stem PDF/PNG/PY/TXT bundle, with TXT storing the paper-facing figure title and caption and PY remaining the reproducible entrypoint.
+- Add an optional intrinsic-3D PyVista/VTK path under `kymcm-figure-3d-v1` / `kymcm-figure-3d-exec-v1`, with off-screen explicit camera, restrained lighting, SSAA, 600 dpi-equivalent PNG, and exact-size raster PDF packaging.
+- Keep 3D semantic rather than decorative: ordinary 2D figures remain on the existing Matplotlib route and formal intrinsic 3D never falls back to Matplotlib `mplot3d`.
+- Preserve the Lite v3 marker, eight commands, flowchart human-layout boundary, existing workspaces, `nature-figure` boundary, and KyMCM Full.
+
 ## 0.9.12 - 2026-08-16
 
 - Restore the full long-form `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1` specifications instead of the compressed 0.9.11 summaries, preserving the evidence-derived M1–M6 / A1–A6 and content-budget architecture.

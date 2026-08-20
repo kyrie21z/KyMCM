@@ -122,7 +122,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_manifest_and_canonical_completeness(self):
         sources = exporter.collect_sources(ROOT)
         document = SPEC.read_text(encoding="utf-8")
-        self.assertEqual(len(sources), 43)
+        self.assertEqual(len(sources), 44)
         self.assertEqual(
             {source.role for source in sources},
             {
@@ -186,7 +186,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_mirror_hashes_and_mapping(self):
         sources = exporter.collect_sources(ROOT)
         mirrored = [source for source in sources if source.mirrors]
-        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 28)
+        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 29)
         for source in mirrored:
             for mirror in source.mirrors:
                 path = ROOT / mirror
@@ -236,13 +236,14 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_frozen_figure_references_are_exported(self):
         document = SPEC.read_text(encoding="utf-8")
         expected = {
-            "final_figure_core_rules.md": ("kymcm-flowchart-selection-v1.md", "human author owns final layout", "PDF and PNG"),
+            "final_figure_core_rules.md": ("kymcm-flowchart-selection-v1.md", "human author owns final layout", "PDF + PNG + PY + TXT"),
             "kymcm-flowchart-selection-v1.md": ("kymcm-flowchart-selection-v1", "Macro / 宏观、高层过程：**40 幅**", "Algorithm / 算法、可执行过程：**33 幅**"),
             "kymcm-flowchart-content-v1.md": ("kymcm-flowchart-content-v1", "普通节点：747", "# 15. 不设置统一 Hard Max"),
             "final_figure_execution.md": ("kymcm-figure-exec-v1", "save_formal_figure()", "Semantic and visual review"),
             "final_figure_selection.md": ("kymcm-figure-selection-v1", "FIGURE_SELECTION_V1", "visual complexity != information value"),
             "final_figure_style.md": ("F-STANDARD", "FIGURE_STYLE_V1", "600 dpi"),
             "final_figure_color.md": ("KY_MCM_QUALITATIVE_V1", "batlow", "vik"),
+            "final_figure_3d.md": ("kymcm-figure-3d-v1", "PyVista", "PDF/PNG/PY/TXT"),
         }
         for name, required in expected.items():
             path = ROOT / "skills/kymcm-lite/references" / name
@@ -254,7 +255,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
                 self.assertIn(phrase, text, f"{name}: {phrase}")
 
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.12\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.13\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True

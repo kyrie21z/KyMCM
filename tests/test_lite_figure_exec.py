@@ -16,6 +16,7 @@ from unittest import mock
 os.environ.setdefault("MPLBACKEND", "Agg")
 ROOT = Path(__file__).resolve().parents[1]
 MODULE_PATH = ROOT / "skills/kymcm-lite/figure_exec.py"
+BUNDLE_PATH = ROOT / "skills/kymcm-lite/figure_bundle.py"
 
 
 def load_module():
@@ -28,6 +29,18 @@ def load_module():
 
 
 figure_exec = load_module()
+
+
+def load_bundle_module():
+    spec = importlib.util.spec_from_file_location("kymcm_lite_figure_bundle_for_2d", BUNDLE_PATH)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+figure_bundle = load_bundle_module()
 
 
 class LiteFigureExecParameterTests(unittest.TestCase):
@@ -368,6 +381,28 @@ class LiteFigureExecArtifactTests(unittest.TestCase):
             expected_points = tuple(value * 72 for value in figure_exec.canvas_inches("F-WIDE"))
             self.assertTrue(all(abs(left - right) <= 0.25 for left, right in zip(points, expected_points)))
 
+    def test_complete_2d_workflow_adds_note_and_passes_bundle_audit(self):
+        fig, _ax = self.compliant_figure("F-WIDE")
+        with tempfile.TemporaryDirectory() as directory:
+            stem = Path(directory) / "formal"
+            source = stem.with_suffix(".py")
+            source.write_text(
+                "from pathlib import Path\nstem = Path(__file__).with_suffix(\"\")\n",
+                encoding="utf-8",
+            )
+            visual = figure_exec.save_formal_figure(fig, stem, template="F-WIDE")
+            figure_bundle.write_figure_note(
+                stem,
+                title="基准情景趋势",
+                caption="横轴为时间，纵轴为目标值；阴影表示不确定性区间。",
+            )
+            bundle = figure_bundle.validate_figure_bundle(stem, source_path=source)
+            self.assertEqual(visual["pdf"], bundle["pdf"])
+            self.assertEqual(visual["png"], bundle["png"])
+            self.assertEqual({path.name for path in Path(directory).iterdir()}, {
+                "formal.pdf", "formal.png", "formal.py", "formal.txt",
+            })
+
     def test_forbidden_same_stem_format_fails_without_deletion(self):
         fig, _ax = self.compliant_figure()
         with tempfile.TemporaryDirectory() as directory:
@@ -408,6 +443,10 @@ class LiteFigureExecArtifactTests(unittest.TestCase):
             for path in (ROOT / "skills/kymcm-lite/scripts").rglob("*.py")
         )
         self.assertNotIn("figure_exec", runtime)
+        self.assertNotIn("figure_bundle", runtime)
+        self.assertNotIn("figure_3d_exec", runtime)
+        self.assertNotIn("pyvista", runtime)
+        self.assertNotIn("vtk", runtime)
         self.assertNotIn("cmcrameri", runtime)
         self.assertNotIn("matplotlib", runtime)
 

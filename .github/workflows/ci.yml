@@ -24,6 +24,7 @@ jobs:
           cache: pip
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -r requirements.txt
+      - run: python -m unittest tests.test_lite_figure_bundle tests.test_lite_figure_3d.Figure3DUnitTests -v
       - run: python -m unittest tests.test_lite_figure_exec -v
       - run: python -m unittest discover -s tests/lite -v
       - run: python -m unittest tests.test_lite_cli tests.test_lite_portability tests.test_lite_v3_phase1 -v
@@ -31,3 +32,27 @@ jobs:
       - run: python -m unittest discover -s tests/full -v
       - run: python -m unittest tests.test_full_cli tests.test_full_portability tests.test_figure_system tests.test_markdown_format tests.test_release_tree -v
       - run: python -m compileall skills/kymcm-full skills/kymcm-lite tests
+
+  figure3d:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    env:
+      PYVISTA_OFF_SCREEN: "true"
+      VTK_DEFAULT_OPENGL_WINDOW: "vtkEGLRenderWindow"
+      KYMCM_RUN_PYVISTA_INTEGRATION: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: sudo apt-get update && sudo apt-get install -y libegl1 libgl1 libopengl0
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r skills/kymcm-lite/requirements-figure-3d.txt
+      - run: python -m unittest tests.test_lite_figure_bundle -v
+      - run: python -m unittest tests.test_lite_figure_3d -v

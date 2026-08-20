@@ -1,3 +1,13 @@
+# KyMCM Lite 0.9.13
+
+KyMCM Lite 0.9.13 makes each formal programmatically rendered data figure one same-stem four-file bundle: PDF for paper placement, high-resolution PNG for raster delivery, PY as the canonical reproducible entrypoint, and plain UTF-8 TXT for the paper-facing figure title and caption. The exact TXT grammar begins with one `图题：` line followed by `图注：` and at least one caption line. The title remains outside PDF/PNG, and PDF/PNG alone no longer completes a formal programmatic figure.
+
+Ordinary 2D/Cartesian figures retain the accepted `kymcm-figure-exec-v1` Matplotlib visual path and all frozen Pt2/Pt3/Typography constants. Intrinsic-3D information may now route to `kymcm-figure-3d-v1` and the optional PyVista/VTK `kymcm-figure-3d-exec-v1`: off-screen rendering, pure white background, restrained lighting, explicit reproducible camera, SSAA, controlled batlow/vik scalar maps, direct 600 dpi-equivalent PNG, and one exact-size raster PDF packaging route. The 3D PDF is a physical-size formal container and may contain rasterized scene content; it is not claimed as vector 3D.
+
+3D is semantic, not decorative. The existing eight selection triggers remain unchanged, 3D bars and pseudo-depth are rejected, 2D contours/slices/heatmaps/small multiples remain preferred when they communicate the same claim more directly, and unavailable PyVista/VTK fails closed without a Matplotlib `mplot3d` fallback. VTK-native typography has an explicit implementation limit distinct from the existing exact Matplotlib font audit.
+
+The Lite v3 marker, exactly eight public commands, standard-library core, unmanaged optional `figure/`, existing workspaces, flowchart specifications and human-owned layout boundary, `nature-figure` advisory boundary, and KyMCM Full remain unchanged. Existing contest workspaces require no migration.
+
 # KyMCM Lite 0.9.12
 
 KyMCM Lite 0.9.12 is a corrective specification release. The published 0.9.11 tag and Release remain immutable historical artifacts, but their two canonical flowchart references were compressed summaries rather than the intended complete normative specifications. This release publishes the full long-form `kymcm-flowchart-selection-v1` and `kymcm-flowchart-content-v1`, including the complete M1–M6/A1–A6 selection system, evidence boundaries, type profiles, content budgets, overload review, restructuring rules, Agent contracts, acceptance checklists, and frozen conclusions.

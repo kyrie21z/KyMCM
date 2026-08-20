@@ -24,7 +24,7 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.12\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.13\n")
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -32,8 +32,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.9.12", text, relative)
-            self.assertNotIn("0.9.12-dev", text, relative)
+            self.assertIn("0.9.13", text, relative)
+            self.assertNotIn("0.9.13-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -84,6 +84,7 @@ class LiteReleaseTests(unittest.TestCase):
             ("docs/lite-v3/kymcm-flowchart-content-v1.md", "skills/kymcm-lite/references/kymcm-flowchart-content-v1.md"),
             ("docs/lite-v3/final_figure_style.md", "skills/kymcm-lite/references/final_figure_style.md"),
             ("docs/lite-v3/final_figure_color.md", "skills/kymcm-lite/references/final_figure_color.md"),
+            ("docs/lite-v3/final_figure_3d.md", "skills/kymcm-lite/references/final_figure_3d.md"),
         )
         for repository, standalone in pairs:
             self.assertEqual((ROOT / repository).read_bytes(), (ROOT / standalone).read_bytes(), repository)
@@ -443,13 +444,14 @@ class LiteReleaseTests(unittest.TestCase):
         for name in (
             "final_figure_core_rules.md", "final_figure_selection.md", "final_figure_style.md",
             "final_figure_color.md", "final_figure_typography.md", "final_figure_execution.md",
+            "final_figure_3d.md",
         ):
             self.assertIn(name, skill)
             self.assertIn(name, protocol)
             self.assertIn(name, agent)
 
         for required in (
-            "no figure title", "PDF and PNG", "kymcm-flowchart-selection-v1.md",
+            "no figure title", "PDF + PNG + PY + TXT", "kymcm-flowchart-selection-v1.md",
             "kymcm-flowchart-content-v1.md", "human author owns final layout",
         ):
             self.assertIn(required, core, required)
@@ -511,8 +513,8 @@ class LiteReleaseTests(unittest.TestCase):
         ):
             self.assertIn(required, selection, required)
 
-        self.assertIn("first read `references/final_figure_selection.md`", skill)
-        self.assertIn("Then read `references/final_figure_style.md`", protocol)
+        self.assertIn("references/final_figure_selection.md", skill)
+        self.assertIn("references/final_figure_style.md", protocol)
         self.assertIn("final_figure_selection.md", agent)
         self.assertIn("tool-routing design", core)
         self.assertIn("human author owns final layout", core)
@@ -520,9 +522,8 @@ class LiteReleaseTests(unittest.TestCase):
             "For spatial data, selection-v1 governs WHAT/WHEN expression-level choice",
             "map + points", "categorized spatial views", "density views",
             "same-basemap small multiples", "conditional density surfaces",
-            "does not choose a mapping library", "external tool", "execution route",
-            "special-chart and tool routing remains paused",
-            "Ordinary Cartesian Pt2 geometry does not silently govern map geometry",
+            "does not choose a mapping library", "dedicated PyVista executor",
+            "Ordinary Cartesian Pt2 geometry does not silently govern map or VTK geometry",
             "flowcharts use `kymcm-flowchart-selection-v1.md` followed by `kymcm-flowchart-content-v1.md`",
             "Manually edited structural illustrations remain outside automatic data-chart selection",
         ):
@@ -532,7 +533,7 @@ class LiteReleaseTests(unittest.TestCase):
             core,
         )
 
-        for surface in (protocol, agent, checklist):
+        for surface in (protocol, checklist):
             normalized = surface.lower()
             for required in (
                 "lowest adequate level from the actual information need",
@@ -548,17 +549,21 @@ class LiteReleaseTests(unittest.TestCase):
                 "choose l0/l1/l2/l3 from one of eight evidence triggers",
             ):
                 self.assertNotIn(stale, normalized, stale)
+        normalized_agent = agent.lower()
+        for required in (
+            "lowest adequate level from the actual information need",
+            "l0/l1 need no trigger", "l2 needs one of the existing eight triggers",
+            "l3 needs coherent complementary evidence",
+        ):
+            self.assertIn(required, normalized_agent, required)
 
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
-        current_notes = notes.split("## KyMCM Lite 0.9.7", 1)[0]
-        self.assertIn("Pt1 core receives only the required selection cross-reference", current_notes)
-        self.assertIn("review/spatial-boundary update", current_notes)
-        self.assertIn(
-            "Pt2 style, Pt3 color, and typography remain byte-unchanged from 0.9.7",
-            current_notes,
-        )
-        self.assertNotIn("unchanged Pt1 core", current_notes)
-        self.assertNotIn("0.9.7 core/style/color/typography contracts", current_notes)
+        current_notes = notes.split("# KyMCM Lite 0.9.12", 1)[0]
+        for required in (
+            "same-stem four-file bundle", "PyVista/VTK", "SSAA",
+            "not decorative", "mplot3d", "flowchart",
+        ):
+            self.assertIn(required.lower(), current_notes.lower())
 
     def test_check_result_does_not_require_handoff(self):
         workspace = ROOT / "tests/fixtures/lite_synthetic_handoff"
@@ -571,6 +576,55 @@ class LiteReleaseTests(unittest.TestCase):
             text=True, capture_output=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+
+    def test_0913_bundle_and_intrinsic_3d_contract_is_scoped(self):
+        bundle = (SKILL / "figure_bundle.py").read_text(encoding="utf-8")
+        executor = (SKILL / "figure_3d_exec.py").read_text(encoding="utf-8")
+        selection = (SKILL / "references/final_figure_selection.md").read_text(encoding="utf-8")
+        three_d = (SKILL / "references/final_figure_3d.md").read_text(encoding="utf-8")
+        core = (SKILL / "references/final_figure_core_rules.md").read_text(encoding="utf-8")
+        requirements = (SKILL / "requirements-figure-3d.txt").read_text(encoding="utf-8")
+        active = "\n".join((
+            (SKILL / "SKILL.md").read_text(encoding="utf-8"),
+            (SKILL / "docs/protocol.md").read_text(encoding="utf-8"),
+            (SKILL / "agents/openai.yaml").read_text(encoding="utf-8"),
+            core, selection, three_d,
+        ))
+
+        self.assertIn('BUNDLE_ID = "kymcm-figure-bundle-v1"', bundle)
+        self.assertIn('EXECUTION_3D_ID = "kymcm-figure-3d-exec-v1"', executor)
+        self.assertEqual(requirements, (
+            "-r requirements-figure.txt\n"
+            "pyvista>=0.48,<0.49\n"
+            "vtk>=9.5,<9.6\n"
+        ))
+        for required in (
+            "PDF/PNG/PY/TXT", "same-stem", "图题：", "图注：",
+            "figure_bundle.py", "figure_3d_exec.py", "PyVista", "intrinsic-3D",
+            "off-screen", "SSAA", "explicit camera", "raster", "mplot3d",
+            "human-owned", "eight commands",
+        ):
+            self.assertIn(required.lower(), active.lower(), required)
+        self.assertIn("not a ninth enhancement trigger", selection)
+        self.assertIn("3D bars", selection)
+        self.assertIn("contour, aligned slices, heatmap, or small multiples", selection)
+        trigger_block = selection.split("The only automatic v1 trigger vocabulary is:", 1)[1].split("```", 2)[1]
+        trigger_lines = [line for line in trigger_block.splitlines() if line.strip() and line.strip() != "text"]
+        self.assertEqual(len(trigger_lines), 8)
+        self.assertNotIn("\n3d\n", trigger_block.lower())
+        self.assertIn("outside the four-file programmatic bundle requirement", core)
+        self.assertNotIn("mplot3d", executor.lower())
+        self.assertNotIn('projection="3d"', executor)
+        self.assertNotIn("chart-template", bundle.lower())
+        self.assertNotIn("json", bundle.split("class FigureBundleError", 1)[0].lower())
+
+        runtime = "\n".join(path.read_text(encoding="utf-8") for path in SCRIPTS.rglob("*.py"))
+        for forbidden in ("figure_bundle", "figure_3d_exec", "pyvista", "vtk"):
+            self.assertNotIn(forbidden, runtime)
+        self.assertEqual(
+            hashlib.sha256((SKILL / "figure_exec.py").read_bytes()).hexdigest(),
+            "ce9c984d09d15a07d19d6ac22d8c99dd8aefbf0cb0f155fd25f727d119bb47ab",
+        )
 
     def test_standalone_skill_has_no_symlinks(self):
         self.assertFalse(any(path.is_symlink() for path in SKILL.rglob("*")))
@@ -601,7 +655,7 @@ class LiteReleaseTests(unittest.TestCase):
 
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.9.12", notes)
+        self.assertIn("KyMCM Lite 0.9.13", notes)
         for required in (
             "KyMCM Lite 0.9.11", "KyMCM Lite 0.9.10", "KyMCM Lite 0.9.9", "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
@@ -616,12 +670,15 @@ class LiteReleaseTests(unittest.TestCase):
             "KyMCM_Lite_FULL_SPEC.md", "export_kymcm_lite_full_spec.py", "--check",
             "latest unadopted", "adopted", "invalidates", "HANDOFF", "explicit", "accepted", "read-only",
             "kymcm-figure-selection-v1", "kymcm-figure-exec-v1", "kymcm-figure-style-v1", "kymcm-figure-color-v1", "PDF/PNG-only",
+            "kymcm-figure-3d-v1", "kymcm-figure-3d-exec-v1", "same-stem four-file bundle",
+            "PyVista/VTK", "SSAA", "mplot3d", "rasterized scene content",
         ):
             self.assertIn(required, notes)
 
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.9.13 - 2026-08-19", text, relative)
             self.assertIn("0.9.12 - 2026-08-16", text, relative)
             self.assertIn("0.9.11 - 2026-08-16", text, relative)
             self.assertIn("0.9.10 - 2026-08-12", text, relative)

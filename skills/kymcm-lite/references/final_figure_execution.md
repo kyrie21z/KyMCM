@@ -2,11 +2,11 @@
 
 ## Authority and boundary
 
-This reference is the execution authority for formal Codex/Matplotlib data-driven figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_execution.md`. The executable authority is `skills/kymcm-lite/figure_exec.py` in the active KyMCM Lite Skill installation.
+This reference is the ordinary 2D execution authority for formal Codex/Matplotlib data-driven figures. Its byte-identical repository mirror is `docs/lite-v3/final_figure_execution.md`. The executable visual authority is `skills/kymcm-lite/figure_exec.py` in the active KyMCM Lite Skill installation. Intrinsic-3D figures use `final_figure_3d.md` and `figure_3d_exec.py` instead.
 
 The execution helper applies and audits the machine-safe hard subset of the accepted Pt1 core, Pt2 style, Pt3 color, and typography contracts. It does not choose a chart family, alter data, recompute a model, decide a statistic, invent a semantic layout, route a special tool, or create workflow state. It is a small parameterized executor, not a chart-template library.
 
-Lite core commands under `scripts/` remain standard-library-only. Formal Matplotlib execution is optional and requires the packages in `requirements-figure.txt` plus locally installed `Tinos` and `Noto Serif CJK SC`. Importing `figure_exec.py` does not eagerly import Matplotlib or `cmcrameri`.
+Lite core commands under `scripts/` remain standard-library-only. Formal Matplotlib execution is optional and requires the packages in `requirements-figure.txt` plus locally installed `Tinos` and `Noto Serif CJK SC`. Importing `figure_exec.py` does not eagerly import Matplotlib or `cmcrameri`. The standalone standard-library-only `figure_bundle.py` is the separate delivery authority for both programmatic backends.
 
 ## Machine-enforced rules
 
@@ -21,7 +21,7 @@ Lite core commands under `scripts/` remain standard-library-only. Formal Matplot
 - common visible Matplotlib artist colors and the 2.0 pt ordinary line maximum;
 - controlled `cmcrameri` lookup for `batlow` and `vik`, without a substitute color map;
 - use of `apply_axis_style()` by every applicable ordinary axis;
-- formal output as same-layout PDF and PNG only, PNG at 600 dpi;
+- the visual pair as same-layout PDF and PNG only, PNG at 600 dpi;
 - a white nontransparent background and `bbox_inches=None`;
 - a PDF MediaBox and PNG dimensions consistent with the selected physical template.
 
@@ -53,7 +53,9 @@ selection-v1 chooses WHAT/WHEN
 → configure_matplotlib()
 → construct the selected figure using helpers without redeclaring locked constants
 → apply_axis_style() to every applicable axis
-→ save_formal_figure() performs the hard audit and writes PDF + PNG
+→ save_formal_figure() performs the 2D hard audit and writes the PDF + PNG visual pair
+→ the same-stem PY calls write_figure_note() for 图题/图注 TXT
+→ validate_figure_bundle(stem, source_path=__file__) verifies PDF + PNG + PY + TXT
 → ChatGPT/user performs semantic and visual review of the rendered artifact
 → only then call the output final
 ```
@@ -62,8 +64,8 @@ This is an execution sequence, not stored workflow state. `nature-figure` is not
 
 If the user explicitly requests an independent specialist review, the separately installed `nature-figure` Skill may inspect the already-rendered PDF/PNG read-only. It is advisory only: it cannot choose or reclassify the chart family, apply its own contract/theme/rcParams/palette/typography/canvas/export defaults, rerender, restyle, export, overwrite, or replace the KyMCM artifact or its acceptance authority. Recommendations return to Codex, are implemented through the KyMCM plotting code and `figure_exec.py`, pass the hard audit again, and then return to ChatGPT/user review.
 
-Formal delivery code must call `save_formal_figure()` instead of calling `fig.savefig()` or `plt.savefig()` directly. Existing accepted output remains authoritative when a new attempt fails. Flowcharts and non-Matplotlib manually edited illustrations do not use this helper.
+The figure-specific entrypoint name is the desired output stem: for example, `figure/foo.py` regenerates `figure/foo.pdf`, `figure/foo.png`, and `figure/foo.txt`. Formal 2D delivery code must call `save_formal_figure()` instead of calling `fig.savefig()` or `plt.savefig()` directly, then call the bundle helpers. A PDF/PNG pair that has not passed the bundle audit is not a complete final programmatic figure. Existing accepted output remains authoritative when a new attempt fails. Flowcharts and non-programmatic manually edited illustrations do not use these helpers.
 
 ## Public product boundary
 
-`kymcm-figure-exec-v1` adds no public CLI command, managed figure root, checker command, state, manifest, content JSON, approval record, hash ledger, chart-template API, automatic chart selection, data/model recomputation, special-chart routing, or KyMCM Full behavior. The public Lite CLI remains exactly eight commands, and the workspace-level `figure/` directory remains optional and unmanaged.
+`kymcm-figure-exec-v1` and `kymcm-figure-bundle-v1` add no public CLI command, managed figure root, checker command, state, manifest, content JSON, approval record, hash ledger, chart-template API, automatic chart selection, or KyMCM Full behavior. The public Lite CLI remains exactly eight commands, and the workspace-level `figure/` directory remains optional and unmanaged.
