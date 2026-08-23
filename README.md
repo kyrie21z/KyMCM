@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.10.0** adds an optional rapid Explore loop for concrete material route uncertainty: one falsifiable hypothesis, the cheapest useful test, one hard budget, then STOP for PROMOTE/DROP/NEXT review. Clear routes still go directly to the unchanged formal START/RESULT workflow; Explore adds no command, checker, state, formal evidence, or initialized directory.
+- **KyMCM Lite 0.10.1** refines formal validation planning around Claim–Risk–Evidence: L0 is Claim-required, L1 is risk-triggered, and L2 strengthens already adequate evidence. Validation methods have no permanent level and cost does not define the level. The refinement is calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority; Explore, templates, runtime, marker, and eight commands remain unchanged.
 
 ## Install
 

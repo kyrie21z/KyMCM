@@ -1,4 +1,16 @@
-# KyMCM Lite 0.10.0
+# KyMCM Lite 0.10.1
+
+KyMCM Lite 0.10.1 refines formal validation planning around Claim–Risk–Evidence. For each small set of core Claims, the plan identifies the most material plausible failure modes, selects minimum direct evidence, classifies that evidence by necessity, and stops when Claims are supported, material risks are tested or disclosed, and further work is unlikely to change the conclusion or decision.
+
+L0 now means Claim-required evidence and remains blocking even when expensive. L1 means evidence triggered by one concrete material risk that could change a Claim, ranking, decision, or interpretation. L2 means non-blocking evidence-strengthening after the core Claims and known material risks are already adequately supported. Validation method names have no permanent level, and cost does not assign a level: sensitivity, out-of-sample testing, convergence, multi-seed, Bootstrap, and alternate-model checks may occupy different levels for different Claims.
+
+The refinement is calibrated against the project's fixed historical 63-paper CUMCM excellent-paper corpus and first-principles Claim/risk reasoning. Corpus practice helps calibrate what sufficient competition-paper evidence looks like; frequency is not authority. This release does not claim exhaustive full-text coding of all 63 papers and publishes no unsupported frequency rule.
+
+The modeling-plan reference adds compact, non-checklist evidence prompts for optimization, forecasting, statistical fitting/inference, mechanistic/numerical modeling, and evaluation/ranking. It makes baseline use Claim-dependent, gates sensitivity on a named material risk, distinguishes high-quality feasible heuristic solutions from global-optimality Claims, rejects convergence curves, sensitivity, or a single good run as global-optimality proof, and states that narrative model-evaluation prose is not validation evidence.
+
+This is a non-breaking normative clarification. It adds no validation Markdown subsystem, checker, command, state, JSON, manifest, approval object, template heading, or runtime dependency. START/RESULT/HANDOFF templates, optional Explore, the Lite v3 marker and eight commands, Lite runtime Python, KyMCM Full, figures, flowcharts, Appendix, and AI-use behavior remain unchanged.
+
+## KyMCM Lite 0.10.0
 
 KyMCM Lite 0.10.0 adds optional `kymcm-explore-v1` for material uncertainty about a modeling or algorithm route. A clear route still proceeds directly to formal START. When Explore is useful, one shared problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` workspace records one falsifiable Hypothesis, the minimum useful Test, one hard Budget, its actual Result, and a semantic PROMOTE/DROP/NEXT decision.
 
