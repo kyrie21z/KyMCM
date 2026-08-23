@@ -122,7 +122,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_manifest_and_canonical_completeness(self):
         sources = exporter.collect_sources(ROOT)
         document = SPEC.read_text(encoding="utf-8")
-        self.assertEqual(len(sources), 44)
+        self.assertEqual(len(sources), 46)
         self.assertEqual(
             {source.role for source in sources},
             {
@@ -186,7 +186,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
     def test_mirror_hashes_and_mapping(self):
         sources = exporter.collect_sources(ROOT)
         mirrored = [source for source in sources if source.mirrors]
-        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 29)
+        self.assertEqual(sum(len(source.mirrors) for source in mirrored), 31)
         for source in mirrored:
             for mirror in source.mirrors:
                 path = ROOT / mirror
@@ -255,7 +255,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
                 self.assertIn(phrase, text, f"{name}: {phrase}")
 
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.9.14\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.10.0\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True

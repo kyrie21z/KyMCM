@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.9.14** is the programming-side Markdown-first protocol with non-visual PRE/QN execution, RESULT-gated HANDOFF, optional final figures, then reviewed AI-use details before Appendix organization. Appendix root files are COPY-only submission attachments; ordinary support results remain nested. The eight-command core stays standard-library-only, and the 0.9.13 figure/flowchart behavior is unchanged.
+- **KyMCM Lite 0.10.0** adds an optional rapid Explore loop for concrete material route uncertainty: one falsifiable hypothesis, the cheapest useful test, one hard budget, then STOP for PROMOTE/DROP/NEXT review. Clear routes still go directly to the unchanged formal START/RESULT workflow; Explore adds no command, checker, state, formal evidence, or initialized directory.
 
 ## Install
 
@@ -39,7 +39,7 @@ python scripts/export_kymcm_lite_full_spec.py \
 
 The generated file is intentionally complete and long, is not hand-edited, and is not copied into a contest workspace or appendix.
 
-The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not create `figure/` or `reports/ai-usage/`; those are created only for explicit final-figure work or final-submission compliance work.
+The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not create `problems/qN/explore/`, `figure/`, or `reports/ai-usage/`; those are created only when optional Explore, explicit final-figure work, or final-submission compliance work is actually entered.
 
 ## Workflow
 

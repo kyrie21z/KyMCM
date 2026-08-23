@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0 - 2026-08-22
+
+- Add optional `kymcm-explore-v1` for concrete material route uncertainty: Hypothesis -> minimum useful Test -> STOP -> PROMOTE/DROP/NEXT.
+- Keep clear routes on direct START, make Explore an unmanaged problem-level scratch workspace, and require promoted work to be recreated/rerun through START or Supplement before formal use.
+- Preserve the Lite v3 marker, eight commands, init behavior, formal evidence/state, submission and figure boundaries, existing workspaces, and KyMCM Full unchanged.
+
 ## 0.9.14 - 2026-08-19
 
 - Move AI tool usage details before Appendix organization and copy the accepted `AI 工具使用详情.pdf` into the Appendix root as a frozen COPY-only submission asset.

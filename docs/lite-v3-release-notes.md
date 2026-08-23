@@ -1,4 +1,12 @@
-# KyMCM Lite 0.9.14
+# KyMCM Lite 0.10.0
+
+KyMCM Lite 0.10.0 adds optional `kymcm-explore-v1` for material uncertainty about a modeling or algorithm route. A clear route still proceeds directly to formal START. When Explore is useful, one shared problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` workspace records one falsifiable Hypothesis, the minimum useful Test, one hard Budget, its actual Result, and a semantic PROMOTE/DROP/NEXT decision.
+
+Every Trial has a mandatory STOP gate. The executor returns actual evidence and waits; it does not automatically add generations, increase fidelity, run Pattern Search or certification, enter L0, create a formal RESULT, or start the next Trial. PROMOTE means an idea deserves formalization, not that the scratch result is accepted. Required work must be recreated or transferred and rerun through a self-contained START or the next legitimate Supplement before it affects formal state.
+
+Explore remains unmanaged scratch: `init` does not create it, Lite Python does not parse it, and it cannot supply formal evidence, dependencies, HANDOFF material, Appendix sources, or final figures. No command, checker, state, JSON, manifest, approval, hash ledger, experiment database, dashboard, fidelity state machine, runtime dependency, migration, or KyMCM Full change is introduced. The Lite v3 marker, eight commands, existing formal contracts, 0.9.14 submission-root behavior, and figure/flowchart/AI-use systems remain unchanged.
+
+## KyMCM Lite 0.9.14
 
 KyMCM Lite 0.9.14 moves final AI-tool usage details before Appendix organization. After accepted substantive work and any requested HANDOFF/final figures, the team generates and human-reviews `reports/ai-usage/AI 工具使用详情.pdf`; only then does a current APPENDIX_START copy that frozen file byte-for-byte to `appendix/AI 工具使用详情.pdf`. The `.tex`, screenshots, LaTeX build files, and all other `reports/**` paths remain outside Appendix.
 

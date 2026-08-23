@@ -172,7 +172,7 @@ class LiteAIToolUsageTemplateTests(unittest.TestCase):
         self.assertNotIn("A093 — GENERATE", appendix_start)
 
     def test_version_and_protected_lite_surfaces(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.9.14\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.0\n")
         for relative, expected in PROTECTED_HASHES.items():
             actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
             self.assertEqual(actual, expected, relative)

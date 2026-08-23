@@ -8,6 +8,8 @@ The current effective technical state is the base RESULT set plus completed, cur
 
 Do not use Supplement while base work is incomplete. In single mode, require `RESULT_QN.md` to exist and pass `check-result --problem N`. In split mode, require every contiguous START unit to have a matching RESULT and every `check-result --problem N --subproblem K` to pass. Until then, revise the active base START, code, and execution plan.
 
+After an accepted base RESULT, proceed directly to the next Supplement plan when the required validation, revision, or repair is already clear. When the problem is known but a concrete material uncertainty remains about which repair idea deserves formalization, one optional Trial may first use the same problem-level `problems/qN/explore/` workspace described by `explore_work.md`. Explore does not modify the accepted base or adopted Supplement state, reserve an Sx number, or give `DROP`/`NEXT` formal effect. A promoted repair must be written as the next legitimate Supplement Start and its required implementation/evidence rerun under that plan; scratch outputs cannot be copied directly into a Supplement Result as formal evidence.
+
 ## Identity and lifecycle
 
 Each official question has at most this one pair in single and split modes:
