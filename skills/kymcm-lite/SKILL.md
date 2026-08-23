@@ -1,6 +1,6 @@
 ---
 name: kymcm-lite
-description: Execute and review Markdown-first mathematical-modeling workflows with optional shared preprocessing, recoverable computation, evidence-linked results, question-level incremental supplements, neutral technical handoffs, request-driven final figures, and submission appendix curation without workflow state or content JSON.
+description: Execute and review Markdown-first mathematical-modeling workflows with optional rapid hypothesis exploration, shared preprocessing, recoverable computation, evidence-linked results, question-level incremental supplements, neutral technical handoffs, request-driven final figures, and submission appendix curation without workflow state or content JSON.
 ---
 
 # KyMCM Lite
@@ -23,9 +23,17 @@ START section 2 also contains exactly one visible `**前问依赖：**` declarat
 
 Before implementing or materially revising a dependent START, read the complete selected current START and every exact declared upstream START/RESULT pair. Perform `references/dependency_review.md`. Treat authorized RESULT deviations, formal values, paths, limitations, and certification boundaries as effective upstream rules. Continue without an artifact when no conflict exists. On material conflict, identify every exact location and consequence, ask one highest-impact user question, and stop without changing upstream files.
 
+## Optional rapid exploration
+
+When a concrete material uncertainty could change the formal modeling or algorithm route, optionally read `references/explore_work.md` and use the one problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` scratch workspace. If the route is sufficiently clear for a formally complete START, skip Explore and proceed directly to START; `init` does not create Explore paths.
+
+Each Trial has one falsifiable hypothesis, the minimum useful discriminating test, and one natural hard budget. Run only that Test, record the actual Result, then STOP and return the evidence for ChatGPT/user `PROMOTE / DROP / NEXT` review. Unused budget does not authorize more generations, higher fidelity, certification, L0, formal RESULT, or another Trial. `NEXT` designs one newly approved cheapest test; it does not automatically escalate.
+
+`PROMOTE` means the idea deserves formalization, not that its scratch result is accepted. Recreate or transfer and rerun required work through a self-contained START or the next legitimate Supplement before it affects formal state. Explore paths are not formal evidence, dependencies, HANDOFF sources, Appendix sources, or final-figure assets. During formal execution, use an Explore detour only for a new material uncertainty about the route itself; a material promoted change requires START revision under the existing rules before formal work resumes.
+
 ## Modeling-plan design and execution
 
-Before authoring, reviewing, revising, or executing START, read `references/modeling_plan_design.md` completely. Define the minimum formally complete deliverable; audit dependencies and inputs; preflight identifiability, feasibility, boundedness, numerical meaning, and computational solvability; design the smallest end-to-end smoke test; divide formal work into recoverable stages with inspectable artifacts and exact cache/reuse conditions; estimate nested run count, time, memory, parallelism, and worst-case recomputation; classify experiments as mandatory L0, risk-triggered L1, or resource-permitting L2.
+Before authoring, reviewing, revising, or executing START, read `references/modeling_plan_design.md` completely. Explore is not a prerequisite. Define the minimum formally complete deliverable; audit dependencies and inputs; preflight identifiability, feasibility, boundedness, numerical meaning, and computational solvability; design the smallest end-to-end smoke test; divide formal work into recoverable stages with inspectable artifacts and exact cache/reuse conditions; estimate nested run count, time, memory, parallelism, and worst-case recomputation; classify experiments as mandatory L0, risk-triggered L1, or resource-permitting L2.
 
 Run in order: author START, run its checker, complete dependency and modeling-plan semantic reviews, pass smoke, execute formal stages, pass basic/L0 audit, run L1 only for its named triggered risk, and run L2 only when affordable and it reduces an explicit remaining risk or strengthens required certification, write RESULT, run its checker, and stop for explicit semantic acceptance. Do not add computation for presentation value. A failed smoke blocks formal work; a failed basic audit returns to the responsible stage. Do not create or update HANDOFF during this execution sequence.
 
@@ -42,7 +50,7 @@ problems/qN/spec/SUPPLEMENT_START_QN.md
 problems/qN/result/SUPPLEMENT_RESULT_QN.md
 ```
 
-Single and split modes share this one pair. Read `references/supplement_work.md` and use `templates/SUPPLEMENT_START_QN.template.md` and `templates/SUPPLEMENT_RESULT_QN.template.md`. Before any Sx-specific execution, append and semantically review the corresponding S1, S2, ... plan. The latest unadopted Sx may be revised in place; if its Start changes materially, remove or invalidate its old Result before rerunning. After execution, write the matching result, disclose deviations, evidence, impact, failures, and downstream consequences, run the applicable machine check, and stop for explicit semantic acceptance. An adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen; later semantic correction uses the next number.
+Single and split modes share this one pair. Read `references/supplement_work.md` and use `templates/SUPPLEMENT_START_QN.template.md` and `templates/SUPPLEMENT_RESULT_QN.template.md`. When a repair direction is materially uncertain, optional Explore may precede the next Supplement but reserves no Sx and changes no accepted state. Before any Sx-specific execution, append and semantically review the corresponding S1, S2, ... plan. The latest unadopted Sx may be revised in place; if its Start changes materially, remove or invalidate its old Result before rerunning. After execution, write the matching result, disclose deviations, evidence, impact, failures, and downstream consequences, run the applicable machine check, and stop for explicit semantic acceptance. An adopted Sx, a non-latest Sx, or an Sx with a later Sy is frozen; later semantic correction uses the next number.
 
 Use exactly `补充验证`, `方案修订`, or `实现修复`, with explicit `追加证据`, `局部替代`, `完全替代`, or `不改变正式状态` semantics. Current adopted effective state is the base RESULT set plus completed and explicitly accepted Supplement Result entries in order; a pending Result remains outside that state and HANDOFF snapshot. An accepted entry replaces only what it names. Keep code and evidence in the existing QN `code/`, `data/derived/`, `outputs/`, and `notes/` directories, prefer new `sN_` paths, and allow only the latest unadopted Sx to rebuild its own artifacts. Never overwrite base, adopted, or earlier-Sx artifacts. Adoption is a semantic review/confirmation boundary, not a Python runtime state.
 

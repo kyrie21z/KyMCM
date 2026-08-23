@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.9.14 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.0 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.9.14 boundary: accepted modeling and requested HANDOFF/figures precede AI-use PDF generation and human review; only then does Appendix copy that PDF and declared mandatory results to root submission targets. Ordinary support results remain nested. The marker, eight commands, figure/flowchart behavior, and absence of state/manifest remain unchanged. The historical design below remains preserved.
+Current 0.10.0 boundary: a clear modeling route proceeds directly to START; a concrete material route uncertainty may optionally use one problem-level Explore Trial, which stops for PROMOTE/DROP/NEXT review before further work. Explore is unmanaged scratch, never formal evidence or Appendix material, and promoted work must be rerun through START/Supplement. The marker, eight commands, existing formal and submission behavior, and absence of state/manifest remain unchanged. The historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite

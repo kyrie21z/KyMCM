@@ -29,7 +29,7 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 
 ## `appendix/` 交付面
 
-`appendix root submission asset` 指比赛最终提交在嵌套审计/复现材料之外独立要求的文件。0.9.14 当前模板支持两类：固定的 `appendix/AI 工具使用详情.pdf`，以及 APPENDIX_START 明确声明的 `appendix/<official-required-filename>` 强制结果文件。前者只能由 `reports/ai-usage/AI 工具使用详情.pdf` COPY；后者只能由已接受的正式结果源 COPY，并允许在计划中映射为比赛要求的官方文件名。两类都必须保持源/目标字节相同、进入 `source_integrity.csv`，不得 CURATE、GENERATE 或由附录计算覆盖。
+`appendix root submission asset` 指比赛最终提交在嵌套审计/复现材料之外独立要求的文件。当前模板支持两类：固定的 `appendix/AI 工具使用详情.pdf`，以及 APPENDIX_START 明确声明的 `appendix/<official-required-filename>` 强制结果文件。前者只能由 `reports/ai-usage/AI 工具使用详情.pdf` COPY；后者只能由已接受的正式结果源 COPY，并允许在计划中映射为比赛要求的官方文件名。两类都必须保持源/目标字节相同、进入 `source_integrity.csv`，不得 CURATE、GENERATE 或由附录计算覆盖。
 
 比赛明确要求某结果文件作为独立提交附件时，才将它声明为根结果；只用于审计、复现或支持的结果继续嵌套。根结果后缀仅允许 `.xlsx`、`.csv`、`.txt`，名称必须是安全的非隐藏直接子文件；AI PDF 是独立保留目标，不属于通用后缀集合。每个官方结果只有一个权威根副本，不得以相同源或相同字节在 `appendix/problems/**/result/` 再放一个正式副本。未来需要其他后缀时先扩展产品合同，不接受任意压缩包或二进制。
 
@@ -47,6 +47,8 @@ appendix/
 ```
 
 不创建空目录。当前 APPENDIX_START 只有在 `reports/ai-usage/AI 工具使用详情.pdf` 已生成并人工复核后开始；checker 只机器验证该普通非空源已存在。视觉、隐私、真实性、比赛是否确实要求某根结果及其数学正确性仍由计划证据和人工复核负责。
+
+`problems/qN/explore/**` 是非正式临时工作区，不是 Appendix 来源：其中代码、输出或图像均不得复制到嵌套 `appendix/problems/**`、根 `code/` 或任何根提交资产。被 PROMOTE 的内容必须先进入正式 START/Supplement 路径并重跑、复核和接受，再依据既有 Appendix 映射选择正式源。
 
 `appendix/problems/qN/` 和 `appendix/problems/preprocess/` 只能有 `code/` 和 `result/` 后代。PRE 的 code 来源仅限 `problems/preprocess/code/`；其 result 可来自允许的 `data/derived/`、`outputs/` 和非合同 `notes/`。START_PRE、RESULT_PRE、HANDOFF_PRE、Supplement 合同及基础 QN 合同禁止复制。
 

@@ -1,4 +1,4 @@
-# KyMCM Lite 0.9.14 machine-enforced contract
+# KyMCM Lite 0.10.0 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,11 +16,11 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.9.14` is a product release identifier. It is independent of the
+Lite version `0.10.0` is a product release identifier. It is independent of the
 workspace protocol marker, which remains Lite v3. Existing valid workspaces need
-no automatic migration. This release orders AI-use material before Appendix and
-adds declaration-bound root submission assets while preserving legacy Appendix
-contracts, read-only checking, and the absence of runtime state.
+no automatic migration. This release documents an optional unmanaged Explore
+workspace while preserving all existing contract grammar, read-only checking,
+and the absence of runtime state.
 
 ## 2. Identity, marker, and fail-closed behavior
 
@@ -67,6 +67,13 @@ symlinked. `appendix/` and root `code/` are known to `doctor` as submission
 outputs, but are not modeling managed roots. Other root entries remain allowed
 and appear in `doctor`'s informational unknown-root line.
 
+`problems/qN/explore/` is an optional unmanaged scratch workspace with the
+human-facing `EXPLORE_QN.md`, `code/`, and `outputs/` layout. It is shared by
+single and split mode, not required by layout checks, not a PRE surface, and not
+created by `init`. Existing public commands do not discover or parse the log or
+its scratch files. Explore is not a START, RESULT, Supplement, HANDOFF, evidence,
+dependency, figure, or Appendix surface and creates no formal state.
+
 The workspace itself, every traversed managed component, every contract, and
 every evidence component must be an ordinary non-symlink path. A symlink at a
 parent component is unsafe even when its final target is a regular file. Path
@@ -79,7 +86,7 @@ symlink in order to accept content.
 `init --workspace PATH --questions N` creates the four managed roots, the exact
 question directory tree, and `.kymcm/mode.json`. `--preprocess` additionally
 creates the fixed PRE tree. It creates no START, RESULT, PRE, Supplement,
-HANDOFF, APPENDIX, figure, evidence, output, state, or manifest file. The
+HANDOFF, Explore, APPENDIX, figure, evidence, output, state, or manifest file. The
 initializer refuses a symlink/non-directory target and refuses when any managed
 root already exists, returning `1` with `LITE-LAYOUT-001`.
 
@@ -262,6 +269,9 @@ path component may be a symlink. Missing, unsafe, out-of-question, symlinked,
 or malformed evidence is blocking. The checker never executes, imports,
 compiles, or otherwise interprets an evidence file.
 
+Because `explore` is absent from the four evidence directories,
+`problems/qN/explore/**` is invalid wherever formal QN evidence is required.
+
 PRE evidence uses the same grammar and restrictions under the PRE unit's four
 evidence directories. Appendix evidence is a separate contract described below
 and may point only to its declared evidence/output roots.
@@ -282,7 +292,16 @@ open legacy `paper/` or `FROZEN_CONTEXT.md`, optional `figure/`, or unrelated
 user files. The exporter described elsewhere is a repository maintenance tool,
 not a Lite command.
 
-## 11. Supplement, HANDOFF, and figure boundaries
+## 11. Explore, Supplement, HANDOFF, and figure boundaries
+
+Explore is a semantic agent/user practice described by `explore_work.md`, not a
+runtime contract. There is no Explore checker, command, state, JSON, manifest,
+approval, hash ledger, Result contract, dependency token, or fidelity state
+machine. Python does not decide whether Explore is needed; enforce Trial fields,
+numbering, budgets, STOP, or `PROMOTE`/`DROP`/`NEXT`; validate experimental
+correctness; guarantee scratch reproducibility; promote artifacts; or delete
+stale scratch files. Explore paths remain invalid wherever a formal evidence or
+Appendix source must resolve to managed formal paths.
 
 After the complete base RESULT set passes, an official question may have at most
 one problem-level pair:

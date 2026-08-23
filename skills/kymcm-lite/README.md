@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.9.14 is a Markdown-first programming-side workflow for mathematical-modeling teams. It supports optional preprocessing, recoverable evidence-linked modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets without workflow state or content JSON. The 0.9.13 2D/3D bundle and human-owned flowchart boundaries remain unchanged.
+KyMCM Lite 0.10.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It adds an optional rapid Explore loop for concrete material route uncertainty while preserving direct START for clear routes, recoverable evidence-linked formal modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -42,6 +42,8 @@ The formal modeling surfaces are START, matching RESULT, and RESULT-declared evi
 
 Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and risk-triggered L0/L1/L2 validation. Final display assets and document composition are out of scope.
 
+When one concrete material uncertainty could change the formal route, optionally read `references/explore_work.md` and use `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}`. One Trial runs the cheapest discriminating test under one hard budget, then stops for ChatGPT/user PROMOTE/DROP/NEXT review. `init` never creates Explore, and promoted scratch work must be recreated/rerun through START or Supplement before it affects formal state. If the route is already clear, proceed directly to START.
+
 When the user explicitly requests final figures after accepted results and a current HANDOFF, read the core and selection references and choose L0/L1/L2/L3 from the real information need. Ordinary 2D expression uses Matplotlib `figure_exec.py`; only intrinsic-3D information uses `final_figure_3d.md` and PyVista `figure_3d_exec.py`, with no decorative 3D or `mplot3d` fallback. Both programmatic routes render PDF/PNG, keep the same-stem PY as the reproducible entrypoint, write the paper-facing title/caption to TXT, and pass `figure_bundle.py` before ChatGPT/user review. A 3D PDF is an exact-size formal container and may contain the rasterized VTK scene. Flowcharts remain semantic plans followed by human-owned layout and require no Python bundle. Keep work under the optional unmanaged `figure/`; no route adds CLI, state, manifest, or managed workflow semantics.
 
 When PRE is used, author/check/execute START_PRE, write/check RESULT_PRE, stop for explicit user/ChatGPT acceptance, and prepare HANDOFF_PRE only in a new independent read-only HANDOFF_PRE task after acceptance. RESULT_PRE remains the downstream data authority; `check-preprocess-result` alone is not acceptance.
@@ -50,7 +52,7 @@ After the complete base RESULT set passes, optional post-result validation, revi
 
 After RESULT and evidence stabilize, the user/ChatGPT must explicitly accept the RESULT; only a new independent, read-only HANDOFF task may then create or refresh one `notes/HANDOFF_QN.md` per official question from `templates/HANDOFF_QN.template.md` and `references/technical_handoff.md`. Split mode waits for every contiguous RESULT unit to pass and the complete Result set to be accepted. A new Supplement Result never refreshes HANDOFF automatically. Exact base RESULT tokens remain modeling dependencies; HANDOFF has no checker or state and cannot enter appendix outputs.
 
-The optional appendix stage starts only after formal results are accepted, requested HANDOFF/figures are complete, the AI PDF is frozen, and submission requirements are stable. Current templates declare the AI root target and any safe `.xlsx`/`.csv`/`.txt` mandatory root results. Legacy Appendix plans without the AI declaration remain readable; re-author from the 0.9.14 template to opt into current root-asset behavior.
+The optional appendix stage starts only after formal results are accepted, requested HANDOFF/figures are complete, the AI PDF is frozen, and submission requirements are stable. Current templates declare the AI root target and any safe `.xlsx`/`.csv`/`.txt` mandatory root results. Legacy Appendix plans without the AI declaration remain readable; re-author from the current template to opt into root-asset behavior. Explore scratch paths are never Appendix sources.
 
 KyMCM Full is the separate review-gated end-to-end workflow. Users choose one Skill explicitly; neither guesses or converts the other workspace mode.
 
