@@ -17,7 +17,7 @@
 
 ## KyMCM Lite checks
 
-- Lite 0.10.0 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.10.1 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - Explore is optional and created only for a concrete material route uncertainty; clear routes proceed directly to START and fresh `init` creates no Explore paths.
 - One problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` workspace serves single and split mode. One Trial uses one falsifiable hypothesis, the minimum useful test, and one hard budget, then STOPs for semantic PROMOTE/DROP/NEXT review without automatic fidelity escalation.
 - Explore adds no parser, command, checker, state, JSON, manifest, approval, hash ledger, database, dashboard, fidelity taxonomy, dependency token, formal evidence, HANDOFF source, Appendix source, or final-figure asset. Promoted work is recreated/rerun through START or Supplement before formal use.
@@ -28,7 +28,7 @@
 - Current adopted effective state is base RESULT plus accepted Supplement Result entries applied in order and explicit scope; exact base RESULT dependency tokens remain unchanged and dependency review reads applicable accepted entries.
 - Every execution stops at RESULT/RESULT_PRE plus its machine check and waits for explicit user/ChatGPT semantic acceptance; a checker success, tests, CI, commit, or stable evidence is not acceptance or HANDOFF authorization. A separate explicit HANDOFF task is required afterward.
 - Both `modeling_plan_design.md` references have byte parity, and SKILL requires reading the standalone reference.
-- Modeling-plan review covers minimum deliverable, preflight, smoke test, staged artifacts/recovery, explicit nested cost, and L0/L1/L2 without adding state, commands, diagnostics, or success artifacts.
+- Modeling-plan review follows Claim -> material risk -> minimum direct evidence -> level -> STOP. L0 is Claim-required even when costly, L1 has a named material-risk trigger, and non-blocking L2 only strengthens already adequate evidence; method name and cost never assign the level. The fixed 63-paper CUMCM excellent-paper corpus calibrates practice without frequency-based rules or an exhaustive-full-text claim. Preflight, smoke test, staged artifacts/recovery, explicit nested cost, and anomaly isolation remain required without adding state, commands, diagnostics, or success artifacts.
 - `technical_handoff.md` and HANDOFF template mirrors have byte parity; QN uses one problem-level identity and an ordered formal-upstream list while preserving all eight frozen headings.
 - Base RESULT remains the exact dependency-token entry; accepted Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries; the old HANDOFF remains the last accepted snapshot while a new Result is pending.
 - `check-result` remains independent of HANDOFF; single and split modes use one `HANDOFF_QN.md`, split requires complete checked RESULT coverage, and no HANDOFF command/state/checker exists.
@@ -53,4 +53,4 @@
 - Single/split layout, contiguous START suffixes, partial RESULT completion, exact selected titles, and exact upstream unit availability are covered; semantic contradiction review remains a Codex/human responsibility and creates no success artifact.
 - Evidence control-character, scope, traversal, and symlink guards pass.
 - A copied read-only Skill passes from an unrelated working directory.
-- Lite tags use `lite-v<version>`; `lite-v0.10.0` requires the authorized merged release tree and passing ordinary plus preserved real 3D CI.
+- Lite tags use `lite-v<version>`; `lite-v0.10.1` requires the authorized merged release tree and passing ordinary plus preserved real 3D CI.

@@ -1,4 +1,4 @@
-# KyMCM Lite 0.10.0 machine-enforced contract
+# KyMCM Lite 0.10.1 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,7 +16,7 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.10.0` is a product release identifier. It is independent of the
+Lite version `0.10.1` is a product release identifier. It is independent of the
 workspace protocol marker, which remains Lite v3. Existing valid workspaces need
 no automatic migration. This release documents an optional unmanaged Explore
 workspace while preserving all existing contract grammar, read-only checking,

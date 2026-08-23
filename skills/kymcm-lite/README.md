@@ -1,6 +1,6 @@
 # KyMCM Lite
 
-KyMCM Lite 0.10.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It adds an optional rapid Explore loop for concrete material route uncertainty while preserving direct START for clear routes, recoverable evidence-linked formal modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets without workflow state or content JSON.
+KyMCM Lite 0.10.1 is a Markdown-first programming-side workflow for mathematical-modeling teams. Formal validation planning follows Claim–Risk–Evidence: L0 is Claim-required, L1 is risk-triggered, and L2 only strengthens already adequate evidence; method names and cost do not determine level. This refinement is calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority. Optional Explore, recoverable evidence-linked modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets retain their existing boundaries without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -40,7 +40,7 @@ Exit code 0 means structurally valid (warnings may exist), 1 means a contract or
 
 The formal modeling surfaces are START, matching RESULT, and RESULT-declared evidence. Each question uses either unsuffixed single mode or contiguous split units. Exact earlier-unit dependencies and optional PRE dependencies are structurally checked; semantic contradiction review reads each complete declared upstream START/RESULT pair.
 
-Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and risk-triggered L0/L1/L2 validation. Final display assets and document composition are out of scope.
+Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and Claim–Risk–Evidence validation with a meaningful STOP boundary. Evidence is L0 when the current core Claim requires it even if costly, L1 only for a named material-risk trigger, and L2 only when it strengthens already adequate evidence. Final display assets and document composition are out of scope.
 
 When one concrete material uncertainty could change the formal route, optionally read `references/explore_work.md` and use `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}`. One Trial runs the cheapest discriminating test under one hard budget, then stops for ChatGPT/user PROMOTE/DROP/NEXT review. `init` never creates Explore, and promoted scratch work must be recreated/rerun through START or Supplement before it affects formal state. If the route is already clear, proceed directly to START.
 

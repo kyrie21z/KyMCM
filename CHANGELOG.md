@@ -1,5 +1,13 @@
 # Changelog
 
+## KyMCM Lite 0.10.1 - 2026-08-23
+
+- Refine formal validation planning around `Core Claim -> material failure mode / risk -> minimum direct evidence -> L0/L1/L2 by necessity -> STOP`, calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority or claiming exhaustive full-text coding.
+- Define L0 as Claim-required and blocking even when expensive, L1 as explicitly material-risk-triggered, and L2 as non-blocking evidence-strengthening after Claims and known material risks are already adequately supported. Method names and cost do not determine level.
+- Add non-checklist default evidence prompts for optimization, forecasting, statistical fitting/inference, mechanistic/numerical modeling, and evaluation/ranking; clarify Claim-sensitive baseline, sensitivity, convergence, and optimal/global-optimal evidence boundaries.
+- Strengthen START semantic guidance and validation STOP conditions without changing START/RESULT/HANDOFF templates or adding a validation file, checker, command, state, JSON, manifest, approval object, or runtime dependency.
+- Preserve optional Explore, the Lite v3 marker and eight commands, Lite runtime Python, KyMCM Full, figures, flowcharts, Appendix, and AI-use behavior unchanged.
+
 ## KyMCM Lite 0.10.0 - 2026-08-22
 
 - Add optional `kymcm-explore-v1` for concrete material route uncertainty: Hypothesis -> minimum useful Test -> STOP -> PROMOTE/DROP/NEXT.

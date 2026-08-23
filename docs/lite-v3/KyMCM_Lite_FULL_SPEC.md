@@ -7,10 +7,10 @@
 
 ## 0. 使用说明、版本与权威优先级
 
-- Product: `KyMCM Lite`; `VERSION`: `0.10.0`.
+- Product: `KyMCM Lite`; `VERSION`: `0.10.1`.
 - Lite v3 marker bytes: `{"workflow":"kymcm_lite","version":3}\n` (the final `\n` is part of the required bytes).
 - Export format: `full-spec-export-v1`.
-- Canonical source files: `46`; canonical total bytes: `411333`.
+- Canonical source files: `46`; canonical total bytes: `424237`.
 - Mirror files validated: `31`.
 - Generation: `python scripts/export_kymcm_lite_full_spec.py --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`.
 - The export is repository documentation, not a Lite workspace file, evidence item, appendix target, command, state, JSON, or runtime dependency.
@@ -30,10 +30,10 @@ The complete source text is intentionally long. It is not a summary: each canoni
 
 | No. | canonical path | role | bytes | SHA-256 | mirror path(s) | mirror status |
 |---:|---|---|---:|---|---|---|
-| 1 | `skills/kymcm-lite/VERSION` | `identity` | 7 | `dc24feb5bd35084d8ae32a4eafbec12352707d4662401fcbcc9bbd696cde77a9` | — | none |
-| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 22120 | `b642f52f9fa6a0522dc5db83a7e80980de7e88665a5142696586308005a4ba3b` | — | none |
-| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 30859 | `0665900323774e4e81dd80c44bdde894529bc5cd421f47bb4afe4de494b73947` | — | none |
-| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 29468 | `90886f035f39189d2e83b5122d20988a4b374d460ab39b1ffc14c4a926dbfe0b` | `docs/lite-v3/machine_contract.md` | byte-identical |
+| 1 | `skills/kymcm-lite/VERSION` | `identity` | 7 | `f4d439e0b523208a09d13862c16820cc3028fd94417310ce1d53a31d14d6a2c4` | — | none |
+| 2 | `skills/kymcm-lite/SKILL.md` | `core-skill` | 22511 | `f19464afd46778c04d88fbc39e0f23b8b4a2f2314c08e853180715c382cffc95` | — | none |
+| 3 | `skills/kymcm-lite/docs/protocol.md` | `protocol` | 31379 | `f52996737f89111e41cde140d212d913dda0df85577f1f13037341b8fef38397` | — | none |
+| 4 | `skills/kymcm-lite/references/machine_contract.md` | `machine-contract` | 29468 | `8862dd5614c8e78a63125a848e562b12d4f9a8924b2fdad49e7bcd7dfddaf8c6` | `docs/lite-v3/machine_contract.md` | byte-identical |
 | 5 | `docs/lite-v3/diagnostics.md` | `diagnostic-catalog` | 12151 | `64f88dcff72e3c7f0cfe690adb3b493d4bddfc03fb77e131136330fddf416fcd` | — | none |
 | 6 | `skills/kymcm-lite/references/ai_tool_usage_details.md` | `reference` | 6207 | `8bdc603125f3fa80c7e98b65440a62e16410e6798c5f4db53d44429baa797ab9` | `docs/lite-v3/ai_tool_usage_details.md` | byte-identical |
 | 7 | `skills/kymcm-lite/references/appendix_organization.md` | `reference` | 12285 | `400ae2f49c31258c95d314ef207fca279ac9fb28c02b3b964cbd8cc48a18fe42` | `docs/lite-v3/appendix_organization.md` | byte-identical |
@@ -49,7 +49,7 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 17 | `skills/kymcm-lite/references/kymcm-flowchart-content-v1.md` | `reference` | 25657 | `76ab7bf49300320ca72f8b0d168a89b9600bb95fb2dc275f91b7182d5b4a91f9` | `docs/lite-v3/kymcm-flowchart-content-v1.md` | byte-identical |
 | 18 | `skills/kymcm-lite/references/kymcm-flowchart-selection-v1.md` | `reference` | 25128 | `b04aec1f1bee4245c96e173159adc15f5300513a1a0e1cdba6c743237568c610` | `docs/lite-v3/kymcm-flowchart-selection-v1.md` | byte-identical |
 | 19 | `skills/kymcm-lite/references/markdown_format.md` | `reference` | 416 | `79b2e06134346494e2fb20cc5871528ad3a36448a5d7e96ea200dfd16e673915` | — | none |
-| 20 | `skills/kymcm-lite/references/modeling_plan_design.md` | `reference` | 19339 | `523346fec53516cc97dfe9ac782d28cd95cf0be5916cddf5c974246768e56faa` | `docs/lite-v3/modeling_plan_design.md` | byte-identical |
+| 20 | `skills/kymcm-lite/references/modeling_plan_design.md` | `reference` | 27615 | `11564c431950b7bf8de34749103edf2f9c7829262674b9be8b2b134f7e4a82d2` | `docs/lite-v3/modeling_plan_design.md` | byte-identical |
 | 21 | `skills/kymcm-lite/references/preprocess_stage.md` | `reference` | 5995 | `16bd29f26216e4d53444cf45eabe71c8493938d9d3c236f2d96d82b74bda4b33` | `docs/lite-v3/preprocess_stage.md` | byte-identical |
 | 22 | `skills/kymcm-lite/references/supplement_work.md` | `reference` | 11915 | `15cd5504622803ae06246f5aa7ee207bdaab7fe3d170fde93358b9466bfe483b` | `docs/lite-v3/supplement_work.md` | byte-identical |
 | 23 | `skills/kymcm-lite/references/technical_handoff.md` | `reference` | 6756 | `2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419` | `docs/lite-v3/technical_handoff.md` | byte-identical |
@@ -67,15 +67,15 @@ The complete source text is intentionally long. It is not a summary: each canoni
 | 35 | `skills/kymcm-lite/templates/SUPPLEMENT_RESULT_QN.template.md` | `template` | 1990 | `c25364c2b64339f9c4f50009e0c2e11e536a5c8ec49349d8d5f395cdcb5d80c2` | `docs/lite-v3/SUPPLEMENT_RESULT_QN.template.md` | byte-identical |
 | 36 | `skills/kymcm-lite/templates/SUPPLEMENT_START_QN.template.md` | `template` | 2269 | `6056e597253f20ef1d45f4b0b3a14753d6724fa1e37767ac72554b6429099c48` | `docs/lite-v3/SUPPLEMENT_START_QN.template.md` | byte-identical |
 | 37 | `skills/kymcm-lite/agents/openai.yaml` | `agent-metadata` | 1900 | `a41da5d0abf880e7f68a797e6fc5998df9d4edc6d44330124263c8ccc13deaec` | — | none |
-| 38 | `skills/kymcm-lite/README.md` | `product-documentation` | 7522 | `395b52291f2c8b4a2f240ee2bb666c6b2e47e17b45b3d7a4be48e7275f2de6c2` | — | none |
-| 39 | `docs/compatibility.md` | `product-documentation` | 5663 | `9081ad958b1dc99fd12e3edc316a2e7ac3a1c0b0dab6effab7713c90e28b9039` | — | none |
-| 40 | `docs/installation.md` | `product-documentation` | 3576 | `5747ff600c4f7a79e4d152094aeb3e6ed63c6216518d0c7f636902a4bb9cfb85` | — | none |
-| 41 | `docs/known-limitations.md` | `product-documentation` | 7736 | `3929f4b9258cc5d615f775b796553d32d5702237729e8dd8353ec06d77c8fa40` | — | none |
-| 42 | `docs/lite-v3-rfc.md` | `product-documentation` | 18290 | `af706b9b93c673cb7c3bfd9fc3bac40ea7fe06366a1d126db03764d0a2520728` | — | none |
-| 43 | `docs/lite-v3-release-notes.md` | `product-documentation` | 28763 | `1dbd04ec56958a6d8c76f2d773da02a63ed9aa3f7805a7ade92017805ee16093` | — | none |
-| 44 | `docs/release-checklist.md` | `repository-maintenance` | 10183 | `777221b39453b4c804a6643af1a1fdd861036bcf997bc011e2400dc417214823` | — | none |
+| 38 | `skills/kymcm-lite/README.md` | `product-documentation` | 7983 | `75df4190df318fb4799a4c60d43e3b0f2730fc3f7a8d2b6c0945f6669ddefa00` | — | none |
+| 39 | `docs/compatibility.md` | `product-documentation` | 5903 | `3e185826c1fd07b450aab4f1d9a712565b50f5deb7949c61c4fe706a3e80c860` | — | none |
+| 40 | `docs/installation.md` | `product-documentation` | 3667 | `8a83f00f018ea51e2666c156042d56407b01720804756d1bcee36af2ed560761` | — | none |
+| 41 | `docs/known-limitations.md` | `product-documentation` | 7905 | `1f49ee77fbbf6a4abe0e3d263bd4b0eb65c3a5854b09d6d6c182fbd81bee5512` | — | none |
+| 42 | `docs/lite-v3-rfc.md` | `product-documentation` | 18282 | `9da4c3b443b50b282593c8db4541221858b845467eeb47f32ff8de90d0c5a54a` | — | none |
+| 43 | `docs/lite-v3-release-notes.md` | `product-documentation` | 31039 | `03204266e76297539fb3c842da91387284ca8a6cf2355c133e81dd58efaf67b0` | — | none |
+| 44 | `docs/release-checklist.md` | `repository-maintenance` | 10574 | `f4d2b7407ab50a1b5499b524ce4b555434ed931b35229cbcd98548eb10ffa156` | — | none |
 | 45 | `docs/system-dependencies.md` | `repository-maintenance` | 2190 | `382facb1bb75b82d2d1ce31753285f34b19cfdfb2fea7d1560713bd79b9936a7` | — | none |
-| 46 | `README.md` | `product-documentation` | 4588 | `ab846c446c72b692fb50b4c2800e39c19353f5b61c90aac2de3e84c5788afe30` | — | none |
+| 46 | `README.md` | `product-documentation` | 4685 | `dc6ece6174ce71b2aaadc7b121a35b41a60fc864956083c286f722a700fab178` | — | none |
 
 ## 2. Core skill
 
@@ -84,7 +84,7 @@ Role: `identity`
 Authority: runtime identity
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
-0.10.0
+0.10.1
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/VERSION -->
 
 
@@ -128,9 +128,9 @@ Each Trial has one falsifiable hypothesis, the minimum useful discriminating tes
 
 ## Modeling-plan design and execution
 
-Before authoring, reviewing, revising, or executing START, read `references/modeling_plan_design.md` completely. Explore is not a prerequisite. Define the minimum formally complete deliverable; audit dependencies and inputs; preflight identifiability, feasibility, boundedness, numerical meaning, and computational solvability; design the smallest end-to-end smoke test; divide formal work into recoverable stages with inspectable artifacts and exact cache/reuse conditions; estimate nested run count, time, memory, parallelism, and worst-case recomputation; classify experiments as mandatory L0, risk-triggered L1, or resource-permitting L2.
+Before authoring, reviewing, revising, or executing START, read `references/modeling_plan_design.md` completely. Explore is not a prerequisite. Define 1–3 core Claims, their material plausible failure modes, and the minimum direct evidence; audit dependencies and inputs; preflight identifiability, feasibility, boundedness, numerical meaning, and computational solvability; design the smallest end-to-end smoke test; divide formal work into recoverable stages with inspectable artifacts and exact cache/reuse conditions; estimate nested run count, time, memory, parallelism, and worst-case recomputation. Classify evidence by necessity for the current Claim and materiality of the risk, never by method name or cost: L0 is Claim-required, L1 is risk-triggered, and L2 only strengthens already adequate evidence.
 
-Run in order: author START, run its checker, complete dependency and modeling-plan semantic reviews, pass smoke, execute formal stages, pass basic/L0 audit, run L1 only for its named triggered risk, and run L2 only when affordable and it reduces an explicit remaining risk or strengthens required certification, write RESULT, run its checker, and stop for explicit semantic acceptance. Do not add computation for presentation value. A failed smoke blocks formal work; a failed basic audit returns to the responsible stage. Do not create or update HANDOFF during this execution sequence.
+Run in order: author START with Claim/risk/evidence/level/trigger/STOP semantics, run its checker, complete dependency and modeling-plan semantic reviews, pass smoke, execute formal stages, pass basic and Claim-required L0 audit, run L1 only for its named material-risk trigger, and run non-blocking L2 only when affordable after core Claims and known material risks are adequately supported or disclosed. Stop validation when further work would mainly duplicate evidence and is unlikely to change the conclusion or decision; then write RESULT, run its checker, and stop for explicit semantic acceptance. Do not add computation for presentation value. A failed smoke blocks formal work; a failed basic audit returns to the responsible stage. Do not create or update HANDOFF during this execution sequence.
 
 Repair deterministic engineering omissions transparently, then rerun the checks and semantic reviews. Ask one highest-impact question before changing mathematics, validation strength, formal success criteria, or a material resource tradeoff. Return to design if the model is unidentifiable, infeasible, unbounded, unsupported, or irreconcilable with budget. Preserve mathematical meaning, parameters, constraints, decisions, data semantics, budgets, and fallback rules. Disclose every authorized START deviation in RESULT.
 
@@ -202,7 +202,7 @@ Authority: Lite protocol
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 # KyMCM Lite v3 Protocol
 
-KyMCM Lite 0.10.0 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional rapid hypothesis Explore, optional shared preprocessing, recoverable modeling execution, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested programmatic data figures as same-stem PDF/PNG/PY/TXT bundles through ordinary 2D Matplotlib or intrinsic-3D PyVista routes, explicitly requested flowcharts through evidence-derived type/content specifications with human-owned final layout, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
+KyMCM Lite 0.10.1 is a programming-side, Markdown-first mathematical-modeling protocol. It covers optional rapid hypothesis Explore, optional shared preprocessing, recoverable modeling execution, Claim–Risk–Evidence validation, evidence-linked formal results, optional question-level incremental Supplement contracts, question-level neutral technical handoffs, explicitly requested programmatic data figures as same-stem PDF/PNG/PY/TXT bundles through ordinary 2D Matplotlib or intrinsic-3D PyVista routes, explicitly requested flowcharts through evidence-derived type/content specifications with human-owned final layout, computation-core submission-appendix curation with independent result assets and static side-effect checks, and a fixed final-submission AI-tool disclosure template. It does not generate, plan, read, modify, or check contest manuscripts.
 
 ## External complete specification export
 
@@ -293,11 +293,11 @@ During formal execution, a new material uncertainty about the route may pause wo
 
 ## Modeling-plan design and execution
 
-`references/modeling_plan_design.md` is the semantic standard, and Explore is not its prerequisite. For each selected unit, Codex authors START and passes `check-start`; reviews dependencies and final plan quality; passes the smallest representative end-to-end smoke test; executes recoverable formal stages; completes mandatory L0 audit; runs L1 only for a named remaining risk; runs L2 only when resources permit and it reduces a named risk, strengthens formal evidence, satisfies an explicit user requirement, or is needed for result certification; then writes RESULT with deviations, omitted optional work, evidence, and limitations.
+`references/modeling_plan_design.md` is the semantic standard, and Explore is not its prerequisite. For each selected unit, Codex identifies 1–3 core Claims, their material failure modes, and the minimum direct evidence; authors START and passes `check-start`; reviews dependencies and final plan quality; passes the smallest representative end-to-end smoke test; executes recoverable formal stages; completes Claim-required L0 evidence even when costly; runs L1 only for a named material-risk trigger; runs non-blocking L2 only when resources permit and it strengthens already adequate evidence; stops when Claims are covered, material risks are tested or disclosed, and further work is unlikely to change the decision; then writes RESULT with deviations, omitted optional work, evidence, and limitations.
 
 The START defines the minimum formally complete deliverable, authoritative inputs, identifiability/solvability preflight, smoke-test pass condition, recoverable stages, artifacts, cache and reuse rules, resume point, failure behavior, nested cost, peak memory, parallelism, worst-case recomputation, and budget-pressure deletion order. Formal PRE/QN execution is non-visual by default and prefers structured numeric checks, tables, logs, schemas, error metrics, and constraint audits. Only the smallest diagnostic graphic needed to resolve a named risk may enter L0/L1; final display graphics never belong to L0/L1/L2, the modeling budget, or formal delivery.
 
-L0 is mandatory and blocking. L1 has a named trigger. L2 is resource-permitting and non-blocking unless explicitly promoted. The Python checker does not parse these levels, count experiments, judge proportionality or mathematics, or create semantic-review state.
+L0 is Claim-required and blocking, not synonymous with low cost. L1 has a named material-risk trigger. L2 strengthens already adequate evidence and is non-blocking. A method such as sensitivity, out-of-sample validation, convergence, multi-seed, Bootstrap, or alternate-model testing has no permanent level; necessity for the current Claim and risk materiality determine its level. The Python checker does not parse these levels, count experiments, judge proportionality or mathematics, or create semantic-review state.
 
 ## Question-level Supplement contracts
 
@@ -463,7 +463,7 @@ Whitelist grammar remains `A[0-9]{3,}` for appendix entries and `C[0-9]{3,}` for
 
 The Lite v3 marker, eight public commands, all START/RESULT/PRE/HANDOFF/APPENDIX heading inventories, base identities, dependency grammar, evidence scope, and figure workspace remain unchanged. Explore is optional and unmanaged, so existing workspaces need no migration and `init` output is unchanged. Legacy Appendix contracts without the AI declaration remain valid and are not rewritten; author or re-author from the current template to obtain root-submission behavior. Existing split `HANDOFF_QN_K.md` files remain ordinary legacy notes.
 
-Lite 0.10.0 does not decide whether Explore is needed; enforce Trial numbering/fields, budgets, STOP, or PROMOTE/DROP/NEXT; validate experiments; guarantee scratch reproducibility; promote or delete scratch artifacts; validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, exact physical per-glyph font-file routing, final VTK typography/camera quality, final flowchart layout quality, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning or solvers as a runtime service; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics without applying the documented selection hierarchy; silently retrain for graphics; add an Explore or Supplement checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, experiment database/dashboard, fidelity state machine, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure checker command, flowchart executor/layout engine, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Data-figure selection remains semantic agent/human review; `figure_exec.py` and `figure_3d_exec.py` enforce their backend-specific machine-safe rules, `figure_bundle.py` checks delivery completeness, and ChatGPT/user retains semantic and visual acceptance. Flowcharts use the two flowchart references and stop before human-owned final layout. XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
+Lite 0.10.1 does not decide whether Explore is needed; enforce Trial numbering/fields, budgets, STOP, or PROMOTE/DROP/NEXT; validate experiments or Claim–Risk–Evidence adequacy; guarantee scratch reproducibility; promote or delete scratch artifacts; validate mathematics, plan or EDA quality, causality, Supplement numbering, plan-before-execution, edit/adoption status, Start/Result invalidation, artifact overwrite permission, replacement scope, RESULT acceptance, HANDOFF authorization/timing/completeness, HANDOFF semantics, exact physical per-glyph font-file routing, final VTK typography/camera quality, final flowchart layout quality, or the truth/representativeness of AI-tool screenshots and declarations; infer PRE use or contract granularity; execute cleaning or solvers as a runtime service; reconcile contradictions automatically; manage approvals/state; generate or check manuscripts or AI-use PDFs; infer final graphics without applying the documented selection hierarchy; silently retrain for graphics; add an Explore or Supplement checker, validation checker, CLI option, dependency token, state, JSON, manifest, approval, hash ledger, experiment database/dashboard, fidelity state machine, `followups/`, Sx subdirectory, aggregate RESULT, PRE Supplement, figure checker command, flowchart executor/layout engine, or AI-usage checker; migrate old products; build/delete appendix trees; judge originality; prove result equivalence; fully interpret dynamic imports, CMake, and spreadsheet semantics; or detect every indirect/dynamic code write. Static side-effect checks cover only high-confidence explicit Python/C/C++ writers. Data-figure selection remains semantic agent/human review; `figure_exec.py` and `figure_3d_exec.py` enforce their backend-specific machine-safe rules, `figure_bundle.py` checks delivery completeness, and ChatGPT/user retains semantic and visual acceptance. Flowcharts use the two flowchart references and stop before human-owned final layout. XeLaTeX compilation and visual acceptance of the separate AI-use PDF remain executor and human responsibilities.
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/docs/protocol.md -->
 
 
@@ -474,7 +474,7 @@ Role: `machine-contract`
 Authority: runtime behavior
 
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/references/machine_contract.md -->
-# KyMCM Lite 0.10.0 machine-enforced contract
+# KyMCM Lite 0.10.1 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -492,7 +492,7 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.10.0` is a product release identifier. It is independent of the
+Lite version `0.10.1` is a product release identifier. It is independent of the
 workspace protocol marker, which remains Lite v3. Existing valid workspaces need
 no automatic migration. This release documents an optional unmanaged Explore
 workspace while preserving all existing contract grammar, read-only checking,
@@ -4432,6 +4432,8 @@ Authority: specialized reference
 
 本规范是**方案设计原则**，不是新的状态机、审批流或重型合同。它用于约束 START 的生成质量，但不要求为本规范额外创建 JSON、报告、审批文件或一致性证明。
 
+其中的验证强度以项目既有、固定的 63 篇 CUMCM 优秀论文历史语料作为竞赛论文实践校准，并以 Claim（主张）及其风险的第一性原理推理为规范依据。优秀论文实践用于帮助判断“多少证据才足够”，出现频率不是规范权威；该语料在不同年份的全文可得性不同，因此不得据此声称对全部 63 篇论文完成了穷尽式全文编码。最终规则始终是：用最小充分的直接证据支撑核心 Claim、关闭重大风险，然后停止。
+
 ---
 
 ## Explore 与正式 START 的边界
@@ -4458,7 +4460,7 @@ Explore 不降低本规范的任何要求。某思路被 `PROMOTE` 后，正式 
 → 最小冒烟测试
 → 正式运行
 → 基础结果审计
-→ 按需高成本验证
+→ 按 Claim 与风险补齐必要验证
 ```
 
 只有前一层通过，才允许进入后一层。
@@ -4466,6 +4468,17 @@ Explore 不降低本规范的任何要求。某思路被 `PROMOTE` 后，正式 
 不得在尚未确认模型可运行、可恢复、可复用时，直接设计大规模多重验证。
 
 ### 2.2 最小充分原则
+
+验证设计必须先建立以下决策链，而不是先罗列实验名称：
+
+```text
+核心 Claim
+→ 若 Claim 错误，最重大且合理的 failure mode / 风险是什么
+→ 能直接处理该风险的最低成本证据是什么
+→ 按该证据对当前 Claim 的必要性划分 L0 / L1 / L2
+```
+
+每个正式问题只识别少量核心 Claim，通常以 1–3 条为宜，不把所有叙述性结论扩张为无界清单。每项实质验证都必须追溯到一条核心 Claim 或一个可能改变 Claim、排序、决策或解释的重大风险。验证方法没有永久的 L0、L1 或 L2 身份，其等级由当前 Claim 的必要性与风险重大性决定，而不是由实验名称或成本决定。
 
 每一项实验、验证或对照必须回答一个明确问题，例如：
 
@@ -4483,6 +4496,8 @@ Explore 不降低本规范的任何要求。某思路被 `PROMOTE` 后，正式 
 2. 解释更直接者；
 3. 对结论影响更大者；
 4. 更容易复现者。
+
+若两个实验对同一 Claim 或风险提供实质重复的证据，应删除重复项；便宜实验也不会因为便宜而自动成为必做项。
 
 ### 2.3 统计严谨性必须转化为执行可靠性
 
@@ -4660,11 +4675,11 @@ Explore 不降低本规范的任何要求。某思路被 `PROMOTE` 后，正式 
 
 基础审计失败时，应修复正式流程，而不是继续叠加敏感性分析。
 
-### 3.6 层级 F：高成本验证
+### 3.6 层级 F：主张验证与风险强化
 
-高成本验证必须按风险触发，不得默认全部执行。
+这一层按 Claim 与重大风险选择候选证据，不按方法名称或成本把实验预先判定为“基础”“高级”或“可选”。若缺少某项实验会使核心正式 Claim 失去合理支持，该实验即使昂贵也属于 L0；反之，若一个便宜实验只重复已经充分的证据，也不自动成为必做项。
 
-可包括：
+候选证据可包括：
 
 - 多随机种子；
 - 重复交叉验证；
@@ -4677,60 +4692,90 @@ Explore 不降低本规范的任何要求。某思路被 `PROMOTE` 后，正式 
 - 极端情景；
 - 消融实验。
 
-每项高成本验证必须说明：
+上述技术不是待执行菜单，也不是任何问题的通用验证包。每项非平凡验证必须说明：
 
-1. 它要排除什么具体风险；
-2. 若不执行，会影响哪条结论；
+1. 它处理哪条核心 Claim 或哪个重大风险；
+2. 若不执行，哪条 Claim 或正式结果会失去什么支持；
 3. 预计成本；
 4. 是否可以部分执行；
-5. 触发条件；
+5. 非 L0 时的明确触发条件；
 6. 通过或失败后如何影响结论。
 
 ---
 
 ## 4. 实验分级制度
 
-### L0：必须执行
+### L0：Claim-required / 必需证据
 
-用于保证结果基本可信和流程可交付，例如：
+若缺少某项证据，核心正式 Claim 便无法得到合理辩护，或正式结果无法被信任和交付，则该证据属于 L0。L0 不等于低成本；必要性高于成本。Claim 相关的例子包括：
 
 - 依赖审计；
-- 数据口径检查；
+- 输入、数据口径与样本 accounting；
 - 可识别性或可解性预检；
 - 冒烟测试；
 - 正式运行；
-- 关键约束验证；
-- 核心结果复算；
-- 必要的基准模型；
+- 优化问题的约束/可行性验证；
+- 核心目标值或指标的独立复算；
+- 当核心 Claim 是预测能力时的样本外验证或回测；
+- 当 Claim 依赖统计拟合时，与误差、残差和实际使用假设相连的检查；
+- 当离散化误差可能改变所报告结果时的数值精度或收敛验证；
+- 当 Claim 明确写作最优或全局最优时，与之匹配的求解器状态、界、Gap 或理论证明；
 - 正式输出回读。
 
 L0 未完成时，问题不得宣告完成。
 
-### L1：条件触发
+### L1：Risk-triggered / 风险触发
 
-仅在特定风险出现时执行，例如：
+核心 Claim 已有基本直接证据，但一个已知、具体的重大风险仍可能改变 Claim、排序、决策或解释时，针对该风险的证据属于 L1。例如：
 
 - 普通 Logistic 分离时执行 Firth Logistic；
-- 结果对初值敏感时执行多初值；
-- 小样本不稳定时执行 Bootstrap；
+- 随机种子或初始化可能影响结论时执行多种子或多初值；
+- 小样本不稳定风险明确时执行直接处理该风险的 Bootstrap；
 - 求解器 Gap 较大时执行替代求解器或延长预算；
-- 模型选择不稳定时执行模型集合敏感性；
-- 关键参数来源不确定时执行局部敏感性。
+- 模型选择不稳定时执行有限替代模型检查；
+- 关键参数来源不确定时执行局部敏感性；
+- 数值步长可能影响结论、但尚未达到 L0 必要性时执行收敛/精度检查；
+- 关键权重不确定且可能改变排序时执行权重/排序稳定性检查。
 
-L1 必须有明确触发条件。
+每项 L1 必须有明确触发条件；没有触发条件，就不得以 L1 名义排入计划。
 
-### L2：资源允许时执行
+### L2：Evidence-strengthening / 证据强化
 
-仅用于降低明确的剩余风险或增强正式证据，不应阻塞主交付，例如：
+当核心 Claim 与已知重大风险已经得到充分支持或关闭，仅用于扩大场景覆盖、增强说服力或进一步降低残余不确定性的实验属于 L2。例如：
 
-- 大规模多种子重复；
-- 多套替代模型；
-- 全参数网格敏感性；
-- 全量留一分析；
-- 扩展样本外测试；
-- 额外消融与必要诊断。
+- 在充分稳定性检查之外增加更多随机种子；
+- 增加更多替代模型；
+- 局部敏感性已足够后再做稠密参数网格；
+- 增加极端场景；
+- 扩展消融或外部测试。
 
-L2 未执行时，应在 RESULT 中注明，而不是强制重跑正式流程。
+L2 非阻塞，在竞赛预算承压时可以删除。L2 未执行时，应在 RESULT 中注明，而不是强制重跑正式流程。
+
+> **跨级规则：验证方法名称不决定等级。等级 = 该证据对当前 Claim 的必要性 + 所处理风险的重大性；成本也不决定等级。**
+
+同一种方法可以跨级：敏感性分析若只涉及外围参数可为 L2，若处理不确定的关键参数可为 L1，若正式 Claim 本身就是参数变化下的稳健性则为 L0；样本外验证对核心预测 Claim 是 L0，对不承担预测主张的辅助拟合则未必是核心证据；当数值精度可能改变报告量时收敛验证是 L0，否则可按已命名风险触发为 L1。
+
+### 4.1 问题类型的默认证据提示
+
+下表只用于提示常见 Claim 的默认风险，不是固定验证包或逐项清单：
+
+| 问题类型 | 默认核心证据重点 |
+|---|---|
+| 优化 | 可行性/约束审计 + 目标值独立复算；仅在声称最优性时提供相应最优性证据 |
+| 预测 | 样本外验证/回测 + 预测误差 + 简单且有意义的基准 |
+| 统计拟合/推断 | 拟合、误差或残差证据 + 与实际使用的模型假设相连的检查 |
+| 机理/数值模型 | 物理或数学一致性 + 观测/已知结果对照；数值精度或收敛在结果重大相关时纳入 |
+| 评价/排序 | 指标计算正确性 + 可解释的排序/结果；关键权重不确定时检查权重/排序稳定性 |
+
+混合问题只组合与其核心 Claim 有关的证据要求，不机械累加每一行。
+
+#### 优化问题的证据边界
+
+对适用的精确/确定性优化，典型 L0 是求解器或算法成功、可行性/约束审计和目标值独立复算；只有正式 Claim 需要最优或全局最优措辞时，才要求相应 Gap、有效界、最优状态或证明。不得仅为形式完整而要求确定性精确求解器执行多种子。
+
+对启发式/随机优化，若 Claim 仅为“一个高质量可行解”，应验证可行性、独立复算目标值，并在“改进”是 Claim 的一部分时提供有意义的比较。仅当随机性可能实质改变最终结论时，多种子/初始化稳定性才是 L1；只有正式 Claim 本身要求跨运行稳定或可靠时，它才成为 L0。
+
+收敛曲线、敏感性分析或单次良好运行都不能证明全局最优。全局最优 Claim 必须有适合该 Claim 的证据，例如精确求解器证明/状态、有效界或 Gap、逻辑上充分的小规模穷举证明，或理论论证。若论文只需要可行且高质量的实用解，不强制证明全局最优。
 
 ---
 
@@ -4887,6 +4932,8 @@ data/derived/validation.csv
 
 通常一个简单基准和一个主要对照已经足够。
 
+基准是否必要取决于 Claim：预测能力或模型改进 Claim 通常需要一个简单且有意义的基准；确定性计算、直接物理推导或精确闭式解不得为了显得完整而人为添加基准。只有当对照结果可能改变对 Claim 的解释时，才使用主要对照。
+
 不得为了“模型丰富”并列大量算法。
 
 ### 8.2 敏感性分析
@@ -4899,7 +4946,7 @@ data/derived/validation.csv
 - 关键情景；
 - 可能改变结论的模型选择。
 
-不得对所有参数进行机械网格扫描。
+若方案无法说明某参数或假设的不确定性为何可能实质改变核心 Claim，就不得仅为论文完整性安排敏感性分析。不得对所有参数进行机械网格扫描。
 
 敏感性分析应优先采用：
 
@@ -4910,7 +4957,23 @@ data/derived/validation.csv
 
 ### 8.3 验证停止规则
 
-当新增实验不再改变以下内容时，应停止扩展：
+当以下三项同时成立时，验证应停止：
+
+1. 每条核心正式 Claim 至少有一项适合该 Claim 的直接证据；
+2. 每个已知且可能改变 Claim、排序、决策或解释的重大风险，已经得到检验或被显式披露为限制；
+3. 剩余候选实验主要重复既有证据，且不太可能改变结论、排序、关键方向或风险判断。
+
+STOP 意味着不得仅为制造视觉上“完整”的验证章节而继续增加敏感性、稳健性、多种子、Monte Carlo 或替代模型工作。
+
+以下“模型评价”文字本身不是 validation evidence：
+
+```text
+模型优点 / 模型缺点 / 推广性 / 稳定性良好 / 准确 / 稳健 / 可泛化
+```
+
+叙述可以如实披露限制，却不能替代缺失的 Claim 必需验证。若“稳定”“稳健”“准确”或“可泛化”被用作正式 Claim，就必须提供实际证据。
+
+新增实验是否可能改变下列内容，是第三项 STOP 判断的具体提示：
 
 - 主要结论；
 - 方案排序；
@@ -4952,13 +5015,18 @@ START 不应只写“做哪些验证”，还必须写清“如何可靠执行�
 
 ### 9.3 验证分级
 
-START 中应明确：
+START 的验证设计应以简洁文字或按需表格明确：
 
-- L0 实验；
-- L1 触发条件；
-- L2 可选实验；
+- 核心 Claim；
+- 主要 failure mode / 重大风险；
+- 针对该 Claim/风险的直接证据；
+- 将证据划为 L0/L1/L2 的理由；
+- L1 的触发条件；
+- 验证 STOP 条件；
 - 总预算；
 - 当预算不足时优先删除哪些实验。
+
+这是语义内容要求，不规定固定 Markdown 表格、标题或 checker 语法。
 
 ### 9.4 禁止项
 
@@ -4979,24 +5047,24 @@ START 不得：
 
 ChatGPT 在输出正式建模方案前，应逐项回答：
 
-1. 当前问题最小可交付结论是什么？
-2. 支撑这些结论最少需要哪些实验？
-3. 哪些风险必须在正式运行前排除？
-4. 模型是否可识别、可行、可解？
-5. 冒烟测试如何设计？
-6. 正式流程可以拆成哪些阶段？
-7. 哪些阶段成本最高？
-8. 哪些阶段可以缓存和复用？
-9. 单个阶段失败后从哪里恢复？
-10. 哪些验证属于 L0、L1、L2？
-11. 每项高成本验证解决什么风险？
-12. 所有嵌套实验总共需要多少次拟合或求解？
-13. 总成本是否符合竞赛预算？
-14. 哪些验证可以在时间不足时删除？
-15. 是否存在“形式上很严谨、实际上无法稳定执行”的设计？
-16. 结果失败时应修改模型，还是增加验证？
-17. 是否把工程问题误当成统计问题处理？
-18. 是否把附加分析设成了主流程阻塞项？
+1. 当前问题的 1–3 条核心正式 Claim 是什么？
+2. 若每条 Claim 错误，最可能的重大 failure mode 是什么？
+3. 每条 Claim 所需的最小直接证据是什么？
+4. 哪些证据是 Claim-required，因而即使昂贵也属于 L0？
+5. 哪些剩余具体风险触发 L1？
+6. 哪些实验只强化已经充分的证据，因而属于 L2？
+7. 验证 STOP 条件是什么？
+8. 当前问题的最小可交付结论是什么？
+9. 哪些风险必须在正式运行前排除？
+10. 模型是否可识别、可行、可解？
+11. 冒烟测试如何设计？
+12. 正式流程可以拆成哪些阶段？
+13. 哪些阶段成本最高，哪些可以缓存和复用？
+14. 单个阶段失败后从哪里恢复？
+15. 所有嵌套实验总共需要多少次拟合、求解或情景运行？
+16. 总成本是否符合竞赛预算，时间不足时先删除什么？
+17. 是否存在形式严谨但无法稳定执行、工程问题被误当成统计问题、或附加分析阻塞主流程的设计？
+18. 结果失败时应修改模型，还是增加验证？
 19. 是否要求了无法合理保证的确定性或运行时间？
 20. 方案是否能够由另一名队员独立执行和恢复？
 
@@ -5021,25 +5089,32 @@ ChatGPT 在输出正式建模方案前，应逐项回答：
 - 不区分主结论证据与附加证据；
 - 对照模型数量过多；
 - 所有验证都被写成“不得减少”；
-- 只允许增加迭代和重试，不允许削减非必要实验。
+- 只允许增加迭代和重试，不允许削减非必要实验；
+- 对每个问题机械要求敏感性、稳健性、收敛或多种子；
+- 辅助实验很多，却没有直接支持核心 Claim 的证据；
+- 核心预测 Claim 只有样本内拟合，没有适当的样本外验证或回测；
+- 没有适当最优性证据却声称全局最优；
+- 把叙述性的“模型评价”语言当作验证证据；
+- 按实验名称或成本而不是 Claim 必要性与风险划分 L0/L1/L2；
+- 用更多验证掩盖不受支持或定义不清的 Claim。
 
 ---
 
 ## 12. 推荐的方案设计流程
 
 ```text
-第一步：明确最小交付
-第二步：识别关键风险
-第三步：设计依赖与可解性预检
-第四步：设计最小冒烟测试
-第五步：拆分正式执行阶段
-第六步：定义阶段产物、缓存和恢复
-第七步：完成基础审计
-第八步：只为剩余风险设计验证
-第九步：对实验进行 L0/L1/L2 分级
-第十步：计算总运行成本
-第十一步：削减不能改变结论的实验
-第十二步：再写入 START
+第一步：明确核心 Claim
+第二步：识别每条 Claim 的主要 failure mode
+第三步：确定最小直接证据
+第四步：设计依赖与可解性预检
+第五步：设计最小冒烟测试
+第六步：定义正式执行阶段、产物、缓存与恢复
+第七步：完成基础结果审计
+第八步：按 Claim / Risk 补齐必要验证
+第九步：按必要性划分 L0 / L1 / L2
+第十步：定义验证 STOP 条件
+第十一步：计算成本并削减重复或低价值实验
+第十二步：写入 START
 ```
 
 ---
@@ -5059,11 +5134,15 @@ ChatGPT 在输出正式建模方案前，应逐项回答：
 9. 总运行成本经过显式估计；
 10. 方案在竞赛预算内可完成；
 11. 统计验证与正式任务结论直接对应；
-12. 不通过堆叠实验掩盖基础执行问题。
+12. 不通过堆叠实验掩盖基础执行问题；
+13. 每条核心 Claim 都有直接证据；
+14. 已知重大风险已经检验或显式披露为限制；
+15. L0/L1/L2 按 Claim 必要性和风险划分，而不是按方法名称或成本；
+16. 验证具有明确且有意义的 STOP 边界。
 
 最终原则：
 
-> 先保证模型能够正确运行、失败后能够恢复、已有结果能够复用，再通过最小充分的统计验证支撑正式任务结论与决策。
+> 先保证模型能够正确运行、失败后能够恢复、已有结果能够复用；再用最小充分的直接证据支撑每条核心 Claim、关闭重大风险，并在进一步验证不太可能改变决策时停止。
 <!-- END KYMCM-LITE SOURCE: skills/kymcm-lite/references/modeling_plan_design.md -->
 
 
@@ -5907,7 +5986,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: skills/kymcm-lite/README.md -->
 # KyMCM Lite
 
-KyMCM Lite 0.10.0 is a Markdown-first programming-side workflow for mathematical-modeling teams. It adds an optional rapid Explore loop for concrete material route uncertainty while preserving direct START for clear routes, recoverable evidence-linked formal modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets without workflow state or content JSON.
+KyMCM Lite 0.10.1 is a Markdown-first programming-side workflow for mathematical-modeling teams. Formal validation planning follows Claim–Risk–Evidence: L0 is Claim-required, L1 is risk-triggered, and L2 only strengthens already adequate evidence; method names and cost do not determine level. This refinement is calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority. Optional Explore, recoverable evidence-linked modeling, RESULT-gated handoffs, requested final figures, pre-Appendix AI-use details, and COPY-only root submission assets retain their existing boundaries without workflow state or content JSON.
 
 Formal PRE/QN execution is non-visual by default: structured numbers, tables, logs, schemas, error metrics, and constraint audits come first. Only the smallest diagnostic graphic needed to resolve a named risk is allowed. Lite does not generate, plan, read, modify, or check contest manuscripts.
 
@@ -5947,7 +6026,7 @@ Exit code 0 means structurally valid (warnings may exist), 1 means a contract or
 
 The formal modeling surfaces are START, matching RESULT, and RESULT-declared evidence. Each question uses either unsuffixed single mode or contiguous split units. Exact earlier-unit dependencies and optional PRE dependencies are structurally checked; semantic contradiction review reads each complete declared upstream START/RESULT pair.
 
-Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and risk-triggered L0/L1/L2 validation. Final display assets and document composition are out of scope.
+Before authoring, revising, reviewing, or executing START, use `references/modeling_plan_design.md`. It defines the minimum formally complete deliverable, input and solvability preflight, smallest representative smoke test, recoverable stages, reuse boundaries, explicit cost, and Claim–Risk–Evidence validation with a meaningful STOP boundary. Evidence is L0 when the current core Claim requires it even if costly, L1 only for a named material-risk trigger, and L2 only when it strengthens already adequate evidence. Final display assets and document composition are out of scope.
 
 When one concrete material uncertainty could change the formal route, optionally read `references/explore_work.md` and use `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}`. One Trial runs the cheapest discriminating test under one hard budget, then stops for ChatGPT/user PROMOTE/DROP/NEXT review. `init` never creates Explore, and promoted scratch work must be recreated/rerun through START or Supplement before it affects formal state. If the route is already clear, proceed directly to START.
 
@@ -5983,11 +6062,11 @@ Malformed and unknown markers fail closed. Existing `.kymcm/checkpoint_lite/**` 
 
 An absent marker may use retained Legacy Contract commands. Full commands will not operate on such a workspace.
 
-KyMCM Lite 0.10.0 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, all heading inventories and identities, dependency/evidence scope, optional `figure/`, and exactly eight public commands. The optional unmanaged `problems/qN/explore/` workspace is created only when Explore is entered; `init` and existing workspaces are unchanged. Explore is neither a START prerequisite nor a formal evidence/state surface. Existing Appendix plans remain valid and are not migrated, and the 0.9.14 root-asset behavior remains unchanged.
+KyMCM Lite 0.10.1 keeps the separate Lite v3 marker `{"workflow":"kymcm_lite","version":3}`, all heading inventories and identities, dependency/evidence scope, optional `figure/`, and exactly eight public commands. It refines only semantic validation planning: evidence levels follow necessity for the current Claim and materiality of the named risk, not method name or cost. The optional unmanaged `problems/qN/explore/` workspace, `init`, templates, runtime, figures, flowcharts, Appendix, AI-use package, and existing workspaces are unchanged. Explore is neither a START prerequisite nor a formal evidence/state surface. Existing Appendix plans remain valid and are not migrated, and the 0.9.14 root-asset behavior remains unchanged.
 
 Historical 0.9.2 Supplement compatibility: after a complete checked base question, 0.9.2 retains the 0.9.0/0.9.1 behavior of optionally using one question-level `SUPPLEMENT_START_QN.md` / `SUPPLEMENT_RESULT_QN.md` pair in both single and split modes. S1/S2/... numbering remains continuous. The latest Sx may be edited and rerun in place only while it is unadopted, has no later Sy, and has no downstream or formal-delivery use; a material Start edit first removes/invalidates its old Result. Adopted, non-latest, or superseded-by-Sy entries and their artifacts remain frozen. Existing user-created same-name files are not migrated automatically. Supplement names are ignored by base START/RESULT discovery, and no checker, command, state, JSON, manifest, dependency token, followups directory, or PRE Supplement is added.
 
-The 0.10.0 repository contains the deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`. It remains an external ChatGPT Project Source mirror checked by the exporter and does not change workspace compatibility. Python does not decide whether Explore is needed, enforce its STOP/decision semantics, or promote scratch work; those and existing submission, figure, result, and acceptance judgments remain agent/human responsibilities.
+The 0.10.1 repository contains the deterministic complete specification export at `docs/lite-v3/KyMCM_Lite_FULL_SPEC.md`. It remains an external ChatGPT Project Source mirror checked by the exporter and does not change workspace compatibility. Python does not decide Claim–Risk–Evidence adequacy, evidence levels, whether Explore is needed, enforce its STOP/decision semantics, or promote scratch work; those and existing submission, figure, result, and acceptance judgments remain agent/human responsibilities.
 
 `figure/` is an optional known root for explicitly requested final-figure work. Existing workspaces need not create it; init does not create it; an existing user-created root no longer appears as unknown. Lite does not inspect its contents, and it remains outside formal evidence and appendix source scope. Historical plotting code is not moved automatically.
 
@@ -6012,7 +6091,7 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/installation.md -->
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.10.0 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.10.1 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -6022,7 +6101,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.10.0. Existing workspaces need no migration; optional Explore directories are created only when used, and existing Appendix plans remain readable. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.10.1. Existing workspaces need no migration; the release changes semantic validation guidance only, optional Explore directories are created only when used, and existing Appendix plans remain readable. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -6041,7 +6120,7 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.10.0, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency. Explore adds no installation or runtime dependency. Formal 2D execution requires Matplotlib/`cmcrameri` and the documented local fonts. Intrinsic 3D additionally requires PyVista/VTK; its PDF is an exact-size raster container, and VTK-native font-family routing remains more limited than Matplotlib's exact audit. Flowchart planning/manual layout adds no runtime dependency. Do not copy or download font files into this repository.
+LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.10.1, XeLaTeX/TeX Live is an optional final-submission build dependency for the fixed AI-use PDF and is not a Lite runtime dependency. Claim–Risk–Evidence guidance and Explore add no installation or runtime dependency. Formal 2D execution requires Matplotlib/`cmcrameri` and the documented local fonts. Intrinsic 3D additionally requires PyVista/VTK; its PDF is an exact-size raster container, and VTK-native font-family routing remains more limited than Matplotlib's exact audit. Flowchart planning/manual layout adds no runtime dependency. Do not copy or download font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
 <!-- END KYMCM-LITE SOURCE: docs/installation.md -->
@@ -6058,10 +6137,10 @@ Authority: product documentation
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.10.0.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.10.1.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.10.0 limitations:
+KyMCM Lite 0.10.1 limitations:
 
 - Lite Python does not decide whether Explore is needed; create its optional workspace; enforce Trial numbering or fields, the one hard budget, the mandatory STOP gate, or PROMOTE/DROP/NEXT; validate experimental correctness; guarantee scratch reproducibility; promote artifacts; or delete stale Explore files. These are ChatGPT/user/executor semantic responsibilities.
 - Explore is intentionally non-formal. Scratch code, outputs, and diagnostics are not formal evidence, dependencies, HANDOFF content, Appendix sources, or final figures; promotion still requires transfer/recreation and formal rerun through START or Supplement.
@@ -6071,7 +6150,7 @@ KyMCM Lite 0.10.0 limitations:
 - Lite does not generate, plan, read, modify, or check contest manuscripts; infer which final graphics are needed; provide solvers; or migrate Full workspaces.
 - Final figures require an explicit user request. Lite does not manage or globally check `figure/`; each programmatic entrypoint invokes its backend audit and same-stem PDF/PNG/PY/TXT bundle audit. ChatGPT/user still owns semantic and visual acceptance.
 - `kymcm-figure-selection-v1` guides semantic WHAT/WHEN decisions but has no runtime scorer or checker; its explicitly pending chart branches require user direction or a future evidence-backed revision.
-- KyMCM Lite 0.10.0 does not automatically choose or guarantee publication-quality flowchart layout. It standardizes evidence-derived type selection and content capacity; final layout and drawing remain user/human judgment. Flowcharts remain outside the Python bundle.
+- KyMCM Lite 0.10.1 does not automatically choose or guarantee publication-quality flowchart layout. It standardizes evidence-derived type selection and content capacity; final layout and drawing remain user/human judgment. Flowcharts remain outside the Python bundle.
 - Formal Codex/Matplotlib figures additionally require optional Matplotlib/`cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext. `figure_exec.py` strictly checks named-family availability, declared script/family routing, and machine-safe constraints but cannot prove semantic language/prose/color-role correctness or the exact physical font file used for each glyph; ChatGPT/user retains those judgments. Missing requirements stop rendering without fallback. `nature-figure` is optional only for an explicitly requested read-only specialist second opinion and has no rerender/restyle/export/override authority.
 - Formal intrinsic-3D figures require optional PyVista 0.48.x, VTK 9.5.x, Matplotlib packaging support, `cmcrameri`, SSAA, and a functioning headless EGL/OpenGL environment. They fail closed without those capabilities and never fall back to `mplot3d`. The PDF may contain the rasterized VTK scene. VTK-native axes/scalar-bar font APIs cannot provide the same exact per-glyph Tinos/Noto guarantee as Matplotlib; missing CJK rendering must fail or move that explanation to TXT.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.
@@ -6079,7 +6158,7 @@ KyMCM Lite 0.10.0 limitations:
 - Contract granularity is author-selected; Lite does not infer it from prose or printed subquestions, create split contracts, or compare sibling units automatically.
 - Static dependency checks validate exact-token grammar and upstream contract availability, not mathematical consistency, transitive completeness, wildcard expansion, or semantic contradictions. Same-question dependencies remain unsupported.
 - Direct-dependency completeness and contradiction decisions remain Codex/human responsibilities; successful reviews create no consistency report.
-- L0/L1/L2 classification, smoke-test adequacy, cache/recovery design, nested-cost realism, and modeling-plan quality remain Codex/human responsibilities. The Python checker does not parse or enforce them.
+- Identifying core Claims and material failure modes, choosing minimum direct evidence, assigning Claim-required L0 / risk-triggered L1 / evidence-strengthening L2, judging STOP adequacy, smoke-test adequacy, cache/recovery design, nested-cost realism, and overall modeling-plan quality remain Codex/human responsibilities. The Python checker does not parse or enforce them.
 - Python tools do not validate HANDOFF identity, completeness, synchronization, formal/auxiliary classification, or evidence fidelity. Semantic reviewers remain responsible.
 - Python cannot enforce the human RESULT acceptance gate, distinguish an independent HANDOFF task, or prevent an agent from violating the timing boundary; a zero `check-result`/`check-preprocess-result`, green tests/CI, commit, or stable evidence is not semantic acceptance.
 - Python tools do not validate Supplement Sx continuity, plan-before-execution, Start/Result correspondence, whether the latest Sx is editable or adopted, adoption triggers, Start/Result invalidation, Sx artifact overwrite permission, replacement scope, mathematical correctness, completed-entry immutability, downstream impact, or HANDOFF currency. Agent semantic review and final human review remain responsible.
@@ -6101,9 +6180,9 @@ Authority: product documentation
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-rfc.md -->
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.0 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.1 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.10.0 boundary: a clear modeling route proceeds directly to START; a concrete material route uncertainty may optionally use one problem-level Explore Trial, which stops for PROMOTE/DROP/NEXT review before further work. Explore is unmanaged scratch, never formal evidence or Appendix material, and promoted work must be rerun through START/Supplement. The marker, eight commands, existing formal and submission behavior, and absence of state/manifest remain unchanged. The historical design below remains preserved.
+Current 0.10.1 boundary: formal validation follows Claim–Risk–Evidence, with L0 Claim-required, L1 risk-triggered, and L2 evidence-strengthening; method names and cost do not determine level. A clear modeling route still proceeds directly to START, while a concrete material route uncertainty may optionally use the unchanged Explore Trial. The marker, eight commands, templates, runtime, formal/submission behavior, and absence of state/manifest remain unchanged. The historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
@@ -6458,7 +6537,19 @@ Role: `product-documentation`
 Authority: product documentation
 
 <!-- BEGIN KYMCM-LITE SOURCE: docs/lite-v3-release-notes.md -->
-# KyMCM Lite 0.10.0
+# KyMCM Lite 0.10.1
+
+KyMCM Lite 0.10.1 refines formal validation planning around Claim–Risk–Evidence. For each small set of core Claims, the plan identifies the most material plausible failure modes, selects minimum direct evidence, classifies that evidence by necessity, and stops when Claims are supported, material risks are tested or disclosed, and further work is unlikely to change the conclusion or decision.
+
+L0 now means Claim-required evidence and remains blocking even when expensive. L1 means evidence triggered by one concrete material risk that could change a Claim, ranking, decision, or interpretation. L2 means non-blocking evidence-strengthening after the core Claims and known material risks are already adequately supported. Validation method names have no permanent level, and cost does not assign a level: sensitivity, out-of-sample testing, convergence, multi-seed, Bootstrap, and alternate-model checks may occupy different levels for different Claims.
+
+The refinement is calibrated against the project's fixed historical 63-paper CUMCM excellent-paper corpus and first-principles Claim/risk reasoning. Corpus practice helps calibrate what sufficient competition-paper evidence looks like; frequency is not authority. This release does not claim exhaustive full-text coding of all 63 papers and publishes no unsupported frequency rule.
+
+The modeling-plan reference adds compact, non-checklist evidence prompts for optimization, forecasting, statistical fitting/inference, mechanistic/numerical modeling, and evaluation/ranking. It makes baseline use Claim-dependent, gates sensitivity on a named material risk, distinguishes high-quality feasible heuristic solutions from global-optimality Claims, rejects convergence curves, sensitivity, or a single good run as global-optimality proof, and states that narrative model-evaluation prose is not validation evidence.
+
+This is a non-breaking normative clarification. It adds no validation Markdown subsystem, checker, command, state, JSON, manifest, approval object, template heading, or runtime dependency. START/RESULT/HANDOFF templates, optional Explore, the Lite v3 marker and eight commands, Lite runtime Python, KyMCM Full, figures, flowcharts, Appendix, and AI-use behavior remain unchanged.
+
+## KyMCM Lite 0.10.0
 
 KyMCM Lite 0.10.0 adds optional `kymcm-explore-v1` for material uncertainty about a modeling or algorithm route. A clear route still proceeds directly to formal START. When Explore is useful, one shared problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` workspace records one falsifiable Hypothesis, the minimum useful Test, one hard Budget, its actual Result, and a semantic PROMOTE/DROP/NEXT decision.
 
@@ -6663,7 +6754,7 @@ Authority: repository maintenance
 
 ## KyMCM Lite checks
 
-- Lite 0.10.0 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.10.1 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - Explore is optional and created only for a concrete material route uncertainty; clear routes proceed directly to START and fresh `init` creates no Explore paths.
 - One problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` workspace serves single and split mode. One Trial uses one falsifiable hypothesis, the minimum useful test, and one hard budget, then STOPs for semantic PROMOTE/DROP/NEXT review without automatic fidelity escalation.
 - Explore adds no parser, command, checker, state, JSON, manifest, approval, hash ledger, database, dashboard, fidelity taxonomy, dependency token, formal evidence, HANDOFF source, Appendix source, or final-figure asset. Promoted work is recreated/rerun through START or Supplement before formal use.
@@ -6674,7 +6765,7 @@ Authority: repository maintenance
 - Current adopted effective state is base RESULT plus accepted Supplement Result entries applied in order and explicit scope; exact base RESULT dependency tokens remain unchanged and dependency review reads applicable accepted entries.
 - Every execution stops at RESULT/RESULT_PRE plus its machine check and waits for explicit user/ChatGPT semantic acceptance; a checker success, tests, CI, commit, or stable evidence is not acceptance or HANDOFF authorization. A separate explicit HANDOFF task is required afterward.
 - Both `modeling_plan_design.md` references have byte parity, and SKILL requires reading the standalone reference.
-- Modeling-plan review covers minimum deliverable, preflight, smoke test, staged artifacts/recovery, explicit nested cost, and L0/L1/L2 without adding state, commands, diagnostics, or success artifacts.
+- Modeling-plan review follows Claim -> material risk -> minimum direct evidence -> level -> STOP. L0 is Claim-required even when costly, L1 has a named material-risk trigger, and non-blocking L2 only strengthens already adequate evidence; method name and cost never assign the level. The fixed 63-paper CUMCM excellent-paper corpus calibrates practice without frequency-based rules or an exhaustive-full-text claim. Preflight, smoke test, staged artifacts/recovery, explicit nested cost, and anomaly isolation remain required without adding state, commands, diagnostics, or success artifacts.
 - `technical_handoff.md` and HANDOFF template mirrors have byte parity; QN uses one problem-level identity and an ordered formal-upstream list while preserving all eight frozen headings.
 - Base RESULT remains the exact dependency-token entry; accepted Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries; the old HANDOFF remains the last accepted snapshot while a new Result is pending.
 - `check-result` remains independent of HANDOFF; single and split modes use one `HANDOFF_QN.md`, split requires complete checked RESULT coverage, and no HANDOFF command/state/checker exists.
@@ -6699,7 +6790,7 @@ Authority: repository maintenance
 - Single/split layout, contiguous START suffixes, partial RESULT completion, exact selected titles, and exact upstream unit availability are covered; semantic contradiction review remains a Codex/human responsibility and creates no success artifact.
 - Evidence control-character, scope, traversal, and symlink guards pass.
 - A copied read-only Skill passes from an unrelated working directory.
-- Lite tags use `lite-v<version>`; `lite-v0.10.0` requires the authorized merged release tree and passing ordinary plus preserved real 3D CI.
+- Lite tags use `lite-v<version>`; `lite-v0.10.1` requires the authorized merged release tree and passing ordinary plus preserved real 3D CI.
 <!-- END KYMCM-LITE SOURCE: docs/release-checklist.md -->
 
 
@@ -6734,7 +6825,7 @@ Authority: product documentation
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.10.0** adds an optional rapid Explore loop for concrete material route uncertainty: one falsifiable hypothesis, the cheapest useful test, one hard budget, then STOP for PROMOTE/DROP/NEXT review. Clear routes still go directly to the unchanged formal START/RESULT workflow; Explore adds no command, checker, state, formal evidence, or initialized directory.
+- **KyMCM Lite 0.10.1** refines formal validation planning around Claim–Risk–Evidence: L0 is Claim-required, L1 is risk-triggered, and L2 strengthens already adequate evidence. Validation methods have no permanent level and cost does not define the level. The refinement is calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority; Explore, templates, runtime, marker, and eight commands remain unchanged.
 
 ## Install
 
@@ -6803,7 +6894,7 @@ Byte-identical repository mirrors are listed without repeating their正文:
 - canonical: `skills/kymcm-lite/references/machine_contract.md`
   mirror: `docs/lite-v3/machine_contract.md`
   bytes: `29468`
-  SHA-256: `90886f035f39189d2e83b5122d20988a4b374d460ab39b1ffc14c4a926dbfe0b`
+  SHA-256: `8862dd5614c8e78a63125a848e562b12d4f9a8924b2fdad49e7bcd7dfddaf8c6`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/ai_tool_usage_details.md`
@@ -6886,8 +6977,8 @@ Byte-identical repository mirrors are listed without repeating their正文:
 
 - canonical: `skills/kymcm-lite/references/modeling_plan_design.md`
   mirror: `docs/lite-v3/modeling_plan_design.md`
-  bytes: `19339`
-  SHA-256: `523346fec53516cc97dfe9ac782d28cd95cf0be5916cddf5c974246768e56faa`
+  bytes: `27615`
+  SHA-256: `11564c431950b7bf8de34749103edf2f9c7829262674b9be8b2b134f7e4a82d2`
   status: `byte-identical`
 
 - canonical: `skills/kymcm-lite/references/preprocess_stage.md`

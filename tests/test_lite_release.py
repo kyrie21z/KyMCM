@@ -24,9 +24,9 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.0\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.1\n")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.10.0 is a programming-side", protocol)
+        self.assertIn("KyMCM Lite 0.10.1 is a programming-side", protocol)
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -34,8 +34,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.10.0", text, relative)
-            self.assertNotIn("0.10.0-dev", text, relative)
+            self.assertIn("0.10.1", text, relative)
+            self.assertNotIn("0.10.1-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -133,7 +133,7 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertFalse((SKILL / "templates/FROZEN_CONTEXT.template.md").exists())
 
     def test_modeling_plan_reference_and_start_guidance_are_frozen(self):
-        expected_hash = "523346fec53516cc97dfe9ac782d28cd95cf0be5916cddf5c974246768e56faa"
+        expected_hash = "11564c431950b7bf8de34749103edf2f9c7829262674b9be8b2b134f7e4a82d2"
         reference = SKILL / "references/modeling_plan_design.md"
         mirror = ROOT / "docs/lite-v3/modeling_plan_design.md"
         self.assertEqual(hashlib.sha256(reference.read_bytes()).hexdigest(), expected_hash)
@@ -145,6 +145,30 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertIn("references/modeling_plan_design.md", skill)
         self.assertIn("semantic", protocol)
         self.assertIn("semantic standard", protocol)
+        guidance = reference.read_text(encoding="utf-8")
+        for required in (
+            "核心 Claim", "failure mode", "直接证据",
+            "L0：Claim-required / 必需证据",
+            "L1：Risk-triggered / 风险触发",
+            "L2：Evidence-strengthening / 证据强化",
+            "验证方法名称不决定等级",
+            "成本也不决定等级",
+            "样本外验证/回测 + 预测误差 + 简单且有意义的基准",
+            "可行性/约束审计 + 目标值独立复算",
+            "收敛曲线、敏感性分析或单次良好运行都不能证明全局最优",
+            "不得仅为论文完整性安排敏感性分析",
+            "模型评价", "不是 validation evidence",
+            "每条核心正式 Claim 至少有一项适合该 Claim 的直接证据",
+            "已经得到检验或被显式披露为限制",
+            "剩余候选实验主要重复既有证据",
+        ):
+            self.assertIn(required, guidance)
+        self.assertFalse((SKILL / "references/validation_strength.md").exists())
+        self.assertFalse((ROOT / "docs/lite-v3/validation_strength.md").exists())
+        self.assertNotIn("check-validation", guidance)
+        self.assertNotIn("收敛曲线可以证明全局最优", guidance)
+        self.assertNotIn("所有问题必须执行敏感性分析", guidance)
+        self.assertNotIn("所有随机算法必须执行多种子", guidance)
         for required in ("冒烟测试", "可恢复执行阶段", "L0", "L1", "L2", "嵌套拟合/求解/情景总次数"):
             self.assertIn(required, template)
         self.assertEqual(template.count("**前问依赖：** 无"), 1)
@@ -698,7 +722,7 @@ class LiteReleaseTests(unittest.TestCase):
 
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.10.0", notes)
+        self.assertIn("KyMCM Lite 0.10.1", notes)
         for required in (
             "KyMCM Lite 0.9.11", "KyMCM Lite 0.9.10", "KyMCM Lite 0.9.9", "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
@@ -721,6 +745,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.10.1 - 2026-08-23", text, relative)
             self.assertIn("0.10.0 - 2026-08-22", text, relative)
             self.assertIn("0.9.14 - 2026-08-19", text, relative)
             self.assertIn("0.9.13 - 2026-08-19", text, relative)
