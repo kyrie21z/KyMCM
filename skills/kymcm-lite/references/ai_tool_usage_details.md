@@ -1,61 +1,44 @@
 # AI 工具使用详情
 
-KyMCM Lite 0.9.7 提供本参考文档和固定 LaTeX 模板，用于落实《人工智能工具使用规定（2026 年试行）》对参赛作品支撑材料的要求。该要求适用于 2026 年竞赛试行阶段：凡在竞赛过程中使用 AI 工具，支撑材料应包含一个 PDF，文件名必须精确为 `AI 工具使用详情.pdf`；论文参考文献之前还应放置固定的“AI 工具使用声明”。
+KyMCM Lite 0.10.2 提供固定五节结构、按本场事实填写的 LaTeX 模板。使用 KyMCM Lite 本身属于 AI 工具使用。先读取本参考，再从新版模板制作本场工作副本；工具、型号、用途、案例、截图与声明是可填写数据，不是固定的比赛事实。
 
-## 固定内容
+## 五节填写
 
-模板正文固定为以下五节，不含“基本信息”节：
+不新增“基本信息”、贡献评分、逐问台账或完整聊天附录。
 
-1. AI 工具清单；
-2. 具体使用目的和环节；
-3. 主要提示方式与使用过程；
-4. AI 输出的采纳、修改与核验情况；
-5. 总体声明。
+1. **AI 工具清单**：保持“工具名称｜版本或模型”两列，按实际增删工具行。型号依据实际界面、配置或记录核实，不根据 AI 自报补写。工具或模型发生变化时只更新本场副本，无需新的 Skill 版本。
+2. **具体使用目的和环节**：填写“环节或子问题｜使用工具及具体目的｜参赛队承担的关键判断”。通常 3–5 行概括全部主要用途，不是硬配额；删除未使用的环节。两例不能替代其他实质 AI 使用的披露。
+3. **主要提示方式与使用过程**：案例 A 默认展示关键建模/求解判断，案例 B 展示实际修改与核验。每例一小段，交代问题与已有判断、关键提问、AI 建议、追问或比较、最终选择及理由，不逐轮复述。可来自同一问、同一工具，不按工具平均分配，不要求发现数学错误。证据不足时如实缩减或注明缺口，不编造第二例。
+4. **AI 输出的采纳、修改与核验情况**：填写“案例｜采纳范围与具体修改/未采纳理由｜核验方式及结果”，用案例 A/B 与图号对应第 3 节。第 3 节讲过程，本节讲处理和证据，避免复制叙述。明确采纳对象，例如保留变量表示、修改一项约束、不采纳额外搜索阶段；不要求贡献比例或采纳率。只有明确分母和记录才可提供本案例计数，不外推全场占比。末尾用两三句话说明本场实际观察到的 AI 局限、应对及剩余限制，不预填泛泛局限，不以局限声明代替必要核验。
+5. **总体声明**：简短、如实地承担责任并披露实际使用，不重复大段“我们主导”。不自动断言所有思路由队员首创、所有检查已完成。必要人工审查或核验未完成，必须停止提交并回上游处理，不能靠改文案掩盖。
 
-工具表固定为两列，表头只有“工具名称”和“版本或模型”，当前固定两行为：
+纠错必须交代问题、修正及依据，并区分实质错误、方法局限、资源配置改进和表达偏好。预算过高、不必要细搜不等于数学错误；没有确认错误就不强凑错误数。
 
-| 工具名称 | 版本或模型 |
-|---|---|
-| ChatGPT | GPT-5.6 Thinking |
-| Codex CLI | GPT-5.6 Codex |
+## 本场真实材料驱动的起草
 
-固定正文覆盖赛题理解、建模方案讨论和合理性检查、程序实现与调试、结果检查、论文表达优化，并明确模型选择、假设、参数、计算、结果判断和最终结论由参赛队主导。采纳、修改和核验段落只作保守的人工审查、实际运行、必要测试、约束/边界/数量级/数值合理性和对照核验说明，不替参赛队虚构未执行的实验。
+允许 ChatGPT/执行者依据用户提供或授权读取的本场交互、代码修改、运行和验证记录起草，再由队员人工复核；不增加 runtime 自动采集功能或 evidence registry。
 
-## 每场比赛只替换两张真实截图
+- AI 首先提出候选方案时明确承认，不倒写成队员先提出；AI 承担大量代码实现时也如实说明，不能写成仅润色。队员贡献可体现为目标定义、适用条件判断、方案比较、反驳、预算、检验设计及最终取舍。
+- 逐字引用必须来自原记录；概述标为“概述”，不加引号冒充原提示词。未获得记录的细节留缺口，未做过的检查不写成已完成。
+- 只有“请验证”的提示或 AI 的“已验证”回复不足以证明核验完成；结合已有运行结果、约束检查、数据回算、修改记录等，说明实际核验方式及结果。不为披露材料另建验证项目，也不为填模板启动新的建模、训练、搜索或验证；必要核验缺口交回上游。
+- RESULT/HANDOFF/最终文件可支持结果事实，不能单凭最终成果推断互动顺序、原创归属或谁发现错误。
+- 比赛前后记录不混用；赛后解释明确其性质，不能作为当场交互截图。两个案例只是代表过程，不替代对全部实质使用的披露及必要人工审查，不能把不符合事实的过程“写成合规”。
 
-比赛工作区建议使用以下目录：
+## 截图选取与上限
 
-```text
-reports/ai-usage/
-├── AI_TOOL_USAGE_DETAILS.tex
-├── figures/
-│   ├── chatgpt_example.png
-│   └── codex_example.png
-└── AI 工具使用详情.pdf
-```
+常规建议 3 张，2 张已充分则用 2 张，不设机械最低张数。整个 PDF 真实截图总数最多 5 张，不要求用满。优先展示重要问题与已有判断、队员追问/修正/否决、修改后的核验及最终处理；不是每工具一张的展示配额。
 
-从 `skills/kymcm-lite/templates/AI_TOOL_USAGE_DETAILS.template.tex` 复制 `.tex` 后，每场比赛只替换两张真实截图，路径和图注固定为：
+保留本次比赛真实交互上下文；只允许不改变语义的裁剪与隐私遮盖，保护账号、邮箱、令牌等敏感信息。禁止其他场次截图冒充本场、伪造聊天、补造提问、重构 UI，也不得安排与实际过程不符的交互来获得漂亮案例。不得把多张独立截图拼成一张规避上限；全篇真实截图数由人工检查。
 
-| 文件 | 固定图注 |
-|---|---|
-| `figures/chatgpt_example.png` | 图 1：ChatGPT 典型交互示例 |
-| `figures/codex_example.png` | 图 2：Codex CLI 典型交互示例 |
+正文每张插图统一使用 `\AIUsageScreenshot{文件路径}{具体图注}`。图注写具体事件及案例，不固定工具名。一张图可多处引用，不重复嵌入凑数。helper 每次实际插入计数，第 6 次、已引用图片缺失、图注明确为空都会产生 LaTeX 错误；这是编译辅助，不证明真实性或合规性。未启用的第 4/5 张不要求存在，也不显示占位框。
 
-截图必须来自本次比赛的真实交互，能看到具有代表性的提示和 AI 响应上下文；不得使用历史比赛截图、占位图、AI 生成的伪截图或重构文本。可以裁剪或遮盖账号、邮箱、令牌、绝对路径等敏感信息，但不得裁剪掉会改变使用性质的关键上下文。模板在任一图片缺失时通过明确的 LaTeX 错误失败，不会生成占位框或静默跳过。
+模板默认三处 `figures/interaction_01.png` 至 `interaction_03.png` 调用，另两处仅注释示例。允许改为现有图片文件名，无须迁移旧图片。删减或增加插图时同步修改正文引用：helper 使用正常 figure 编号与 `fig:ai-1` 等 label，保留 `keepaspectratio`；双次编译后核对图号。
 
-## 编译和检查
+## 编译和人工复核
 
-XeLaTeX/TeX Live 是最终合规材料的可选构建依赖，不是 Lite Python runtime 的依赖。模板使用 `ctexart`、A4、12pt、`fontset=fandol`，不下载网络资源，也不打包字体文件。推荐执行：
+在 `reports/ai-usage/` 制作工作副本，填写本场事实并替换全部“【待填：…】”，选好真实图片和具体图注后执行：
 
 ```bash
-mkdir -p reports/ai-usage/figures
-cp skills/kymcm-lite/templates/AI_TOOL_USAGE_DETAILS.template.tex \
-  reports/ai-usage/AI_TOOL_USAGE_DETAILS.tex
-
-# 放入两张本次比赛的真实截图，不要使用合成图或占位图。
-# reports/ai-usage/figures/chatgpt_example.png
-# reports/ai-usage/figures/codex_example.png
-
 cd reports/ai-usage
 xelatex -interaction=nonstopmode -halt-on-error \
   -jobname="AI 工具使用详情" AI_TOOL_USAGE_DETAILS.tex
@@ -63,18 +46,16 @@ xelatex -interaction=nonstopmode -halt-on-error \
   -jobname="AI 工具使用详情" AI_TOOL_USAGE_DETAILS.tex
 ```
 
-必须确认输出文件精确为 `reports/ai-usage/AI 工具使用详情.pdf`。用可用的 PDF 文本和渲染工具检查五个节标题、两项工具、两张图和声明内容，确认没有裁切、越界、黑块、乱码或重叠。最终支撑材料通常只提交该 PDF；`.aux`、`.log`、`.out`、`.toc` 等 LaTeX 中间文件不应提交，除非竞赛另有要求。
+源模板为 `skills/kymcm-lite/templates/AI_TOOL_USAGE_DETAILS.template.tex`。XeLaTeX/TeX Live 是可选最终材料构建依赖，不是 Lite Python runtime 依赖。保留 ctexart、A4、12pt、fontset=fandol；不下载或打包字体。检查精确输出 `reports/ai-usage/AI 工具使用详情.pdf`，逐页检查文本与视觉：五节齐全，事实、引用、图号一致，无待填标记、未解析引用、裁切、重叠、乱码、表格越界或无谓空白页，截图在实际阅读尺寸下可读。
 
-论文正文在参考文献之前直接插入 `skills/kymcm-lite/templates/AI_TOOL_USAGE_DECLARATION.template.tex` 的非编号节。该片段只提供固定声明和位置，不自动修改 `paper/`，不绑定 Full renderer，也不新增论文生成命令。
+正文声明使用 `templates/AI_TOOL_USAGE_DECLARATION.template.tex` 的非编号标题，放在参考文献之前。只填写与详情第 2 节一致的本场简要用途，保留声明外框“本参赛队在竞赛过程中使用了 AI 工具，主要用于……，详细使用情况见支撑材料。”不自动修改 `paper/`，不绑定 Full renderer。
 
-## 边界、真实性和版本更新
+## 官方要求与产品边界
 
-AI 工具使用详情位于 Appendix 整理之前：正式 RESULT/Supplement 已完成并接受、必要 HANDOFF 完成、请求的 final figure 工作完成后，先生成 `reports/ai-usage/AI 工具使用详情.pdf`，再完成人工视觉、隐私和真实性复核。复核接受后，该 PDF 成为冻结只读的 pre-Appendix source，之后才编写当前模板的 APPENDIX_START 并开始 Appendix 整理。
+[2026 年试行官方说明](https://www.mcm.edu.cn/html_en/node/532f38e63cfa84145697e2678575ba0a.html)要求实际工具、目的环节、提示与过程、采纳修改核验及参考文献前的声明；典型交互示例可附，未规定截图数量。建议三图、全篇最多五图是本产品规则，不是官方配额。英文版文件名不改变现有冻结中文产物路径；若当届正式规定与此接口冲突，应报告并解决冲突，不静默更名。
 
-Appendix 唯一可接收的 AI 使用材料是从 `reports/ai-usage/AI 工具使用详情.pdf` 原字节 COPY 到 `appendix/AI 工具使用详情.pdf`。`reports/**` 仍不是一般 Appendix 来源；唯一例外就是这一个 PDF 到这一个根目标的 COPY 映射。`.tex`、两张截图、`.aux`、`.log`、`.out`、`.toc` 以及 `reports/ai-usage/` 下其他文件继续禁止进入 Appendix。该 PDF 是独立根级提交附件，不是 Appendix 计算代码、RESULT 证据、建模依赖或 `figure/` asset，Appendix checker 不编译、生成或编辑它。
+正式 RESULT/Supplement 已完成并接受、必要 HANDOFF 和请求的 final figure 完成后，先起草并编译，完成人工真实性、隐私、文本与视觉复核，再冻结 PDF，之后才编写 APPENDIX_START。冻结后发生会实质改变建模、结果、图件、论文主张或实际 AI 披露的工作，停止 Appendix，回上游更新披露并重新复核，再从更新后的源重新规划 Appendix。
 
-若 PDF 冻结后又发生会实质改变建模、结果、图件、论文主张或真实 AI 使用披露的工作，停止 Appendix，更新并重新完成人工复核，再从更新后的源重新规划 Appendix。该顺序不引入 AI-usage checker、状态或审批对象。
+Appendix 仅允许将 `reports/ai-usage/AI 工具使用详情.pdf` 原字节 COPY 到 `appendix/AI 工具使用详情.pdf`。这仍是唯一 reports-source 例外；截图、TeX、编译文件和目录均不进入 Appendix。该 PDF 不是计算代码、RESULT 证据、建模依赖或 `figure/` asset。Appendix checker 只检查冻结源、COPY 映射与字节同一性，不编译或改写 PDF。
 
-使用 KyMCM Lite 本身属于 AI 工具使用，因此应按实际情况准备声明和 PDF。但 Lite runtime 不读取截图或聊天记录，不自动生成 PDF，不判断声明真实性，不从 RESULT、HANDOFF 或历史对话推断内容，也不新增 CLI、checker、diagnostic、state、JSON、manifest 或 approval。模板正文由文档和 release tests 冻结，LaTeX 编译与视觉验收由执行者负责；Appendix checker 只验证冻结源已存在、COPY 映射与字节同一性。
-
-当前固定正文绑定 ChatGPT/GPT-5.6 Thinking 与 Codex CLI/GPT-5.6 Codex。工具或模型发生变化时，必须在新的 KyMCM Lite 版本中集中更新 canonical template 和 mirror；不得在比赛工作区临时改写固定正文。固定正文仍必须与实际使用过程一致；若真实过程偏离固定声明，应停止套用模板，由用户决定是否修改产品级模板，不能提交不实材料。真实性、截图代表性、隐私遮盖和最终合规性始终需要参赛队人工审查。
+Lite runtime 不读取聊天或截图，不推断披露内容，不自动生成 PDF，不新增 CLI、checker、diagnostic、state、JSON、manifest 或 approval。旧工作区不自动迁移，旧报告不自动覆写；新版从新版模板制作副本，旧报告真实性仍由队员负责。不能提交不实材料。

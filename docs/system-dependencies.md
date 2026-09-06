@@ -10,4 +10,4 @@ Optional intrinsic-3D execution uses `skills/kymcm-lite/requirements-figure-3d.t
 
 Normal formal figures do not require `nature-figure`. That separately installed Skill is optional only when the user explicitly requests a read-only advisory specialist review of an already-rendered artifact; it is not a renderer, fallback, or acceptance authority for KyMCM Lite.
 
-Optional XeLaTeX-capable TeX Live builds the fixed final-submission `AI 工具使用详情.pdf` and is not a Lite runtime dependency. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. Appendix side-effect checks and the exporter use only the standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper.
+Optional XeLaTeX-capable TeX Live builds the final-submission `AI 工具使用详情.pdf` and is not a Lite runtime dependency. KyMCM Full's built-in renderer retains its existing Microsoft YaHei/CJK sans-serif behavior. Appendix side-effect checks and the exporter use only the standard library and do not execute submitted code. OpenAI access is required only for the separate optional image-generation helper.

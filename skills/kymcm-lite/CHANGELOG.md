@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.2 - 2026-09-06
+
+- Replace fixed AI-use facts with five sections filled from actual contest records, editable tools/models and purposes, two representative cases, concrete adoption/modification/verification and observed limitations.
+- Add a small LaTeX screenshot helper: normally three images, two when sufficient, at most five across the PDF; fail on a sixth insertion, missing selected image or empty caption. Verify real builds and rendered TEST ONLY fixtures.
+- Keep the official declaration frame with a contest-specific purpose, acknowledge actual AI contributions and require record-based drafting plus human review before freezing the PDF.
+- Preserve the exact pre-Appendix PDF and COPY-only interface, modeling guidance, Explore, formal templates, runtime, eight commands, marker, figures, flowcharts and Full. No workspace/report migration, AI-use runtime, checker or state is added.
+
 ## 0.10.1 - 2026-08-23
 
 - Refine formal validation planning around `Core Claim -> material failure mode / risk -> minimum direct evidence -> L0/L1/L2 by necessity -> STOP`, calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority or claiming exhaustive full-text coding.
