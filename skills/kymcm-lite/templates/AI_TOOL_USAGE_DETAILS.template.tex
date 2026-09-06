@@ -3,6 +3,7 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{longtable}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{setspace}
@@ -11,67 +12,103 @@
 \setstretch{1.25}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0.45em}
-\captionsetup[figure]{labelformat=empty}
+\captionsetup[figure]{font=small,skip=6pt}
 \hypersetup{pdftitle={AI 工具使用详情}}
+
+% 编译辅助：全篇每次插入计数。真实截图数及真实性仍须人工检查。
+\newcounter{AIUsageScreenshotCount}
+\newcommand{\AIUsageScreenshot}[2]{%
+  \stepcounter{AIUsageScreenshotCount}%
+  \ifnum\value{AIUsageScreenshotCount}>5
+    \PackageError{AIUsage}{At most 5 screenshots allowed}{Remove an insertion; do not merge independent screenshots to evade the limit.}%
+  \fi
+  \if\relax\detokenize{#2}\relax
+    \PackageError{AIUsage}{Empty screenshot caption}{Describe the specific event and its case.}%
+  \fi
+  \IfFileExists{#1}{%
+    \par\noindent\begin{minipage}{\linewidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.55\textheight,keepaspectratio]{#1}
+      \captionof{figure}{#2}\label{fig:ai-\arabic{AIUsageScreenshotCount}}
+    \end{minipage}\par
+  }{%
+    \PackageError{AIUsage}{Missing screenshot: #1}{Supply the selected real interaction image or remove its unused call and reference.}%
+  }%
+}
 
 \title{AI 工具使用详情}
 \author{}
 \date{}
 
 \begin{document}
-
 \maketitle
 
 \section{AI 工具清单}
 
+% 按本场实际增删工具行；型号依据界面、配置或记录核实，不依据 AI 自报。
 \begin{center}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.40\textwidth}
                 >{\raggedright\arraybackslash}p{0.40\textwidth}}
 \toprule
 工具名称 & 版本或模型 \\
 \midrule
-ChatGPT & GPT-5.6 Thinking \\
-Codex CLI & GPT-5.6 Codex \\
+【待填：实际工具】 & 【待填：可核查版本或型号】 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \section{具体使用目的和环节}
 
-本参赛队在竞赛过程中使用 AI 工具辅助完成赛题理解、建模方案讨论和必要的合理性检查、程序实现与调试、结果检查以及论文表达优化等工作。AI 工具仅提供分析建议、代码辅助和表达参考，模型选择、数学假设、参数设定、计算执行、结果判断和最终结论均由参赛队主导完成。
+% 通常 3--5 行即可覆盖全部主要用途；不是配额，未使用的环节不列入。
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}
+                      >{\raggedright\arraybackslash}p{0.36\textwidth}
+                      >{\raggedright\arraybackslash}p{\dimexpr0.46\textwidth-4\tabcolsep\relax}@{}}
+\toprule
+环节或子问题 & 使用工具及具体目的 & 参赛队承担的关键判断 \\
+\midrule
+\endhead
+【待填：实际环节】 & 【待填：工具与具体目的】 & 【待填：队员实际作出的判断】 \\
+\bottomrule
+\end{longtable}
 
 \section{主要提示方式与使用过程}
 
-主要通过自然语言指令组织任务，先将任务分解为问题理解、方案讨论、实现、调试和核验等环节，再通过多轮交互逐步推进。交互中根据需要提供赛题要求、数据说明、当前方案、代码片段或待解决问题，并依据 AI 输出补充约束、纠正理解或要求修改。下列两图为本次比赛中与工具清单对应的真实典型交互示例。
+% 两例为选材提示，可来自同一问、同一工具；证据不足时如实缩减或注明缺口。
+% 逐字引用须有原记录；概述标明“概述”，不得加引号冒充原提示词。
+\noindent\textbf{案例 A：关键建模或求解判断。}
+【待填：问题与已有判断、关键提问、AI 建议、追问或比较、最终选择及理由；注明概述或真实引用。】
+对应图~\ref{fig:ai-1}。
+\AIUsageScreenshot{figures/interaction_01.png}{【待填：案例 A 的具体交互事件】}
 
-\begin{center}
-\IfFileExists{figures/chatgpt_example.png}{%
-  \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{figures/chatgpt_example.png}%
-}{%
-  \PackageError{AI工具使用详情}{缺少必需的真实交互截图：chatgpt_example.png}{请放入本次比赛的真实 ChatGPT 交互截图后重新编译。}%
-}
-\captionof{figure}{图 1：ChatGPT 典型交互示例}
-\end{center}
-
-\clearpage
-
-\begin{center}
-\IfFileExists{figures/codex_example.png}{%
-  \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{figures/codex_example.png}%
-}{%
-  \PackageError{AI工具使用详情}{缺少必需的真实交互截图：codex_example.png}{请放入本次比赛的真实 Codex CLI 交互截图后重新编译。}%
-}
-\captionof{figure}{图 2：Codex CLI 典型交互示例}
-\end{center}
-
-\clearpage
+\noindent\textbf{案例 B：实际修改与核验。}
+【待填：已有结果或问题、关键提问与 AI 建议、队员追问或修正、最终处理及理由；不要求发现数学错误。】
+对应图~\ref{fig:ai-2}、图~\ref{fig:ai-3}。
+\AIUsageScreenshot{figures/interaction_02.png}{【待填：案例 B 的具体修改或取舍】}
+\AIUsageScreenshot{figures/interaction_03.png}{【待填：案例 B 的核验及最终处理】}
+% 2 张已充分则删除第三次调用及对应引用；全篇真实截图最多 5 张。
+% 可选：\AIUsageScreenshot{figures/interaction_04.png}{案例及具体事件}
+% 可选：\AIUsageScreenshot{figures/interaction_05.png}{案例及具体事件}
+% 正文插图统一使用 helper；不将多张独立截图拼成一张规避上限。
 
 \section{AI 输出的采纳、修改与核验情况}
 
-对 AI 输出的建模建议、数学推导、程序代码和结果解释，参赛队在纳入正式作品前进行了人工审查；不符合赛题条件、数据口径、数学假设或实际计算结果的内容予以修改或不予采纳。AI 辅助生成或修改的代码经实际运行和必要测试后使用，模型与关键结果通过约束检查、边界检查、数量级和数值合理性分析及必要的对照核验进行确认。语言表达类建议由参赛队结合论文上下文进行人工修改和定稿。
+% 本节记录处理和证据，不重复第 3 节过程；明确对象，不估算全场贡献比例。
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.12\textwidth}
+                      >{\raggedright\arraybackslash}p{0.42\textwidth}
+                      >{\raggedright\arraybackslash}p{\dimexpr0.46\textwidth-4\tabcolsep\relax}@{}}
+\toprule
+案例 & 采纳范围与具体修改/未采纳理由 & 核验方式及结果 \\
+\midrule
+\endhead
+A & 【待填：保留、修改、未采纳的明确对象及理由】 & 【待填：已有核验记录与具体结果】 \\
+B & 【待填：实际修改及其依据；区分错误、局限、资源改进与表达偏好】 & 【待填：已有运行、约束检查或数据回算等证据及结果】 \\
+\bottomrule
+\end{longtable}
+
+【待填：本场实际观察到的 AI 局限、采取的应对和剩余限制，两三句话即可。只有“请验证”或 AI 回复“已验证”不能证明核验完成；必要核验未完成时须回上游处理并停止提交。】
 
 \section{总体声明}
 
-AI 工具仅作为辅助分析、代码实现、程序调试和语言表达工具。参赛作品中的问题理解、模型选择、数学假设、参数设定、结果分析和最终结论均由参赛队主导完成。所有纳入参赛作品的 AI 输出均经过必要的人工审查、修改和核验，参赛队对作品的完整性、准确性和合规性承担全部责任。
+【待填：简短、如实的责任承担与披露声明。承认 AI 的实际贡献，说明参赛队的实际审查情况及对作品完整性、准确性和合规性的责任；不自动断言所有思路由队员首创或所有检查已完成。】
 
 \end{document}

@@ -1,4 +1,4 @@
-# KyMCM Lite 0.10.1 machine-enforced contract
+# KyMCM Lite 0.10.2 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,7 +16,7 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.10.1` is a product release identifier. It is independent of the
+Lite version `0.10.2` is a product release identifier. It is independent of the
 workspace protocol marker, which remains Lite v3. Existing valid workspaces need
 no automatic migration. This release documents an optional unmanaged Explore
 workspace while preserving all existing contract grammar, read-only checking,
@@ -558,21 +558,26 @@ mirror, not a new runtime contract.
 
 ## 16. Final AI tool usage details boundary
 
-The fixed AI-tool usage details LaTeX templates and declaration snippet are
-static final-submission materials prepared and human-reviewed before Appendix.
+The five-section AI-use templates are final-submission materials filled from
+actual current-contest records and human-reviewed before Appendix. Tool/model
+rows, purposes, cases, adoption/modification/verification, limitations and
+captions are editable contest facts; changing them requires no Lite release.
+The two-column tool table, declaration frame and placement, exact filenames,
+and pre-Appendix freeze/COPY-only process remain fixed.
+
+The LaTeX screenshot helper counts every insertion across the PDF and errors
+on a sixth insertion, a missing selected image or an explicitly empty caption.
+Normally three images are suggested; two suffice when representative, with no
+mechanical minimum. Unselected optional images are not required. Human review
+counts actual screenshots (including composites) and checks truth, privacy,
+readability and references; the guard is not a compliance proof.
+
 Runtime does not read screenshots, archive chat logs, generate the PDF, compile
 LaTeX, or judge truth, representativeness, privacy redaction, or visual quality.
 For a current APPENDIX_START, `check-appendix-start` verifies the exact frozen
 source already exists and maps once by COPY to the exact root target; result
 checking verifies target presence, byte identity, and integrity coverage. No
 new diagnostic, state, manifest, JSON, approval object, or command exists.
-
-The filenames, five-section structure, two-column tool table, fixed current
-tool/model rows, screenshot paths/captions, declaration placement, and process
-boundaries are frozen by the canonical references/templates, their repository
-mirrors, and release tests. XeLaTeX compilation, PDF rendering, and visual and
-factual acceptance are executor and human responsibilities. The copied PDF is
-a root submission asset, not Appendix code, RESULT evidence, a modeling
-dependency, or a `figure/` asset. A future tool or
-model change requires a new Lite release update to the canonical template; a
-contest workspace must not silently edit the fixed正文.
+The PDF remains a root submission asset, not Appendix code, RESULT evidence,
+a modeling dependency or a `figure/` asset. Old workspaces and reports are
+not automatically migrated or overwritten.

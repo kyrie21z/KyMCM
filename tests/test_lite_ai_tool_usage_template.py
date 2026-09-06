@@ -3,6 +3,11 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 import re
+import shutil
+import struct
+import subprocess
+import tempfile
+import zlib
 import unittest
 
 
@@ -56,73 +61,41 @@ class LiteAIToolUsageTemplateTests(unittest.TestCase):
         )
         self.assertNotIn("基本信息", text)
 
-    def test_tool_table_and_fixed_models_are_frozen(self):
+    def test_editable_facts_and_scoped_tool_table(self):
         text = TEMPLATE.read_text(encoding="utf-8")
-        self.assertEqual(text.count("工具名称 & 版本或模型"), 1)
-        for forbidden in ("使用方式", "主要用途", "备注"):
-            self.assertNotIn(forbidden, text)
-        self.assertIn("ChatGPT & GPT-5.6 Thinking", text)
-        self.assertIn("Codex CLI & GPT-5.6 Codex", text)
+        table = text.split(r"\begin{tabular}", 1)[1].split(r"\end{tabular}", 1)[0]
+        rows = [line for line in table.splitlines() if "&" in line]
+        self.assertEqual(len(rows), 2)
+        self.assertTrue(all(line.count("&") == 1 for line in rows))
+        self.assertIn("【待填：实际工具】", table)
+        self.assertNotIn("GPT-", table)
+        body = text.split(r"\begin{document}", 1)[1]
+        for field in ("使用工具及具体目的", "参赛队承担的关键判断", "案例 A", "案例 B",
+                      "采纳范围与具体修改/未采纳理由", "核验方式及结果", "剩余限制"):
+            self.assertIn(field, body)
+        active = "\n".join(line for line in body.splitlines() if not line.startswith("%"))
+        self.assertEqual(active.count(r"\AIUsageScreenshot{"), 3)
+        self.assertNotIn(r"\includegraphics", active)
+        self.assertNotIn(r"\clearpage", active)
 
-    def test_fixed_prose_covers_required_categories_and_responsibility(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        for required in (
-            "赛题理解", "建模方案讨论", "合理性检查", "程序实现与调试", "结果检查",
-            "论文表达优化", "模型选择", "数学假设", "参数设定", "计算执行",
-            "结果判断", "最终结论", "自然语言指令", "任务分解", "多轮交互",
-            "数据说明", "代码片段", "补充约束", "纠正理解", "要求修改",
-            "人工审查", "实际运行和必要测试", "约束检查", "边界检查",
-            "数量级和数值合理性", "对照核验", "人工修改和定稿", "承担全部责任",
-        ):
-            self.assertIn(required, text, required)
-
-    def test_exactly_two_real_screenshot_targets_and_captions(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        self.assertEqual(text.count(r"\includegraphics"), 2)
-        self.assertEqual(text.count("figures/chatgpt_example.png"), 2)
-        self.assertEqual(text.count("figures/codex_example.png"), 2)
-        self.assertIn(r"\captionof{figure}{图 1：ChatGPT 典型交互示例}", text)
-        self.assertIn(r"\captionof{figure}{图 2：Codex CLI 典型交互示例}", text)
-        self.assertIn("keepaspectratio", text)
-
-    def test_missing_images_fail_closed(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        self.assertEqual(text.count(r"\IfFileExists"), 2)
-        self.assertEqual(text.count(r"\PackageError"), 2)
-        self.assertIn("缺少必需的真实交互截图", text)
-
-    def test_template_has_no_contest_identity_or_editable_placeholder(self):
-        text = TEMPLATE.read_text(encoding="utf-8")
-        self.assertIsNone(re.search(r"20\d{2}", text))
-        for forbidden in (
-            "TODO", "PLACEHOLDER", "占位框", "请在此", "队号", "队伍名称",
-            "赛题名称", "参赛日期", "\\texttt{<", "<队",
-        ):
-            self.assertNotIn(forbidden, text, forbidden)
-
-    def test_declaration_snippet_is_exact_and_non_numbered(self):
+    def test_declaration_keeps_official_frame_and_editable_purpose(self):
         text = DECLARATION.read_text(encoding="utf-8")
         self.assertEqual(text.count(r"\section*{AI 工具使用声明}"), 1)
         self.assertNotIn(r"\section{", text)
-        self.assertIn(
-            "本参赛队在竞赛过程中使用了 AI 工具，主要用于赛题理解、建模方案讨论、代码实现与调试、结果核验及语言表达优化，详细使用情况见支撑材料。",
-            text,
-        )
+        self.assertRegex(text, r"本参赛队在竞赛过程中使用了 AI 工具，主要用于【待填：[^】]+】，详细使用情况见支撑材料。")
 
-    def test_reference_freezes_process_boundaries_and_output_name(self):
+    def test_reference_preserves_factual_and_submission_boundaries(self):
         text = REFERENCE.read_text(encoding="utf-8")
         for required in (
-            "2026 年试行", "AI 工具使用详情.pdf", "五节", "基本信息",
-            "工具名称", "版本或模型", "ChatGPT", "GPT-5.6 Thinking",
-            "Codex CLI", "GPT-5.6 Codex", "只替换两张真实截图",
-            "figures/chatgpt_example.png", "figures/codex_example.png",
-            "图 1：ChatGPT 典型交互示例", "图 2：Codex CLI 典型交互示例",
-            "真实交互", "敏感信息", "xelatex -interaction=nonstopmode -halt-on-error",
-            "参考文献之前", "RESULT", "HANDOFF", "Appendix", "figure/",
-            "不新增 CLI、checker、diagnostic、state、JSON、manifest 或 approval",
-            "工具或模型发生变化时", "不能提交不实材料",
+            "五节", "工具名称", "版本或模型", "概述", "原记录", "AI 首先提出",
+            "不能单凭最终成果", "比赛前后", "最多 5 张", "不是官方配额",
+            "人工", "不替代", "必要核验", "参考文献之前", "COPY",
+            "reports/ai-usage/AI 工具使用详情.pdf", "appendix/AI 工具使用详情.pdf",
+            "xelatex -interaction=nonstopmode -halt-on-error", "无需新的 Skill 版本",
         ):
-            self.assertIn(required, text, required)
+            self.assertIn(required, text)
+        for obsolete in ("只替换两张真实截图", "GPT-5.6", "正文不可改"):
+            self.assertNotIn(obsolete, text)
 
     def test_no_runtime_api_or_generated_material_was_added(self):
         combined = "\n".join(
@@ -172,13 +145,125 @@ class LiteAIToolUsageTemplateTests(unittest.TestCase):
         self.assertNotIn("A093 — GENERATE", appendix_start)
 
     def test_version_and_protected_lite_surfaces(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.1\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.2\n")
         for relative, expected in PROTECTED_HASHES.items():
             actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
             self.assertEqual(actual, expected, relative)
         full_files = list((ROOT / "skills/kymcm-full").rglob("*"))
         self.assertTrue(full_files)
         self.assertFalse(any(path.is_file() and "AI_TOOL_USAGE" in path.name for path in full_files))
+
+
+def write_test_image(path, portrait=False):
+    """Dependency-free PNG with visibly synthetic TEST ONLY text, never a chat UI."""
+    width, height = (600, 800) if portrait else (1000, 400)
+    glyphs = {
+        "T": ("11111", "00100", "00100", "00100", "00100", "00100", "00100"),
+        "E": ("11111", "10000", "10000", "11110", "10000", "10000", "11111"),
+        "S": ("11111", "10000", "10000", "11111", "00001", "00001", "11111"),
+        "O": ("01110", "10001", "10001", "10001", "10001", "10001", "01110"),
+        "N": ("10001", "11001", "11001", "10101", "10011", "10011", "10001"),
+        "L": ("10000", "10000", "10000", "10000", "10000", "10000", "11111"),
+        "Y": ("10001", "10001", "01010", "00100", "00100", "00100", "00100"),
+        " ": ("00000",) * 7,
+    }
+    scale = 8
+    pixels = bytearray(b"\xf2\xf5\xf8" * width * height)
+    for top in range(30, height - 60, 100):
+        for index, char in enumerate("TEST ONLY"):
+            for y, row in enumerate(glyphs[char]):
+                for x, bit in enumerate(row):
+                    if bit == "1":
+                        for dy in range(scale):
+                            for dx in range(scale):
+                                pos = ((top + y * scale + dy) * width + 30 + index * 6 * scale + x * scale + dx) * 3
+                                pixels[pos:pos + 3] = b"\x20\x35\x50"
+    def chunk(kind, data):
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data))
+    raw = b"".join(b"\0" + pixels[y * width * 3:(y + 1) * width * 3] for y in range(height))
+    path.write_bytes(b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">2I5B", width, height, 8, 2, 0, 0, 0))
+                     + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b""))
+
+
+def prepare_build_fixture(directory, count):
+    """Fill the actual template with explicitly synthetic layout-test data."""
+    directory.mkdir(parents=True, exist_ok=True)
+    (directory / "figures").mkdir(exist_ok=True)
+    text = TEMPLATE.read_text(encoding="utf-8")
+    text = re.sub(r"【待填：[^】]*】", "仅用于排版测试：此处为合成测试数据，不是参赛事实。", text)
+    text = text.replace("仅用于排版测试：此处为合成测试数据，不是参赛事实。 & 仅用于排版测试：此处为合成测试数据，不是参赛事实。",
+                        "Test Tool & Model Z 42", 1)
+    # Exercise long wrapping Chinese cells without altering the table structure.
+    text = text.replace("仅用于排版测试：此处为合成测试数据，不是参赛事实。",
+                        "仅用于排版测试：使用合成数据检查较长中文说明的自动换行、表格边界及编号；这不是实际比赛记录。")
+    if count == 2:
+        text = re.sub(r"^\\AIUsageScreenshot\{figures/interaction_03.png\}.*\n", "", text, flags=re.M)
+        text = text.replace("、图~\\ref{fig:ai-3}", "")
+    if count > 3:
+        extra = "\n".join(
+            rf"\AIUsageScreenshot{{figures/interaction_{i:02d}.png}}{{案例 B：TEST ONLY 补充版面测试 {i}}}"
+            rf"见图~\ref{{fig:ai-{i}}}。"
+            for i in range(4, count + 1)
+        )
+        text = text.replace(r"\section{AI 输出的采纳、修改与核验情况}",
+                            extra + "\n" + r"\section{AI 输出的采纳、修改与核验情况}")
+    for i in range(1, count + 1):
+        write_test_image(directory / f"figures/interaction_{i:02d}.png", portrait=i % 2 == 0)
+    (directory / "AI_TOOL_USAGE_DETAILS.tex").write_text(text, encoding="utf-8")
+    return text
+
+
+def compile_fixture(directory):
+    return subprocess.run(
+        ["xelatex", "-interaction=nonstopmode", "-halt-on-error",
+         "-jobname=AI 工具使用详情", "AI_TOOL_USAGE_DETAILS.tex"],
+        cwd=directory, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=90,
+    )
+
+
+@unittest.skipUnless(shutil.which("xelatex"), "optional XeLaTeX build dependency unavailable")
+class LiteAIUsageLatexBuildTests(unittest.TestCase):
+    def test_two_three_five_images_and_resolved_references(self):
+        for count in (2, 3, 5):
+            with self.subTest(count=count), tempfile.TemporaryDirectory(prefix="kymcm-ai-usage-") as tmp:
+                directory = Path(tmp)
+                prepare_build_fixture(directory, count)
+                for _ in range(2):
+                    result = compile_fixture(directory)
+                    self.assertEqual(result.returncode, 0, result.stdout[-6000:])
+                self.assertTrue((directory / "AI 工具使用详情.pdf").is_file())
+                self.assertNotIn("undefined", result.stdout)
+                self.assertNotIn("Overfull", result.stdout)
+                aux = (directory / "AI 工具使用详情.aux").read_text(encoding="utf-8")
+                for i in range(1, count + 1):
+                    self.assertIn(rf"\newlabel{{fig:ai-{i}}}{{{{{i}}}", aux)
+                if shutil.which("pdftotext"):
+                    extracted = subprocess.check_output(
+                        ["pdftotext", "AI 工具使用详情.pdf", "-"], cwd=directory, text=True
+                    )
+                    self.assertNotIn("待填", extracted)
+                    self.assertNotIn("??", extracted)
+                    self.assertIn("Model Z 42", extracted)
+                    self.assertIn("总体声明", extracted)
+
+    def test_sixth_image_missing_image_and_empty_caption_fail(self):
+        for failure, expected in (
+            ("sixth", "At most 5 screenshots allowed"),
+            ("missing", "Missing screenshot"),
+            ("caption", "Empty screenshot caption"),
+        ):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory(prefix="kymcm-ai-usage-") as tmp:
+                directory = Path(tmp)
+                text = prepare_build_fixture(directory, 6 if failure == "sixth" else 2)
+                if failure == "missing":
+                    (directory / "figures/interaction_01.png").unlink()
+                elif failure == "caption":
+                    text = re.sub(r"(\\AIUsageScreenshot\{figures/interaction_01.png\})\{[^}]*\}",
+                                  r"\1{}", text)
+                    (directory / "AI_TOOL_USAGE_DETAILS.tex").write_text(text, encoding="utf-8")
+                result = compile_fixture(directory)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(expected, result.stdout)
 
 
 if __name__ == "__main__":

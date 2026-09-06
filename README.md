@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.10.1** refines formal validation planning around Claim–Risk–Evidence: L0 is Claim-required, L1 is risk-triggered, and L2 strengthens already adequate evidence. Validation methods have no permanent level and cost does not define the level. The refinement is calibrated against the fixed historical 63-paper CUMCM excellent-paper corpus without treating frequency as authority; Explore, templates, runtime, marker, and eight commands remain unchanged.
+- **KyMCM Lite 0.10.2** makes the five-section AI-use report editable from actual contest records: tools/models, main purposes and team judgments, two representative cases, and concrete adoption/modification/verification. Screenshots normally number three, at most five across the PDF, with LaTeX count/missing-image/empty-caption guards. Human review precedes the unchanged frozen-PDF Appendix COPY interface; formal modeling, runtime, marker and eight commands remain unchanged.
 
 ## Install
 
@@ -61,4 +61,4 @@ python -m unittest discover -s tests/full -v
 python -m unittest tests.test_full_cli tests.test_full_portability tests.test_figure_system tests.test_markdown_format -v
 ```
 
-No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the ordinary test suite. The optional XeLaTeX/TeX Live build for the fixed AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite formal Matplotlib figures use `skills/kymcm-lite/requirements-figure.txt`; intrinsic-3D figures use `skills/kymcm-lite/requirements-figure-3d.txt` and a working headless VTK EGL/OpenGL environment. Missing requirements stop rendering. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).
+No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the ordinary test suite. The optional XeLaTeX/TeX Live build for the AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite formal Matplotlib figures use `skills/kymcm-lite/requirements-figure.txt`; intrinsic-3D figures use `skills/kymcm-lite/requirements-figure-3d.txt` and a working headless VTK EGL/OpenGL environment. Missing requirements stop rendering. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).

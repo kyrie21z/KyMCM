@@ -1,4 +1,18 @@
-# KyMCM Lite 0.10.1
+# KyMCM Lite 0.10.2
+
+KyMCM Lite 0.10.2 replaces generic fixed AI-use prose with five fixed sections filled from actual contest records: actual tools/models, main purposes and team judgments, two representative interaction cases, concrete adoption/modification/verification, observed limitations, and a short truthful responsibility statement. The declaration retains its official frame and takes a contest-specific purpose consistent with the report.
+
+Screenshots normally number three, or two when sufficient, with at most five across the entire PDF. A small LaTeX helper counts insertions, rejects a sixth image, missing selected files and empty captions, and preserves aspect ratio and normal figure references. Images and captions follow the cases, not a per-tool quota. These counts are product rules, not official quotas.
+
+Drafting may use authorized current-contest records followed by human review. AI-originated ideas and substantial implementation are acknowledged honestly; quotations, summaries, interaction history and result evidence are distinguished. Missing records remain gaps, AI self-reports do not establish completed verification, and necessary review/verification gaps block submission and return upstream. No new modeling or validation work is started merely to fill disclosure.
+
+Existing reports are not migrated or overwritten. New reports use a new template copy; tool/model changes need no Skill release. Human factual, privacy, text and visual acceptance still precedes freezing `reports/ai-usage/AI 工具使用详情.pdf` and COPY-only transfer to `appendix/AI 工具使用详情.pdf`. TeX and screenshots remain outside Appendix.
+
+Real XeLaTeX tests cover 2/3/5-image success, sixth-image/missing-image/empty-caption failures, a single non-default tool/model, resolved references and long Chinese tables. Three- and five-image TEST ONLY fixtures are rendered for visual review; these prove build/layout behavior, not disclosure authenticity. XeLaTeX remains optional build tooling.
+
+Modeling-plan guidance, L0/L1/L2, Explore, PRE/QN/Supplement/HANDOFF, the Lite v3 marker and eight commands, Python runtime, figures, flowcharts, Appendix checker and KyMCM Full remain unchanged. No AI-use CLI/checker, state, JSON, manifest, approval object, automatic chat collection or contribution calculator is added.
+
+## KyMCM Lite 0.10.1
 
 KyMCM Lite 0.10.1 refines formal validation planning around Claim–Risk–Evidence. For each small set of core Claims, the plan identifies the most material plausible failure modes, selects minimum direct evidence, classifies that evidence by necessity, and stops when Claims are supported, material risks are tested or disclosed, and further work is unlikely to change the conclusion or decision.
 

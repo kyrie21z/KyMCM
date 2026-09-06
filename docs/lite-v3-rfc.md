@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.1 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.2 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.10.1 boundary: formal validation follows Claim–Risk–Evidence, with L0 Claim-required, L1 risk-triggered, and L2 evidence-strengthening; method names and cost do not determine level. A clear modeling route still proceeds directly to START, while a concrete material route uncertainty may optionally use the unchanged Explore Trial. The marker, eight commands, templates, runtime, formal/submission behavior, and absence of state/manifest remain unchanged. The historical design below remains preserved.
+Current 0.10.2 boundary: AI-use disclosure retains five sections but fills tools/models, purposes, representative cases and concrete adoption/modification/verification from actual contest records. The LaTeX helper limits screenshot insertions to five; human review precedes the existing pre-Appendix PDF freeze/COPY interface. Formal modeling, Claim–Risk–Evidence, Explore, marker, eight commands and Python runtime remain unchanged. The historical design below remains preserved.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite
