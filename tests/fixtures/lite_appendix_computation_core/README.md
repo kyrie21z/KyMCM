@@ -1,7 +1,18 @@
-# Synthetic Appendix computation-core fixture
+# Synthetic Appendix tests
 
-This fixture supplies small, contest-free source snippets for Appendix curation
-tests. `core_read_only.py` represents an allowed computation core that reads
-inputs and assembles results in memory. `core_write.py` and `core_write.cpp`
-represent explicit persistence APIs that the static checker must block. The
-CSV is an independent formal-result asset; no fixture code regenerates it.
+The core_write/read_only snippets exercise static checker behavior only; they are
+not independently runnable contest programs or evidence of actual reproduction.
+
+The separate reproduce.py → search.cpp/search.hpp chain is a deterministic
+synthetic formal implementation. settings.ini and input.csv specify target 7
+(2 + 4 + 1), and exhaustive search over integers 0..10 must yield candidate 7
+with squared-error objective 0. candidate.txt supplies the accepted candidate
+only for the explicitly distinguished fixed-artifact recalculation path.
+
+tests/lite/test_appendix_runtime.py packages these actual sources through the
+existing whitelist mappings, builds and runs extracted copies with scrubbed
+environment and independent output directories, checks known expected values,
+and verifies original/frozen files stay unchanged. Missing source/header/config,
+configuration drift and short-search mismatch are real negative cases.
+All generated packages, binaries, logs and outputs use temporary directories.
+This fixture is not competition material or a user submission.

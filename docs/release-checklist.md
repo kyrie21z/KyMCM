@@ -17,7 +17,7 @@
 
 ## KyMCM Lite checks
 
-- Lite 0.10.2 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
+- Lite 0.10.3 keeps marker `{"workflow":"kymcm_lite","version":3}` and exposes exactly `init`, `doctor`, `check-preprocess-start`, `check-preprocess-result`, `check-start`, `check-result`, `check-appendix-start`, and `check-appendix-result`; only the two QN modeling checks accept optional `--subproblem`.
 - Explore is optional and created only for a concrete material route uncertainty; clear routes proceed directly to START and fresh `init` creates no Explore paths.
 - One problem-level `problems/qN/explore/{EXPLORE_QN.md,code/,outputs/}` workspace serves single and split mode. One Trial uses one falsifiable hypothesis, the minimum useful test, and one hard budget, then STOPs for semantic PROMOTE/DROP/NEXT review without automatic fidelity escalation.
 - Explore adds no parser, command, checker, state, JSON, manifest, approval, hash ledger, database, dashboard, fidelity taxonomy, dependency token, formal evidence, HANDOFF source, Appendix source, or final-figure asset. Promoted work is recreated/rerun through START or Supplement before formal use.
@@ -33,7 +33,8 @@
 - Base RESULT remains the exact dependency-token entry; accepted Supplement Result entries explicitly append or replace scope. HANDOFF is a neutral technical transfer that separates current, superseded, and auxiliary material, maps evidence, and states use boundaries; the old HANDOFF remains the last accepted snapshot while a new Result is pending.
 - `check-result` remains independent of HANDOFF; single and split modes use one `HANDOFF_QN.md`, split requires complete checked RESULT coverage, and no HANDOFF command/state/checker exists.
 - Supplement Start/Result, current `HANDOFF_QN.md`, legacy `HANDOFF_QN_K.md`, and HANDOFF_PRE are all rejected as appendix sources; current effective Supplement code/data/output assets remain eligible through unchanged mappings.
-- Appendix code covers the auditable computation core with plotting/display/interface/export writers excluded; independent result assets remain separate; root `code/` selects authentic representative core implementation without persistence side effects.
+- A-class Appendix code retains complete necessary execution/build/configuration/export chains; C-class faithful excerpts need not run independently. Sources, root-asset COPY/integrity, path/type/secret checks and uniqueness remain protected. Writer prohibition helpers have no orphan callers.
+- Actual Python→C++ positive/negative reproduction tests run from isolated package copies with declared input, build native source, compare exact expected values, fail on missing source/header/configuration and numerical mismatch, and preserve original/frozen files. At least one verifiable release environment really executes them; compiler-related skips are not passes. Report short search, fixed-candidate recalculation and full replay distinctly.
 - APPENDIX_START/RESULT keep their heading inventories. Current Section 7 declares the exact AI root target and zero or more safe direct `.xlsx`/`.csv`/`.txt` mandatory results; legacy no-AI plans remain accepted without migration.
 - Init and doctor do not require `paper/`; legacy directories are ignored. Appendix sources remain limited to `problems/` and `input/` except exact `reports/ai-usage/AI 工具使用详情.pdf`, which maps only by COPY to its exact root target.
 - Formal PRE/QN work is non-visual by default, structured evidence is preferred, and any diagnostic is the smallest one needed for a named risk that non-visual evidence cannot resolve; final figures never count as L0/L1/L2 or formal validation budget.
@@ -54,4 +55,4 @@
 - Single/split layout, contiguous START suffixes, partial RESULT completion, exact selected titles, and exact upstream unit availability are covered; semantic contradiction review remains a Codex/human responsibility and creates no success artifact.
 - Evidence control-character, scope, traversal, and symlink guards pass.
 - A copied read-only Skill passes from an unrelated working directory.
-- Lite tags use `lite-v<version>`; `lite-v0.10.2` requires the authorized merged release tree and passing ordinary plus preserved real 3D CI.
+- Lite tags use `lite-v<version>`; `lite-v0.10.3` requires the authorized merged release tree and passing ordinary plus preserved real 3D CI.

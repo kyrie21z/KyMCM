@@ -1,3 +1,13 @@
+# KyMCM Lite 0.10.3
+
+- Separate faithful root code excerpts from minimal complete Appendix runtime packages, keeping actual source provenance without rewriting a simplified algorithm.
+- Retain necessary scientific exports, controlled outputs, configuration and Python→C/C++ builds. Remove global writer blocking and orphan scan helpers; exempt only C-class display excerpts from standalone syntax/dependency gates. Preserve source/path/type, COPY/integrity, secrets and frozen-root uniqueness checks.
+- Predeclare reproduction inputs, commands/scope, budgets and comparisons in APPENDIX_START; actually build/run an isolated package copy and compare results without overwriting original inputs, sources or frozen submission assets. Report full replay, short execution and fixed-artifact recalculation distinctly.
+- Add real deterministic Python/C++ positive and missing-source/header/configuration/numerical-mismatch tests; retain full-route sources for reduced acceptance. No new runtime command, state, manifest, contract heading or dependency.
+- Add only two modeling execution-boundary rules. Preserve AI-use 0.10.2 five-section/max-five-image behavior, formal identities, Explore, figure bundles/flowcharts, Full and existing workspace files. Old reduced packages are not retroactively certified.
+
+This is a scoped Appendix runtime behavior change, not a runtime-unchanged documentation release. Existing mappings already accommodate the tested INI configuration, native build sources, separately supplied raw input and accepted candidate result. Checker passes do not certify real execution; each contest package needs its own agreed build/run/comparison evidence. Frozen root attachments and the v0.10.2 AI-use report remain unchanged. Existing workspaces are not automatically migrated.
+
 # KyMCM Lite 0.10.2
 
 KyMCM Lite 0.10.2 replaces generic fixed AI-use prose with five fixed sections filled from actual contest records: actual tools/models, main purposes and team judgments, two representative interaction cases, concrete adoption/modification/verification, observed limitations, and a short truthful responsibility statement. The declaration retains its official frame and takes a contest-specific purpose consistent with the report.

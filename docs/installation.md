@@ -1,6 +1,6 @@
 # Installation
 
-Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.10.2 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
+Use Python 3.11, 3.12, or 3.13. Copy either KyMCM Full 1.0.0 (`skills/kymcm-full`) or KyMCM Lite 0.10.3 (`skills/kymcm-lite`) into the Codex skills directory used by your installation; each copied Skill is self-contained.
 
 KyMCM Full requires Git for Result review and uses the repository dependencies:
 
@@ -10,7 +10,7 @@ python -m pip install -r requirements.txt
 
 KyMCM Lite core uses only the Python standard library. Git is optional and produces advisory diagnostics only.
 
-Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.10.2. Existing workspaces need no migration; prepare new AI-use reports from the new five-section template and fill actual facts in the working copy; old reports are not overwritten and existing Appendix plans remain readable. Symlink installations need only update the repository and restart Codex.
+Users who installed Lite by copying the directory must replace/reinstall the complete Skill after updating to 0.10.3. Existing workspaces need no automatic migration and old reports remain untouched. Apply the new A-runtime/C-excerpt rules to new Appendix work and actually run the agreed acceptance scope; an old reduced package is not retroactively complete. Install the compiler/dependencies declared by each submitted runtime package separately; the read-only checker does not build or execute it. Symlink installations need only update the repository and restart Codex.
 
 From the repository root, generate the complete ChatGPT Project Source and verify it after normative changes:
 
@@ -29,6 +29,6 @@ For an existing 0.6.0 workspace, leave any legacy `paper/` directory in place or
 
 To migrate a 0.2.0 Lite workspace, add exactly one `**前问依赖：** ...` line to section 2 of every START, ensure every declared predecessor has a completed START and RESULT, and rerun `doctor`, `check-start`, and `check-result`. A legacy `FROZEN_CONTEXT.md` may be deleted manually or left in place; current Lite ignores it completely.
 
-LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.10.2, XeLaTeX/TeX Live is an optional final-submission build dependency for the AI-use PDF and is not a Lite runtime dependency. Claim–Risk–Evidence guidance and Explore add no installation or runtime dependency. Formal 2D execution requires Matplotlib/`cmcrameri` and the documented local fonts. Intrinsic 3D additionally requires PyVista/VTK; its PDF is an exact-size raster container, and VTK-native font-family routing remains more limited than Matplotlib's exact audit. Flowchart planning/manual layout adds no runtime dependency. Do not copy or download font files into this repository.
+LaTeX is optional and needed only for final PDF compilation. For KyMCM Lite 0.10.3, XeLaTeX/TeX Live is an optional final-submission build dependency for the AI-use PDF and is not a Lite runtime dependency. Claim–Risk–Evidence guidance and Explore add no installation or runtime dependency. Formal 2D execution requires Matplotlib/`cmcrameri` and the documented local fonts. Intrinsic 3D additionally requires PyVista/VTK; its PDF is an exact-size raster container, and VTK-native font-family routing remains more limited than Matplotlib's exact audit. Flowchart planning/manual layout adds no runtime dependency. Do not copy or download font files into this repository.
 
 From the copied directory, run `python scripts/full_workspace.py doctor --workspace /path/to/contest` for Full or `python scripts/lite.py doctor --workspace /path/to/contest` for Lite.
