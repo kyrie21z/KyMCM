@@ -23,10 +23,37 @@ from kymcm_lite.paths import (
 
 
 class LiteReleaseTests(unittest.TestCase):
+    def test_stabilization_semantic_guidance_and_ci_entrypoints(self):
+        # Observable documentation rules only: these do not prove human acceptance.
+        for relative in ("references/dependency_review.md", "references/technical_handoff.md",
+                         "references/machine_contract.md", "docs/protocol.md", "SKILL.md"):
+            text = (SKILL / relative).read_text(encoding="utf-8")
+            self.assertIn("still-valid, explicitly accepted", text, relative)
+            self.assertIn("unaccepted", text, relative)
+            self.assertIn("invalidated", text.lower(), relative)
+        review = (SKILL / "references/dependency_review.md").read_text()
+        for case in ("Accepted Supplement replacement", "Completed but unaccepted", "Invalidated Result"):
+            self.assertIn(case, review)
+        for relative in ("SKILL.md", "docs/protocol.md", "references/machine_contract.md"):
+            text = (SKILL / relative).read_text()
+            self.assertIn("scientific data", text)
+            self.assertIn("model parameters", text)
+            self.assertIn("existing source/target", text)
+        ci = (ROOT / ".github/workflows/ci.yml").read_text()
+        self.assertEqual(ci.count("python -m unittest discover -s tests -v"), 1)
+        self.assertIn("python scripts/export_kymcm_lite_full_spec.py --check", ci)
+        self.assertIn("matrix.python-version == '3.12'", ci)
+        for required in ("texlive-xetex", "texlive-lang-chinese", "g++",
+                         "kpsewhich FandolSong-Regular.otf",
+                         "test_two_three_five_images_and_resolved_references",
+                         "test_native_relative_package_really_builds_and_runs"):
+            self.assertIn(required, ci)
+        self.assertIn('KYMCM_RUN_PYVISTA_INTEGRATION: "1"', ci)
+
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.3\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"1.0.0\n")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.10.3 is a programming-side", protocol)
+        self.assertIn("KyMCM Lite 1.0.0 is a programming-side", protocol)
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -34,8 +61,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.10.3", text, relative)
-            self.assertNotIn("0.10.3-dev", text, relative)
+            self.assertIn("1.0.0", text, relative)
+            self.assertNotIn("1.0.0-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -147,6 +174,13 @@ class LiteReleaseTests(unittest.TestCase):
         self.assertIn("不重构", addition)
         # Freeze every previous rule, not just a new hash of changed content.
         previous = text[:addition_start] + text[addition_end:]
+        # Normalize only the three reviewed v1.0.0 clarifications; freeze all other text.
+        self.assertIn("limitation 不抵消缺失或失败的 Claim 必需证据：必须补足证据，或经正式修订收窄 Claim 后重新判断充分性；不能保持原主张而只补一句限制。\n\n", text)
+        previous = previous.replace("limitation 不抵消缺失或失败的 Claim 必需证据：必须补足证据，或经正式修订收窄 Claim 后重新判断充分性；不能保持原主张而只补一句限制。\n\n", "")
+        self.assertIn("→ 补齐 Claim-required L0\n→ 触发时 L1\n→ 资源允许时 L2", text)
+        previous = previous.replace("→ 补齐 Claim-required L0\n→ 触发时 L1\n→ 资源允许时 L2", "→ 条件触发验证")
+        self.assertIn("| Claim-required L0 | 正式结果与 Claim | 直接必需证据 | 必需证据充分且通过 | 补证据或正式修订 Claim | 是 |\n| Risk-triggered L1 | 已触发的重大风险 | 针对风险的证据 | 风险得到检验并明确边界 | 修复或如实披露；不能豁免 L0 | 是 |\n| Evidence-strengthening L2 | 既有充分证据 | 增强证据 | 资源允许且有增益 | 可省略并说明 | 是 |", text)
+        previous = previous.replace("| Claim-required L0 | 正式结果与 Claim | 直接必需证据 | 必需证据充分且通过 | 补证据或正式修订 Claim | 是 |\n| Risk-triggered L1 | 已触发的重大风险 | 针对风险的证据 | 风险得到检验并明确边界 | 修复或如实披露；不能豁免 L0 | 是 |\n| Evidence-strengthening L2 | 既有充分证据 | 增强证据 | 资源允许且有增益 | 可省略并说明 | 是 |", "| 附加验证 | 正式结果 | 敏感性结果 | 按触发条件完成 | 可降级 | 是 |")
         self.assertEqual(hashlib.sha256(previous.encode()).hexdigest(), expected_hash)
         self.assertEqual(reference.read_bytes(), mirror.read_bytes())
 
@@ -207,7 +241,7 @@ class LiteReleaseTests(unittest.TestCase):
         for required in (
             "templates/START_PRE.template.md", "templates/RESULT_PRE.template.md",
             "templates/HANDOFF_PRE.template.md", "check-preprocess-result",
-            "no Python checker", "content JSON",
+            "no Python checker", "workflow-state JSON",
         ):
             self.assertIn(required, skill)
 
@@ -286,8 +320,20 @@ class LiteReleaseTests(unittest.TestCase):
     def test_technical_handoff_reference_template_and_semantic_boundaries(self):
         reference = SKILL / "references/technical_handoff.md"
         template = SKILL / "templates/HANDOFF_QN.template.md"
+        previous = reference.read_text(encoding="utf-8")
+        # Preserve all pre-release handoff rules outside the reviewed acceptance clarification.
+        self.assertIn("Completed, still-valid, explicitly accepted Supplement Result entries", previous)
+        previous = previous.replace("Completed, still-valid, explicitly accepted Supplement Result entries", "Completed Supplement Result entries")
+        self.assertIn("read both complete files and check ordered Start/Result correspondence, acceptance, and validity", previous)
+        previous = previous.replace("read both complete files and check ordered Start/Result correspondence, acceptance, and validity", "read their complete ordered accepted Start/Result entries")
+        self.assertIn("Apply completed, still-valid, explicitly accepted Sx entries", previous)
+        previous = previous.replace("Apply completed, still-valid, explicitly accepted Sx entries", "Apply completed Sx entries")
+        self.assertIn("An unmatched pending Supplement Start or completed but unaccepted Result does not change formal state", previous)
+        previous = previous.replace("An unmatched pending Supplement Start or completed but unaccepted Result does not change formal state", "An unmatched pending Supplement Start does not change formal state")
+        self.assertIn("An invalidated Result cannot remain part of the effective interface. If that interface is unclear, stop; do not silently reuse the last snapshot as current.\n\n", previous)
+        previous = previous.replace("An invalidated Result cannot remain part of the effective interface. If that interface is unclear, stop; do not silently reuse the last snapshot as current.\n\n", "")
         self.assertEqual(
-            hashlib.sha256(reference.read_bytes()).hexdigest(),
+            hashlib.sha256(previous.encode()).hexdigest(),
             "2d5f3450a86f4a6936ddbf0ebfd8beb629fec24c10eba34be8baf58ebf954419",
         )
         self.assertEqual(
@@ -731,7 +777,7 @@ class LiteReleaseTests(unittest.TestCase):
 
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.10.3", notes)
+        self.assertIn("KyMCM Lite 1.0.0", notes)
         for required in (
             "KyMCM Lite 0.9.11", "KyMCM Lite 0.9.10", "KyMCM Lite 0.9.9", "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
@@ -754,6 +800,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("1.0.0 - 2026-09-07", text, relative)
             self.assertIn("0.10.3 - 2026-09-07", text, relative)
             self.assertIn("0.10.2 - 2026-09-06", text, relative)
             self.assertIn("0.10.1 - 2026-08-23", text, relative)

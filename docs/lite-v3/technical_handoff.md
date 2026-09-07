@@ -5,7 +5,7 @@ HANDOFF is a neutral technical transfer derived from an explicitly accepted RESU
 ## Authority
 
 1. The base RESULT set defines the original certified scope, status, limitations, and downstream frozen interfaces.
-2. Completed Supplement Result entries add evidence or replace only their explicitly named scope in S1, S2, ... order.
+2. Completed, still-valid, explicitly accepted Supplement Result entries add evidence or replace only their explicitly named scope in S1, S2, ... order.
 3. Machine evidence defines actual values, tables, diagnostics, and data products.
 4. HANDOFF explains and organizes the current effective state without expanding certification.
 5. Later modeling keeps exact base RESULT dependency tokens and reads applicable Supplement entries during semantic review; it never inherits HANDOFF.
@@ -22,7 +22,7 @@ After base completion, keep the existing HANDOFF as the last accepted snapshot w
 
 ## Required technical content
 
-For single mode, read the complete START_QN, accepted RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching accepted RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. If Supplement files exist, read their complete ordered accepted Start/Result entries and all mapped evidence. Preserve each base unit and Sx identity, status, impact mode, and certification boundary; do not merge them into a newly certified claim. Record:
+For single mode, read the complete START_QN, accepted RESULT_QN, all RESULT-declared evidence, and selected auxiliary evidence. For split mode, read every contiguous START_QN_K, every matching accepted RESULT_QN_K, all evidence declared by each RESULT, and selected auxiliary evidence. If Supplement files exist, read both complete files and check ordered Start/Result correspondence, acceptance, and validity and all mapped evidence. Preserve each base unit and Sx identity, status, impact mode, and certification boundary; do not merge them into a newly certified claim. Record:
 
 - task or data-stage identity and certified conclusions;
 - actual inputs, data scope, transforms, model, parameters, solver settings, and authorized deviations;
@@ -32,7 +32,9 @@ For single mode, read the complete START_QN, accepted RESULT_QN, all RESULT-decl
 - causal, population, time, scenario, numerical, robustness, and extrapolation boundaries;
 - exact downstream inputs, outputs, schemas, units, interfaces, and final review points.
 
-Apply completed Sx entries in order and only within their explicit scope. In section 4, distinguish current effective results from superseded historical results. In section 5, disclose failed or aborted entries and implementation repairs. In section 6, map Supplement evidence to its Sx. In sections 7 and 8, state the current limitations, pending risks, and final effective downstream interface. An unmatched pending Supplement Start does not change formal state, but disclose it when the planned change may affect downstream reuse.
+Apply completed, still-valid, explicitly accepted Sx entries in order and only within their explicit scope. In section 4, distinguish current effective results from superseded historical results. In section 5, disclose failed or aborted entries and implementation repairs. In section 6, map Supplement evidence to its Sx. In sections 7 and 8, state the current limitations, pending risks, and final effective downstream interface. An unmatched pending Supplement Start or completed but unaccepted Result does not change formal state, but disclose it when the planned change may affect downstream reuse.
+
+An invalidated Result cannot remain part of the effective interface. If that interface is unclear, stop; do not silently reuse the last snapshot as current.
 
 An auxiliary result may explain behavior or expose a limitation, but it cannot be presented as certified. Missing or failed work must be disclosed when it affects downstream interpretation.
 

@@ -2,7 +2,7 @@
 
 附录整理是正式结果、提交要求、认证边界和 AI 工具使用详情 PDF 均冻结后的可选独立阶段。一份真实正式源码同时服务两种交付：根 `code/` 是论文引用的真实程序清单/选录，不要求独立运行；`appendix/` 是当前正式计算路线的最小完整运行包及冻结结果，在声明范围内必须实际运行和核对。唯一正式计划是 `reports/appendix/APPENDIX_START.md`，唯一执行报告是 `reports/appendix/APPENDIX_RESULT.md`。
 
-The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference base START/RESULT, accepted Supplement Result, and the current HANDOFF only as internal context; none of those contracts may be copied.
+The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may reference base START/RESULT, completed, still-valid, explicitly accepted Supplement Result, and the current HANDOFF only as internal context; none of those contracts may be copied.
 
 ## 基本原则
 
@@ -93,3 +93,5 @@ COPY 比较哈希；重新运行比较数学结果、记录和输出结构，不
 checker 只读，不执行/导入用户代码、不运行求解器或编译器。保留精确白名单、来源/路径/文件类型、COPY/source_integrity、根附件唯一性、XLSX ZIP/XML 基本结构和敏感信息检查。A 类 Python 语法/静态本地 import、C/C++ include 和有限 CMake 字面路径仍检查；C 类展示选录不受独立语法与依赖闭包硬门槛约束。全局写入 API 禁令退出 active 验收，不增加替代扫描器。
 
 checker 不证明真实运行、动态访问隔离、代码覆盖、CURATE 忠实或语义等价、数学正确性、完整动态依赖/CMake、Excel 数值/公式/格式、原创性或提交合规。执行证据与人工终审承担这些判断；不能以 checker 通过代替实际复现。旧精简包不被追认成完整可复现包，新验收状态按实际执行范围判断，不自动迁移或覆盖旧工作区。产品合成复现测试通过，不等于用户每场比赛的提交包已完成复现。
+
+包结构与静态验收：固定 `preprocess` 与已发现的 qN 均可包含 `code/`、`result/`。白名单路径本身仍禁止 traversal；本地 C/C++ include 和已支持的 CMake 字面依赖可按引用文件目录归一化 `.`/`..`，但只能落到包内白名单普通文件，不接受绝对路径、符号链接或借用原工作区、根 `code/`。合法文本源码的执行权限不构成禁交理由，编译产物和二进制禁令不变。不同正式来源的普通支持结果允许字节相同；同一正式来源重复投递、涉及声明根结果的同字节重复仍拒绝，白名单顺序不改变结论。A 运行源码与 C 论文选录同源合法。静态通过不替代实际复现。
