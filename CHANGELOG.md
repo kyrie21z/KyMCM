@@ -1,5 +1,15 @@
 # Changelog
 
+## KyMCM Lite 1.0.0 - 2026-09-07
+
+KyMCM Lite 1.0.0 is a pre-contest stabilization release with scoped runtime fixes: PRE Appendix units now match START/RESULT; declared ordinary package-local C/C++ includes and supported CMake literal dependencies normalize `.`/`..` without allowing whitelist traversal, absolute paths, symlinks, or workspace/root-code escapes; executable text source is accepted without opening compiled/binary output; independent different-source support results may have equal bytes, while duplicate formal sources and declared authoritative root assets remain rejected in either order.
+
+Only completed, still-valid, explicitly accepted Supplement Results enter effective downstream state within explicit scope. Pending/unaccepted material is a risk, and invalidated Results cannot be reused. STOP does not waive required evidence: basic audit → Claim-required L0 → triggered L1 → affordable L2. JSON restrictions concern workflow state/approval/manifests, not necessary scientific data, model parameters or configuration under existing mappings.
+
+CI uses full discovery on Python 3.11/3.12/3.13, explicitly checks Full Spec, and requires real XeLaTeX/ctex/Fandol and g++ builds in Python 3.12; independent real-3D CI is unchanged. Historical RFC/release notes stay in the repository but are excluded from current Full Spec canonical sources. Optional SKILL deduplication (D2) is deferred to minimize release risk.
+
+The eight public commands, exact Lite v3 marker, directory/contract identities, Supplement lifecycle and independent HANDOFF authorization, figures/flowcharts, AI-use template and KyMCM Full remain unchanged. Static checks do not execute submitted packages or prove reproduction/acceptance. Existing workspaces and historical reports are not automatically migrated or overwritten.
+
 ## KyMCM Lite 0.10.3 - 2026-09-07
 
 - Separate faithful root code excerpts from minimal complete Appendix runtime packages, keeping actual source provenance without rewriting a simplified algorithm.

@@ -1,10 +1,10 @@
 # KyMCM Lite v3 Diagnostic Catalog
 
-Status: Normative for KyMCM Lite 0.10.3.
+Status: Normative for KyMCM Lite 1.0.0.
 
 Exit codes remain `0` for structurally valid contracts (warnings allowed), `1` for contract or evidence invalidity, and `2` for unexpected tool or environment failure. Every emitted message should include the workspace-relative path and, when relevant, the question number, heading, section, or evidence entry.
 
-Lite 0.10.3 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources. Appendix allows necessary writers and excludes C-class display excerpts from standalone syntax/dependency gates. A-class dependency checks remain static; the checker does not execute code or prove actual reproduction or runtime write confinement.
+Lite 1.0.0 has no automatic cleaning, Supplement semantic checker, EDA/causal certification, final-graphics selector, plotting classifier, originality score, or similarity diagnostic. Sx continuity, plan-before-execution, impact scope, current effective state, and HANDOFF currency remain agent/human review responsibilities. Formal PRE/QN/Supplement work is non-visual by default. An optional `figure/` root is ignored rather than diagnosed and never supplies formal evidence or appendix sources. Appendix allows necessary writers and excludes C-class display excerpts from standalone syntax/dependency gates. A-class dependency checks remain static; the checker does not execute code or prove actual reproduction or runtime write confinement.
 
 | Identifier | Severity | Commands | Precise trigger | Blocking | Message intent and required location |
 |---|---|---|---|---|---|
@@ -77,10 +77,10 @@ The modeling workflow has no FROZEN_CONTEXT surface. Appendix organization may r
 | `LITE-APPENDIX-OUTPUT-MISSING-001` | Error | A declared output or static local dependency is missing |
 | `LITE-APPENDIX-OUTPUT-EXTRA-001` | Error | An undeclared file exists in `appendix/` or root `code/` |
 | `LITE-APPENDIX-STRUCTURE-001` | Error | An output root/directory is forbidden, undeclared, empty, or structurally misplaced |
-| `LITE-APPENDIX-FORBIDDEN-001` | Error | A submitted name/type is cache, build, log, runtime data, binary, internal, duplicate-like, or root-code README/data material; operational source names alone are allowed |
+| `LITE-APPENDIX-FORBIDDEN-001` | Error | A submitted name/type is cache, build, log, runtime data, binary, internal, duplicate-like, or root-code README/data material; operational source names and legal text-source executable bits alone are allowed |
 | `LITE-APPENDIX-COPY-MISMATCH-001` | Error | A COPY target SHA-256 differs from its source |
 | `LITE-APPENDIX-INTEGRITY-001` | Error | `source_integrity.csv` is missing or structurally/hash/status invalid |
-| `LITE-APPENDIX-DUPLICATE-001` | Error | Two declared formal-result files are byte-identical |
+| `LITE-APPENDIX-DUPLICATE-001` | Error | A formal result source is submitted twice, or equal bytes duplicate a declared mandatory root result; independent different-source support files may match |
 | `LITE-APPENDIX-PYTHON-001` | Error | A-class submitted Python has invalid syntax or a missing obvious local module; C-class display excerpts are exempt |
 | `LITE-APPENDIX-DEPENDENCY-WARN-001` | Warning | Dynamic loading or CMake features prevent complete static dependency closure proof |
 | `LITE-APPENDIX-XLSX-001` | Error | Declared Result.xlsx is not a valid basic workbook ZIP/XML structure |

@@ -1,4 +1,4 @@
-# KyMCM Lite 0.10.3 machine-enforced contract
+# KyMCM Lite 1.0.0 machine-enforced contract
 
 Status: normative runtime contract for the Lite v3 Skill. This document describes
 observable behavior implemented by the Python standard-library runtime and frozen
@@ -16,10 +16,12 @@ observable contract; the documentation must then be repaired. The runtime is
 not a solver, model selector, manuscript writer, approval state machine, or
 hidden project database.
 
-Lite version `0.10.3` is a product release identifier. It is independent of the
+Lite version `1.0.0` is a product release identifier. It is independent of the
 workspace protocol marker, which remains Lite v3. Existing valid workspaces need
-no automatic migration. This release separates runtime-package checks from
-display excerpts and retires blanket writer blocking, while preserving contract
+no automatic migration. This release fixes PRE structure, native relative
+references, executable text permissions and result-duplication false positives.
+It retains the 0.10.3 runtime-package/display-excerpt separation and removal
+of blanket writer blocking, while preserving contract
 grammar, optional unmanaged Explore, read-only checking and no runtime state.
 
 ## 2. Identity, marker, and fail-closed behavior
@@ -37,8 +39,10 @@ Full, historical Lite v2, unknown, or whitespace-altered content emits
 `LITE-LAYOUT-SYMLINK-001`. The marker is not the same thing as `VERSION`, and
 the product version is never written into the workspace marker.
 
-Lite creates no content JSON, state file, event log, approval record, review
-hash, dependency manifest, or generated success report. The only persistent JSON
+Lite creates no workflow-state, approval, or manifest JSON, workflow state file,
+event log, review hash, or generated success report. Necessary scientific data,
+model parameters, and configuration may use JSON under existing source/target
+mappings; this does not relax Appendix file mappings or asset restrictions. The only persistent JSON
 written by `init` is the exact marker above.
 
 ## 3. Workspace roots and path safety
@@ -325,6 +329,11 @@ replacement. Passing `check-result`, tests, CI, a commit, or stable evidence
 does not constitute acceptance or authorize HANDOFF. Result acceptance adopts
 an Sx; HANDOFF refresh alone does not adopt an Sx. HANDOFF refresh is a
 separate explicit read-only task and is not an adoption trigger.
+Only completed, still-valid, explicitly accepted Supplement Results enter the
+effective interface in order and within explicit scope. Unmatched plans and
+completed but unaccepted Results are pending risks, not inherited facts;
+invalidated Results cannot supply the current interface. These are semantic
+review rules, not machine verification of acceptance.
 Supplement Markdown is an internal appendix source and is rejected with
 `LITE-APPENDIX-SOURCE-PATH-001`; current effective code/data/output assets may
 use the existing appendix mappings.
@@ -445,8 +454,13 @@ source file's SHA-256.
 
 Static checks reject hidden/cache/build/archive/test/tmp directories, logs,
 bytecode, binaries, runtime checkpoint data, temporary/backup/final-like names,
-executables, root-code README/data files, duplicate byte-identical formal
-results, and sensitive paths/credentials/private keys/machine identity. Code
+compiled executables, root-code README/data files, repeated formal result
+sources or byte-identical copies involving declared mandatory root results,
+and sensitive paths/credentials/private keys/machine identity. Legal text
+source is not rejected solely for executable permission bits. Independent
+ordinary support results from different sources may have identical bytes;
+duplicate-source and declared-root protections are order-independent. A/C
+code sharing a source is not result duplication. Code
 targets additionally reject `.joblib`, `.npy`, `.npz`, `.pickle`, `.pkl`,
 `.sav`, `.ckpt`, `.pt`, and `.pth` runtime-data suffixes. They also reject CSV,
 Markdown, and XLSX result-like files in code targets; those suffixes are
@@ -456,8 +470,12 @@ result is rejected. They do not reject
 operational source names such as scheduler, checkpoint, status, monitor, ledger,
 or audit by name alone. A-class Python sources are parsed with `ast`;
 obvious local modules must be present and dynamic imports/execution are advisory
-warnings. A-class C/C++ local includes and literal CMake sources must be present;
-macro/generated closure is advisory. C-class display excerpts skip these standalone
+warnings. A-class C/C++ local includes and supported literal CMake sources
+normalize source-internal `.`/`..` relative to the referencing file and must
+resolve to declared ordinary Appendix files. Absolute references, symlink
+escape, original workspace and root-code dependencies remain rejected;
+whitelist paths themselves still forbid traversal.
+Macro/generated closure is advisory. C-class display excerpts skip these standalone
 syntax/dependency checks, but still receive source/path, file-type, COPY/integrity
 and sensitive-information checks.
 

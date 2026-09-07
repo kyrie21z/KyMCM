@@ -40,11 +40,240 @@ def fingerprint(root: Path) -> str:
 
 
 class AppendixRuntimeTests(unittest.TestCase):
+    def add_copy(self, workspace: Path, identifier: str, source: str, target: str, content: str):
+        """Add one synthetic accepted source and its declared COPY delivery."""
+        for relative in (source, target):
+            path = workspace / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        self.add_integrity_source(workspace, source)
+        self.mutate_start(workspace, "- A090 — GENERATE", (
+            f"- {identifier} — COPY — `{source}` → `{target}` — 独立测试用途\n"
+            "- A090 — GENERATE"
+        ))
+        self.mutate_result(workspace, "A005、", f"A005、{identifier}、")
+
+    def test_preprocess_package_result_matches_start_structure(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.add_copy(workspace, "A030", "problems/preprocess/code/clean.py",
+                          "appendix/problems/preprocess/code/clean.py", "def clean(x): return x\n")
+            self.add_copy(workspace, "A031", "problems/preprocess/data/derived/clean.csv",
+                          "appendix/problems/preprocess/result/clean.csv", "cleaned\n3\n")
+            before = fingerprint(workspace)
+            for checker in (check_appendix_start, check_appendix_result):
+                diagnostics = checker(workspace)
+                self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+            self.assertEqual(before, fingerprint(workspace))
+            for invalid in ("preproces/code", "unknown/code", "q0/code", "preprocess/cache"):
+                bad = workspace / "appendix/problems" / invalid
+                bad.mkdir(parents=True, exist_ok=True)
+                (bad / "invalid.txt").write_text("invalid")
+                self.assertIn("LITE-APPENDIX-STRUCTURE-001",
+                              identifiers(check_appendix_result(workspace)))
+                (bad / "invalid.txt").unlink()
+                bad.rmdir()
+                if bad.parent.name != "preprocess":
+                    bad.parent.rmdir()
+        finally:
+            temporary.cleanup()
+
     def fixture_copy(self):
         temporary = tempfile.TemporaryDirectory()
         workspace = Path(temporary.name) / "workspace"
         shutil.copytree(FIXTURE, workspace)
         return temporary, workspace
+
+    def test_independent_support_results_can_have_equal_bytes(self):
+        temporary, workspace = self.fixture_copy()
+        try:
+            for identifier, unit, name in (("A030", "q1", "feasibility.txt"),
+                                           ("A031", "q2", "schema.txt")):
+                self.add_copy(workspace, identifier, f"problems/{unit}/outputs/{name}",
+                              f"appendix/problems/{unit}/result/{name}", "passed=1\n")
+            diagnostics = check_appendix_result(workspace)
+            self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+        finally:
+            temporary.cleanup()
+
+    def test_authoritative_or_same_source_duplicates_rejected_in_either_order(self):
+        for root_result in (False, True):
+            for reverse in (False, True):
+                with self.subTest(root=root_result, reverse=reverse):
+                    temporary, workspace = self.fixture_copy()
+                    try:
+                        source = "problems/q1/outputs/formal.csv"
+                        target = "appendix/official.csv" if root_result else "appendix/problems/q1/result/second.csv"
+                        self.mutate_start(workspace, "- A090 — GENERATE", (
+                            f"- A030 — COPY — `{source}` → `{target}` — 重复投递\n"
+                            "- A090 — GENERATE"
+                        ))
+                        shutil.copy2(workspace / source, workspace / target)
+                        self.mutate_result(workspace, "A005、", "A005、A030、")
+                        if root_result:
+                            self.mutate_start(workspace, "强制结果文件：无",
+                                              "强制结果文件：`appendix/official.csv`")
+                            # Isolate hash/root protection from same-source duplication.
+                            original = workspace / "appendix/problems/q1/result/formal.csv"
+                            original.unlink()
+                            original.parent.rmdir()
+                            self.mutate_result(workspace, "A003、", "")
+                            plan_path = workspace / "reports/appendix/APPENDIX_START.md"
+                            plan_path.write_text("".join(
+                                line for line in plan_path.read_text().splitlines(keepends=True)
+                                if "→ `appendix/problems/q1/result/formal.csv`" not in line
+                            ))
+                            # Protect a root asset's bytes under a different source.
+                            other = "problems/q2/outputs/other.csv"
+                            self.add_copy(workspace, "A031", other,
+                                          "appendix/problems/q2/result/other.csv",
+                                          (workspace / source).read_text())
+                        if reverse:
+                            plan = workspace / "reports/appendix/APPENDIX_START.md"
+                            lines = plan.read_text().splitlines()
+                            indexes = [i for i, line in enumerate(lines) if line.startswith("- A")]
+                            values = [lines[i] for i in indexes][::-1]
+                            for i, value in zip(indexes, values):
+                                lines[i] = value
+                            plan.write_text("\n".join(lines) + "\n", encoding="utf-8")
+                        found = check_appendix_result(workspace)
+                        self.assertEqual(
+                            {d.identifier for d in found if d.severity == "ERROR"},
+                            {"LITE-APPENDIX-DUPLICATE-001"}, found,
+                        )
+                    finally:
+                        temporary.cleanup()
+
+    def test_executable_text_sources_have_same_acceptance_as_nonexecutable(self):
+        for mode in (0o644, 0o755):
+            with self.subTest(mode=oct(mode)):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.replace_copy_source(
+                        workspace, "problems/q1/code/solve.py",
+                        "appendix/problems/q1/code/solve.py",
+                        "#!/usr/bin/env python3\ndef solve(x): return sum(x)\n",
+                    )
+                    for relative in ("problems/q1/code/solve.py",
+                                     "appendix/problems/q1/code/solve.py",
+                                     "code/q1_core_algorithm.py"):
+                        (workspace / relative).chmod(mode)
+                    before = fingerprint(workspace)
+                    diagnostics = check_appendix_result(workspace)
+                    self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+                    self.assertEqual(before, fingerprint(workspace))
+                finally:
+                    temporary.cleanup()
+
+    def test_executable_binary_outputs_still_fail(self):
+        for name, content in (("solver.exe", b"binary"), ("solver.py", b"\x00binary"),
+                              ("solver", b"\xff\xfebinary")):
+            temporary, workspace = self.fixture_copy()
+            try:
+                self.add_copy(workspace, "A030", f"problems/q1/code/{name}",
+                              f"appendix/problems/q1/code/{name}", "placeholder")
+                for relative in (f"problems/q1/code/{name}", f"appendix/problems/q1/code/{name}"):
+                    (workspace / relative).write_bytes(content)
+                    (workspace / relative).chmod(0o755)
+                self.assertIn("LITE-APPENDIX-FORBIDDEN-001",
+                              identifiers(check_appendix_result(workspace)))
+            finally:
+                temporary.cleanup()
+
+    def test_executable_text_without_python_suffix_is_not_a_binary(self):
+        for name in ("runner.sh", "runner"):
+            temporary, workspace = self.fixture_copy()
+            try:
+                self.add_copy(workspace, "A030", f"problems/q1/code/{name}",
+                              f"appendix/problems/q1/code/{name}", "#!/bin/sh\nexit 0\n")
+                for mode in (0o644, 0o755):
+                    (workspace / f"appendix/problems/q1/code/{name}").chmod(mode)
+                    found = check_appendix_result(workspace)
+                    self.assertFalse([d for d in found if d.severity == "ERROR"], found)
+            finally:
+                temporary.cleanup()
+
+    def native_relative_package(self, workspace: Path, include="../include/answer.hpp",
+                                cmake_source="../src/main.cpp"):
+        for identifier, name, content in (
+            ("A030", "audit/src/main.cpp",
+             f'#include "{include}"\nint main() {{ return answer() == 42 ? 0 : 1; }}\n'),
+            ("A031", "audit/include/answer.hpp", "inline int answer() { return 42; }\n"),
+            ("A032", "audit/buildspec/CMakeLists.txt",
+             f"cmake_minimum_required(VERSION 3.16)\nproject(audit LANGUAGES CXX)\n"
+             f"add_executable(audit {cmake_source})\n"),
+        ):
+            self.add_copy(workspace, identifier, f"problems/q1/code/{name}",
+                          f"appendix/problems/q1/code/{name}", content)
+
+    def test_native_package_relative_include_and_cmake_literals(self):
+        for prefix in ("../", "./../"):
+            with self.subTest(prefix=prefix):
+                temporary, workspace = self.fixture_copy()
+                try:
+                    self.native_relative_package(workspace, prefix + "include/answer.hpp",
+                                                 prefix + "src/main.cpp")
+                    before = fingerprint(workspace)
+                    diagnostics = check_appendix_result(workspace)
+                    self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+                    self.assertEqual(before, fingerprint(workspace))
+                finally:
+                    temporary.cleanup()
+
+    def test_native_relative_package_really_builds_and_runs(self):
+        compiler = shutil.which("g++")
+        if compiler is None:
+            self.skipTest("g++ absent; actual relative-include build not verified")
+        temporary, workspace = self.fixture_copy()
+        try:
+            self.native_relative_package(workspace)
+            before = fingerprint(workspace)
+            with tempfile.TemporaryDirectory() as isolated:
+                root = Path(isolated)
+                shutil.copytree(workspace / "appendix", root / "appendix")
+                frozen = fingerprint(root / "appendix")
+                (root / "work").mkdir()
+                env = {"PATH": os.defpath, "LC_ALL": "C"}
+                built = subprocess.run(
+                    [compiler, "-std=c++17",
+                     str(root / "appendix/problems/q1/code/audit/src/main.cpp"),
+                     "-o", str(root / "work/audit")],
+                    cwd=root / "work", env=env, capture_output=True, text=True, timeout=30,
+                )
+                self.assertEqual(built.returncode, 0, built.stderr)
+                ran = subprocess.run([str(root / "work/audit")], cwd=root / "work",
+                                     env=env, capture_output=True, timeout=5)
+                self.assertEqual(ran.returncode, 0)
+                self.assertEqual(frozen, fingerprint(root / "appendix"))
+            self.assertEqual(before, fingerprint(workspace))
+        finally:
+            temporary.cleanup()
+
+    def test_native_dependencies_reject_missing_escape_absolute_and_symlink(self):
+        for kind in ("include", "cmake"):
+            for reference in ("../missing.hpp" if kind == "include" else "../missing.cpp",
+                              "../../../../../../code/q2_core_algorithm.cpp",
+                              "../../../../../../problems/q2/code/solver.cpp",
+                              "/solver.cpp", "C:/solver.cpp", "../link/solver.cpp"):
+                with self.subTest(kind=kind, reference=reference):
+                    temporary, workspace = self.fixture_copy()
+                    try:
+                        self.native_relative_package(
+                            workspace,
+                            reference if kind == "include" else "../include/answer.hpp",
+                            reference if kind == "cmake" else "../src/main.cpp",
+                        )
+                        # A real local basename must not rescue an absolute reference.
+                        self.add_copy(workspace, "A033", "problems/q1/code/solver.cpp",
+                                      "appendix/problems/q1/code/audit/buildspec/solver.cpp",
+                                      "int other() { return 0; }\n")
+                        if "link/" in reference:
+                            (workspace / "appendix/problems/q1/code/audit/link").symlink_to(
+                                workspace / "problems/q2/code", target_is_directory=True)
+                        diagnostics = check_appendix_result(workspace)
+                        self.assertIn("LITE-APPENDIX-OUTPUT-MISSING-001", identifiers(diagnostics))
+                    finally:
+                        temporary.cleanup()
 
     def mutate_start(self, workspace: Path, old: str, new: str) -> None:
         path = workspace / "reports/appendix/APPENDIX_START.md"
@@ -1250,7 +1479,7 @@ class AppendixRuntimeTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def test_duplicate_formal_results_and_executable_outputs(self):
+    def test_duplicate_formal_results_and_executable_text(self):
         temporary, workspace = self.fixture_copy()
         try:
             source = workspace / "problems/q1/outputs/formal.csv"
@@ -1270,7 +1499,7 @@ class AppendixRuntimeTests(unittest.TestCase):
         try:
             target = workspace / "code/q1_core_algorithm.py"
             target.chmod(0o755)
-            self.assertIn("LITE-APPENDIX-FORBIDDEN-001", identifiers(check_appendix_result(workspace)))
+            self.assertNotIn("LITE-APPENDIX-FORBIDDEN-001", identifiers(check_appendix_result(workspace)))
         finally:
             temporary.cleanup()
 

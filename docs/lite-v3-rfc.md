@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.3 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 1.0.0 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.10.3 boundary: root code is faithful display selection without standalone execution requirements; appendix retains the complete necessary formal execution chain and is actually rerun from an isolated copy within predeclared scope. Frozen attachments stay COPY-only. The checker remains read-only but retires global writer blocking and C-class syntax/dependency gates. AI-use 0.10.2 rules, formal contract identities, Explore, marker, eight commands, figures and Full are preserved. The historical design below remains unchanged.
+Current 1.0.0 boundary: scoped Appendix PRE/path/permission/duplicate fixes and accepted-only Supplement inheritance stabilize existing behavior. Current guidance lives in the Skill/protocol/references/templates; this historical RFC is excluded from the current Full Spec. Marker, commands, figures, AI-use template and Full remain unchanged. The historical design below remains unchanged.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite

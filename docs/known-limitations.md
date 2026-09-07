@@ -4,10 +4,10 @@
 - A contest workspace must be an independent Git repository before Result review.
 - The workflow does not provide numerical solvers or choose a model automatically.
 - PDF compilation requires a separately installed LaTeX toolchain.
-- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 0.10.3.
+- Full Chinese typography depends on locally installed fonts; Microsoft YaHei is preferred by its existing built-in renderer but never bundled. This Full rule is unchanged by Lite 1.0.0.
 - Legacy Contract compatibility is retained, but new functionality targets Full workspaces.
 
-KyMCM Lite 0.10.3 limitations:
+KyMCM Lite 1.0.0 limitations:
 
 - Lite Python does not decide whether Explore is needed; create its optional workspace; enforce Trial numbering or fields, the one hard budget, the mandatory STOP gate, or PROMOTE/DROP/NEXT; validate experimental correctness; guarantee scratch reproducibility; promote artifacts; or delete stale Explore files. These are ChatGPT/user/executor semantic responsibilities.
 - Explore is intentionally non-formal. Scratch code, outputs, and diagnostics are not formal evidence, dependencies, HANDOFF content, Appendix sources, or final figures; promotion still requires transfer/recreation and formal rerun through START or Supplement.
@@ -17,7 +17,7 @@ KyMCM Lite 0.10.3 limitations:
 - Lite does not generate, plan, read, modify, or check contest manuscripts; infer which final graphics are needed; provide solvers; or migrate Full workspaces.
 - Final figures require an explicit user request. Lite does not manage or globally check `figure/`; each programmatic entrypoint invokes its backend audit and same-stem PDF/PNG/PY/TXT bundle audit. ChatGPT/user still owns semantic and visual acceptance.
 - `kymcm-figure-selection-v1` guides semantic WHAT/WHEN decisions but has no runtime scorer or checker; its explicitly pending chart branches require user direction or a future evidence-backed revision.
-- KyMCM Lite 0.10.3 does not automatically choose or guarantee publication-quality flowchart layout. It standardizes evidence-derived type selection and content capacity; final layout and drawing remain user/human judgment. Flowcharts remain outside the Python bundle.
+- KyMCM Lite 1.0.0 does not automatically choose or guarantee publication-quality flowchart layout. It standardizes evidence-derived type selection and content capacity; final layout and drawing remain user/human judgment. Flowcharts remain outside the Python bundle.
 - Formal Codex/Matplotlib figures additionally require optional Matplotlib/`cmcrameri`, `Noto Serif CJK SC`, `Tinos`, and STIX mathtext. `figure_exec.py` strictly checks named-family availability, declared script/family routing, and machine-safe constraints but cannot prove semantic language/prose/color-role correctness or the exact physical font file used for each glyph; ChatGPT/user retains those judgments. Missing requirements stop rendering without fallback. `nature-figure` is optional only for an explicitly requested read-only specialist second opinion and has no rerender/restyle/export/override authority.
 - Formal intrinsic-3D figures require optional PyVista 0.48.x, VTK 9.5.x, Matplotlib packaging support, `cmcrameri`, SSAA, and a functioning headless EGL/OpenGL environment. They fail closed without those capabilities and never fall back to `mplot3d`. The PDF may contain the rasterized VTK scene. VTK-native axes/scalar-bar font APIs cannot provide the same exact per-glyph Tinos/Noto guarantee as Matplotlib; missing CJK rendering must fail or move that explanation to TXT.
 - Lite has no dynamic `add-problem` command; question count is fixed at initialization.

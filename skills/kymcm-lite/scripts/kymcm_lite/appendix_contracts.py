@@ -6,6 +6,7 @@ from dataclasses import dataclass
 import hashlib
 import io
 import os
+import posixpath
 from pathlib import Path
 import re
 import shutil
@@ -105,7 +106,8 @@ CMAKE_BLOCK = re.compile(
     r"(?is)\b(?:add_executable|add_library|target_sources)\s*\((.*?)\)"
 )
 CMAKE_LITERAL = re.compile(
-    r"(?<![$<{])(?:[A-Za-z0-9_.-]+/)*[A-Za-z0-9_.-]+\."
+    r"(?<![A-Za-z0-9_.$<{/\\:-])(?:[A-Za-z]:)?[/\\]*"
+    r"(?:[A-Za-z0-9_.-]+[/\\])*[A-Za-z0-9_.-]+\."
     r"(?:c|cc|cpp|cxx|h|hh|hpp|hxx)\b"
 )
 CERTIFICATION = re.compile(
@@ -712,15 +714,17 @@ def _scan_exact_tree(
                 ))
             if len(parts) >= 3 and parts[1] == "problems":
                 match = re.fullmatch(r"q([1-9][0-9]*)", parts[2])
-                if not match or int(match.group(1)) not in numbers:
+                if parts[2] != "preprocess" and (
+                    not match or int(match.group(1)) not in numbers
+                ):
                     diagnostics.append(error(
                         "LITE-APPENDIX-STRUCTURE-001", directory,
-                        "appendix question directory is not a discovered qN",
+                        "appendix unit must be preprocess or a discovered qN",
                     ))
                 elif len(parts) >= 4 and parts[3] not in {"code", "result"}:
                     diagnostics.append(error(
                         "LITE-APPENDIX-STRUCTURE-001", directory,
-                        "appendix qN permits only code/ and result/",
+                        "appendix unit permits only code/ and result/",
                     ))
     return diagnostics
 
@@ -804,9 +808,12 @@ def _integrity_diagnostics(
     return diagnostics
 
 
-def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) -> list[Diagnostic]:
+def _forbidden_diagnostics(
+    workspace: Path, entries: tuple[AppendixEntry, ...], mandatory_targets: tuple[str, ...]
+) -> list[Diagnostic]:
     diagnostics: list[Diagnostic] = []
-    result_hashes: dict[bytes, str] = {}
+    result_hashes: dict[bytes, list[AppendixEntry]] = {}
+    result_sources: dict[str, str] = {}
     for entry in entries:
         path = workspace / entry.target
         if not path.is_file() or path.is_symlink():
@@ -817,12 +824,22 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
         code_target = entry.target.startswith("code/") or bool(
             re.match(r"appendix/problems/(?:q[1-9][0-9]*|preprocess)/code/", entry.target)
         )
+        forbidden_executable = False
+        if path.stat().st_mode & 0o111:
+            # Permission is not a file type; retain the binary gate without
+            # imposing a new source-language/suffix allowlist.
+            raw = path.read_bytes()
+            forbidden_executable = not code_target or b"\x00" in raw
+            try:
+                raw.decode("utf-8")
+            except UnicodeDecodeError:
+                forbidden_executable = True
         if (
             any(part in FORBIDDEN_DIR_NAMES or part.startswith(".") for part in lower_parts[1:-1])
             or name.startswith(".")
             or relative.suffix.lower() in FORBIDDEN_SUFFIXES
             or (code_target and relative.suffix.lower() in CODE_RUNTIME_DATA_SUFFIXES)
-            or path.stat().st_mode & 0o111
+            or forbidden_executable
             or re.fullmatch(r"RESULT.*\.md", name, re.IGNORECASE)
             or FORBIDDEN_NAME.search(name)
         ):
@@ -850,13 +867,23 @@ def _forbidden_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) 
             or _safe_mandatory_root_result_target(entry.target)
         ):
             digest = hashlib.sha256(path.read_bytes()).digest()
-            if digest in result_hashes:
+            duplicate = next(
+                (result_sources[source] for source in entry.sources if source in result_sources),
+                None,
+            )
+            if duplicate is None:
+                duplicate = next((
+                    other.target for other in result_hashes.get(digest, ())
+                    if entry.target in mandatory_targets or other.target in mandatory_targets
+                ), None)
+            if duplicate is not None:
                 diagnostics.append(error(
                     "LITE-APPENDIX-DUPLICATE-001", entry.target,
-                    f"byte-identical formal result duplicates {result_hashes[digest]}",
+                    f"result repeats a formal source or declared root asset: {duplicate}",
                 ))
-            else:
-                result_hashes[digest] = entry.target
+            result_hashes.setdefault(digest, []).append(entry)
+            for source in entry.sources:
+                result_sources[source] = entry.target
     return diagnostics
 
 
@@ -936,6 +963,24 @@ def _python_diagnostics(workspace: Path, entries: tuple[AppendixEntry, ...]) -> 
     return diagnostics
 
 
+def _submitted_native_dependency(
+    workspace: Path, target: str, reference: str, targets: set[str]
+) -> bool:
+    """Normalize source-internal relative literals, never whitelist paths."""
+    if not reference or reference.startswith("/") or "\\" in reference or re.match(
+        r"^[A-Za-z]:", reference
+    ):
+        return False
+    raw = (Path(target).parent / reference).as_posix()
+    candidate = posixpath.normpath(raw)
+    return (
+        candidate.startswith("appendix/")
+        and candidate in targets
+        and not _contains_symlink(workspace, raw)
+        and _ordinary_file(workspace, candidate)
+    )
+
+
 def _native_dependency_diagnostics(
     workspace: Path, entries: tuple[AppendixEntry, ...]
 ) -> list[Diagnostic]:
@@ -962,8 +1007,7 @@ def _native_dependency_diagnostics(
                         f"macro/generated include cannot be resolved statically: {include}",
                     ))
                     continue
-                candidate = (Path(entry.target).parent / include).as_posix()
-                if candidate not in targets:
+                if not _submitted_native_dependency(workspace, entry.target, include, targets):
                     diagnostics.append(error(
                         "LITE-APPENDIX-OUTPUT-MISSING-001", entry.target,
                         f"missing submitted local include {include}",
@@ -977,8 +1021,7 @@ def _native_dependency_diagnostics(
                         "CMake variables or generator expressions limit static closure proof",
                     ))
                 for literal in CMAKE_LITERAL.findall(block):
-                    candidate = (Path(entry.target).parent / literal).as_posix()
-                    if candidate not in targets:
+                    if not _submitted_native_dependency(workspace, entry.target, literal, targets):
                         diagnostics.append(error(
                             "LITE-APPENDIX-OUTPUT-MISSING-001", entry.target,
                             f"CMake references missing literal source {literal}",
@@ -1209,7 +1252,7 @@ def check_appendix_result(workspace: Path) -> list[Diagnostic]:
     diagnostics.extend(_scan_exact_tree(workspace, plan, numbers))
     diagnostics.extend(_copy_diagnostics(workspace, plan.entries))
     diagnostics.extend(_integrity_diagnostics(workspace, plan.entries))
-    diagnostics.extend(_forbidden_diagnostics(workspace, plan.entries))
+    diagnostics.extend(_forbidden_diagnostics(workspace, plan.entries, plan.mandatory_result_targets))
     diagnostics.extend(_python_diagnostics(workspace, plan.entries))
     diagnostics.extend(_native_dependency_diagnostics(workspace, plan.entries))
     diagnostics.extend(_root_result_diagnostics(workspace, plan))

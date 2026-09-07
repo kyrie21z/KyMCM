@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.10.3** separates faithful paper-code excerpts from a minimal complete runtime package. Necessary exports and Python/native execution chains remain intact; actual isolated-copy runs compare results without overwriting frozen submission assets. The checker remains read-only, permits writers, and applies standalone syntax/dependency gates only to A-class runtime material. AI-use 0.10.2 rules, eight commands, marker, figures and Full are preserved.
+- **KyMCM Lite 1.0.0** separates faithful paper-code excerpts from a minimal complete runtime package. Necessary exports and Python/native execution chains remain intact; actual isolated-copy runs compare results without overwriting frozen submission assets. The checker remains read-only, permits writers, and applies standalone syntax/dependency gates only to A-class runtime material. AI-use 0.10.2 rules, eight commands, marker, figures and Full are preserved.
 
 ## Install
 
@@ -62,3 +62,7 @@ python -m unittest tests.test_full_cli tests.test_full_portability tests.test_fi
 ```
 
 No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the ordinary test suite. The optional XeLaTeX/TeX Live build for the AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite formal Matplotlib figures use `skills/kymcm-lite/requirements-figure.txt`; intrinsic-3D figures use `skills/kymcm-lite/requirements-figure-3d.txt` and a working headless VTK EGL/OpenGL environment. Missing requirements stop rendering. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).
+
+## Lite 1.0.0 stabilization
+
+This release fixes Appendix PRE structure, declared package-local native relative dependencies, executable text-source permissions, and equal-byte independent support results. Duplicate authoritative assets, source/path/type/integrity checks and read-only behavior stay protected. Only completed, still-valid, explicitly accepted Supplement Results affect the declared scope; required evidence cannot be waived by a limitation. CI discovers all tests and requires real TeX/C++ builds in Python 3.12. The current Full Spec excludes historical RFC/release-note bodies; commands, marker, figures, AI-use template and Full stay unchanged.

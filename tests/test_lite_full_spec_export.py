@@ -119,10 +119,23 @@ class LiteFullSpecExportTests(unittest.TestCase):
             self.assertEqual(result.returncode, 2)
             self.assertIn("unclassified", result.stderr)
 
+    def test_historical_bodies_do_not_change_current_export(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / "repo"
+            self.copy_repository(fixture)
+            before = exporter.build_document(fixture)
+            for relative in ("docs/lite-v3-rfc.md", "docs/lite-v3-release-notes.md"):
+                (fixture / relative).write_text("# HISTORICAL BODY MUST NOT BE EXPORTED\\n")
+            self.assertEqual(exporter.build_document(fixture), before)
+            self.assertNotIn(b"HISTORICAL BODY MUST NOT BE EXPORTED", before)
+
     def test_manifest_and_canonical_completeness(self):
         sources = exporter.collect_sources(ROOT)
         document = SPEC.read_text(encoding="utf-8")
-        self.assertEqual(len(sources), 46)
+        self.assertEqual(len(sources), 44)
+        for historical in ("docs/lite-v3-rfc.md", "docs/lite-v3-release-notes.md"):
+            self.assertNotIn(historical, {source.path for source in sources})
+            self.assertIn(historical, dict(exporter.EXPLICIT_EXCLUSIONS))
         self.assertEqual(
             {source.role for source in sources},
             {
@@ -255,7 +268,7 @@ class LiteFullSpecExportTests(unittest.TestCase):
                 self.assertIn(phrase, text, f"{name}: {phrase}")
 
     def test_release_surface_and_full_identity_unchanged(self):
-        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"0.10.3\n")
+        self.assertEqual((ROOT / "skills/kymcm-lite/VERSION").read_bytes(), b"1.0.0\n")
         self.assertEqual((ROOT / "skills/kymcm-full/VERSION").read_bytes(), b"1.0.0\n")
         tree = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "HEAD:skills/kymcm-full"], text=True
