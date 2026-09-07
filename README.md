@@ -3,7 +3,7 @@
 KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
 
 - **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 0.10.2** makes the five-section AI-use report editable from actual contest records: tools/models, main purposes and team judgments, two representative cases, and concrete adoption/modification/verification. Screenshots normally number three, at most five across the PDF, with LaTeX count/missing-image/empty-caption guards. Human review precedes the unchanged frozen-PDF Appendix COPY interface; formal modeling, runtime, marker and eight commands remain unchanged.
+- **KyMCM Lite 0.10.3** separates faithful paper-code excerpts from a minimal complete runtime package. Necessary exports and Python/native execution chains remain intact; actual isolated-copy runs compare results without overwriting frozen submission assets. The checker remains read-only, permits writers, and applies standalone syntax/dependency gates only to A-class runtime material. AI-use 0.10.2 rules, eight commands, marker, figures and Full are preserved.
 
 ## Install
 

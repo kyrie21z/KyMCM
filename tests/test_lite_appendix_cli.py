@@ -118,7 +118,7 @@ class LiteAppendixCliTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def test_code_side_effect_is_blocking_and_read_only(self):
+    def test_writer_is_not_blocked_but_copy_mismatch_is_and_checker_is_read_only(self):
         temporary, workspace = self.fixture_copy()
         try:
             source = workspace / "appendix/problems/q1/code/solve.py"
@@ -127,7 +127,8 @@ class LiteAppendixCliTests(unittest.TestCase):
             completed = self.run_cli(
                 "check-appendix-result", "--workspace", str(workspace), ok=1
             )
-            self.assertIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", completed.stdout)
+            self.assertNotIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", completed.stdout)
+            self.assertIn("LITE-APPENDIX-COPY-MISMATCH-001", completed.stdout)
             self.assertIn("appendix/problems/q1/code/solve.py:", completed.stdout)
             self.assertEqual(before, fingerprint(workspace))
         finally:

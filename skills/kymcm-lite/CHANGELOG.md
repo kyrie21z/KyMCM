@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.3 - 2026-09-07
+
+- Separate faithful root code excerpts from minimal complete Appendix runtime packages, keeping actual source provenance without rewriting a simplified algorithm.
+- Retain necessary scientific exports, controlled outputs, configuration and Python→C/C++ builds. Remove global writer blocking and orphan scan helpers; exempt only C-class display excerpts from standalone syntax/dependency gates. Preserve source/path/type, COPY/integrity, secrets and frozen-root uniqueness checks.
+- Predeclare reproduction inputs, commands/scope, budgets and comparisons in APPENDIX_START; actually build/run an isolated package copy and compare results without overwriting original inputs, sources or frozen submission assets. Report full replay, short execution and fixed-artifact recalculation distinctly.
+- Add real deterministic Python/C++ positive and missing-source/header/configuration/numerical-mismatch tests; retain full-route sources for reduced acceptance. No new runtime command, state, manifest, contract heading or dependency.
+- Add only two modeling execution-boundary rules. Preserve AI-use 0.10.2 five-section/max-five-image behavior, formal identities, Explore, figure bundles/flowcharts, Full and existing workspace files. Old reduced packages are not retroactively certified.
+
 ## 0.10.2 - 2026-09-06
 
 - Replace fixed AI-use facts with five sections filled from actual contest records, editable tools/models and purposes, two representative cases, concrete adoption/modification/verification and observed limitations.

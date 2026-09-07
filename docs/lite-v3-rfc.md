@@ -1,8 +1,8 @@
 # RFC: KyMCM Lite v3
 
-> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.2 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
+> Historical KyMCM Lite 0.1.0 design record. It does not describe current 0.10.3 behavior; see `skills/kymcm-lite/docs/protocol.md` and the generated complete Project Source. Preserved without rewriting historical decisions.
 
-Current 0.10.2 boundary: AI-use disclosure retains five sections but fills tools/models, purposes, representative cases and concrete adoption/modification/verification from actual contest records. The LaTeX helper limits screenshot insertions to five; human review precedes the existing pre-Appendix PDF freeze/COPY interface. Formal modeling, Claim–Risk–Evidence, Explore, marker, eight commands and Python runtime remain unchanged. The historical design below remains preserved.
+Current 0.10.3 boundary: root code is faithful display selection without standalone execution requirements; appendix retains the complete necessary formal execution chain and is actually rerun from an isolated copy within predeclared scope. Frozen attachments stay COPY-only. The checker remains read-only but retires global writer blocking and C-class syntax/dependency gates. AI-use 0.10.2 rules, formal contract identities, Explore, marker, eight commands, figures and Full are preserved. The historical design below remains unchanged.
 
 Status: Implemented and release-candidate validated for KyMCM Lite 0.1.0
 Product: KyMCM Lite

@@ -24,9 +24,9 @@ from kymcm_lite.paths import (
 
 class LiteReleaseTests(unittest.TestCase):
     def test_version_is_frozen(self):
-        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.2\n")
+        self.assertEqual((SKILL / "VERSION").read_bytes(), b"0.10.3\n")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.10.2 is a programming-side", protocol)
+        self.assertIn("KyMCM Lite 0.10.3 is a programming-side", protocol)
 
     def test_release_facing_readmes_have_no_dev_identity(self):
         for relative in (
@@ -34,8 +34,8 @@ class LiteReleaseTests(unittest.TestCase):
             "docs/compatibility.md", "docs/known-limitations.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("0.10.2", text, relative)
-            self.assertNotIn("0.10.2-dev", text, relative)
+            self.assertIn("0.10.3", text, relative)
+            self.assertNotIn("0.10.3-dev", text, relative)
 
     def test_skill_identity_is_exact(self):
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
@@ -136,8 +136,19 @@ class LiteReleaseTests(unittest.TestCase):
         expected_hash = "11564c431950b7bf8de34749103edf2f9c7829262674b9be8b2b134f7e4a82d2"
         reference = SKILL / "references/modeling_plan_design.md"
         mirror = ROOT / "docs/lite-v3/modeling_plan_design.md"
-        self.assertEqual(hashlib.sha256(reference.read_bytes()).hexdigest(), expected_hash)
-        self.assertEqual(hashlib.sha256(mirror.read_bytes()).hexdigest(), expected_hash)
+        text = reference.read_text(encoding="utf-8")
+        addition_start = text.index("计算不依赖工作流报告：")
+        addition_end = text.index("统计设计不能只规定：", addition_start)
+        addition = text[addition_start:addition_end]
+        self.assertIn("禁用 RESULT/HANDOFF 文案生成", addition)
+        self.assertIn("运行边界可指定", addition)
+        self.assertIn("Python 调用 C/C++", addition)
+        self.assertIn("随机性时记录种子", addition)
+        self.assertIn("不重构", addition)
+        # Freeze every previous rule, not just a new hash of changed content.
+        previous = text[:addition_start] + text[addition_end:]
+        self.assertEqual(hashlib.sha256(previous.encode()).hexdigest(), expected_hash)
+        self.assertEqual(reference.read_bytes(), mirror.read_bytes())
 
         skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
@@ -206,35 +217,33 @@ class LiteReleaseTests(unittest.TestCase):
         result = (SKILL / "templates/APPENDIX_RESULT.template.md").read_text(encoding="utf-8")
         protocol = (SKILL / "docs/protocol.md").read_text(encoding="utf-8")
         for required in (
-            "计算核心", "独立正式结果", "绘图、显示和接口代码排除",
-            "输入、特征/参数", "优化", "统计", "预测", "约束", "审计",
-            "第一层：文件写入与持久化副作用",
-            "第二层：结果与文档构造",
-            "第三层：展示/导出入口与孤儿代码清理",
-            "每个 `CURATE` 条目都必须记录",
+            "不要求独立运行", "最小完整运行包", "隔离", "Python+C++",
+            "固定产物结果复算", "完整搜索或训练未重跑", "操作系统安全沙箱",
+            "COPY", "source_integrity", "函数或行范围", "预期答案",
             "禁止复制", "混淆", "垃圾", "外部相似度",
         ):
             self.assertIn(required, reference)
-        self.assertNotIn("代码层/文档层/流程层", reference)
         for required in (
-            "计算核心", "独立正式结果", "代表性", "绘图", "相似度",
-            "每个 CURATE 条目必须记录", "第一层", "第二层", "第三层",
-            "孤儿", "数学、数据和执行语义",
+            "起点/输入", "命令与范围", "预算", "容差", "停止条件",
+            "独立工作目录", "每个 CURATE 条目必须记录", "C 类",
         ):
             self.assertIn(required, start)
         for required in (
-            "计算核心", "独立正式结果", "静态副作用", "根 code/ 选择理由",
-            "三层删除", "第一层", "第二层", "第三层", "孤儿代码",
+            "构建/短程执行", "固定产物结果复算", "未重跑", "比较",
+            "根 code/ 选择理由", "运行前后", "未完成",
         ):
             self.assertIn(required, result)
         machine = (SKILL / "references/machine_contract.md").read_text(encoding="utf-8")
-        self.assertIn("They also reject CSV,", machine)
-        self.assertIn("Markdown, and XLSX result-like files in code targets", machine)
-        self.assertNotIn("They do not reject\nCSV, Markdown, or XLSX", machine)
+        self.assertIn("C-class display excerpts skip", machine)
+        self.assertIn("A-class Python sources", machine)
+        self.assertIn("No replacement scanner", machine)
+        for document in (reference, start, result, protocol, machine):
+            self.assertNotIn("三层删除规则必须同时满足", document)
+            self.assertNotIn("must not generate formal result tables", document)
+            self.assertNotIn("blocks high-confidence code-side effects", document)
         for required in (
-            "auditable computation core", "authentic representative computation-core",
-            "COPY-only independent submission attachments", "code-side effects",
-            "human-owned",
+            "minimal complete formal execution chain", "COPY-only independent submission attachments",
+            "C-class snippets", "prove isolation/reproduction",
         ):
             self.assertIn(required, protocol)
 
@@ -722,7 +731,7 @@ class LiteReleaseTests(unittest.TestCase):
 
     def test_release_notes_cover_release_contract(self):
         notes = (ROOT / "docs/lite-v3-release-notes.md").read_text(encoding="utf-8")
-        self.assertIn("KyMCM Lite 0.10.2", notes)
+        self.assertIn("KyMCM Lite 0.10.3", notes)
         for required in (
             "KyMCM Lite 0.9.11", "KyMCM Lite 0.9.10", "KyMCM Lite 0.9.9", "KyMCM Lite 0.9.8", "KyMCM Lite 0.9.7", "KyMCM Lite 0.9.6", "KyMCM Lite 0.9.5", "KyMCM Lite 0.9.4", "KyMCM Lite 0.9.3", "KyMCM Lite 0.9.2", "KyMCM Lite 0.9.1", "KyMCM Lite 0.9.0", "0.8.1", "0.8.0", "0.7.0", "0.6.0", "0.5.1", "0.5.0", "0.4.0", "0.3.1", "0.3.0", "0.2.0", "0.1.0", "Python 3.11", "3.12", "3.13",
             "init", "doctor", "check-start", "check-result", "check-appendix-start",
@@ -745,6 +754,7 @@ class LiteReleaseTests(unittest.TestCase):
     def test_changelogs_have_dated_release(self):
         for relative in ("CHANGELOG.md", "skills/kymcm-lite/CHANGELOG.md"):
             text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("0.10.3 - 2026-09-07", text, relative)
             self.assertIn("0.10.2 - 2026-09-06", text, relative)
             self.assertIn("0.10.1 - 2026-08-23", text, relative)
             self.assertIn("0.10.0 - 2026-08-22", text, relative)

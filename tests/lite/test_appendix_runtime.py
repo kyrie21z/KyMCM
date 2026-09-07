@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import hashlib
+import csv
 import os
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -58,6 +60,258 @@ class AppendixRuntimeTests(unittest.TestCase):
         integrity = workspace / "reports/appendix/evidence/source_integrity.csv"
         with integrity.open("a", encoding="utf-8") as stream:
             stream.write(f"{relative},{digest},{digest},unchanged\n")
+
+    def replace_copy_source(self, workspace: Path, source: str, target: str, text: str) -> None:
+        """Model an accepted synthetic source revision before packaging."""
+        previous = hashlib.sha256((workspace / source).read_bytes()).hexdigest()
+        (workspace / source).write_text(text, encoding="utf-8")
+        (workspace / target).write_bytes((workspace / source).read_bytes())
+        current = hashlib.sha256((workspace / source).read_bytes()).hexdigest()
+        integrity = workspace / "reports/appendix/evidence/source_integrity.csv"
+        integrity.write_text(
+            integrity.read_text(encoding="utf-8").replace(previous, current),
+            encoding="utf-8",
+        )
+
+    def test_display_excerpts_need_neither_standalone_syntax_nor_dependency_closure(self):
+        for excerpt in ("from .helper import score\n", "    return score(values)\n"):
+            with self.subTest(excerpt=excerpt), tempfile.TemporaryDirectory() as directory:
+                workspace = Path(directory) / "workspace"
+                shutil.copytree(FIXTURE, workspace)
+                source = "problems/q1/code/core.py"
+                target = "code/q1_core_algorithm.py"
+                formal = "from .helper import score\n\ndef solve(values):\n    return score(values)\n"
+                self.replace_copy_source(workspace, source, target, formal)
+                (workspace / target).write_text(excerpt, encoding="utf-8")
+                self.mutate_start(workspace, "- C001 — COPY", "- C001 — CURATE")
+                self.mutate_start(
+                    workspace, "— q1 核心算法",
+                    "— 忠实连续行选录；省略其余函数和入口，不宣称独立运行",
+                )
+                before = fingerprint(workspace)
+                diagnostics = check_appendix_result(workspace)
+                self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+                self.assertEqual(before, fingerprint(workspace))
+                # Removing the display header does not remove the A-class runtime header.
+                self.mutate_start(
+                    workspace,
+                    "- C003 — COPY — `problems/q2/code/solver.hpp` → `code/solver.hpp` — q2 核心算法头文件\n",
+                    "",
+                )
+                self.mutate_result(workspace, "、C003", "")
+                (workspace / "code/solver.hpp").unlink()
+                diagnostics = check_appendix_result(workspace)
+                self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+
+    def test_accepted_runtime_readers_and_writers_pass_without_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory) / "workspace"
+            shutil.copytree(FIXTURE, workspace)
+            self.replace_copy_source(
+                workspace, "problems/q1/code/solve.py", "appendix/problems/q1/code/solve.py",
+                "import csv\nfrom pathlib import Path\n"
+                "def solve(input_path, output_dir):\n"
+                "    values = [int(row['value']) for row in csv.DictReader(open(input_path))]\n"
+                "    Path(output_dir).mkdir(parents=True, exist_ok=True)\n"
+                "    with (Path(output_dir) / 'result.csv').open('w') as stream:\n"
+                "        csv.writer(stream).writerow([sum(values)])\n"
+                "def workbook(frame, output_path):\n"
+                "    frame.to_excel(output_path, index=False)\n"
+                "raise RuntimeError('checker must never execute submitted code')\n",
+            )
+            before = fingerprint(workspace)
+            diagnostics = check_appendix_result(workspace)
+            self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+            self.assertEqual(before, fingerprint(workspace))
+
+    def mixed_package(self, workspace: Path) -> Path:
+        """Package accepted synthetic sources through the existing A/C mappings."""
+        shutil.copytree(FIXTURE, workspace)
+        files = ("reproduce.py", "search.cpp", "search.hpp", "settings.ini")
+        for index, name in enumerate(files, 30):
+            source = f"problems/q1/code/{name}"
+            target = f"appendix/problems/q1/code/{name}"
+            shutil.copy2(CORE_FIXTURE / name, workspace / source)
+            shutil.copy2(workspace / source, workspace / target)
+            self.add_integrity_source(workspace, source)
+            self.mutate_start(workspace, "- A090 — GENERATE", (
+                f"- A{index:03d} — COPY — `{source}` → `{target}` — 正式执行链\n"
+                "- A090 — GENERATE"
+            ))
+            self.mutate_result(workspace, "A005、", f"A005、A{index:03d}、")
+        self.declare_current_ai_usage(workspace, copy_target=True)
+        self.mutate_result(workspace, "A005、", "A005、A093、")
+        self.declare_root_results(workspace, ("appendix/official.csv",))
+        self.replace_copy_source(
+            workspace, "problems/q1/outputs/root_20.csv", "appendix/official.csv",
+            "candidate,objective\n7,0\n",
+        )
+        source = "problems/q1/outputs/candidate.txt"
+        target = "appendix/problems/q1/result/candidate.txt"
+        shutil.copy2(CORE_FIXTURE / "candidate.txt", workspace / source)
+        shutil.copy2(workspace / source, workspace / target)
+        self.add_integrity_source(workspace, source)
+        self.mutate_start(workspace, "- A090 — GENERATE", (
+            f"- A034 — COPY — `{source}` → `{target}` — 冻结候选；仅用于声明的复算起点\n"
+            "- A090 — GENERATE"
+        ))
+        self.mutate_result(workspace, "A005、", "A005、A034、")
+        (workspace / "input").mkdir(exist_ok=True)
+        shutil.copy2(CORE_FIXTURE / "input.csv", workspace / "input/values.csv")
+        # Official raw data is supplied separately; no extra mapping is necessary.
+        (workspace / "appendix/environment/README.md").write_text(
+            "Synthetic reproduction only. Python stdlib + g++ C++17; input/values.csv "
+            "contains value rows 2 and 4. Supply it alongside the extracted appendix.\n"
+            "Run from the extraction root:\n"
+            "python appendix/problems/q1/code/reproduce.py --compiler g++ "
+            "--input input/values.csv --config appendix/problems/q1/code/settings.ini "
+            "--output work/full\n"
+            "Budget: 30 seconds. Full search 0..10 gives candidate=7, objective=0 exactly.\n"
+            "Reduced acceptance: --steps 2 uses the real search; then --candidate "
+            "appendix/problems/q1/result/candidate.txt recomputes the frozen candidate. "
+            "Report both separately and full search not rerun. No stochastic process.\n",
+            encoding="utf-8",
+        )
+        self.mutate_start(
+            workspace, "执行静态语法、编译、COPY 哈希、敏感信息和源文件完整性验证；歧义交人工复核。",
+            "声明输入 values.csv + settings.ini → README 入口 → 每次 30 秒 → "
+            "完整搜索 candidate=7、objective=0 精确一致；失败立即停止。"
+            "另测缩减范围：2 步短程搜索，然后固定候选复算，不称完整重跑。"
+            "只写独立 work/；COPY、原始输入及正式源哈希不变。",
+        )
+        diagnostics = check_appendix_result(workspace)
+        self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+        return workspace / "appendix"
+
+    def run_mixed(self, isolated: Path, name: str, *extra: str):
+        compiler = shutil.which("g++")
+        if compiler is None:
+            self.skipTest("g++ unavailable; real mixed-language reproduction NOT verified")
+        work = isolated / "work"
+        work.mkdir(exist_ok=True)
+        # No inherited project/Python/compiler search paths or prebuilt binaries.
+        environment = {"PATH": os.defpath, "LC_ALL": "C", "PYTHONDONTWRITEBYTECODE": "1"}
+        return subprocess.run(
+            [sys.executable, "-B", "-E", "-s",
+             str(isolated / "appendix/problems/q1/code/reproduce.py"),
+             "--compiler", compiler, "--input", str(isolated / "input/values.csv"),
+             "--config", str(isolated / "appendix/problems/q1/code/settings.ini"),
+             "--output", str(work / name), *extra],
+            cwd=work, env=environment, capture_output=True, text=True, timeout=35,
+        )
+
+    def assert_mixed_result(self, path: Path, expected=(7, 0)):
+        with path.open(newline="") as stream:
+            reader = csv.DictReader(stream)
+            self.assertEqual(reader.fieldnames, ["candidate", "objective"])
+            rows = list(reader)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual((int(rows[0]["candidate"]), int(rows[0]["objective"])), expected)
+
+    def record_mixed_acceptance(self, workspace: Path, record: str) -> None:
+        evidence = workspace / "reports/appendix/evidence/reproduction.txt"
+        evidence.write_text(record, encoding="utf-8")
+        self.mutate_result(
+            workspace, "Python 静态编译和 C++ 构建均通过，本地依赖闭包完整。",
+            record.strip(),
+        )
+        self.mutate_result(
+            workspace, "## 10. 局限性与人工复核事项",
+            "- E4 — `reports/appendix/evidence/reproduction.txt` — 实际构建、执行范围及精确比较\n\n"
+            "## 10. 局限性与人工复核事项",
+        )
+        diagnostics = check_appendix_result(workspace)
+        self.assertFalse([d for d in diagnostics if d.severity == "ERROR"], diagnostics)
+
+    def test_isolated_python_cpp_full_reproduction_and_frozen_integrity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspace = root / "formal"
+            package = self.mixed_package(workspace)
+            before = fingerprint(workspace)
+            isolated = root / "extracted"
+            shutil.copytree(package, isolated / "appendix")
+            shutil.copytree(workspace / "input", isolated / "input")
+            for path in isolated.rglob("*"):
+                if path.is_file():
+                    path.chmod(0o444)
+            frozen = fingerprint(isolated / "appendix")
+            raw_input = fingerprint(isolated / "input")
+            completed = self.run_mixed(isolated, "full")
+            self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+            self.assertIn("built-from-source\nfull-search", completed.stdout)
+            self.assert_mixed_result(isolated / "work/full/result.csv")
+            self.assert_mixed_result(isolated / "appendix/official.csv")
+            self.assertEqual(frozen, fingerprint(isolated / "appendix"))
+            self.assertEqual(raw_input, fingerprint(isolated / "input"))
+            self.assertEqual(before, fingerprint(workspace))
+            # A readable but numerically different output is not a successful comparison.
+            with self.assertRaises(AssertionError):
+                self.assert_mixed_result(isolated / "work/full/result.csv", expected=(6, 0))
+            self.record_mixed_acceptance(
+                workspace, completed.stdout
+                + "full replay: candidate=7, objective=0, exact comparison passed; "
+                "source/input/frozen package hashes unchanged; independent work/full output.\n",
+            )
+
+    def test_isolated_python_cpp_missing_source_or_configuration_fails(self):
+        for missing in ("search.cpp", "search.hpp", "settings.ini", "configuration-drift"):
+            with self.subTest(missing=missing), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                workspace = root / "formal"
+                package = self.mixed_package(workspace)
+                before = fingerprint(workspace)
+                isolated = root / "extracted"
+                shutil.copytree(package, isolated / "appendix")
+                shutil.copytree(workspace / "input", isolated / "input")
+                if missing == "configuration-drift":
+                    config = isolated / "appendix/problems/q1/code/settings.ini"
+                    config.write_text(
+                        config.read_text().replace("offset = 1", "offset = 2"),
+                        encoding="utf-8",
+                    )
+                else:
+                    (isolated / "appendix/problems/q1/code" / missing).unlink()
+                completed = self.run_mixed(isolated, "failure")
+                if missing == "configuration-drift":
+                    self.assertEqual(completed.returncode, 0, completed.stderr)
+                    with self.assertRaises(AssertionError):
+                        self.assert_mixed_result(isolated / "work/failure/result.csv")
+                else:
+                    self.assertNotEqual(completed.returncode, 0, completed.stdout)
+                    self.assertFalse((isolated / "work/failure/result.csv").exists())
+                self.assertEqual(before, fingerprint(workspace))
+
+    def test_short_search_and_fixed_candidate_recalculation_are_not_full_replay(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspace = root / "formal"
+            package = self.mixed_package(workspace)
+            before = fingerprint(workspace)
+            isolated = root / "extracted"
+            shutil.copytree(package, isolated / "appendix")
+            shutil.copytree(workspace / "input", isolated / "input")
+            short = self.run_mixed(isolated, "short", "--steps", "2")
+            fixed = self.run_mixed(
+                isolated, "fixed", "--candidate",
+                str(isolated / "appendix/problems/q1/result/candidate.txt"),
+            )
+            self.assertEqual(short.returncode, 0, short.stderr)
+            self.assertEqual(fixed.returncode, 0, fixed.stderr)
+            self.assert_mixed_result(isolated / "work/short/result.csv", expected=(1, 36))
+            with self.assertRaises(AssertionError):
+                self.assert_mixed_result(isolated / "work/short/result.csv")
+            self.assert_mixed_result(isolated / "work/fixed/result.csv")
+            evidence = short.stdout + fixed.stdout + "full search not rerun\n"
+            self.assertIn("short-search", evidence)
+            self.assertIn("fixed-candidate-recalculation", evidence)
+            self.assertNotIn("full-search", evidence)
+            self.assertEqual(before, fingerprint(workspace))
+            self.record_mixed_acceptance(
+                workspace, evidence
+                + "short: candidate=1, objective=36, not equivalent to formal result; "
+                "fixed: candidate=7, objective=0, exact comparison passed.\n",
+            )
 
     def declare_current_ai_usage(
         self, workspace: Path, *, copy_target: bool = False
@@ -1090,7 +1344,7 @@ class AppendixRuntimeTests(unittest.TestCase):
         finally:
             temporary.cleanup()
 
-    def test_python_computation_core_side_effects_and_read_boundary(self):
+    def test_python_runtime_writers_are_allowed_but_copy_integrity_still_applies(self):
         fixture_writer = (CORE_FIXTURE / "core_write.py").read_text(encoding="utf-8")
         writers = (
             fixture_writer,
@@ -1140,10 +1394,8 @@ class AppendixRuntimeTests(unittest.TestCase):
                         item for item in diagnostics
                         if item.identifier == "LITE-APPENDIX-CODE-SIDE-EFFECT-001"
                     ]
-                    self.assertTrue(side_effects, diagnostics)
-                    self.assertTrue(all(item.location.startswith(
-                        "appendix/problems/q1/code/solve.py:"
-                    ) for item in side_effects))
+                    self.assertFalse(side_effects, diagnostics)
+                    self.assertIn("LITE-APPENDIX-COPY-MISMATCH-001", identifiers(diagnostics))
                 finally:
                     temporary.cleanup()
 
@@ -1187,7 +1439,7 @@ class AppendixRuntimeTests(unittest.TestCase):
                 finally:
                     temporary.cleanup()
 
-    def test_native_computation_core_side_effects_and_read_boundary(self):
+    def test_native_runtime_writers_are_allowed_but_copy_integrity_still_applies(self):
         fixture_writer = (CORE_FIXTURE / "core_write.cpp").read_text(encoding="utf-8")
         writers = (
             fixture_writer,
@@ -1204,7 +1456,8 @@ class AppendixRuntimeTests(unittest.TestCase):
                 try:
                     (workspace / target).write_text(source_text, encoding="utf-8")
                     found = identifiers(check_appendix_result(workspace))
-                    self.assertIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
+                    self.assertNotIn("LITE-APPENDIX-CODE-SIDE-EFFECT-001", found)
+                    self.assertIn("LITE-APPENDIX-COPY-MISMATCH-001", found)
                 finally:
                     temporary.cleanup()
 
