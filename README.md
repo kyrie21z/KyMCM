@@ -1,6 +1,8 @@
-# KyMCM
+<div align="center">
+  <img src="KyMCM_Icon.png" width="540px" alt="KyMCM">
+</div>
 
-> **You don't need a coder anymore in CUMCM.**
+<br/>
 
 **把时间留给建模，把代码交给 Codex。**
 
