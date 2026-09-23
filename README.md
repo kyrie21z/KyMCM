@@ -53,35 +53,15 @@ KyMCM 的核心闭环只有三步：
 
 ## Quickstart
 
-> 大多数 CUMCM 用户应从 **KyMCM Lite** 开始。核心只依赖 Python 3.11–3.13 标准库，无需 pip install。
+> 大多数 CUMCM 用户应从 **KyMCM Lite** 开始。
 
-**1. 安装 Skill**
+**安装：**
 
-将 `kymcm-lite` 复制到 Codex 的 Skills 目录：
+> Install KyMCM Lite skill from https://github.com/kyrie21z/KyMCM
 
-```bash
-cp -r skills/kymcm-lite /path/to/codex/skills/
-```
+**初始化工作区：**
 
-**2. 初始化工作区**
-
-```bash
-python skills/kymcm-lite/scripts/lite.py init \
-  --workspace ./contest --questions 3
-```
-
-**3. 配置 ChatGPT**
-
-导出完整规范并上传至 ChatGPT Project Sources，让 ChatGPT 理解 KyMCM 的工作方式：
-
-```bash
-python scripts/export_kymcm_lite_full_spec.py \
-  --output KyMCM_Lite_FULL_SPEC.md
-```
-
-**4. 开始建模**
-
-把赛题数据放入 `contest/input/`。和 ChatGPT 讨论建模方案，写出第一份 START，Codex 读取后自动执行，完成后返回 RESULT 等待你审查。
+> Initialize a contest workspace for 3 questions.
 
 ## License
 
