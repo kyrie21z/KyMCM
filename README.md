@@ -1,68 +1,52 @@
 # KyMCM
 
-KyMCM provides two explicit, sibling Codex Skills for mathematical modeling.
+> **You don't need a coder anymore in CUMCM.**
 
-- **KyMCM Full 1.0.0** is the stable, review-gated end-to-end workflow. It preserves whole-problem definition, Model Spec v3, Result Record v2, deterministic review documents, evidence and Git binding, and reproducible paper figures.
-- **KyMCM Lite 1.0.0** separates faithful paper-code excerpts from a minimal complete runtime package. Necessary exports and Python/native execution chains remain intact; actual isolated-copy runs compare results without overwriting frozen submission assets. The checker remains read-only, permits writers, and applies standalone syntax/dependency gates only to A-class runtime material. AI-use 0.10.2 rules, eight commands, marker, figures and Full are preserved.
+**把时间留给建模，把代码交给 Codex。**
 
-## Install
+KyMCM 是一个面向全国大学生数学建模竞赛（CUMCM）的 AI 协作工作流。
 
-Copy the Skill you intend to use. Full supports Python 3.11–3.13 and uses the repository requirements:
+它把**建模思考**和**代码实现**分开：选手与 ChatGPT 专注于理解问题、提出模型、比较方案和判断证据；Codex 负责实现、运行、调试和计算。KyMCM 用一套轻量的 Markdown 工作流连接两者，让模型意图不会在交接中丢失，也让工程实现不会反过来绑架建模过程。
 
-```bash
-python -m pip install -r requirements.txt
-python skills/kymcm-full/scripts/full_workspace.py init --workspace ./contest --contest CUMCM
-git -C ./contest init -b main
-python skills/kymcm-full/scripts/full_workspace.py doctor --workspace ./contest
+## Why KyMCM?
+
+**Codex 已经会写代码了，但真正的瓶颈已经不再是 coding，而是 thinking 和 execution 之间的协作。**
+
+- **少写无意义的代码。** 先低成本试错，只实现真正值得的方案。
+- **别让代码绑架模型。** 建模始终保持在实现的上游。
+- **别让模型死在交接里。** 让 ChatGPT 的建模意图和 Codex 的实际执行保持一致。
+
+**KyMCM 补全了 creative modeling 和 AI execution 之间缺失的那一层。**
+
+## How it works
+
+```mermaid
+flowchart TD
+    A["Human + ChatGPT\n理解问题 · 提出模型 · 比较方案"] --> B{路线确定了吗？}
+    B -. 还不确定 .-> C["Explore（可选）\n假设 → 最小实验 → STOP"]
+    C -- PROMOTE --> D
+    B -- 确定了 --> D["START\n写出完整建模方案"]
+    D --> E["Codex\n实现 · 运行 · 调试 · 验证"]
+    E --> F["RESULT\n结果 + 证据"]
+    F --> A
+
+    classDef human fill:#dbeafe,stroke:#2563eb,color:#1e3a5f
+    classDef kymcm fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef codex fill:#d1fae5,stroke:#059669,color:#064e3b
+    classDef decision fill:#f3e8ff,stroke:#7c3aed,color:#4c1d95
+    classDef optional fill:#fef3c7,stroke:#d97706,color:#78350f,stroke-dasharray: 5 5
+
+    class A human
+    class C optional
+    class D,F kymcm
+    class E codex
+    class B decision
 ```
 
-Lite core uses only Python 3.11–3.13 standard library:
+KyMCM 的核心闭环只有三步：
 
-```bash
-cp -R skills/kymcm-lite /path/to/codex/skills/
-python skills/kymcm-lite/scripts/lite.py init --workspace ./contest-lite --questions 3 --preprocess
-python skills/kymcm-lite/scripts/lite.py check-preprocess-start --workspace ./contest-lite
-python skills/kymcm-lite/scripts/lite.py check-preprocess-result --workspace ./contest-lite
-python skills/kymcm-lite/scripts/lite.py doctor --workspace ./contest-lite
-python skills/kymcm-lite/scripts/lite.py check-appendix-start --workspace ./contest-lite
-python skills/kymcm-lite/scripts/lite.py check-appendix-result --workspace ./contest-lite
-```
+1. **Explore** — 路线不确定时，先用最小实验验证想法，不写正式代码。
+2. **START** — 把确定的建模方案写成一份结构化文档，完整交给 Codex。
+3. **RESULT** — Codex 执行后返回结果和证据，人类审查、决策、继续。
 
-To export the complete Lite specification for ChatGPT Project Sources, run from the repository root:
-
-```bash
-python scripts/export_kymcm_lite_full_spec.py \
-  --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md
-python scripts/export_kymcm_lite_full_spec.py \
-  --output docs/lite-v3/KyMCM_Lite_FULL_SPEC.md --check
-```
-
-The generated file is intentionally complete and long, is not hand-edited, and is not copied into a contest workspace or appendix.
-
-The Full initializer creates an empty Q1–Q4 workspace. Neither initializer adds problem inputs, model code, results, final display assets, document text, or a nested Git repository. Lite does not create `problems/qN/explore/`, `figure/`, or `reports/ai-usage/`; those are created only when optional Explore, explicit final-figure work, or final-submission compliance work is actually entered.
-
-## Workflow
-
-The canonical marker is `{"workflow":"kymcm_full","version":1}`. A complete Problem Definition must be reviewed and explicitly accepted before a question Start. Each Start binds a complete mathematical Model Spec and pre-start audit; each Result binds claims to artifacts and the contest repository commit. Formal review objects are rendered deterministically as `PROBLEM_DEFINITION.md`, `START_QN.md`, and `RESULT_QN.md`.
-
-See [installation](docs/installation.md), [Full workflow](docs/full-workflow.md), [compatibility](docs/compatibility.md), [limitations](docs/known-limitations.md), the [Full Skill README](skills/kymcm-full/README.md), and the [Lite Skill README](skills/kymcm-lite/README.md).
-
-## Product split
-
-Users explicitly choose Full or Lite; neither Skill guesses, converts, or silently accepts the other's mode. Historical Checkpoint Lite Pilot v2 remains an internal Full compatibility marker and is not Lite v3.
-
-## Development
-
-```bash
-python -m compileall skills/kymcm-full skills/kymcm-lite tests
-python -m unittest discover -s tests/lite -v
-python -m unittest tests.test_lite_cli tests.test_lite_portability tests.test_lite_appendix_cli tests.test_lite_v3_phase1 tests.test_lite_release -v
-python -m unittest discover -s tests/full -v
-python -m unittest tests.test_full_cli tests.test_full_portability tests.test_figure_system tests.test_markdown_format -v
-```
-
-No network service, OpenAI credential, proprietary font, or LaTeX installation is required for the ordinary test suite. The optional XeLaTeX/TeX Live build for the AI-use PDF is a final-submission dependency, not a Lite runtime dependency; KyMCM does not download, bundle, or distribute fonts. Lite formal Matplotlib figures use `skills/kymcm-lite/requirements-figure.txt`; intrinsic-3D figures use `skills/kymcm-lite/requirements-figure-3d.txt` and a working headless VTK EGL/OpenGL environment. Missing requirements stop rendering. Licensed under MIT; see [NOTICE](NOTICE.md) and [security policy](SECURITY.md).
-
-## Lite 1.0.0 stabilization
-
-This release fixes Appendix PRE structure, declared package-local native relative dependencies, executable text-source permissions, and equal-byte independent support results. Duplicate authoritative assets, source/path/type/integrity checks and read-only behavior stay protected. Only completed, still-valid, explicitly accepted Supplement Results affect the declared scope; required evidence cannot be waived by a limitation. CI discovers all tests and requires real TeX/C++ builds in Python 3.12. The current Full Spec excludes historical RFC/release-note bodies; commands, marker, figures, AI-use template and Full stay unchanged.
+> **整个闭环的关键不是自动化，而是分离**：建模思考留在人和 ChatGPT 手里，代码实现交给 Codex，START 和 RESULT 是两者之间不丢信息的接口。
