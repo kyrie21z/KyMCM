@@ -50,3 +50,43 @@ KyMCM 的核心闭环只有三步：
 3. **RESULT** — Codex 执行后返回结果和证据，人类审查、决策、继续。
 
 > **整个闭环的关键不是自动化，而是分离**：建模思考留在人和 ChatGPT 手里，代码实现交给 Codex，START 和 RESULT 是两者之间不丢信息的接口。
+
+## Quickstart
+
+> 大多数 CUMCM 用户应从 **KyMCM Lite** 开始。核心只依赖 Python 3.11–3.13 标准库，无需 pip install。
+
+**1. 安装 Skill**
+
+将 `kymcm-lite` 复制到 Codex 的 Skills 目录：
+
+```bash
+cp -r skills/kymcm-lite /path/to/codex/skills/
+```
+
+**2. 初始化工作区**
+
+```bash
+python skills/kymcm-lite/scripts/lite.py init \
+  --workspace ./contest --questions 3
+```
+
+**3. 配置 ChatGPT**
+
+导出完整规范并上传至 ChatGPT Project Sources，让 ChatGPT 理解 KyMCM 的工作方式：
+
+```bash
+python scripts/export_kymcm_lite_full_spec.py \
+  --output KyMCM_Lite_FULL_SPEC.md
+```
+
+**4. 开始建模**
+
+把赛题数据放入 `contest/input/`。和 ChatGPT 讨论建模方案，写出第一份 START，Codex 读取后自动执行，完成后返回 RESULT 等待你审查。
+
+## License
+
+MIT. See [LICENSE](LICENSE) and [NOTICE](NOTICE.md).
+
+---
+
+<sub>KyMCM 不是一键求解器，不生成论文，不替代数学判断。它是连接你的建模思考和 AI 执行之间的工作流。</sub>
