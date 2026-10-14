@@ -4,7 +4,8 @@
 
 <br/>
 
-**把时间留给建模，把代码交给 Codex。**
+**Think with your team. Code with Codex.**  
+**思考留给人，代码交给 Codex。**
 
 KyMCM 是一个面向全国大学生数学建模竞赛（CUMCM）的 AI 协作工作流。
 
